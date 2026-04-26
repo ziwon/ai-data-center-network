@@ -8,4 +8,4 @@ AI Data Center Network 참여형 스터디 자료 모음
 - [Efficient LLM Inference Systems, Algorithms & Production Engineering - Interview Pocket Notes](https://drive.google.com/file/d/1mfTzOnwn8yx4eKObjPvpd-B_toGkQ_tu/view) (2026)
 
 ## Links
-- [blog.cloudneta.net](https://blog.cloudneta.net)
+- [http://blog.cloudneta.net/](http://blog.cloudneta.net/)
