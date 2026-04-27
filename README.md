@@ -1,7 +1,10 @@
 # ai-data-center-networks
 AI Data Center Network 참여형 스터디 자료 모음
 
-<img width="1253" height="353" alt="ai-data-center-networks" src="https://github.com/user-attachments/assets/260238ce-9b33-466c-a30b-8ba818800c11" />
+<p align="center">
+<img width="640" height="213" alt="ai-datacenter-networks" src="https://github.com/user-attachments/assets/dc45d923-f9a0-4304-8fa6-ff7637a795d1" />
+</p>
+
 
 ## Books
 - [AI Data Center Network Design and Technologie](https://www.amazon.com/Data-Center-Network-Design-Technologies/dp/0135436281) (2026.02)
@@ -22,6 +25,11 @@ AI Data Center Network 참여형 스터디 자료 모음
 ## Talks
 - [AI 네트워크 아키텍처 완벽 정리: InfiniBand vs Ultra Ethernet 기술 비교](https://www.youtube.com/watch?v=PPdY5q8osSA) (2026.01)
 - [Everything You Wanted to Know About RDMA](https://www.youtube.com/watch?v=6t041Lr5FCY) (2025)
-  
+
+## Papers
+- [Splitwise: Efficient generative LLM inference using phase splitting](https://arxiv.org/abs/2311.18677) (2023.11)
+- **[Efficiently Scaling Transformer Inference](https://arxiv.org/abs/2211.05102)** (2022.11)
+- [Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361) (2020.01)
+
 ## Links
 - [http://blog.cloudneta.net/](http://blog.cloudneta.net/)
