@@ -2,7 +2,7 @@
 AI Data Center Network 참여형 스터디 자료 모음
 
 <p align="center">
-<img width="640" height="213" alt="ai-datacenter-networks" src="https://github.com/user-attachments/assets/dc45d923-f9a0-4304-8fa6-ff7637a795d1" />
+<img width="1024" height="341" alt="ai-datacenter-networks" src="https://github.com/user-attachments/assets/48ff6793-1d84-47d6-9b7c-7c11c233271d" />
 </p>
 
 
