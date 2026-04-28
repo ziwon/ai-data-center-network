@@ -3,7 +3,7 @@ import numpy as np
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_id = "Qwen/Qwen2.5-7B-Instruct"
+model_id = "Qwen/Qwen2.5-3B-Instruct"
 
 tok = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
