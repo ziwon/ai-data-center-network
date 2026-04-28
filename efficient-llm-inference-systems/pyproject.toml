@@ -1,0 +1,10 @@
+[project]
+name = "efficient-llm-inference-systems"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "accelerate>=1.13.0",
+    "numpy>=2.4.4",
+    "torch>=2.11.0",
+    "transformers>=5.6.2",
+]
