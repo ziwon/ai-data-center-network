@@ -5,7 +5,6 @@ AI Data Center Network 참여형 스터디 자료 모음
 <img width="1024" height="341" alt="ai-datacenter-networks" src="https://github.com/user-attachments/assets/48ff6793-1d84-47d6-9b7c-7c11c233271d" />
 </p>
 
-
 ## Books
 - [AI Data Center Network Design and Technologie](https://www.amazon.com/Data-Center-Network-Design-Technologies/dp/0135436281) (2026.02)
 - [Deep Learning for Network Engineers: Understanding Traffic Patterns and Network Requirements in the AI Data Center](https://www.amazon.com/Deep-Learning-Network-Engineers-Understanding/dp/B0F8ZV7SKD) (2026.05)
@@ -30,6 +29,17 @@ AI Data Center Network 참여형 스터디 자료 모음
 - [Splitwise: Efficient generative LLM inference using phase splitting](https://arxiv.org/abs/2311.18677) (2023.11)
 - **[Efficiently Scaling Transformer Inference](https://arxiv.org/abs/2211.05102)** (2022.11)
 - [Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361) (2020.01)
+
+## Models & Training
+- [Unsloth](https://unsloth.ai/docs/models/tutorials)
+  - [Nemotron-3 Nano Omni](https://unsloth.ai/docs/models/nemotron-3-nano-omni)
+  - [Qwen3.6](https://unsloth.ai/docs/models/qwen3.6)
+  - [Qwen3.5](https://unsloth.ai/docs/models/qwen3.5)
+  - [Qwen3-VL](https://unsloth.ai/docs/basics/vision-fine-tuning)
+  - [Fine-tuning LLMs Guide](https://unsloth.ai/docs/get-started/fine-tuning-llms-guide)
+- [Ray](https://docs.ray.io/en/latest/ray-overview/index.html)
+  - [Train](https://docs.ray.io/en/latest/train/examples.html) 
+
 
 ## Links
 - [http://blog.cloudneta.net/](http://blog.cloudneta.net/)
