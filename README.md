@@ -1,4 +1,4 @@
-# ai-data-center-networks
+# ai-data-center-network
 AI Data Center Network 참여형 스터디 자료 모음
 
 <p align="center">
@@ -9,7 +9,9 @@ AI Data Center Network 참여형 스터디 자료 모음
 - [AI Data Center Network Design and Technologie](https://www.amazon.com/Data-Center-Network-Design-Technologies/dp/0135436281) (2026.02)
 - [Deep Learning for Network Engineers: Understanding Traffic Patterns and Network Requirements in the AI Data Center](https://www.amazon.com/Deep-Learning-Network-Engineers-Understanding/dp/B0F8ZV7SKD) (2026.05)
 - [AI Systems Performance Engineering: Optimizing Model Training and Inference Workloads with GPUs, CUDA, and PyTorch](https://www.amazon.com/Systems-Performance-Engineering-Optimizing-Inference/dp/B0F47689K8) (2025.12)
+  - [Code](https://github.com/cfregly/ai-performance-engineering)   
 - [Efficient LLM Inference Systems, Algorithms & Production Engineering - Interview Pocket Notes](https://drive.google.com/file/d/1mfTzOnwn8yx4eKObjPvpd-B_toGkQ_tu/view) (2026)
+- [Build a Large Language Model (From Scratch)](https://github.com/rasbt/LLMs-from-scratch)
 
 ## Articles
 - [InfiniBand vs RoCEv2 실측 비교 — 대규모 AI 학습 클러스터의 네트워크 선택](https://elice.io/ko/resources/blog/infiniband-vs-rocev2-benchmark) (2026.04)
@@ -20,6 +22,8 @@ AI Data Center Network 참여형 스터디 자료 모음
 - [RoCE networks for distributed AI training at scale](https://engineering.fb.com/2024/08/05/data-center-engineering/roce-network-distributed-ai-training-at-scale/) (2024.08)
 - [Network Best Practices for Artificial Intelligence Data Centre](https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2024/pdf/BRKDCN-2921.pdf) (2024)
 - [How to Choose Between InfiniBand and RoCEv2](https://www.fibermall.com/blog/how-to-choose-between-infiniband-and-roce.htm) (2024.07)
+- **[Making Deep Learning Go Brrrr From First Principles](https://horace.io/brrr_intro.html)**
+- 
 
 ## Talks
 - [AI 네트워크 아키텍처 완벽 정리: InfiniBand vs Ultra Ethernet 기술 비교](https://www.youtube.com/watch?v=PPdY5q8osSA) (2026.01)
@@ -28,7 +32,18 @@ AI Data Center Network 참여형 스터디 자료 모음
 ## Papers
 - [Splitwise: Efficient generative LLM inference using phase splitting](https://arxiv.org/abs/2311.18677) (2023.11)
 - **[Efficiently Scaling Transformer Inference](https://arxiv.org/abs/2211.05102)** (2022.11)
+- [LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale](https://arxiv.org/abs/2208.07339) (2022.08)
 - [Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361) (2020.01)
+
+## GPU Specs
+- [H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-hopper-architecture/nvidia-h100-tensor-c)
+- [NVIDIA Blackwell Architecture Technical Brief](https://resources.nvidia.com/en-us-blackwell-architecture)
+  - [NVFP4 Trains with Precision of 16-Bit and Speed and Efficiency of 4-Bit](https://developer.nvidia.com/blog/nvfp4-trains-with-precision-of-16-bit-and-speed-and-efficiency-of-4-bit/?ncid=no-ncid) (2025.08)
+  - [Using FP8 and FP4 with Transformer Engine](https://docs.nvidia.com/deeplearning/transformer-engine/user-guide/examples/fp8_primer.html)
+
+## LLM Arch
+- [LLM Architecture Gallery](https://sebastianraschka.com/llm-architecture-gallery/)
+  - [The Big LLM Architecture Comparison](https://www.youtube.com/watch?v=rNlULI-zGcw), [Blog](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)
 
 ## Models & Training
 - [Unsloth](https://unsloth.ai/docs/models/tutorials)
