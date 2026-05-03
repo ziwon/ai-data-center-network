@@ -1,0 +1,2 @@
+experiment,prompt_tokens,batch_size,generated_tokens,ttft_ms,tpot_mean_ms,tpot_p50_ms,tpot_p95_ms,tpot_p99_ms,aggregate_tps,total_tps_including_ttft
+prompt_length,16,1,512,13.95830896217376,12.075689414866021,12.020663009025156,12.559127993881702,12.766650365665555,82.81100694498899,82.78579905393589

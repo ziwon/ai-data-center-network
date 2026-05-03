@@ -1,0 +1,39 @@
+export HF_HOME := env_var_or_default("HF_HOME", "/data/LLM/models/hugging-face")
+export HF_HUB_OFFLINE := env_var_or_default("HF_HUB_OFFLINE", "1")
+
+model-config model="Qwen/Qwen2.5-3B-Instruct":
+    .venv/bin/python -c 'from transformers import AutoConfig; import sys; c = AutoConfig.from_pretrained(sys.argv[1]); print(c); print("hidden_size", c.hidden_size); print("intermediate_size", c.intermediate_size); print("num_hidden_layers", c.num_hidden_layers); print("num_attention_heads", c.num_attention_heads); print("num_key_value_heads", c.num_key_value_heads); print("head_dim", getattr(c, "head_dim", None) or c.hidden_size // c.num_attention_heads)' '{{ model }}'
+
+w2-roofline:
+    .venv/bin/python week02/roofline_benchmark.py
+
+w2-roofline-plot:
+    .venv/bin/python week02/plot_roofline.py
+
+w2-decode-ncu:
+    #!/usr/bin/bash
+    sudo -E env /usr/local/NVIDIA-Nsight-Compute/ncu \
+    --section SpeedOfLight \
+    --section MemoryWorkloadAnalysis \
+    --section ComputeWorkloadAnalysis \
+    --target-processes all \
+    --profile-from-start off \
+    --kernel-name "regex:gemvx|flash_fwd|cutlass.*wmma" \
+    --launch-count 50 \
+    -o decode_profile \
+    --force-overwrite \
+    .venv/bin/python week02/decode_benchmark_ncu.py
+
+w2-decode-ncu-kernels:
+    #!/usr/bin/bash
+    sudo -E env /usr/local/NVIDIA-Nsight-Compute/ncu \
+    --section SpeedOfLight \
+    --section MemoryWorkloadAnalysis \
+    --section ComputeWorkloadAnalysis \
+    --target-processes all \
+    --profile-from-start off \
+    --kernel-name "regex:flash_fwd|gemm|gemv|matmul|cutlass|cublas|triton" \
+    --launch-count 50 \
+    -o decode_profile_kernels \
+    --force-overwrite \
+    .venv/bin/python week02/decode_benchmark_ncu.py
