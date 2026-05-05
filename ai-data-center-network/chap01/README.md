@@ -1,5 +1,28 @@
 # Chapter 1: Wonders in the Workload
 
+## Table of Contents
+
+- [AI Model Lifecycle](#ai-model-lifecycle)
+  - [Data Gathering](#data-gathering)
+  - [Training](#training)
+  - [Inference](#inference)
+  - [RAG and MCP Integration](#rag-and-mcp-integration)
+  - [Monitoring and Retraining](#monitoring-and-retraining)
+- [Training an AI Model](#training-an-ai-model)
+  - [Collective Communication Patterns](#collective-communication-patterns)
+  - [NCCL and Communication Collectives](#nccl-and-communication-collectives)
+- [3D Parallelism: Data, Tensor, and Pipeline](#3d-parallelism-data-tensor-and-pipeline)
+- [JCT & Tail Latency](#jct--tail-latency)
+- [Understanding Traffic and RDMA](#understanding-traffic-and-rdma)
+  - [Data Path vs Control Path](#data-path-vs-control-path)
+  - [Data Path](#data-path)
+  - [RDMA Types: InfiniBand vs RoCEv2](#rdma-types-infiniband-vs-rocev2)
+  - [RDMA Protocols](#rdma-protocols)
+  - [InfiniBand System Fabric](#infiniband-system-fabric)
+  - [InfiniBand Communication Stack](#infiniband-communication-stack)
+  - [RDMA Process](#rdma-process)
+- [Questions](#questions)
+
 ## AI Model Lifecycle
 
 The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining.
@@ -234,7 +257,7 @@ NCCL_ALGO=Ring
 NCCL_PROTO=LL128
 ```
 
-## Parallelism
+## 3D Parallelism: Data, Tensor, and Pipeline
 
 <img src="3d_parallelism.png">
 
@@ -249,6 +272,17 @@ NCCL_PROTO=LL128
 | **GPU utilization** | The percentage of time that a GPU is performing useful computation |
 
 ## Understanding Traffic and RDMA
+
+### Data Path vs Control Path
+
+RDMA is often described as **kernel bypass**, but this mainly applies to the **data path**, not to the entire system. The control path still requires the CPU, kernel driver, and RDMA runtime.
+
+| Path | What Happens | CPU / Kernel Role |
+| --- | --- | --- |
+| **Data path** | Actual payload movement between registered memory regions | Mostly bypassed after setup |
+| **Control path** | Resource setup, memory registration, key creation, QP connection, completion handling, and teardown | Still required |
+
+The rest of this section first compares TCP/IP and RDMA data paths, then later explains the control-path objects and steps such as PD, CQ, QP, MR, lkey, rkey, metadata exchange, and QP state transitions.
 
 ### Data Path
 
