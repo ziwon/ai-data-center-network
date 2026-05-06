@@ -12,20 +12,27 @@ AI Data Center Network 참여형 스터디 자료 모음
   - [Code](https://github.com/cfregly/ai-performance-engineering)   
 - [Efficient LLM Inference Systems, Algorithms & Production Engineering - Interview Pocket Notes](https://drive.google.com/file/d/1mfTzOnwn8yx4eKObjPvpd-B_toGkQ_tu/view) (2026)
 - [Build a Large Language Model (From Scratch)](https://github.com/rasbt/LLMs-from-scratch)
+- [InfiniBand Network Architecture](https://learning.oreilly.com/library/view/infiniband-network-architecture/0321117654/) (2022.10)
 
 ## Articles
 - [InfiniBand vs RoCEv2 실측 비교 — 대규모 AI 학습 클러스터의 네트워크 선택](https://elice.io/ko/resources/blog/infiniband-vs-rocev2-benchmark) (2026.04)
 - [DGX B300 ConnectX-8 기반 800G 네트워크에서 소규모 클러스터를 스위치 없이 구성하는 방법](https://blog.sionic.ai/dgx-b300-direct) (2026.04)
 - [A Practical Guide to RoCEv2 Lossless Networks for GPU Clusters](https://www.aicplight.com/blog-news/a-practical-guide-to-rocev2-lossless-networks-for-gpu-clusters-230) (2026.04)
 - [InfiniBand Is Losing the Fabric War. Here’s What That Changes for Your Architecture.](https://www.rack2cloud.com/infiniband-vs-rocev2-ai-fabric/) (2026.03)
+- [From Megawatts to Gigawatts: The 10 Largest AI Datacenters in the World (2026 Edition)](https://www.terakraft.no/post/from-megawatts-to-gigawatts-the-10-largest-ai-datacenters-in-the-world-2026-edition) (2026.01)
+- [AI Data Center Network with Juniper Apstra, AMD GPUs, Broadcom Thor2 NIC, AMD Pollara NIC, and Vast Storage—Juniper Validated Design (JVD)](https://www.juniper.net/documentation/us/en/software/jvd/jvd-ai-dc-apstra-amd/solution_architecture.html) (2025.11)
+- [Cisco Data Center Networking Solutions: Addressing the Challenges of AI/ML Infrastructure](https://www.cisco.com/c/en/us/td/docs/dcn/whitepapers/cisco-addressing-ai-ml-network-challenges.html) (2025.10)
 - [InfiniBand vs RoCEv2: Choosing the Right Network for Large-Scale AI](https://towardsdatascience.com/infiniband-vs-rocev2-choosing-the-right-network-for-large-scale-ai/) (2025.08)
+- [Data center design requirements for AI workloads. A Comprenshive guide](https://www.terakraft.no/post/datacenter-design-requirements-for-ai-workloads-a-comprenshive-guide)
 - [RoCE networks for distributed AI training at scale](https://engineering.fb.com/2024/08/05/data-center-engineering/roce-network-distributed-ai-training-at-scale/) (2024.08)
+- [Cisco Data Center Networking Blueprint for AI/ML Applications](https://www.cisco.com/c/en/us/td/docs/dcn/whitepapers/cisco-data-center-networking-blueprint-for-ai-ml-applications.html)
 - [Network Best Practices for Artificial Intelligence Data Centre](https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2024/pdf/BRKDCN-2921.pdf) (2024)
 - [How to Choose Between InfiniBand and RoCEv2](https://www.fibermall.com/blog/how-to-choose-between-infiniband-and-roce.htm) (2024.07)
 - **[Making Deep Learning Go Brrrr From First Principles](https://horace.io/brrr_intro.html)**
-- 
+- [Managing the Elephant in the Room for AI Data Centers](https://blogs.juniper.net/en-us/industry-solutions-and-trends/managing-the-elephant-in-the-room-for-ai-data-centers) (2024.03)
 
 ## Talks
+- [The Engineering Behind Training a 2 Trillion Parameter LLM](https://www.youtube.com/watch?v=yn4GGAtZ7QE) (2026.04)
 - [AI 네트워크 아키텍처 완벽 정리: InfiniBand vs Ultra Ethernet 기술 비교](https://www.youtube.com/watch?v=PPdY5q8osSA) (2026.01)
 - [Everything You Wanted to Know About RDMA](https://www.youtube.com/watch?v=6t041Lr5FCY) (2025)
 
