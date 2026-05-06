@@ -1,5 +1,7 @@
 # InfiniBand Packet Format Reference
 
+**English** | [한국어](packet-format-reference_KO.md)
+
 This document is a bit-level reference for InfiniBand packet headers, intended as a companion to the [main analysis report](README.md). The report focuses on what was observed in the `ib-packets` dataset; this reference focuses on what every IB packet header looks like on the wire, with anchor links back to the report's frame-level evidence wherever a concrete example exists.
 
 Use this reference when:
