@@ -1,4 +1,4 @@
-# InfiniBand Packet Analysis
+# InfiniBand Packet Analysis: A Practical RDMA Transport Primer
 
 [![NVIDIA](https://img.shields.io/badge/NVIDIA-Networking-76B900?logo=nvidia&logoColor=white)](https://www.nvidia.com/en-us/networking/)
 [![RDMA](https://img.shields.io/badge/RDMA-Zero--Copy-0078D4)](https://docs.nvidia.com/networking/display/rdmaawareprogrammingv17)
@@ -15,12 +15,14 @@ This report analyzes the packet captures in the `ib-packets` directory using `ts
 ## Table of Contents
 
 - [Executive Summary](#executive-summary)
+- [Scope: Observed vs Reference Model](#scope-observed-vs-reference-model)
 - [Capture Set](#capture-set)
 - [How the Captures Were Analyzed](#how-the-captures-were-analyzed)
 - [Inferred Capture Method](#inferred-capture-method)
 - [InfiniBand Protocol Stack](#infiniband-protocol-stack)
 - [InfiniBand Layers Visible in the Captures](#infiniband-layers-visible-in-the-captures)
 - [InfiniBand Packet Structure](#infiniband-packet-structure)
+- [RDMA Read/Write Packet Analysis Model](#rdma-readwrite-packet-analysis-model)
 - [Control Path vs Data Path](#control-path-vs-data-path)
 - [Per-Capture Findings](#per-capture-findings)
   - [ib_initial_sniffer.pcap](#ib_initial_snifferpcap)
@@ -55,17 +57,35 @@ The captures are especially useful for understanding the distinction between:
 
 Most captures are management or IPoIB examples. They do not show a complete RDMA Read or RDMA Write payload exchange with RETH fields, remote virtual addresses, or rkeys. The closest data-path example is `infiniband.pcap`, which shows RC SEND and AETH ACK behavior.
 
+## Scope: Observed vs Reference Model
+
+This report intentionally separates packet evidence from explanatory reference material.
+
+| Topic | Status in this report | Evidence or purpose |
+| --- | --- | --- |
+| Subnet Management | Observed in captures | `SubnGet`, `SubnGetResp`, `SubnSet`, QP0 traffic |
+| Subnet Administration | Observed in captures | Path records, multicast membership, QP1 traffic |
+| Performance Management | Observed in captures | `PortCounters`, `PortCountersExtended`, `ClassPortInfo` |
+| IPoIB | Observed in captures | ICMP, TCP, SSH, and ARP-like behavior over InfiniBand |
+| Connection Management | Observed in captures | `ConnectRequest`, `ConnectReply`, `ReadyToUse` |
+| Reliable Connection SEND/ACK | Observed in captures | `RC SEND Only`, `RC Acknowledge`, `AETH` |
+| RDMA READ | Reference model only | Added to explain `BTH + RETH` request and response packet behavior for future captures |
+| RDMA WRITE | Reference model only | Added to explain `BTH + RETH + payload` request behavior for future captures |
+| NCCL collective traffic | Not present | Use the official [NCCL collective operations](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html), [NCCL networking troubleshooting](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting.html#networking-issues), and [NVIDIA/nccl-tests](https://github.com/NVIDIA/nccl-tests) references instead of expanding it here |
+
+When reading the report, treat the observed sections as analysis of the provided pcap files. Treat the RDMA READ/WRITE section as a packet-analysis guide for future captures that include one-sided RDMA operations.
+
 ## Capture Set
 
 | File | Packets | Duration | Main Observation |
 | --- | ---: | ---: | --- |
-| `ib_initial_sniffer.pcap` | 108 | 10.899693 s | Initial subnet discovery, SMP, SA, multicast membership, and performance queries |
-| `ib_ibping_sniffer.pcap` | 65 | 10.181178 s | Vendor MAD request/response behavior plus performance counters |
-| `ib_ibtracert_sminfo_sniffer.pcap` | 84 | 30.462705 s | Tracing and SMInfo-related control path traffic |
-| `ib_sniffer.pcap` | 24 | 6.002367 s | Performance Management traffic only |
-| `ib_ipping_sniffer.pcap` | 34 | 11.999439 s | ICMP ping over IPoIB plus a small amount of ARP and performance traffic |
-| `ib_IPoIB.pcap` | 5,848 | 4.284584 s | SSH over TCP over IPoIB |
-| `infiniband.pcap` | 43 | 250.573390 s | SMInfo, IPoIB, CM connection setup, RC SEND, and RC ACK behavior |
+| `ib_initial_sniffer.pcap` | 108 | 10.90 s | Initial subnet discovery, SMP, SA, multicast membership, and performance queries |
+| `ib_ibping_sniffer.pcap` | 65 | 10.18 s | Vendor MAD request/response behavior plus performance counters |
+| `ib_ibtracert_sminfo_sniffer.pcap` | 84 | 30.46 s | Tracing and SMInfo-related control path traffic |
+| `ib_sniffer.pcap` | 24 | 6.00 s | Performance Management traffic only |
+| `ib_ipping_sniffer.pcap` | 34 | 12.00 s | ICMP ping over IPoIB plus a small amount of ARP and performance traffic |
+| `ib_IPoIB.pcap` | 5,848 | 4.28 s | SSH over TCP over IPoIB |
+| `infiniband.pcap` | 43 | 250.57 s | SMInfo, IPoIB, CM connection setup, RC SEND, and RC ACK behavior |
 
 All files are pcap files with **Extensible Record Format** encapsulation. `tshark` decodes the ERF outer record and then the InfiniBand payload.
 
@@ -296,6 +316,262 @@ How this maps to the current captures:
 | RC ACK | `LRH -> BTH -> AETH` | Yes | `infiniband.pcap` shows `RC Acknowledge` |
 | RDMA WRITE | `LRH -> BTH -> RETH -> payload` | No | This would show remote virtual address and `rkey` in `RETH` |
 | RDMA READ | request with `RETH`, response with data | No | This would show the pull model described in Chapter 1 |
+
+## RDMA Read/Write Packet Analysis Model
+
+The current pcap set does **not** contain a complete RDMA READ or RDMA WRITE exchange. This section is therefore a reference model for how such packets should be interpreted if future captures include one-sided RDMA operations. It is based on the InfiniBand transport-layer behavior described in the official references and the Tencent Cloud article listed in the references.
+
+The key header for one-sided RDMA operations is `RETH`, the RDMA Extended Transport Header.
+
+| Header | Important fields | Why it matters |
+| --- | --- | --- |
+| `BTH` | opcode, destination QP, PSN, ACK request | Identifies the operation type and packet ordering |
+| `RETH` | virtual address, `rkey`, DMA length | Authorizes and describes the remote memory range |
+| `AETH` | ACK/NAK syndrome, MSN | Confirms reliable transport progress or reports an error |
+| Payload | read response data or write data | Carries user data depending on operation direction |
+
+### Operation Support by Transport Service
+
+InfiniBand transport services do not support all verbs-style operations equally. The practical takeaway is that one-sided operations that need a response, strict ordering, or read-modify-write semantics require a reliable transport context.
+
+| Operation | RC | UC | UD | RD |
+| --- | :-: | :-: | :-: | :-: |
+| SEND/RECV | ✓ | ✓ | ✓ | ✓ |
+| RDMA WRITE | ✓ | ✓ | ✗ | ✓ |
+| RDMA READ | ✓ | ✗ | ✗ | ✓ |
+| Atomic | ✓ | ✗ | ✗ | ✓ |
+
+In modern RDMA software, `RC` is the common practical transport for RDMA READ and Atomic operations. `RD` also supports them in the InfiniBand architecture, but it is rarely the default choice in mainstream application stacks.
+
+Why RDMA READ does not fit UC/UD:
+
+```mermaid
+sequenceDiagram
+    participant Req as Requester
+    participant Resp as Responder
+
+    Req->>Resp: READ Request<br/>"Read N bytes from remote VA with rkey"
+    Resp->>Resp: Validate rkey, VA, length, ordering, responder resources
+    Resp-->>Req: READ Response<br/>Data returns to requester
+```
+
+RDMA READ is not just a one-way packet. It creates responder-side work: the responder RNIC must validate the request, fetch remote memory, generate one or more response packets, preserve ordering, and handle retry/error behavior. `UC` has no reliable response/ACK machinery, and `UD` is message-oriented datagram transport without the connected responder state needed for remote memory reads.
+
+Why Atomic does not fit UC/UD:
+
+```mermaid
+sequenceDiagram
+    participant Req as Requester
+    participant Resp as Responder
+    participant MR as Remote MR
+
+    Req->>Resp: Atomic request<br/>Compare-and-swap or fetch-and-add
+    Resp->>MR: Read old value, compute, write new value atomically
+    Resp-->>Req: Atomic response<br/>Return original value or completion state
+```
+
+Atomic operations require a single globally ordered read-modify-write at the remote memory location. The requester also needs a reliable response to know the returned value and whether the operation completed. That requires connected state, ordering, and retry/error semantics, which is why practical deployments use RC-style reliable transport for atomics.
+
+> Practical note for NCCL, UCX, MPI, and DC transport:
+>
+> NCCL collectives such as AllReduce move large chunks from GPU memory to other GPU memory. Some phases can be implemented as push-style transfers, but pull-based peer access patterns benefit from RDMA READ semantics. Ring and tree algorithms also require predictable ordering and completion behavior, so reliable transport is important.
+>
+> UCX is a general-purpose communication layer. Small messages may use SEND/RECV or inline paths, while large messages can use RDMA. UCX also exposes tag matching and RMA-style operations, including atomics on capable transports. That naturally favors reliable connection-oriented transports for the paths that need READ, Atomic, ordering, or retry semantics.
+>
+> MPI implementations often map one-sided primitives such as `MPI_Put`, `MPI_Get`, and `MPI_Accumulate` onto RDMA WRITE, RDMA READ, and Atomic operations when the transport supports it. Since MPI semantics assume reliable communication, the underlying network path usually needs reliable completion and ordering behavior.
+>
+> At large cluster scale, pure RC can become expensive because a dense all-to-all peer mesh may require a large number of QPs and associated HCA memory. `DC` transport, or Dynamically Connected transport, addresses this by keeping reliable semantics while dynamically reusing connection resources. This is why DC-style transports are important in large InfiniBand deployments. NVIDIA SHARP and NCCL-RDMA-SHARP paths can also appear in modern collective stacks, but the exact use of DC, UCX, verbs, or SHARP depends on hardware, plugin availability, topology, and runtime environment settings.
+
+### Transport-Layer Details Worth Checking
+
+The Tencent Cloud article is useful because it frames RDMA READ/WRITE as InfiniBand transport-layer operations, not just verbs API calls. The following details are worth carrying into packet analysis:
+
+| Detail | Packet-analysis implication |
+| --- | --- |
+| Transport service type | `BTH` opcode bits identify whether the packet belongs to RC, UC, RD, UD, or XRC style transport behavior. This matters because ACK/NAK behavior and packet validation differ by service. |
+| `BTH` is the operation decoder | `BTH` opcode determines how the bytes after `BTH` should be interpreted: `RETH`, `AETH`, `DETH`, immediate data, payload, or no extended header. |
+| `PSN` is not just a counter | Packet Sequence Number is used by the responder/requester to detect missing, duplicate, or out-of-order packets. In reliable services, this drives ACK/NAK and retry behavior. |
+| `P_Key` and destination QP are validation inputs | A packet can be silently dropped if its destination QP, QP state, transport type, or partition key does not match the responder context. |
+| `RETH` is a protection boundary | `RETH` is not only an address descriptor. The responder must validate `rkey`, access permissions, virtual address range, and DMA length before touching remote memory. |
+| `AETH` carries ACK/NAK state | In reliable transports, `AETH` tells the requester whether progress was acknowledged or whether a retry/error condition exists. |
+| `ICRC/VCRC` are on-wire integrity checks | Capture tools may expose only part of this, but invalid CRCs are normally discarded before useful transport-layer interpretation. |
+
+`P_Key` deserves special attention. It is a partition membership value carried in `BTH`, similar in spirit to a fabric-level tenant or isolation tag. The high bit indicates full vs limited membership, and the lower bits identify the partition. If a packet's `P_Key` does not match the destination port's partition membership or the QP context, the packet is not accepted as valid traffic for that partition. This is why `P_Key` should be read together with destination QP, transport type, and QP state when debugging packet drops.
+
+Two subtle points are easy to miss:
+
+- Multi-packet SEND and RDMA WRITE messages are not interleaved with other operations on the same send queue until the final packet of that message has been generated.
+- RDMA READ behaves differently: after issuing a READ request, the requester may issue later requests without waiting for the READ response, but the maximum number of outstanding READ and ATOMIC operations is negotiated during connection setup.
+
+### RDMA READ
+
+RDMA READ is a one-sided **pull**. The requester asks the responder RNIC to read from remote memory and return the data.
+
+```mermaid
+sequenceDiagram
+    participant Req as Requester RNIC
+    participant LocalMR as Local MR
+    participant Fabric as InfiniBand Fabric
+    participant Resp as Responder RNIC
+    participant RemoteMR as Remote MR
+
+    Req->>Fabric: RDMA READ request<br/>BTH + RETH, no data payload
+    Fabric->>Resp: Deliver READ request
+    Resp->>Resp: Validate QP, PSN, VA, rkey, length, access rights
+    Resp->>RemoteMR: DMA read requested bytes
+    Resp-->>Fabric: RDMA READ response packet(s)<br/>BTH + AETH on first/last/only + payload
+    Fabric-->>Req: Return read payload
+    Req->>LocalMR: DMA write payload into requester local buffer
+```
+
+For a small READ whose response fits within the path MTU:
+
+```text
+Request:  LRH -> BTH(RDMA READ Request) -> RETH(VA, rkey, length)
+Response: LRH -> BTH(RDMA READ Response Only) -> AETH -> payload
+```
+
+For a multi-packet READ response:
+
+```text
+Request:  LRH -> BTH(RDMA READ Request)          -> RETH
+First:    LRH -> BTH(RDMA READ Response First)   -> AETH -> PMTU-sized payload
+Middle:   LRH -> BTH(RDMA READ Response Middle)  -> PMTU-sized payload
+Last:     LRH -> BTH(RDMA READ Response Last)    -> AETH -> remaining payload
+```
+
+Important analysis points:
+
+- The READ request packet is small because it describes what to read; it does not carry the requested data.
+- A single READ request can produce multiple READ response packets when the requested length exceeds the path MTU.
+- `AETH` is present in `RDMA READ Response First`, `RDMA READ Response Last`, and `RDMA READ Response Only`.
+- `RDMA READ Response Middle` carries payload but does not carry `AETH`.
+- `PSN` is used to detect missing or out-of-order response packets.
+- The responder validates the retry request, `rkey`, remote virtual address, and access permissions.
+- The requester may have more than one outstanding READ, depending on the negotiated connection limits.
+- RDMA READ does not carry immediate data.
+
+Example Wireshark decode, with sensitive values anonymized:
+
+```text
+RDMA READ Request
+  BTH:
+    Opcode: Reliable Connection (RC) - RDMA READ Request
+    Partition Key: 0xffff
+    Destination QP: 0x00xxxx
+    Acknowledge Request: True
+    Packet Sequence Number: <request_psn>
+  RETH:
+    Virtual Address: 0x0000xxxxxxxxxxxx
+    Remote Key: 0x00xxxxxx
+    DMA Length: 65536 bytes
+  ICRC:
+    Present
+```
+
+```text
+RDMA READ Response Middle
+  BTH:
+    Opcode: Reliable Connection (RC) - RDMA READ Response Middle
+    Partition Key: 0xffff
+    Destination QP: 0x00xxxx
+    Acknowledge Request: False
+    Packet Sequence Number: <response_psn>
+  Payload:
+    Data: 1024 bytes
+  ICRC:
+    Present
+```
+
+The request decode is the key evidence for a one-sided READ: it has `BTH + RETH`, and `RETH` carries the remote virtual address, `rkey`, and requested DMA length. `BTH` also carries the `Partition Key` (`P_Key`), which identifies the InfiniBand partition membership used by the packet. A commonly seen value such as `0xffff` represents full membership in the default partition, but production fabrics may use different partition keys for isolation. The response-middle decode shows the reverse data movement: it carries data payload but no `RETH` and no `AETH`. This matches the multi-packet READ model where `AETH` appears on the first, last, or only response packet, while middle response packets are pure data-bearing segments.
+
+For public documentation, avoid publishing raw screenshots unless the following fields are masked:
+
+- Remote virtual address
+- `rkey`
+- destination QP
+- packet sequence number
+- any payload bytes that may contain application data
+
+Example `AETH` decode, with sensitive values anonymized:
+
+```text
+RC Acknowledge
+  BTH:
+    Opcode: Reliable Connection (RC) - Acknowledge
+    Partition Key: 0xffff
+    Destination QP: 0x00xxxx
+    Acknowledge Request: False
+    Packet Sequence Number: <ack_psn>
+  AETH:
+    Syndrome: 0, Ack
+    OpCode: Ack
+    Credit Count: <credit_count>
+    Message Sequence Number: <msn>
+  ICRC:
+    Present
+```
+
+`AETH` is the key ACK/NAK carrier for reliable transport. A normal ACK indicates that the responder accepted progress for the relevant reliable operation. If the syndrome indicates NAK or an error condition, the requester may need to retry or fail the Work Request depending on the transport state and retry counters. In packet analysis, `BTH` tells us this is an RC acknowledge packet and which partition/QP context it belongs to, while `AETH` tells us whether it is a successful acknowledgement or an error/flow-control signal.
+
+### RDMA WRITE
+
+RDMA WRITE is a one-sided **push**. The requester sends data to a remote memory range that the responder has already registered and shared through metadata exchange.
+
+```mermaid
+sequenceDiagram
+    participant Req as Requester RNIC
+    participant Fabric as InfiniBand Fabric
+    participant Resp as Responder RNIC
+    participant MR as Remote MR
+
+    Req->>Fabric: RDMA WRITE request<br/>BTH + RETH + payload
+    Fabric->>Resp: Deliver WRITE packets
+    Resp->>Resp: Validate QP, PSN, VA, rkey, length, access rights
+    Resp->>MR: DMA write payload into remote memory
+    Resp-->>Req: ACK / NAK<br/>BTH + AETH
+```
+
+For a small WRITE whose payload fits within the path MTU, the packet shape is:
+
+```text
+LRH -> BTH(RDMA WRITE Only) -> RETH(VA, rkey, length) -> payload -> ICRC/VCRC
+```
+
+For a multi-packet WRITE, the message is segmented:
+
+```text
+First  packet: LRH -> BTH(RDMA WRITE First)  -> RETH -> PMTU-sized payload
+Middle packet: LRH -> BTH(RDMA WRITE Middle) -> PMTU-sized payload
+Last   packet: LRH -> BTH(RDMA WRITE Last)   -> remaining payload
+ACK:           LRH -> BTH(Acknowledge)       -> AETH
+```
+
+Important analysis points:
+
+- `RETH` appears in the first packet or the only packet of an RDMA WRITE message.
+- `RETH` carries the remote virtual address, `rkey`, and DMA length.
+- Middle and last WRITE packets carry payload but do not repeat the full remote memory metadata.
+- The responder checks the `rkey`, access permissions, address range, and packet sequence.
+- Multi-packet WRITE messages are ordered as one message and are not interleaved with other operations on the same send queue before the final WRITE packet.
+- In reliable transports such as RC, the responder returns an ACK or NAK using `AETH`.
+- A normal RDMA WRITE updates remote memory but does not automatically notify the remote application. Notification requires a higher-level protocol, `RDMA_WRITE_WITH_IMM`, SEND/RECV, or polling.
+
+### What Future Captures Should Show
+
+A future pcap that truly contains one-sided RDMA traffic should show at least some of the following:
+
+| Expected evidence | RDMA READ | RDMA WRITE |
+| --- | --- | --- |
+| BTH opcode | `RDMA READ Request`, `RDMA READ Response First/Middle/Last/Only` | `RDMA WRITE First/Middle/Last/Only` |
+| RETH | Request packet | First or only request packet |
+| Remote virtual address | In request `RETH` | In `RETH` |
+| `rkey` | In request `RETH` | In `RETH` |
+| Payload direction | Responder to requester | Requester to responder |
+| AETH | First, last, or only read response | ACK/NAK response |
+| Target CPU involvement | Not in data path | Not in data path |
+
+This explains why the current packet set is useful for RDMA/IB fundamentals but still cannot be treated as a full one-sided RDMA data-path capture.
 
 ## Control Path vs Data Path
 
@@ -713,6 +989,8 @@ Therefore, the correct interpretation is:
 
 > These captures demonstrate InfiniBand fabric management, IPoIB, and some reliable connection transport behavior. They support the RDMA/IB concepts in Chapter 1, but they do not fully demonstrate RDMA Read or RDMA Write data movement.
 
+The [RDMA Read/Write Packet Analysis Model](#rdma-readwrite-packet-analysis-model) section above describes what should appear in future captures that include one-sided operations.
+
 ## Useful tshark Commands
 
 List basic packet summaries:
@@ -768,6 +1046,24 @@ Find IPoIB TCP conversations:
 tshark -r ../ib-packets/ib_IPoIB.pcap -q -z conv,tcp
 ```
 
+Discover the exact InfiniBand field names supported by the local Wireshark/TShark build:
+
+```sh
+tshark -G fields | rg -i "infiniband.*(bth|reth|aeth|opcode|psn|rkey)"
+```
+
+If a future capture contains RDMA READ or WRITE packets, start with BTH opcodes and then expand into RETH/AETH details:
+
+```sh
+tshark -r ../ib-packets/<rdma-read-write-capture>.pcap \
+  -Y "infiniband.bth.opcode" \
+  -T fields \
+  -e frame.number \
+  -e infiniband.bth.opcode \
+  -e infiniband.bth.destqp \
+  -e infiniband.bth.psn
+```
+
 ## Takeaways for Chapter 1
 
 1. **InfiniBand has a visible control path.**
@@ -798,6 +1094,12 @@ tshark -r ../ib-packets/ib_IPoIB.pcap -q -z conv,tcp
 - [NVIDIA MLNX_OFED Documentation v24.04-0.7.0.0](https://docs.nvidia.com/networking/display/mlnxofedv24040700)
 - [NVIDIA Quantum InfiniBand Networking Solutions](https://www.nvidia.com/en-us/networking/products/infiniband/)
 - [NVIDIA Quantum-X800 InfiniBand Platform](https://www.nvidia.com/en-us/networking/products/infiniband/quantum-x800/)
+- [NVIDIA NCCL Documentation](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/index.html)
+- [NVIDIA NCCL Collective Operations](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html)
+- [NVIDIA NCCL Environment Variables](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html)
+- [NVIDIA NCCL Troubleshooting: Networking Issues](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting.html#networking-issues)
+- [NVIDIA SHARP with NVIDIA NCCL](https://docs.nvidia.com/networking/display/sharpv3140/using-nvidia-sharp-with-nvidia-nccl)
+- [NVIDIA HPC-X NCCL-RDMA-SHARP Plugins](https://docs.nvidia.com/networking/display/hpcx222/nccl-rdma-sharp%2Bplugins)
 
 ### Protocol and tooling references
 
@@ -806,15 +1108,16 @@ tshark -r ../ib-packets/ib_IPoIB.pcap -q -z conv,tcp
 - [Wireshark Display Filter Reference: InfiniBand](https://www.wireshark.org/docs/dfref/i/infiniband.html)
 - [TShark Manual Page](https://www.wireshark.org/docs/man-pages/tshark.html)
 - [linux-rdma rdma-core](https://github.com/linux-rdma/rdma-core)
+- [NVIDIA nccl-tests](https://github.com/NVIDIA/nccl-tests)
 - [OpenFabrics Alliance Overview](https://www.openfabrics.org/ofa-overview/)
 - [OpenFabrics Alliance Advanced Network Software](https://www.openfabrics.org/advanced-network-software/)
 
 ### Technical articles and background
 
 - [NADDOD Blog: What is InfiniBand?](https://www.naddod.com/blog/what-is-infiniband)
+- [Tencent Cloud Developer: RDMA - IB Specification Volume 1 Transport Layer](https://cloud.tencent.com/developer/article/2513460)
 - [O’Reilly InfiniBand Network Architecture](https://learning.oreilly.com/library/view/infiniband-network-architecture/0321117654/)
 - [NVIDIA Technical Blog: Simplifying Network Operations for AI with NVIDIA Quantum InfiniBand](https://developer.nvidia.com/blog/simplifying-network-operations-for-ai-with-nvidia-quantum-infiniband/)
 - [NVIDIA Technical Blog: InfiniBand Multilayered Security Protects Data Centers and AI Workloads](https://developer.nvidia.com/blog/infiniband-multilayered-security-protects-data-centers-and-ai-workloads/)
 - [NVIDIA Technical Blog: Powering the Next Frontier of Networking for AI Platforms with NVIDIA DOCA 3.0](https://developer.nvidia.com/blog/powering-the-next-frontier-of-networking-for-ai-platforms-with-nvidia-doca-3-0/)
 - [NVIDIA Technical Blog: New MLPerf Inference Network Division Showcases NVIDIA InfiniBand and GPUDirect RDMA Capabilities](https://developer.nvidia.com/blog/new-mlperf-inference-network-division-showcases-infiniband-and-gpudirect-rdma-capabilities/)
-
