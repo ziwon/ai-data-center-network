@@ -17,6 +17,10 @@ NCCL의 IB plugin, NIXL, Mooncake의 KV cache 전송, vLLM의 disaggregated pref
 
 이 글의 범위는 **InfiniBand/RoCEv2 위의 `libibverbs` 사용법**임. (iWARP는 사용 빈도가 낮아 생략)
 
+<p align="center">
+<img src="../chap01/rdma.png" width="100%">
+</p>
+
 ---
 
 ## 1. 핵심 개념 5분 정리

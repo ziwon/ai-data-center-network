@@ -225,17 +225,6 @@ In Rail-Optimized Design, each GPU/NIC in a server maps to a separate rail.
 
 Example for an 8-GPU server:
 
-| GPU/NIC | Rail/Leaf |
-| --- | --- |
-| GPU0/NIC0 | Rail 0 / Leaf 0 |
-| GPU1/NIC1 | Rail 1 / Leaf 1 |
-| GPU2/NIC2 | Rail 2 / Leaf 2 |
-| GPU3/NIC3 | Rail 3 / Leaf 3 |
-| GPU4/NIC4 | Rail 4 / Leaf 4 |
-| GPU5/NIC5 | Rail 5 / Leaf 5 |
-| GPU6/NIC6 | Rail 6 / Leaf 6 |
-| GPU7/NIC7 | Rail 7 / Leaf 7 |
-
 ```mermaid
 flowchart LR
     classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
