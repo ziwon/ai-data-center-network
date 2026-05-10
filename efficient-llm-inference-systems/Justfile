@@ -37,3 +37,18 @@ w2-decode-ncu-kernels:
     -o decode_profile_kernels \
     --force-overwrite \
     .venv/bin/python week02/decode_benchmark_ncu.py
+
+w3-kv-cache-size:
+    .venv/bin/python week03/kv_cache_size.py
+
+w3-kv-cache-size-measure model="Qwen/Qwen2.5-3B-Instruct":
+    .venv/bin/python week03/kv_cache_size.py --measure-model '{{ model }}'
+
+w3-oom-boundary:
+    .venv/bin/python week03/oom_boundary.py
+
+w3-oom-boundary-forward:
+    .venv/bin/python week03/oom_boundary.py --mode forward --out week03/results/oom_boundary_forward.csv --svg week03/results/oom_boundary_forward.svg
+
+w3-gqa-vs-mha:
+    .venv/bin/python week03/gqa_vs_mha.py

@@ -1,0 +1,3 @@
+model,layers,query_heads,kv_heads,gqa_ratio,head_dim,kv_per_token_bytes_bf16,kv_per_token_kib_bf16,kv_per_token_kib_int8,kv_per_token_kib_int4
+Qwen/Qwen2.5-3B-Instruct,36,16,2,8.0,128,36864,36.0,18.0,9.0
+Qwen/Qwen2.5-7B-Instruct,28,28,4,7.0,128,57344,56.0,28.0,14.0

@@ -1,0 +1,5 @@
+model,layers,query_heads,kv_heads,head_dim,gqa_ratio,kv_per_token_kib,kv_8k_mib,kv_128k_mib
+Llama-2-7B (MHA),32,32,32,128,1.0,512.0,4096.0,65536.0
+Llama-3-8B (GQA-4),32,32,8,128,4.0,128.0,1024.0,16384.0
+Llama-2-70B (MHA),80,64,64,128,1.0,2560.0,20480.0,327680.0
+Llama-3-70B (GQA-8),80,64,8,128,8.0,320.0,2560.0,40960.0
