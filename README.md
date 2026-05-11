@@ -64,6 +64,9 @@ AI Data Center Network 참여형 스터디 자료 모음
 - [Ray](https://docs.ray.io/en/latest/ray-overview/index.html)
   - [Train](https://docs.ray.io/en/latest/train/examples.html) 
 
+## Cable & Data Center
+- https://www.submarinecablemap.com/
+- https://opengridworks.com
 
 ## Links
 - [http://blog.cloudneta.net/](http://blog.cloudneta.net/)
