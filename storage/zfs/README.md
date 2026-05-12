@@ -1,12 +1,15 @@
 # AI 학습 워크로드를 위한 ZFS 튜닝 가이드
 
+<p style="align-content: center;">
+<img src="zfs_bg.png"/>
+</p>
+
 HDD + NVMe 기반 중소형 AI 스토리지 설계 기준
 
 > 이 문서는 AI 연구실, 대학 FTP/미러 운영팀, 중소형 AI 기업, MLOps/Infra 엔지니어가 엔터프라이즈 스토리지를 바로 도입하기 어려운 상황에서 HDD + NVMe + OpenZFS로 AI 학습 워크로드를 어디까지 감당할 수 있는지 판단하고, 데이터셋 포맷, ZFS pool 설계, ARC/L2ARC/SLOG, NFS 운영 기준을 잡는 데 목적이 있다.
 
 작성 기준: 2026년 5월
 
----
 
 ## 목차
 
@@ -41,7 +44,9 @@ HDD + NVMe 기반 중소형 AI 스토리지 설계 기준
 21. [부록: JuiceFS 참고](#21-부록-juicefs-참고)
 22. [결론](#22-결론)
 
----
+<p style="align-content: center;">
+<img src="zfs_overview.png"/>
+</p>
 
 ## 빠른 의사결정 표
 
@@ -57,7 +62,6 @@ HDD + NVMe 기반 중소형 AI 스토리지 설계 기준
 > [!TIP]
 > 이 표는 초기 판단용이다. 최종 선택은 실제 dataloader, GPU 노드 수, NFS latency, metadata scan, checkpoint write burst를 측정해서 결정해야 한다.
 
----
 
 ## 1. 핵심 결론
 
@@ -95,7 +99,6 @@ NVMe와 데이터셋 포맷 최적화를 결합했을 때 쓸 만한
 > [!TIP]
 > 이 문서의 핵심 판단 기준은 “HDD는 capacity tier, NVMe는 metadata/hot tier, 학습 데이터는 shard + NVMe”로 요약할 수 있다.
 
----
 
 ## 2. AI 학습 워크로드의 I/O 특성
 
@@ -150,7 +153,6 @@ AI 학습 스토리지는 일반 파일 서버와 다르다.
 > [!TIP]
 > 스토리지 벤치마크는 `fio` sequential throughput만 보면 부족하다. 실제 dataloader로 `open/stat/read` 패턴을 재현하고, 동시에 `iostat -x`, `pidstat`, `nfsstat`, GPU utilization, dataloader wait time을 같이 봐야 한다. “디스크는 한가한데 GPU가 쉰다”면 스토리지 대역폭이 아니라 metadata latency, Python worker, decode CPU, NFS server CPU가 병목일 수 있다.
 
----
 
 ## 3. 스토리지 계층 비교
 
@@ -169,7 +171,6 @@ Pure FlashBlade, WEKA, IBM Storage Scale 계열은 단순 NAS가 아니라 AI/HP
 > [!NOTE]
 > 제품군 이름보다 중요한 것은 실제 workload 검증이다. 같은 “10GbE NAS”라도 CPU, RAM, filesystem, NFS 구현, SSD cache 정책, snapshot 상태에 따라 AI 학습 성능은 크게 달라진다. 도입 전에는 대표 dataset, 실제 dataloader worker 수, 실제 GPU 노드 수로 PoC를 진행하는 것이 가장 안전하다.
 
----
 
 ## 4. ASUSTOR/Synology NAS, QNAP, DIY ZFS, Enterprise Storage 비교
 
@@ -197,8 +198,6 @@ GPU utilization을 지속적으로 유지해야 하면 NVMe-heavy 또는 병렬 
 
 > [!TIP]
 > NAS appliance를 선택하더라도 “편의성”과 “성능”을 분리해서 판단하는 것이 좋다. GUI snapshot, 사용자 관리, SMB/NFS 공유는 NAS가 편하지만, active training path는 local NVMe나 별도 NVMe hot tier로 분리하면 작은 장비에서도 체감 성능이 훨씬 안정적이다.
-
----
 
 ## 5. 왜 AI 워크로드에서 HDD만으로는 부족한가?
 
@@ -249,7 +248,6 @@ HDD가 취약한 것:
 > [!TIP]
 > “큰 파일이면 HDD에서 괜찮다”도 접근 패턴이 순차적일 때의 이야기다. mp4라도 많은 worker가 서로 다른 offset을 random seek하면 HDD seek가 누적된다. 반대로 tar/WebDataset shard처럼 큰 파일이어도 worker별 shard 범위를 잘 나누면 HDD와 readahead가 훨씬 예측 가능하게 동작한다.
 
----
 
 ## 6. ZFS가 AI 워크로드에서 유리한 이유
 
@@ -283,7 +281,6 @@ label / json / small   → NVMe Special VDEV
 > [!WARNING]
 > Snapshot과 checksum은 백업을 대체하지 않는다. ZFS는 silent corruption 탐지와 rollback에는 강하지만, 운영자 실수, pool 전체 장애, ransomware, 잘못된 `zfs destroy`까지 단독으로 해결해 주지는 않는다. 중요한 연구 데이터는 별도 pool, 별도 서버, 또는 object storage로 복제해야 한다.
 
----
 
 ## 7. AI 학습용 권장 스토리지 아키텍처
 
@@ -360,7 +357,6 @@ flowchart TB
 > [!TIP]
 > dataset은 성능 tier뿐 아니라 보존 정책 단위로도 나누는 것이 좋다. `raw-video`, `preprocessed`, `dataset-shards`, `checkpoints`, `scratch`를 분리하면 recordsize, snapshot retention, compression, sync 정책을 각각 다르게 줄 수 있고, 장애 대응도 쉬워진다.
 
----
 
 ## 8. 규모별 권장 구성
 
@@ -406,7 +402,6 @@ NAS/ZFS
 > [!TIP]
 > 소규모에서는 가장 효과 좋은 최적화가 “학습 전 local NVMe로 복사”인 경우가 많다. NAS에는 원본과 archive를 두고, 학습 job 시작 시 manifest/checksum을 기준으로 필요한 shard만 local NVMe에 stage-in하면 비용 대비 안정성이 좋다.
 
----
 
 ### 8.2 중규모
 
@@ -470,7 +465,6 @@ IBM ESS나 WEKA를 살 정도는 아니지만, 일반 NAS로는 부족한 상황
 > [!TIP]
 > 중규모부터는 “빠른가?”보다 “얼마나 느려지면 장애로 볼 것인가?”를 먼저 정하는 편이 좋다. 예를 들어 dataloader wait time, NFS p95 latency, Special VDEV 사용률, checkpoint write 시간, scrub 중 성능 저하폭을 기준으로 내부 SLO를 잡아두면 증설 시점을 훨씬 빨리 판단할 수 있다.
 
----
 
 ### 8.3 대규모
 
@@ -516,7 +510,6 @@ ZFS는 여전히 archive/capacity tier로 쓸 수 있지만, active training pat
 > [!TIP]
 > 대규모에서는 checkpoint path와 dataset read path를 분리하는 것이 중요하다. 수십~수백 GPU가 동시에 checkpoint를 쓰면 read-heavy 학습 workload와 write burst가 충돌한다. 가능하면 checkpoint 전용 namespace, 별도 pool, object storage, 또는 병렬 FS의 별도 policy를 둔다.
 
----
 
 ## 9. AI 데이터셋 포맷 전략
 
@@ -597,7 +590,6 @@ ZFS 튜닝보다 더 중요한 것이 데이터셋 포맷이다.
 
 이렇게 해야 HDD ZFS에서도 metadata 병목과 random I/O 부담을 줄일 수 있다.
 
----
 
 ## 10. ZFS Pool 설계
 
@@ -639,7 +631,6 @@ zpool create -o ashift=12 \
 > [!TIP]
 > RAIDZ vdev 폭은 “용량 효율”과 “장애 복구 시간”의 타협이다. 너무 넓은 vdev는 효율은 좋지만 resilver와 scrub 시간이 길어지고, 장애 중 두 번째 문제가 생겼을 때 대응 시간이 줄어든다. 큰 pool은 처음부터 vdev 1개를 크게 만드는 것보다 적당한 폭의 vdev를 여러 개 두는 편이 병렬성과 운영 안정성 면에서 유리하다.
 
----
 
 ### 10.2 NVMe Special VDEV
 
@@ -713,7 +704,6 @@ flowchart TD
   class normal,spill normalClass;
 ```
 
----
 
 ### 10.3 NVMe Hot Pool
 
@@ -755,7 +745,6 @@ active training이 많으면 NVMe Hot Pool이 더 직관적이다.
 > [!TIP]
 > NVMe hot pool은 cache처럼 보이지만, 운영상으로는 “짧은 수명의 별도 storage tier”로 다루는 편이 좋다. eviction 정책, 최대 사용량, job 종료 후 cleanup, 재생성 가능 여부를 정해두지 않으면 hot pool이 가득 차서 오히려 학습 job이 실패한다.
 
----
 
 ## 11. Dataset 설계
 
@@ -832,7 +821,6 @@ AI에서는 일반적으로 다음 기준이 현실적이다.
 | checkpoint        |                1M |                    0 |
 | FTP mirror        |                1M |              16K~64K |
 
----
 
 ## 12. ARC 튜닝
 
@@ -918,7 +906,6 @@ AI 학습에서는 전체 hit ratio보다 **metadata hit ratio**와 **dataloader
 > [!NOTE]
 > ARC를 크게 잡을수록 항상 좋은 것은 아니다. NFS server, page cache, monitoring agent, backup job, 압축/체크섬 처리도 메모리를 쓴다. `zfs_arc_max`를 너무 공격적으로 잡으면 ZFS는 좋아 보여도 OS 전체 latency가 흔들릴 수 있으므로, 실제 부하에서 memory pressure와 swap 사용 여부를 같이 본다.
 
----
 
 ## 13. L2ARC 판단
 
@@ -955,7 +942,6 @@ L2ARC가 도움이 되는 경우:
 > [!TIP]
 > L2ARC는 “느린 RAM”이 아니라 “재사용되는 read working set을 위한 보조 cache”에 가깝다. 첫 epoch처럼 cold read가 많은 구간에서는 효과가 제한적일 수 있고, workload가 매번 바뀌면 hit ratio도 낮다. 도입 전후로 ARC/L2ARC hit ratio와 dataloader wait time이 실제로 줄었는지 확인해야 한다.
 
----
 
 ## 14. SLOG와 sync 설정
 
@@ -1051,7 +1037,6 @@ zfs set sync=standard ai-pool/checkpoints
 > [!TIP]
 > 좋은 SLOG는 큰 용량보다 낮은 latency, PLP, 내구성이 중요하다. SLOG는 일반 write cache가 아니므로 async bulk write를 빠르게 만들지는 않는다. NFS sync export, VM, DB처럼 synchronous write가 실제로 많은 workload에서만 효과를 검증하는 것이 좋다.
 
----
 
 ## 15. NFS / 네트워크 설계
 
@@ -1094,7 +1079,6 @@ ZFS 단일 head에서는 NIC만 빠르다고 해결되지 않는다.
 > [!NOTE]
 > Jumbo frame은 end-to-end로 MTU가 맞을 때만 의미가 있다. switch, NIC, bond, VLAN, storage server, GPU node 중 한 곳이라도 MTU가 맞지 않으면 packet drop이나 fragmentation으로 오히려 latency가 나빠질 수 있다. MTU를 바꿀 때는 `ping -M do -s ...`, `iperf3`, NFS read/write 테스트를 같이 돌려야 한다.
 
----
 
 ## 16. 학습 파이프라인 권장 패턴
 
@@ -1134,7 +1118,6 @@ Raw data on HDD ZFS
 > [!TIP]
 > shard를 만들 때는 atomic publish 패턴을 쓰는 것이 좋다. 예를 들어 `train-000123.tar.tmp`로 쓰고 checksum/manifest 검증이 끝난 뒤 `train-000123.tar`로 rename하면, 학습 job이 반쯤 쓰인 shard를 읽는 사고를 줄일 수 있다. manifest에는 shard 이름, sample 수, checksum, 생성 코드 버전, source dataset version을 같이 남긴다.
 
----
 
 ## 17. 모니터링
 
@@ -1199,7 +1182,6 @@ Prometheus/Grafana 구성 시 권장 exporter:
 > [!TIP]
 > 장애 분석을 위해 job id, dataset version, mount target, GPU node, storage pool, checkpoint 경로를 로그에 남겨두면 좋다. 스토리지 지표만으로는 어떤 학습 job이 어떤 dataset을 읽었는지 연결하기 어렵다.
 
----
 
 ## 18. 장애와 운영 주의사항
 
@@ -1239,7 +1221,6 @@ Special VDEV는 캐시가 아니다.
 > [!TIP]
 > Snapshot retention은 dataset별로 다르게 잡는 것이 좋다. raw data는 길게, scratch/cache는 짧게, checkpoint는 실험 재현 기간에 맞춰 보존한다. snapshot이 무제한 쌓이면 삭제된 파일도 공간을 계속 잡고 있어 pool capacity와 fragmentation 문제를 키운다.
 
----
 
 ## 19. 규모별 최종 추천
 
@@ -1252,7 +1233,6 @@ Special VDEV는 캐시가 아니다.
 > [!TIP]
 > 최종 선택은 “현재 필요한 성능”보다 “다음 장애 대응을 누가 할 것인가”까지 포함해 결정해야 한다. DIY ZFS는 비용 효율이 좋지만 운영 책임이 내부에 있고, enterprise storage는 비용이 높지만 지원과 장애 escalation 체계가 있다.
 
----
 
 ## 20. 최종 아키텍처 예시
 
@@ -1285,7 +1265,6 @@ flowchart TB
 > [!TIP]
 > 위 그림은 논리 아키텍처다. 실제 배치에서는 management network, backup path, monitoring path, out-of-band 관리망, UPS/PDU, rack 단위 장애 도메인까지 별도로 설계해야 한다.
 
----
 
 ## 21. 부록: JuiceFS 참고
 
@@ -1381,7 +1360,6 @@ JuiceFS:
 
 따라서 이 문서의 기본 전략을 유지하되, 이미 S3/MinIO/Ceph 기반 데이터 레이크가 있거나 Kubernetes 중심 학습 환경이라면 JuiceFS를 별도 shared filesystem 후보로 검토할 수 있다.
 
----
 
 ## 22. 결론
 
@@ -1415,7 +1393,6 @@ ZFS archive/capacity tier + IBM Storage Scale / Lustre / WEKA / Pure FlashBlade 
 
 **IBM ESS나 WEKA를 살 수 없는 연구실/중소기업에게 가장 현실적인 AI 스토리지 전략은 “HDD ZFS를 원본 저장소로 쓰고, NVMe를 metadata/hot tier로 붙이며, 학습 데이터는 shard화해서 NVMe에서 읽게 만드는 것”이다.**
 
----
 
 ## 참고 자료
 
