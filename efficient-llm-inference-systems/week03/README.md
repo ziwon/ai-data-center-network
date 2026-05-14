@@ -372,6 +372,8 @@ This report connects the KV-cache accounting in this chapter to the AGX Orin 64G
 
 Do not compare the two rows as a pure model-size benchmark. The 2B run includes video frames, VLM processing, detector/candidate plumbing, and alert-verification prompts. The 7B run is a text-only proxy for transformer serving capacity.
 
+![Jetson Orin empirical latency](results/orin_empirical_latency.svg)
+
 #### Environment
 
 | Field | Value |
