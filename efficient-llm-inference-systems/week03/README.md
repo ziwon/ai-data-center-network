@@ -363,6 +363,98 @@ The OOM boundary follows the expected `batch x sequence length` shape. Cases wit
 
 The clean allocation experiment isolates KV memory capacity. Full model prefill can OOM earlier because attention buffers, logits, temporary allocations, and framework reservations are also present. To isolate the KV boundary, non-KV allocations must be controlled with settings such as `logits_to_keep=1`.
 
+### Result 4: Jetson Orin Empirical Report
+
+This report connects the KV-cache accounting in this chapter to the AGX Orin 64GB edge target. It combines two related but different measurements:
+
+1. A **2B VLM VRS smoke** using `Qwen/Qwen3-VL-2B-Instruct`, YOLOE-S, and an RTSP falldown stream. This validates the application slow path.
+2. A **7B text-model feasibility and concurrency smoke** using `Qwen/Qwen2.5-7B-Instruct` BF16. This isolates the transformer inference and KV/concurrency behavior more directly.
+
+Do not compare the two rows as a pure model-size benchmark. The 2B run includes video frames, VLM processing, detector/candidate plumbing, and alert-verification prompts. The 7B run is a text-only proxy for transformer serving capacity.
+
+#### Environment
+
+| Field | Value |
+|---|---|
+| Host | Jetson AGX Orin 64GB |
+| Jetson Linux | L4T R36.4.3 |
+| CUDA | 12.6 |
+| Python | 3.10.12 |
+| torch | 2.7.0 CUDA |
+| transformers | 5.8.0 |
+| PyTorch visible memory | about 61.4 GiB |
+
+#### 2B VLM VRS Smoke
+
+The VRS smoke used YOLOE-S as a detector and Qwen3-VL-2B as a local BF16 verifier. The optimized verifier profile used 2 keyframes, 448 px max frame width, and 128 max generated tokens.
+
+| Measurement | Value |
+|---|---:|
+| Detector | YOLOE-S segmentation, FP16 |
+| Verifier | `Qwen/Qwen3-VL-2B-Instruct`, BF16 |
+| RTSP frames processed in initial run | 30 |
+| Detector latency, median | 132.4 ms/frame |
+| Best stable loaded-model verifier latency | 6.30s at 448 px, 2 keyframes, 128 tokens |
+| End-to-end optimized verifier call | 8.07s |
+| Final memory used | 12.12 GiB |
+| 4-bit bitsandbytes attempt | failed on Jetson aarch64 CUDA symbol lookup |
+
+Interpretation: the 2B VLM path fits comfortably in memory, but it is too slow for per-frame use. It should be treated as a slow-path verifier behind detector persistence, cooldown, and candidate gating. This is consistent with the chapter's theme: memory capacity alone does not determine practical concurrency.
+
+#### 7B BF16 Text Feasibility
+
+The 7B experiment loaded `Qwen/Qwen2.5-7B-Instruct` in BF16 on CUDA and measured short prefill/decode runs.
+
+| Measurement | Value |
+|---|---:|
+| Model load time | 12.41s |
+| CUDA allocated after load | 14.19 GiB |
+| Driver-used memory after load | 19.72 GiB |
+| Single smoke prompt | 27 tokens |
+| Single smoke decode | 32 tokens in 2.88s |
+| Single-request decode throughput | 11.1 tok/s |
+| Driver-used memory after single smoke | 20.2 GiB |
+
+The first useful result is simple: 7B BF16 is feasible on this Orin. Weight memory, not KV memory, dominates at batch 1 and short context.
+
+#### 7B Concurrency Probe
+
+For a VSS/VRS-style proxy, the next sweep used about 1K prompt tokens and 16 generated tokens per request. That is closer to a camera-captioning or VLM-verifier request shape than a tiny chat prompt.
+
+| Batch | Prompt tokens/request | Decode tokens/request | Status | Prefill time | Decode time | Aggregate decode throughput | KV after decode | Driver-used memory |
+|---:|---:|---:|---|---:|---:|---:|---:|---:|
+| 1 | 1020 | 16 | OK | 1.21s | 1.51s | 10.6 tok/s | 56.7 MiB | 19.8 GiB |
+| 2 | 1020 | 16 | OK | 1.70s | 1.54s | 20.8 tok/s | 113.3 MiB | 19.8 GiB |
+| 4 | 1020 | 16 | OK | 3.32s | 1.60s | 39.9 tok/s | 226.6 MiB | 19.8 GiB |
+| 8 | 1020 | 16 | OK | 6.64s | 1.73s | 74.1 tok/s | 453.3 MiB | 19.8 GiB |
+| 16 | 1020 | 16 | OK | 13.38s | 1.99s | 128.4 tok/s | 906.5 MiB | 20.9 GiB |
+
+The measured KV size matches the formula: `56 KiB/token x 16 x about 1036 tokens ~= 906 MiB`. This validates the KV accounting. It also shows why the memory-only estimate is misleading: batch 16 uses less than 1 GiB of KV, but prefill already takes 13.38s.
+
+#### KV-Only Capacity Boundary
+
+A synthetic KV allocation sweep for Qwen2.5-7B BF16 reached:
+
+```
+batch=1024, seq_len=1024
+KV = 57,344 MiB
+status = OK
+```
+
+That is a capacity ceiling, not a serving recommendation. It excludes model weights, attention temporaries, logits, scheduler overhead, vision encoders, and latency SLOs. The practical concurrency limit appears much earlier because prefill and decode time determine whether camera events can be served on schedule.
+
+#### Jetson Runtime Note
+
+Do not set `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` for this 7B load path. On this Orin run it caused `CUDA driver error: out of memory` from PyTorch's expandable segment allocator even when `torch.cuda.mem_get_info()` still reported enough free memory. The default allocator loaded Qwen2.5-7B BF16 on CUDA successfully.
+
+#### Conclusion
+
+The Orin 64GB result supports the chapter's claim:
+
+- **KV capacity is large enough** for modest 7B GQA concurrency at 1K context.
+- **Latency is the binding constraint** for real VSS/VRS use. Even when memory is comfortable, prefill and decode time make high camera counts impractical.
+- **2B VLM and 7B text tests answer different questions**. The 2B VLM smoke validates the VRS verifier path; the 7B text smoke validates transformer serving capacity. A production plan should keep those tracks separate and use the 7B results as a capacity proxy, not as an alert-quality result.
+
 ---
 
 ## 3.8 Self-Assessment Questions
