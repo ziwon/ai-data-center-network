@@ -6,4 +6,5 @@
 
 ## Appendix
 
+- [LLM Inference](appendix/llm-inference/README.md)
 - [Transformer](appendix/transformer/README.md)

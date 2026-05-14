@@ -18,7 +18,7 @@ You should already know:
 - Why prompt length had little effect on TPOT in the Week 1 data: KV grows, but weight loading dominated this setup.
 - Why the Week 2 NCU measurement showed **L2 hit rate dropping from 77% at batch=1 to 37% at batch=32**: the KV working set spilled out of L2 and into device memory.
 
-If the Transformer attention flow is not fresh, review the [Transformer appendix](../appendix/transformer/README.md) first.
+If the Transformer attention flow is not fresh, review the [Transformer appendix](../appendix/transformer/README.md) first. For the full input-to-output generation path, see the [LLM inference appendix](../appendix/llm-inference/README.md).
 
 This week combines those observations. **KV cache size scales with both batch size and sequence length, which makes it a hard constraint in multi-tenant serving.**
 
