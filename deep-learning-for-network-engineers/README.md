@@ -13,7 +13,7 @@ A six-week engineering study of how deep learning workloads shape GPU communicat
 * [Week 3: Parallelism Strategy and Communication Primitives](./week03/README.md)
   Study data parallelism, tensor parallelism, pipeline parallelism, and the communication patterns behind them. The focus is on how AllReduce, ReduceScatter, AllGather, and activation transfers affect GPU cluster performance.
 
-* Week 4: RDMA, RoCE, and NCCL Communication
+* [Week 4: RDMA, RoCE, and NCCL Communication](./week04/README.md)
   Connect distributed training with RDMA-based GPU-to-GPU communication. The goal is to understand how NCCL uses high-speed backend networks and why low latency, high throughput, and lossless transport matter.
 
 * Week 5: Congestion Control and AI Fabric Reliability
