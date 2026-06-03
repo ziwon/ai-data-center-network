@@ -8,7 +8,7 @@ AI data center networking, LLM inference, training, storage, and AI systems perf
 
 ## Study Tracks
 
-- [AI Data Center Network](./ai-data-center-network/README.md): AI 데이터센터 네트워크, RDMA, InfiniBand, RoCE, Clos fabric
+- [AI Data Center Network](./ai-data-center-network/README.md): AI 데이터센터 네트워크, RDMA, InfiniBand, RoCE, Clos fabric, (스터디 홈 - [AI Data Center Network Study](https://app.notion.com/p/gasidaseo/AI-Data-Center-Network-Study-34a50aec5edf8097b1d0ec9c499b3913))
 - [Efficient LLM Inference Systems](./efficient-llm-inference-systems/README.md): LLM inference 성능, KV cache, batching, GPU profiling
 - [CME295 Lecture Notes](./cme295/README.md): Transformer/LLM 강의 노트
 - [Deep Learning for Network Engineers](./deep-learning-for-network-engineers/README.md): Deep learning model, training process, network engineering 기초
@@ -18,7 +18,7 @@ AI data center networking, LLM inference, training, storage, and AI systems perf
 
 ## Talks
 
-- [Making DGX B200 RDMA-ready](./talks/sr-iov-with-dgx-b200/making-dgx-b200-rdma-ready.pdf): 스터디 모임 공유
+- [ziwon - Making DGX B200 RDMA-ready](./talks/sr-iov-with-dgx-b200/making-dgx-b200-rdma-ready.pdf): 온라인 스터디 공유용
 
 ## Labs
 
