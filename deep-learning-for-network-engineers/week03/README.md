@@ -22,7 +22,6 @@
 * [Answers](#answers)
 * [References](#references)
 
----
 
 ## Goal
 
@@ -39,7 +38,6 @@ MLOps, LLMOps, AI data center network 관점에서 가장 중요한 질문은 �
 
 > 무엇을 나누고, 무엇을 동기화해야 하는가?
 
----
 
 ## Why Parallelism Matters
 
@@ -89,7 +87,6 @@ flowchart TB
 | Optimizer state가 너무 큼        | Adam 계열 optimizer가 추가 state를 저장함        | ZeRO / FSDP          |
 | MoE expert가 분산됨              | Token을 expert로 routing해야 함              | Expert Parallelism   |
 
----
 
 ## Parallelism Strategy Overview
 
@@ -103,7 +100,6 @@ flowchart TB
 
 책은 주로 Data, Pipeline, Tensor Parallelism을 다룬다. 실제 LLM training system에서는 여기에 ZeRO/FSDP와 Expert Parallelism이 함께 사용되는 경우가 많다.
 
----
 
 ## Data Parallelism
 
@@ -154,7 +150,6 @@ Computation 중에는 network가 비교적 조용할 수 있다. 하지만 gradi
 
 책은 뒤에서 이 동작을 AllReduce 같은 collective communication과 연결한다. AllReduce 내부에는 ReduceScatter와 AllGather 단계가 포함될 수 있다.
 
----
 
 ## Lossless Transport and Restart Cost
 
@@ -202,7 +197,6 @@ Packet loss
 
 따라서 AI training fabric에서는 bandwidth뿐 아니라 PFC/ECN/DCQCN, RDMA 안정성, congestion control, checkpoint 주기까지 함께 봐야 한다.
 
----
 
 ## Pipeline Parallelism
 
@@ -322,7 +316,6 @@ Pipeline Parallelism은 Data Parallelism처럼 전체 GPU가 한꺼번에 동기
 
 성능 문제는 bandwidth만의 문제가 아니다. Scheduling도 중요하다. 한 stage가 느리면 전체 pipeline이 멈춘다.
 
----
 
 ## Tensor Parallelism
 
@@ -368,7 +361,6 @@ Transformer model에서는 Tensor Parallelism이 보통 다음 위치에 적용�
 
 책은 self-attention과 feedforward layer에서 Tensor Parallelism을 설명한다. Feedforward 예시에서는 hidden layer와 output layer를 GPU들에 나누고, partial result를 AllGather 같은 operation으로 synchronize한다.
 
----
 
 ## Tensor Parallelism Details in Transformer Layers
 
@@ -492,7 +484,6 @@ Layer computation
 * Low-latency collective communication
 * Topology-aware GPU placement
 
----
 
 ## Hybrid Parallelism
 
@@ -550,7 +541,6 @@ flowchart TB
 | Data parallel gradient sync       | High-bandwidth backend fabric             |
 | Expert all-to-all                 | Topology-aware expert placement           |
 
----
 
 ## Practical Extensions: ZeRO, FSDP, and Expert Parallelism
 
@@ -625,7 +615,6 @@ flowchart TB
 | All-to-All congestion | 여러 GPU pair 사이로 token이 이동함             |
 | Tail latency          | 가장 느린 expert path가 전체 step을 지연함        |
 
----
 
 ## Network Impact
 
@@ -671,7 +660,6 @@ flowchart LR
 | Congestion control                 | Incast와 egress buffer overflow를 방지함                |
 | Collective optimization            | AllReduce, AllGather, ReduceScatter, All-to-All을 최적화함 |
 
----
 
 ## Design Decision Matrix
 
@@ -685,7 +673,6 @@ flowchart LR
 | Expert가 많은 MoE model                  | Expert Parallelism   | All-to-All과 load balancing이 중요해짐                  |
 | Multi-node training                     | Hybrid parallelism   | Fabric topology와 NCCL tuning이 중요함                 |
 
----
 
 ## Practical Tips and Notes
 
@@ -746,7 +733,6 @@ Checkpoint 주기는 storage 문제가 아니라 training reliability 문제이�
 >
 > PFC, ECN, DCQCN, buffer profile, MTU, QoS marking, switch counter를 실제 traffic 아래에서 확인해야 한다. 특히 incast 상황에서 pause frame storm이나 head-of-line blocking이 생기지 않는지 봐야 한다.
 
----
 
 ## Operational Validation Checklist
 
@@ -790,7 +776,6 @@ Checkpoint 주기는 storage 문제가 아니라 training reliability 문제이�
 * [ ] All-to-All 시간 확인
 * [ ] Checkpoint 저장 주기 확인
 
----
 
 ## Chapter Summary
 
@@ -814,7 +799,6 @@ Network Engineer 관점에서 핵심 교훈은 다음과 같다.
 
 > Parallelism strategy가 communication pattern을 결정하고, communication pattern이 AI fabric requirement를 결정한다.
 
----
 
 ## Key Terms
 
@@ -841,7 +825,6 @@ Network Engineer 관점에서 핵심 교훈은 다음과 같다.
 | Rail                 | GPU/NIC/switch path를 정렬해 traffic locality를 높이는 network 설계 단위 |
 | DMA                  | GPU 또는 device memory 간 data copy를 CPU 개입 없이 수행하는 방식        |
 
----
 
 ## Questions
 
@@ -860,7 +843,6 @@ Network Engineer 관점에서 핵심 교훈은 다음과 같다.
 13. Pipeline Parallelism에서 time step별 GPU utilization이 변하는 이유는 무엇인가?
 14. Tensor Parallelism의 backward pass에서는 어떤 collective communication이 중요한가?
 
----
 
 ## Answers
 
@@ -920,7 +902,6 @@ Pipeline이 처음에는 비어 있고 끝에서는 다시 비워지기 때문�
 
 FFNN에서는 각 GPU가 local gradient를 계산한 뒤 AllReduce로 gradient를 동기화한다. Self-Attention에서는 Q/K fragment를 AllGather해 gradient 계산에 필요한 complete matrix를 만든 뒤, 계산된 gradient를 AllReduce로 맞춘다. 이 반복적인 layer 내부 communication 때문에 latency가 중요하다.
 
----
 
 ## References
 

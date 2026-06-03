@@ -29,8 +29,6 @@
 * [Answers](#answers)
 * [References](#references)
 
----
-
 ## Goal
 
 이번 주 목표는 **LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지** 이해하는 것이다.
@@ -54,8 +52,6 @@ Text
 
 이 장의 목적은 특정 GPT 모델을 구현하는 것이 아니라, Transformer 기반 LLM의 기본 연산 구조를 이해하는 것이다. 책에서도 Chapter 7의 목표를 “LLM이 단어의 문맥을 어떻게 이해하는지”와 “왜 LLM 학습이 수백~수천 개 GPU의 병렬화를 요구하는지”로 설명한다. 
 
----
-
 ## Why LLM Matters to Network Engineers
 
 네트워크 엔지니어 입장에서 LLM을 봐야 하는 이유는 간단하다.
@@ -64,15 +60,11 @@ Text
 
 Transformer 기반 LLM은 RNN처럼 이전 상태를 순차적으로 넘겨받는 방식이 아니라, **Self-Attention**을 통해 sequence 안의 모든 token 관계를 동시에 계산한다. 이 구조 덕분에 병렬화와 대규모 학습이 가능하지만, 동시에 parameter 수와 activation memory가 크게 증가한다. 책의 앞부분에서도 Transformer 기반 LLM은 모든 token 간 관계를 self-attention으로 가중 계산하며, 이 구조가 수십억 parameter 규모로 확장될 수 있다고 설명한다. 
 
----
-
 ## LLM Processing Pipeline
 
 ![LLM processing pipeline](./assets/llm-processing-pipeline.svg)
 
 LLM은 문자열을 직접 이해하지 않는다. 먼저 text를 token으로 나누고, token ID를 embedding lookup table에서 vector로 변환한다. 이후 positional embedding을 더해 “어떤 단어가 어느 위치에 있었는지”를 반영하고, Transformer decoder block이 이 vector들을 처리한다. 
-
----
 
 ## Tokenization
 
@@ -99,8 +91,6 @@ flowchart TB
     ID --> E[Embedding Lookup]:::vocab
 ```
 
----
-
 ## Special Tokens and Context Size
 
 책에서는 vocabulary의 token value가 2부터 시작하는 예를 든다.
@@ -120,8 +110,6 @@ Context size = model이 한 번에 참고할 수 있는 token window
 ```
 
 Network Engineer 관점에서는 context size가 커질수록 activation memory와 attention 계산량이 증가한다는 점이 중요하다. 이는 결국 GPU memory pressure와 parallelism 요구로 이어진다.
-
----
 
 ## Word Embedding Matrix
 
@@ -145,8 +133,6 @@ vocab_size × hidden_dimension = embedding parameters
 ```
 
 즉, vocabulary가 커지고 hidden dimension이 커질수록 GPU memory footprint가 증가한다.
-
----
 
 ## Embedding Vector Space
 
@@ -183,8 +169,6 @@ Embedding quality
 → more communication when sharded or synchronized
 ```
 
----
-
 ## Positional Embedding
 
 Transformer는 RNN처럼 time step 순서대로 정보를 넘기지 않는다.
@@ -220,8 +204,6 @@ Final Embedding = Word Embedding + Positional Embedding
 
 이렇게 하면 같은 단어라도 문장 내 위치에 따라 다른 representation을 갖게 된다.
 
----
-
 ## Positional Encoding Calculation
 
 책에서는 positional encoding을 계산할 때 세 값을 사용한다고 설명한다.
@@ -245,8 +227,6 @@ Word Embedding Vector
 ![Positional encoding vector addition](./assets/positional-encoding-addition.svg)
 
 실제 구현에서는 positional encoding이 고정값일 수도 있고, training 중 학습되는 parameter일 수도 있다. 핵심은 Transformer가 token 순서를 직접 순차 처리하지 않기 때문에 위치 정보를 별도 vector로 주입해야 한다는 점이다.
-
----
 
 ## Decoder-Only Transformer Architecture
 
@@ -284,7 +264,6 @@ flowchart TB
     ADD2 --> OUT[Decoder Output]:::output
 ```
 
----
 
 ## Autoregressive Decoder Loop
 
@@ -316,8 +295,6 @@ Longer sequence
 → more pressure for tensor / pipeline parallelism
 ```
 
----
-
 ## Query, Key, and Value
 
 Transformer는 입력 embedding vector를 그대로 attention에 넣지 않는다.
@@ -343,8 +320,6 @@ Different decoder layer
 ```
 
 책의 단순 예제에서는 계산량을 줄이기 위해 5차원 word vector를 3차원 Query vector로 줄이는 projection을 보여준다. Infrastructure 관점에서는 이런 projection matrix도 모두 trainable parameter이며, model size와 GPU memory footprint에 포함된다.
-
----
 
 ## Self-Attention
 
@@ -383,8 +358,6 @@ Q와 K를 dot product
 ### Network Engineer 관점
 
 Self-Attention 자체는 GPU 내부 matrix multiplication으로 보이지만, 모델이 커지면 Q/K/V projection weight와 attention output, activation을 한 GPU에 담기 어려워진다. 이 지점에서 tensor parallelism, pipeline parallelism, data parallelism이 등장한다.
-
----
 
 ## Causal Mask
 
@@ -438,7 +411,6 @@ Longer context
 
 네트워크 엔지니어 입장에서는 causal mask 자체보다 **긴 context가 GPU compute/memory 시간을 늘리고, 그 결과 GPU 간 동기화와 pipeline stage 대기 시간이 길어질 수 있다**는 점을 봐야 한다.
 
----
 
 ## KV Cache
 
@@ -525,7 +497,6 @@ More concurrent users
 >
 > Network Engineer 관점에서는 “네트워크를 더 빠르게 만든다”보다 “같은 GPU memory에 더 많은 context와 동시 session을 올릴 수 있게 해 serving concurrency를 높인다”로 해석하는 것이 현실적이다. 다만 압축률만 보면 안 되고, decode kernel overhead, quality regression, framework 지원 여부, prefill/decode batching 정책까지 같이 확인해야 한다.
 
----
 
 ## Multi-Head Attention and Parameter Blocks
 
@@ -559,7 +530,6 @@ flowchart LR
 
 책에서는 GPT-3 규모 예시에서 attention layer의 Q/K/V projection과 output projection이 block당 대략 수억 개 parameter를 차지할 수 있다고 설명한다. Network Engineer 입장에서는 이 parameter block이 커질수록 tensor parallelism의 대상이 되고, GPU 간 tensor shard communication이 늘어난다는 점이 중요하다.
 
----
 
 ## Add & Normalization
 
@@ -576,7 +546,6 @@ LayerNorm은 vector component의 평균과 분산을 사용해 값을 안정적�
 
 Infrastructure 관점에서는 LayerNorm 자체의 parameter 수는 attention/FFNN에 비해 작지만, 깊은 decoder stack에서 반복적으로 실행되므로 training step time에는 영향을 줄 수 있다.
 
----
 
 ## Feed Forward Neural Network
 
@@ -611,7 +580,6 @@ flowchart LR
 
 Attention은 token 간 관계를 섞는 역할이고, FFNN은 각 token의 representation을 더 풍부하게 변환하는 역할이다.
 
----
 
 ## Next Token Prediction with SoftMax
 
@@ -654,7 +622,6 @@ Selected token
 → next decoder pass
 ```
 
----
 
 ## Why LLMs Need Parallelism
 
@@ -679,7 +646,6 @@ GPT-3 규모 예시를 parameter block 관점에서 보면 다음과 같다.
 | FFNN layer             | block당 약 1.2B parameter 수준까지 커질 수 있음          | model memory와 tensor parallelism 압력 |
 | Full model             | 약 175B trainable parameter                  | multi-GPU/multi-node training 필요 |
 
----
 
 ## Network Engineer View
 
@@ -744,7 +710,6 @@ flowchart TB
     SCHED --> LAT[Tail Latency Control]:::requirement
 ```
 
----
 
 ## Chapter Summary
 
@@ -756,7 +721,6 @@ Chapter 7의 핵심은 다음 한 문장으로 정리할 수 있다.
 
 > LLM의 embedding, attention, FFNN parameter가 커질수록 단일 GPU memory를 초과하고, 이로 인해 parallelism과 backend GPU-to-GPU network가 필수 요소가 된다.
 
----
 
 ## Key Terms
 
@@ -784,7 +748,6 @@ Chapter 7의 핵심은 다음 한 문장으로 정리할 수 있다.
 | Decoder Block         | Attention, Add & Norm, FFNN으로 구성된 Transformer module                |
 | Parallelism           | 모델/데이터/연산을 여러 GPU에 나눠 처리하는 전략                                       |
 
----
 
 ## Questions
 
@@ -807,7 +770,6 @@ Chapter 7의 핵심은 다음 한 문장으로 정리할 수 있다.
 17. Multi-head attention에서 output projection은 왜 필요한가?
 18. Transformer block에서 attention layer와 FFNN layer가 infrastructure 관점에서 중요한 이유는 무엇인가?
 
----
 
 ## Answers
 
@@ -819,25 +781,21 @@ Tokenization은 text를 token ID로 바꾸는 과정이고, Word Embedding은 to
 Text → Token ID → Embedding Vector
 ```
 
----
 
 ### 2. 같은 단어가 문장 안에서 여러 번 나올 때 Positional Embedding이 왜 필요한가?
 
 같은 단어는 같은 token ID와 같은 word embedding을 갖는다. 따라서 위치 정보가 없으면 첫 번째 `clear`와 두 번째 `clear`를 구분하기 어렵다. Positional Embedding은 단어가 문장 안의 어느 위치에 있는지 알려준다.
 
----
 
 ### 3. Query, Key, Value를 네 말로 설명하면?
 
 Query는 현재 token이 찾고 싶은 정보, Key는 다른 token이 가진 정보의 색인, Value는 실제로 전달될 내용이다.
 
----
 
 ### 4. Self-Attention은 왜 token 간 관계를 계산하는가?
 
 단어의 의미는 주변 문맥에 따라 달라지기 때문이다. Self-Attention은 현재 token이 sequence 안의 다른 token들을 얼마나 참고해야 하는지 계산한다.
 
----
 
 ### 5. Decoder-only Transformer의 주요 구성요소는 무엇인가?
 
@@ -853,14 +811,12 @@ Q/K/V Projection
 
 이 decoder block이 여러 층으로 쌓이고, 마지막에 SoftMax를 통해 next token probability를 계산한다.
 
----
 
 ### 6. FFNN은 Attention Layer와 어떤 역할 차이가 있는가?
 
 Attention Layer는 token 간 관계를 섞는다.
 FFNN은 attention 결과로 나온 각 token representation을 개별적으로 변환한다.
 
----
 
 ### 7. SoftMax는 LLM의 어느 단계에서 사용되는가?
 
@@ -869,13 +825,11 @@ FFNN은 attention 결과로 나온 각 token representation을 개별적으로 �
 첫째, Self-Attention에서 attention score를 probability로 바꿀 때 사용된다.
 둘째, 마지막 output을 vocabulary 전체에 대한 next token probability로 바꿀 때 사용된다.
 
----
 
 ### 8. LLM parameter가 커지면 왜 GPU memory 문제가 발생하는가?
 
 LLM은 embedding matrix, Q/K/V projection matrix, attention output projection, FFNN weight 등 많은 parameter를 가진다. 학습 중에는 parameter뿐 아니라 activation, gradient, optimizer state도 저장해야 하므로 단일 GPU memory를 쉽게 초과한다.
 
----
 
 ### 9. LLM 학습이 backend network와 연결되는 지점은 어디인가?
 
@@ -887,7 +841,6 @@ Tensor Parallelism → tensor shard communication
 Pipeline Parallelism → activation transfer
 ```
 
----
 
 ### 10. Network Engineer 입장에서 Chapter 7을 읽을 때 가장 중요한 포인트는 무엇인가?
 
@@ -902,20 +855,17 @@ Transformer 구조
 → backend network requirement
 ```
 
----
 
 ### 11. Padding token과 unknown token은 왜 필요한가?
 
 Padding token은 길이가 다른 sequence를 같은 길이로 맞추기 위해 사용한다.
 Unknown token은 vocabulary에 없는 word 또는 subword를 model이 처리할 수 있는 공통 token으로 표현하기 위해 사용한다.
 
----
 
 ### 12. Context size가 커지면 infrastructure 관점에서 어떤 영향이 있는가?
 
 Context size가 커지면 model이 한 번에 처리해야 하는 token 수가 증가한다. 그 결과 activation memory와 attention 계산량이 늘어나고, 학습 시 GPU memory pressure가 커진다. 큰 model에서는 이 문제가 tensor parallelism, pipeline parallelism, activation checkpointing 같은 전략과 backend network traffic으로 이어진다.
 
----
 
 ### 13. 같은 self-attention layer와 다른 decoder layer에서 Q/K/V matrix는 어떻게 다른가?
 
@@ -923,7 +873,6 @@ Context size가 커지면 model이 한 번에 처리해야 하는 token 수가 �
 
 반면 decoder layer가 달라지면 각 layer는 별도의 Q/K/V weight matrix를 가진다. 그래서 깊은 layer는 더 추상적인 token representation을 학습할 수 있다.
 
----
 
 ### 14. Autoregressive decoder loop는 무엇인가?
 
@@ -933,7 +882,6 @@ Context size가 커지면 model이 한 번에 처리해야 하는 token 수가 �
 sequence → next token → append → next sequence
 ```
 
----
 
 ### 15. Causal mask는 왜 필요한가?
 
@@ -945,7 +893,6 @@ current position
 → block future tokens
 ```
 
----
 
 ### 16. KV Cache는 왜 필요하고, 왜 context가 길어질수록 커지는가?
 
@@ -960,13 +907,11 @@ KV Cache size
 
 따라서 긴 context, 큰 batch, 많은 동시 inference session은 GPU memory pressure를 크게 만든다.
 
----
 
 ### 17. Multi-head attention에서 output projection은 왜 필요한가?
 
 여러 attention head는 서로 다른 관점에서 token 관계를 계산한다. Output projection은 이 head들의 결과를 합쳐 다음 decoder layer가 처리할 수 있는 하나의 vector representation으로 변환한다.
 
----
 
 ### 18. Transformer block에서 attention layer와 FFNN layer가 infrastructure 관점에서 중요한 이유는 무엇인가?
 

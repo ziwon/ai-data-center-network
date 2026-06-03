@@ -17,7 +17,6 @@
 * [Answers](#answers)
 * [References](#references)
 
----
 
 ## Goal
 
@@ -32,7 +31,6 @@
 
 책에서도 Deep Learning과 data center networking 사이를 연결하는 bridge 역할을 목표로 하며, 특히 Deep Learning workload가 backend network design에 어떤 영향을 주는지에 집중한다고 설명한다. 또한 이 책은 configuration guide가 아니며, frontend, management, storage network는 주요 범위 밖에 있다고 명시한다.
 
----
 
 ## Why Network Engineers Should Learn the Training Loop
 
@@ -69,7 +67,6 @@ flowchart TB
 > Forward/Backward는 GPU가 계산하는 구간이다.
 > Gradient Synchronization은 GPU들이 서로를 기다리는 구간이다.
 
----
 
 ## Chapter 1: Artificial Neuron
 
@@ -156,7 +153,6 @@ Chapter 1은 단순해 보이지만, 이미 첫 번째 network design trigger를
 
 책에서는 neural network model과 input data의 memory requirement가 GPU memory를 초과하면 parallelization이 필요하다고 설명한다. 한 server 안에서는 NVLink를 통해 synchronization이 일어날 수 있고, 여러 GPU server에 걸쳐서는 backend network를 통해 synchronization이 일어난다. 이 backend network는 lossless, high-speed packet forwarding을 제공해야 한다.
 
----
 
 ## Chapter 2: Backpropagation Algorithm
 
@@ -252,7 +248,6 @@ Learning Rate = how far to move
 
 Infrastructure team 입장에서는 중요하다. 불안정한 training은 비싼 GPU cluster 시간을 낭비할 수 있기 때문이다.
 
----
 
 ## Chapter 3: Multi-Class Classification
 
@@ -345,7 +340,6 @@ flowchart TD
     F --> G[Weight Update]:::update
 ```
 
----
 
 ## Training Loop as Compute and Communication Phases
 
@@ -381,7 +375,6 @@ sequenceDiagram
 
 책에서는 compute-intensive한 forward/backward pass 동안 대부분의 연산이 GPU 내부에서 local하게 수행되므로 network utilization이 낮다고 설명한다. 반면 gradient synchronization 중에는 GPU NIC가 line rate로 전송할 수 있고, 종종 link utilization이 100%에 가까워진다.
 
----
 
 ## Gradient Synchronization and Backend Network Burst
 
@@ -486,7 +479,6 @@ flowchart LR
 
 책의 Figure 3-7도 이 pattern을 보여준다. Gradient synchronization이 link utilization을 capacity에 가깝게 밀어 올리는 반면, backward/forward compute phase에서는 network utilization이 낮게 나타난다.
 
----
 
 ## AI Training Traffic vs General Data Center Traffic
 
@@ -505,7 +497,6 @@ flowchart LR
 > General data center network는 request를 serving한다.
 > AI Training Fabric은 GPU를 synchronize한다.
 
----
 
 ## AI Training Fabric Design Implications
 
@@ -572,7 +563,6 @@ Checklist:
 * Switch queue depth
 * Training step time
 
----
 
 ## Chapter Summary
 
@@ -612,7 +602,6 @@ flowchart TD
 > Distributed training은 gradient synchronization을 통해 이 update를 일관되게 유지한다.
 > Gradient synchronization이 Deep Learning을 backend network 문제로 만드는 지점이다.
 
----
 
 ## Key Terms
 
@@ -633,7 +622,6 @@ flowchart TD
 | RDMA                     | CPU data copy 없이 server 간 direct memory access를 수행하는 방식 |
 | AI Training Fabric       | GPU-to-GPU training communication을 위한 backend network |
 
----
 
 ## Questions
 
@@ -645,7 +633,6 @@ flowchart TD
 6. AI training traffic은 일반 data center traffic과 왜 다른가?
 7. Average bandwidth보다 tail latency와 collective completion time이 더 중요한 이유는 무엇인가?
 
----
 
 ## Answers
 

@@ -21,7 +21,6 @@
 * [Answers](#answers)
 * [References](#references)
 
----
 
 ## Goal
 
@@ -35,7 +34,6 @@ Network engineer 관점에서 중요한 질문은 다음과 같다.
 
 > Training job이 시작될 때 어떤 control-plane 연결이 생기고, gradient synchronization 때 어떤 data-plane burst가 생기는가?
 
----
 
 ## Mental Model
 
@@ -87,7 +85,6 @@ Control plane과 data plane을 분리해서 보면 디버깅이 쉬워진다.
 | Inter-node transfer | NCCL over RDMA transport | InfiniBand or RoCEv2 | remote GPU host와 gradient/model parameter를 교환한다. |
 | Gradient sync | Broadcast, AllReduce, ReduceScatter, AllGather | Synchronized many-to-many burst | 가장 느린 rank가 training step time을 결정한다. |
 
----
 
 ## Chapter 9: RDMA Basics
 
@@ -138,7 +135,6 @@ Chapter 9 예제는 Reliable Connection을 사용한다. QP를 만들 때 regist
 
 P_Key는 RDMA domain의 partition key다. CCN과 SCN의 NIC port가 같은 partition에 속해야 통신할 수 있다. CCN은 connection request와 RDMA message에 P_Key를 포함하고, receiving node는 target QP의 P_Key와 일치하는지 확인한다.
 
----
 
 ## RDMA Write Flow
 
@@ -198,7 +194,6 @@ Server compute node가 RDMA Write message를 받으면 P_Key와 R_Key를 검증�
 > [!WARNING]
 > RoCEv2에서 packet loss는 단순한 retransmission 비용이 아니라 collective stall, GPU idle time, job timeout으로 이어질 수 있다. RDMA가 빠른 이유는 host stack을 우회하기 때문이며, 그만큼 fabric의 loss/congestion behavior가 더 직접적으로 드러난다.
 
----
 
 ## Chapter 14: GPU Cluster Communication Model
 
@@ -212,7 +207,6 @@ Chapter 14는 두 host, host당 네 GPU인 training cluster를 예제로 사용�
 
 NCCL은 network protocol 자체가 아니다. NCCL은 collective library이고, 실제 data path는 intra-node NVLink/PCIe, inter-node InfiniBand/RoCEv2, 또는 fallback socket transport에 의해 결정된다.
 
----
 
 ## NCCL Bootstrap and Unique ID
 
@@ -261,7 +255,6 @@ flowchart LR
 
 이 phase는 NCCL의 control plane에 가깝다. TCP socket이 보인다고 해서 gradient data plane이 TCP로 돈다는 뜻은 아니다. NCCL Unique ID distribution은 communicator bootstrap이고, 이후 collective data path는 NCCL transport 선택에 따라 달라진다.
 
----
 
 ## Model Parameter Synchronization
 
@@ -276,7 +269,6 @@ Broadcast에서는 NCCL이 tree topology를 만들 수 있다. Network 관점에
 
 ![Model parameter distribution by master rank 0](./assets/model-parameter-broadcast.svg)
 
----
 
 ## Gradient Synchronization with Ring AllReduce
 
@@ -350,7 +342,6 @@ AllGather도 세 iteration이다. 이제 각 rank는 자신이 가진 fully redu
 
 중요한 점은 AllReduce가 단순히 “한 서버로 모아서 다시 뿌리는” 구조가 아니라는 것이다. 여러 rank가 동시에 send/receive를 수행하고, intra-node link와 inter-node fabric이 함께 사용된다.
 
----
 
 ## Network Impact
 
@@ -393,7 +384,6 @@ flowchart LR
 
 따라서 AI backend network는 평균 utilization만 보면 부족하다. Step boundary, gradient bucket timing, rank-level straggler, queue depth, ECN marking, PFC pause, drop counter, NCCL transport selection을 함께 봐야 한다.
 
----
 
 ## Practical Lab: Observe NCCL Communication Path
 
@@ -471,7 +461,6 @@ NCCL INFO Using network
 6. Ring 또는 Tree channel이 어떤 rank 순서로 구성되는가?
 7. GPU와 NIC의 topology distance가 collective path와 맞는가?
 
----
 
 ## Operational Validation Checklist
 
@@ -550,7 +539,6 @@ NCCL_DEBUG=INFO torchrun --nproc_per_node=2 train.py
 * P2P path와 inter-node network path가 구분되는가?
 * fallback 여부와 fallback 원인이 log에 보이는가?
 
----
 
 ## Design Decision Matrix
 
@@ -564,7 +552,6 @@ NCCL_DEBUG=INFO torchrun --nproc_per_node=2 train.py
 | Ring rank order가 topology와 맞는가? | intra-node link를 우선 활용하고 inter-node hop을 줄임 | ring이 느린 cross-host path를 과도하게 사용 |
 | Failure visibility가 충분한가? | NCCL log, RDMA counters, switch counters가 원인과 맞음 | job은 동작하지만 조용히 느린 path 사용 |
 
----
 
 ## Practical Tips and Notes
 
@@ -609,7 +596,6 @@ AllReduce는 모든 rank가 완료되어야 끝난다. 평균 bandwidth가 좋�
 
 Chapter 9의 P_Key, QP number, PSN, BTH/RETH 같은 항목은 network engineer에게 중요한 관찰 단위다. ECMP hashing, packet ordering, congestion, QP scale 문제를 볼 때 application-level rank만으로는 부족하다.
 
----
 
 ## Chapter Summary
 
@@ -621,7 +607,6 @@ Network engineer 관점의 결론은 다음과 같다.
 
 > AI training fabric은 RDMA packet path와 NCCL collective pattern을 함께 봐야 한다. 하나는 transport이고, 다른 하나는 burst shape이다.
 
----
 
 ## Key Terms
 
@@ -651,7 +636,6 @@ Network engineer 관점의 결론은 다음과 같다.
 | PFC | Priority Flow Control. Ethernet priority별 pause mechanism |
 | ECN | Explicit Congestion Notification. drop 대신 congestion marking을 사용하는 mechanism |
 
----
 
 ## Questions
 
@@ -675,7 +659,6 @@ Network engineer 관점의 결론은 다음과 같다.
 
 ### Q10. NCCL log에서 `NET/Socket`이 보이면 무엇을 의심해야 하는가?
 
----
 
 ## Answers
 
@@ -719,7 +702,6 @@ ReduceScatter는 gradient chunk를 ring을 따라 reduce해서 rank별 fully red
 
 NCCL이 RDMA path를 사용하지 못하고 TCP socket transport로 fallback했을 수 있다. RDMA device visibility, `NCCL_IB_HCA`, container 권한, mlx5/libibverbs 상태, GPU-NIC topology, RoCE/IB link state를 확인해야 한다.
 
----
 
 ## References
 
