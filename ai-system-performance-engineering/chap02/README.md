@@ -31,7 +31,6 @@
 * [Questions](#questions)
 * [Answers](#answers)
 
----
 
 ## Goal
 
@@ -109,7 +108,6 @@ flowchart TB
     T --> SCHED
 ```
 
----
 
 ## Why Hardware Matters for AI Performance
 
@@ -130,7 +128,6 @@ AI 시스템 성능 문제는 보통 다음 형태로 나타난다.
 
 > 하드웨어를 안다는 것은 GPU 이름을 외우는 것이 아니라, 병목이 어느 물리 계층에서 발생하는지 추적할 수 있다는 뜻이다.
 
----
 
 ## AI System Hardware Stack
 
@@ -174,7 +171,6 @@ flowchart TB
 | Storage          | dataset, checkpoint, offload             | read throughput, random I/O, checkpoint delay |
 | Facility         | sustained operation                      | power cap, thermal throttling                 |
 
----
 
 ## Grace Blackwell Superchip
 
@@ -232,7 +228,6 @@ Grace Blackwell의 의미는 “CPU memory도 GPU가 접근할 수 있다”가 
 
 즉, Grace memory는 HBM의 대체재가 아니라 **lower-tier memory**로 이해하는 것이 좋다.
 
----
 
 ## CPU-GPU Memory Model
 
@@ -274,7 +269,6 @@ flowchart TB
 
 LLM inference에서는 특히 KV cache가 hot data가 되기 쉽다. KV cache를 CPU memory나 remote storage로 offload할 수는 있지만, latency-sensitive decode phase에서는 잘못 설계하면 TTFT/TPOT가 바로 나빠진다.
 
----
 
 ## Blackwell GPU Architecture
 
@@ -325,7 +319,6 @@ flowchart TB
 
 Blackwell의 핵심은 compute만 늘린 것이 아니라, **compute를 먹여 살릴 memory bandwidth와 interconnect도 같이 키웠다**는 점이다.
 
----
 
 ## Tensor Cores and Transformer Engine
 
@@ -360,7 +353,6 @@ flowchart LR
 * FP4는 특히 inference serving에서 model weight memory footprint와 bandwidth pressure를 크게 줄일 수 있다.
 * 하지만 precision을 낮추면 항상 accuracy, calibration, fallback path를 같이 봐야 한다.
 
----
 
 ## GPU Execution Model
 
@@ -410,7 +402,6 @@ flowchart TB
 
 > GPU 최적화는 “thread를 많이 띄우면 된다”가 아니라, memory latency를 숨길 만큼 충분한 warp를 유지하면서도 register/shared memory pressure를 관리하는 것이다.
 
----
 
 ## GPU Memory Hierarchy
 
@@ -449,7 +440,6 @@ flowchart TB
 | Low L2 hit rate                                    | data reuse 부족                                       |
 | High warp stall memory dependency                  | memory access pattern 개선 필요                         |
 
----
 
 ## NVL72 Rack-Scale GPU System
 
@@ -504,7 +494,6 @@ Source: [NVIDIA DGX GB Rack Scale Systems User Guide](https://docs.nvidia.com/dg
 | inference TTFT/TPOT가 느림           | large model을 rack 안에서 빠르게 serve           |
 | inter-rack network가 병목            | 가능한 한 intra-rack 안에 communication을 유지     |
 
----
 
 ## NVLink and NVSwitch
 
@@ -567,7 +556,6 @@ flowchart LR
 
 예를 들어 tensor parallel 8-way 또는 expert parallel workload를 Kubernetes에서 아무 GPU 8개에 흩뿌리면 안 된다. 같은 NVSwitch domain, 가능하면 같은 node/rack 안에 넣어야 한다.
 
----
 
 ## Multi-GPU Communication
 
@@ -613,7 +601,6 @@ flowchart TB
 
 NVL72의 장점은 이런 communication-heavy pattern을 rack 내부의 NVLink/NVSwitch fabric 안에서 처리할 수 있다는 점이다. 책에서는 NVL72 내부 통신은 traditional InfiniBand/Ethernet cluster보다 collective overhead를 훨씬 낮출 수 있으며, 가능한 한 workload communication을 intra-rack에 유지해야 한다고 설명한다.
 
----
 
 ## SHARP and In-Network Reduction
 
@@ -664,7 +651,6 @@ SHARP는 특히 다음 상황에서 중요하다.
 * MoE, tensor parallel, data parallel이 섞인 hybrid parallel workload
 * inter-rack collective까지 확장되는 대규모 training
 
----
 
 ## Multirack and Storage Communication
 
@@ -706,7 +692,6 @@ flowchart TB
 | GPU across racks       | InfiniBand / Ethernet RDMA | NCCL tests, ib_write_bw, switch telemetry |
 | GPU ↔ Storage          | DPU / NIC / GDS / NVMe-oF  | gdsio, iostat, DPU/NIC counters           |
 
----
 
 ## Preintegrated Rack Appliance
 
@@ -736,7 +721,6 @@ Chapter 2는 NVL72를 단순한 부품 묶음이 아니라 **preintegrated rack 
 3. scheduler가 job을 rack 내부 domain에 맞게 배치했는지 확인한다.
 4. power/cooling telemetry가 sustained performance를 막고 있지 않은지 확인한다.
 
----
 
 ## Co-Packaged Optics
 
@@ -759,7 +743,6 @@ NVL72 내부에서는 NVLink/NVSwitch가 매우 높은 bandwidth와 낮은 laten
 
 현재 병목 진단에서는 NVLink/NVSwitch와 InfiniBand/Ethernet telemetry를 분리해서 보고, 장기 설계에서는 optics power와 fabric bandwidth까지 capacity planning에 포함해야 한다.
 
----
 
 ## Power and Cooling
 
@@ -801,7 +784,6 @@ flowchart TB
 * rack 무게와 floor loading, coolant pressure/leak sensor, quick-disconnect 같은 물리 운영 요소도 deployment risk에 포함된다.
 * GPU가 idle에서 full load로 급격히 올라갈 때 power transient가 발생할 수 있으므로 PDU와 feed redundancy를 함께 봐야 한다.
 
----
 
 ## Performance Monitoring
 
@@ -867,7 +849,6 @@ nsys profile -t cuda,nvtx,osrt,cudnn,cublas python train.py
 ncu --set full python kernel_workload.py
 ```
 
----
 
 ## Sharing and Scheduling
 
@@ -901,7 +882,6 @@ MIG(Multi-Instance GPU)는 하나의 물리 GPU를 hardware-level partition으�
 * multi-tenant 환경에서 DPU/network isolation이 제대로 적용되는지
 * preemption, fragmentation, queueing이 goodput을 얼마나 줄이는지
 
----
 
 ## ROI of Hardware Upgrade
 
@@ -935,7 +915,6 @@ HBM capacity 증가가 model partition/offload를 줄이는가?
 → utilization과 goodput이 구매 비용을 정당화하는가?
 ```
 
----
 
 ## Hardware Bottleneck Lens
 
@@ -950,7 +929,6 @@ HBM capacity 증가가 model partition/offload를 줄이는가?
 | Thermal/power bottleneck | 시간이 지나며 clock 하락                    | throttle reason, power, temp            | nvidia-smi, DCGM              | cooling, power cap, workload shaping         |
 | Scheduler fragmentation  | GPU는 할당됐지만 통신 path 나쁨               | job placement, topology                 | Kubernetes, SLURM             | topology-aware scheduling                    |
 
----
 
 ## Operational Validation Checklist
 
@@ -967,7 +945,6 @@ nvidia-smi topo -m
 * GPU와 CPU NUMA node 관계
 * NVSwitch domain 내부/외부 구분
 
----
 
 ### 2. NVLink / NVSwitch Utilization
 
@@ -982,7 +959,6 @@ dcgmi dmon
 * 특정 link만 과도하게 사용되는가?
 * communication-heavy workload에서 NVLink bandwidth가 올라가는가?
 
----
 
 ### 3. NCCL Baseline
 
@@ -997,7 +973,6 @@ dcgmi dmon
 * GPU 수 증가에 따른 scaling efficiency
 * 특정 GPU pair 또는 NIC path에서 성능이 낮은지
 
----
 
 ### 4. GPU Memory Behavior
 
@@ -1012,7 +987,6 @@ nvidia-smi --query-gpu=memory.used,memory.total,utilization.gpu,utilization.memo
 * OOM 직전 fragmentation 가능성
 * KV cache pressure
 
----
 
 ### 5. Power / Thermal
 
@@ -1027,7 +1001,6 @@ nvidia-smi --query-gpu=power.draw,clocks.sm,temperature.gpu,clocks_throttle_reas
 * thermal throttling이 발생하는가?
 * 장시간 workload에서 성능이 떨어지는가?
 
----
 
 ### 6. Scheduler Placement
 
@@ -1040,7 +1013,6 @@ Kubernetes / SLURM에서 확인할 것:
 * multi-tenant job이 NVLink/NIC/storage path를 서로 방해하지 않는가?
 * chargeback이나 quota가 utilization뿐 아니라 goodput도 보게 만드는가?
 
----
 
 ## Practical Tips and Notes
 
@@ -1106,7 +1078,6 @@ rack-scale system에서는 장애 대응 절차도 성능 설계의 일부다. �
 | small model serving 비용이 높음        | whole GPU가 과할 정도로 큰가?                    | MIG 가능성, batching, request concurrency       |
 | 새 GPU 구매를 검토 중                  | 현재 병목이 새 GPU로 줄어드는 종류인가?               | bottleneck profile, perf/Watt, topology impact  |
 
----
 
 ## Hardware Roadmap
 
@@ -1130,7 +1101,6 @@ Chapter 2의 마지막 부분은 NVIDIA hardware roadmap을 통해 성능 엔지
 * inter-rack fabric이 병목이 되면 CPO, SHARP, RDMA, congestion control이 software tuning만큼 중요해진다.
 * hardware가 빨라져도 goodput은 scheduler, reliability, data path, monitoring이 함께 맞아야 오른다.
 
----
 
 ## Chapter Summary
 
@@ -1165,7 +1135,6 @@ Kubernetes에서 GPU를 할당했는데 느린가?
 
 > AI Systems Performance Engineer는 하드웨어 스펙을 읽는 사람이 아니라, workload가 어느 물리 계층에서 막히는지 metric으로 증명하는 사람이다.
 
----
 
 ## Key Terms
 
@@ -1195,7 +1164,6 @@ Kubernetes에서 GPU를 할당했는데 느린가?
 | Goodput            | 실제 useful work 기준의 처리량 또는 효율                                          |
 | AI Factory         | 여러 AI rack과 fabric을 묶어 training/inference 생산 설비처럼 운영하는 개념            |
 
----
 
 ## Questions
 
@@ -1214,7 +1182,6 @@ Kubernetes에서 GPU를 할당했는데 느린가?
 13. hardware upgrade의 ROI를 계산할 때 GPU 구매 비용 외에 어떤 요소를 봐야 하는가?
 14. Co-Packaged Optics는 어떤 규모의 병목을 완화하기 위한 기술 방향인가?
 
----
 
 ## Answers
 
@@ -1246,7 +1213,6 @@ Kubernetes에서 GPU를 할당했는데 느린가?
 
 14. **Co-Packaged Optics는 수백~수천 rack 규모의 AI factory에서 inter-rack bandwidth와 optics power 병목을 완화하기 위한 방향이다.** rack 내부 NVLink가 아니라 rack 밖 InfiniBand/Ethernet fabric 확장성과 관련이 깊다.
 
----
 
 ## References
 

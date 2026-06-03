@@ -1214,7 +1214,6 @@ export NCCL_DEBUG=INFO
 
 그리고 log에서 `NET/IB`, `NET/Socket`, `P2P`, `NVLink`, `SHARP` 관련 출력을 확인한다.
 
----
 
 ### 2. Kubernetes에서는 `/dev/infiniband`가 첫 번째 체크포인트다
 
@@ -1227,7 +1226,6 @@ kubectl exec -it <pod> -- ibv_devinfo
 
 이게 안 보이면 NCCL/RDMA tuning 이전에 device exposure 문제부터 봐야 한다.
 
----
 
 ### 3. `NCCL_P2P_DISABLE=1`은 남겨두면 위험하다
 
@@ -1239,7 +1237,6 @@ unset NCCL_P2P_DISABLE
 export NCCL_P2P_DISABLE=0
 ```
 
----
 
 ### 4. DDP bucket tuning은 Nsight trace를 보고 해야 한다
 
@@ -1254,7 +1251,6 @@ DistributedDataParallel(
 
 작게 하면 overlap은 빨리 시작하지만 overhead가 늘 수 있고, 크게 하면 bandwidth 효율은 좋아지지만 tail이 길어질 수 있다.
 
----
 
 ### 5. NCCL communicator는 한 번 만들고 재사용한다
 
@@ -1280,7 +1276,6 @@ for step in range(num_steps):
     dist.destroy_process_group()
 ```
 
----
 
 ### 6. NCCL tuning은 반드시 version과 함께 기록한다
 
@@ -1301,7 +1296,6 @@ GPU count
 network topology
 ```
 
----
 
 ### 7. DGX B200 클러스터에서는 400G/200G fabric 역할을 분리해서 봐야 한다
 
@@ -1315,7 +1309,6 @@ network topology
 
 NCCL이 의도한 400G fabric을 타는지 확인해야 한다. 잘못된 interface를 잡으면 성능이 크게 떨어진다.
 
----
 
 ### 8. Inference에서는 NCCL만 보면 부족하다
 

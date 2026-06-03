@@ -1377,7 +1377,6 @@ GPU utilization이 90%라도 실제 samples/sec, tokens/sec, TTFT/TPOT가 낮으
 * p95/p99 latency
 * OOM/restart count
 
----
 
 ### 2. CPU pinning은 “최적화”가 아니라 “jitter 제거”에 가깝다
 
@@ -1389,7 +1388,6 @@ nvidia-smi topo -m
 
 이 출력은 GPU placement와 NCCL/RDMA 튜닝의 출발점이다.
 
----
 
 ### 3. Kubernetes에서 GPU job은 Guaranteed QoS를 우선 고려한다
 
@@ -1403,7 +1401,6 @@ nvidia-smi topo -m
 * Topology Manager single-numa-node
 * unnecessary DaemonSet 최소화
 
----
 
 ### 4. MPS와 MIG는 목적이 다르다
 
@@ -1415,7 +1412,6 @@ nvidia-smi topo -m
 | large training          | full GPU     |
 | small inference packing | MIG or MPS   |
 
----
 
 ### 5. Container image는 성능 자산이다
 
@@ -1430,7 +1426,6 @@ nvidia-smi topo -m
 * registry mirror 사용
 * read-only root filesystem 검토
 
----
 
 ### 6. OOM killer는 성능 문제가 아니라 운영 리스크다
 
@@ -1445,7 +1440,6 @@ AI workload는 memory spike가 크다. OOM killer가 training rank 하나만 죽
 * restart strategy와 failure handling 설계
 * NCCL async error handling 사용
 
----
 
 ### 7. Inefficient Kernel Selection도 시스템 병목처럼 관찰해야 한다
 

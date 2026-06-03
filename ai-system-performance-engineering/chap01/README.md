@@ -21,7 +21,6 @@
 * [Answers](#answers)
 * [References](#references)
 
----
 
 ## Goal
 
@@ -63,7 +62,6 @@ flowchart TB
     PROF --> ALG
 ```
 
----
 
 ## Core Message
 
@@ -87,7 +85,6 @@ to:
 
 This is why Chapter 1 introduces **goodput**, **mechanical sympathy**, and **hardware-software-algorithm codesign** early.
 
----
 
 ## AI Systems Performance Engineer
 
@@ -136,7 +133,6 @@ It combines:
 | Resource efficiency | Improve performance per dollar and performance per watt            |
 | Reproducibility     | Make benchmark results repeatable and comparable                   |
 
----
 
 ## Why Goodput Matters
 
@@ -221,7 +217,6 @@ Example:
 | p99 latency high despite good average throughput   |            High | Low under SLO | Application / batching policy |
 | training job restarts often                        |        Variable |           Low | Reliability / orchestration   |
 
----
 
 ## Benchmarking and Profiling
 
@@ -272,7 +267,6 @@ Profiler shows NCCL wait reduced from 27% to 12%."
 | Storage-heavy training | data pipeline throughput           | IOPS, read BW, dataloader latency                     |
 | LLM serving            | SLO-compliant throughput           | KV cache usage, batch size, decode latency            |
 
----
 
 ## Mechanical Sympathy
 
@@ -327,7 +321,6 @@ Examples:
 | CPU-GPU transfers are costly                  | dataloader stalls GPU                 | pinned memory, async copy, prefetch              |
 | distributed collectives create bubbles        | scaling efficiency drops              | overlap communication and computation            |
 
----
 
 ## Hardware-Software-Algorithm Codesign
 
@@ -375,7 +368,6 @@ The senior engineer’s question is:
 Which layer gives the highest ROI fix for this bottleneck?
 ```
 
----
 
 ## DeepSeek Case Study
 
@@ -430,7 +422,6 @@ Do not assume that more GPU is the first answer.
 First prove whether the bottleneck is compute, memory, network, storage, runtime, or scheduling.
 ```
 
----
 
 ## Performance Bottleneck Lens
 
@@ -484,7 +475,6 @@ flowchart TB
 | Scheduler        | performance varies by placement | GPU/NIC locality                      | kubectl, DCGM, topology view | topology-aware scheduling               |
 | Application      | p99 latency high                | TTFT, TPOT, queue time                | vLLM/SGLang metrics          | continuous batching, prefix cache       |
 
----
 
 ## Practical Metrics and Tools
 
@@ -533,7 +523,6 @@ flowchart TB
 | `nvidia-smi topo -m` | GPU/NIC/CPU topology                      |
 | Kubernetes metrics   | placement, throttling, resource pressure  |
 
----
 
 ## AI Performance Engineering Workflow
 
@@ -565,7 +554,6 @@ Never claim improvement without before/after numbers.
 Never rely on GPU utilization alone.
 ```
 
----
 
 ## Design Decision Matrix
 
@@ -581,7 +569,6 @@ Never rely on GPU utilization alone.
 | high variance between runs              | scheduler/topology/noisy neighbor | DCGM, placement logs       | pin placement, isolate resources     |
 | OOM or frequent eviction                | memory pressure                   | GPU memory, KV cache stats | quantization, offload, cache policy  |
 
----
 
 ## Operational Validation Checklist
 
@@ -625,7 +612,6 @@ Use this checklist after reading Chapter 1.
 * [ ] Record trade-offs
 * [ ] Add regression test if possible
 
----
 
 ## Chapter Summary
 
@@ -648,7 +634,6 @@ Important takeaways:
 9. At AI scale, small efficiency improvements can translate into large cost savings.
 10. The job of an AI Systems Performance Engineer is to turn expensive raw compute into useful model progress.
 
----
 
 ## Key Terms
 
@@ -670,7 +655,6 @@ Important takeaways:
 | TPOT                | time per output token                                                     |
 | Scaling Efficiency  | realized speedup compared with ideal speedup                              |
 
----
 
 ## Questions
 
@@ -698,7 +682,6 @@ Important takeaways:
 14. When should you consider algorithm-level optimization instead of buying more GPUs?
 15. What should be included in a performance regression test?
 
----
 
 ## Answers
 
