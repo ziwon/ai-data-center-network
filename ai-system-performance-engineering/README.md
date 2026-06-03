@@ -2,6 +2,8 @@
 
 - [Chapter 1: Introduction and AI System Overview](./chap01/README.md)
 - [Chapter 2: AI System Hardware Overview](./chap02/README.md)
+- [Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments](./chap03/README.md)
+- [Chapter 4: Tuning Distributed Networking Communication](./chap04/README.md)
 
 ## Resources
 
