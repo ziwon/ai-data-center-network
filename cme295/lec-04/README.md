@@ -112,7 +112,7 @@ LLM training은 이 transfer learning paradigm 위에 있다. 먼저 큰 corpus�
 Pre-training은 LLM training에서 가장 비싼 단계다. 목표는 거대한 text/code corpus에서 next token을 예측하도록 model을 학습하는 것이다.
 
 ```math
-\mathcal{L} = - \sum_t \log P(x_t | x_{<t})
+\mathcal{L} = - \sum_t \log P(x_t \mid x_{\lt t})
 ```
 
 Decoder-only LLM은 context token들을 보고 다음 token probability distribution을 출력한다. Pre-training에서는 이 objective를 internet-scale corpus 전체에 반복 적용한다.
