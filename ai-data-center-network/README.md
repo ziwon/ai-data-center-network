@@ -8,6 +8,9 @@
 - [Chapter 04: Optics and Cable Management](./chap04/README.md)
 - [Chapter 05: Thermal and Power Efficiency Considerations](./chap05/README.md)
 - [Chapter 06: Effective Load Balancing](./chap06/README.md)
+- [Chapter 07: RoCEv2 Transport and Congestion Management](./chap07/README.md)
+- [Chapter 08: IP Routing for AI/ML Fabrics](./chap08/README.md)
+- [Chapter 09: Storage Network Design and Technologies for AI Data Centers](./chap09/README.md)
 
 ## Appendix
 
