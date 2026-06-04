@@ -3,7 +3,7 @@
 AI data center networking, LLM inference, training, storage, and AI systems performance engineering study notes.
 
 <p align="center">
-<img width="1024" height="576" alt="AI Data Center Systems" src="https://github.com/user-attachments/assets/7c71b0ee-1c32-45ef-aad7-6d44ec4da393" />
+<img width="1024" alt="Animated AI performance fabric" src="./fabric.svg" />
 </p>
 
 ## Study Tracks
