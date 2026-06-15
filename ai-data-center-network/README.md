@@ -16,6 +16,7 @@
 
 - [InfiniBand Packet Analysis](./ib-packet-analysis/README.md)
 - [RDMA Read/Write examples](./rdma-examples/README.md)
+- [GPU Cluster Failure Analysis: ECC, Xid, RDMA, and NCCL Hang](./gpu-cluster-failure-analysis/README.md)
 - [Clos Fabric Lab Series](./clos-ebgp-lab/README.md)
 
 ## Resources

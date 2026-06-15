@@ -817,6 +817,8 @@ Write가 빠른 이유: 데이터를 한 방향으로 보내고 작은 ACK만 �
 
 ## 6. 입문자가 자주 빠지는 함정 9가지
 
+이 섹션은 verbs 코드와 RoCE/IB 연결 설정에서 자주 발생하는 실수를 다룬다. 운영 중 NCCL hang이나 RDMA timeout이 보이면 네트워크 설정뿐 아니라 GPU Xid, ECC, NVLink, PCIe 이벤트도 함께 봐야 하며, 전체 타임라인은 [GPU Cluster Failure Analysis](../gpu-cluster-failure-analysis/README.md)를 참고한다.
+
 ### 6.1 GID index 틀리기
 
 `ibv_devinfo`로 확인:

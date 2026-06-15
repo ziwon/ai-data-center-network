@@ -77,6 +77,8 @@ Monitoring means continuous model performance tracking, accuracy evaluation, and
 
 > A collective call must be invoked by every rank with the same count and datatype. If this condition is violated, undefined behavior such as hangs, crashes, or data corruption can occur. This is why NCCL hang debugging usually starts by checking whether every rank entered the collective and whether the count and datatype match.
 
+> NCCL hang can also be a secondary symptom of GPU-side faults such as ECC, Xid, PCIe, or NVLink errors. See [GPU Cluster Failure Analysis](../gpu-cluster-failure-analysis/README.md) for an operational troubleshooting timeline.
+
 - Between Three Workers:
 
 ![Collective communication patterns between three workers](collective-patterns-between-three-workers.png)

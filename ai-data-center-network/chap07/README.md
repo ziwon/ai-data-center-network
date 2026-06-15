@@ -54,6 +54,8 @@ The core idea is:
 
 > RoCEv2 gives AI clusters high-throughput, low-latency RDMA over Ethernet, but Ethernet must be engineered carefully so congestion does not turn into packet loss, PFC storms, or long GPU stalls.
 
+> When a training job reports NCCL or RDMA timeouts, also correlate GPU Xid, ECC, NVLink, PCIe, and scheduler events. The [GPU Cluster Failure Analysis](../gpu-cluster-failure-analysis/README.md) appendix covers this cross-layer workflow.
+
 The chapter focuses on these topics:
 
 - Why RoCEv2 uses UDP/IP for RDMA traffic
