@@ -8,19 +8,30 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     numactl \
     libnuma-dev \
     libjemalloc2 \
+    libtcmalloc-minimal4 \
     google-perftools \
     htop \
     iotop \
     && rm -rf /var/lib/apt/lists/*
 
 # PyTorch CUDA allocator tuning.
-# Workload-specific. Validate with memory_stats / memory_snapshot / Nsight Systems.
+# Workload-specific. Override at runtime when benchmarking.
 ENV PYTORCH_ALLOC_CONF=max_split_size_mb:256,backend:cudaMallocAsync
 
 # Stable GPU ordering.
 ENV CUDA_DEVICE_ORDER=PCI_BUS_ID
 
-# Keep CPU thread defaults conservative.
+# CUDA extension / CUTLASS / custom kernel build targets.
+# These do not usually affect normal PyTorch execution unless native CUDA extensions are built.
+ARG TORCH_CUDA_ARCH_LIST="8.0;8.6;8.9;9.0;10.0;10.3;12.0;12.1+PTX"
+ARG CMAKE_CUDA_ARCHITECTURES="80;86;89;90;100;103;120;121"
+ARG CUTLASS_NVCC_ARCHS="80;86;89;90;100;103;120;121"
+
+ENV TORCH_CUDA_ARCH_LIST=${TORCH_CUDA_ARCH_LIST}
+ENV CMAKE_CUDA_ARCHITECTURES=${CMAKE_CUDA_ARCHITECTURES}
+ENV CUTLASS_NVCC_ARCHS=${CUTLASS_NVCC_ARCHS}
+
+# Conservative defaults for DDP-style 1 process per GPU.
 # Override at runtime for DataLoader/tokenizer/video preprocessing-heavy workloads.
 ENV OMP_NUM_THREADS=1
 ENV MKL_NUM_THREADS=1
@@ -40,10 +51,17 @@ ENV TCMALLOC_RELEASE_RATE=16
 
 WORKDIR /app
 
-# Better Docker layer cache behavior
-COPY requirements.txt /tmp/requirements.txt
+# Optional common monitoring/runtime utilities.
+# Do not reinstall torch/torchvision/triton here; use the versions provided by the NGC image.
 RUN python -m pip install --upgrade pip && \
-    python -m pip install --no-cache-dir -r /tmp/requirements.txt
+    python -m pip install --no-cache-dir \
+      nvidia-ml-py==12.560.30 \
+      psutil==6.1.0 \
+      GPUtil==1.4.0
+
+# Better Docker layer cache behavior.
+COPY requirements.txt /tmp/requirements.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements.txt
 
 COPY . /app
 
