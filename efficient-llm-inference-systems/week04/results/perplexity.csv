@@ -1,0 +1,4 @@
+variant,perplexity,delta_pct_vs_bf16
+bf16,11.942,0.0
+int8,12.017,0.63
+nf4,12.898,8.0

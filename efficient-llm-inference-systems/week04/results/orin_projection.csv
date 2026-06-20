@@ -1,0 +1,4 @@
+precision,weight_gb,ms_per_token,decode_16tok_s,speedup_vs_bf16
+BF16,14.0,94.0,1.5,1.0
+INT8,7.0,47.0,0.75,2.0
+INT4,3.5,23.5,0.38,4.0

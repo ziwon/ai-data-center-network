@@ -1,0 +1,4 @@
+variant,ms_per_gen,peak_mem_gb,speedup_vs_bf16,max_new_tokens
+bf16,380.4,5.76,1.0,32
+int8,1880.9,3.25,0.2,32
+nf4,660.6,1.98,0.58,32
