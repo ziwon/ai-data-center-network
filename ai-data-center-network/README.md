@@ -13,6 +13,7 @@
 - [Chapter 09: Storage Network Design and Technologies for AI Data Centers](./chap09/README.md)
 - [Chapter 10: AI Network Performance KPIs](./chap10/README.md)
 - [Chapter 11: Monitoring and Telemetry](./chap11/README.md)
+- [Chapter 12: Ultra Ethernet Consortium, UEC](./chap12/README.md)
 
 ## Appendix
 
