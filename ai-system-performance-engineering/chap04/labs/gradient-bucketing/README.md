@@ -4,7 +4,7 @@
 
 Show why Chapter 4 treats gradient synchronization as both a bandwidth problem and a launch-latency problem.
 
-This lab adapts the important ideas from `gradient_fusion_common.py` and `gradient_compression_common.py` in `refs/ai-performance-engineering/code/ch04`.
+This lab adapts the important ideas behind gradient fusion and gradient compression benchmarks.
 
 ## Baseline
 

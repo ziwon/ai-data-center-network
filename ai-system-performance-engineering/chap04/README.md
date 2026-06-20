@@ -24,6 +24,7 @@
 * [NCCL vs NIXL](#nccl-vs-nixl)
 * [Distributed Networking Bottleneck Lens](#distributed-networking-bottleneck-lens)
 * [Operational Validation Checklist](#operational-validation-checklist)
+* [Labs](#labs)
 * [Practical Tips and Notes](#practical-tips-and-notes)
 * [Chapter Summary](#chapter-summary)
 * [Key Terms](#key-terms)
@@ -1199,6 +1200,24 @@ torchrun --nproc_per_node=8 train.py
 * KV cache transfer가 tail latency를 만들고 있는가?
 * prefill/decode worker placement가 topology-aware한가?
 * KV cache offload path가 CPU/storage로 과도하게 빠지는가?
+
+## Labs
+
+Chapter 4 실습은 `labs/` 아래에 있다.
+
+| Lab | 핵심 주제 | 실행 |
+| --- | --- | --- |
+| `communication-overlap/` | backward compute와 bucket communication overlap | `cd labs/communication-overlap && python compare.py` |
+| `gradient-bucketing/` | gradient fusion, bucket 수, FP16 compression trade-off | `cd labs/gradient-bucketing && python compare.py` |
+| `nixl-tier-handoff/` | disaggregated inference KV block handoff, CPU staging vs packed transfer | `cd labs/nixl-tier-handoff && python compare.py` |
+| `topology-aware-bandwidth/` | NVLink/PCIe/NIC locality와 rank placement 비용 | `cd labs/topology-aware-bandwidth && python compare.py` |
+| `dataparallel-vs-ddp/` | DataParallel anti-pattern과 DDP 구조 차이 | `cd labs/dataparallel-vs-ddp && python compare.py` |
+| `communicator-lifecycle/` | communicator 재생성 비용과 재사용 | `cd labs/communicator-lifecycle && python compare.py` |
+| `pipeline-tensor-parallel/` | pipeline bubble, 1F1B, tensor-parallel sync | `cd labs/pipeline-tensor-parallel && python compare.py` |
+| `symmetric-memory-nvshmem/` | symmetric memory, persistent buffer, GPU-driven handoff 개념 | `cd labs/symmetric-memory-nvshmem && python compare.py` |
+| `gpu-communication-reference/` | 실제 CUDA/NCCL DDP overlap과 all-reduce bucket sweep | `cd labs/gpu-communication-reference && torchrun --nproc_per_node=2 ddp_overlap.py` |
+
+CPU-portable 실습은 multi-GPU/NCCL/NIXL 개념을 작은 병목 모델로 축약한 것이다. GPU가 있는 환경에서는 `gpu-communication-reference/`의 `torchrun` 예제로 실제 NCCL 경로를 확인하고, NCCL log, Nsight Systems, fabric telemetry로 이어서 검증해야 한다.
 
 ## Practical Tips and Notes
 

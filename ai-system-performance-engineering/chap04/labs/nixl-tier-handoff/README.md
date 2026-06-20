@@ -4,7 +4,7 @@
 
 Show why Chapter 4 separates training collectives from disaggregated inference data movement. NCCL is the right lens for all-reduce, but KV cache handoff is a point-to-point transfer problem.
 
-This lab adapts the important idea behind `baseline_nixl_tier_handoff.py`, `optimized_nixl_tier_handoff.py`, and `nixl_tier_handoff_tool.py` in `refs/ai-performance-engineering/code/ch04`.
+This lab adapts the important idea behind baseline and optimized NIXL-style tier handoff examples.
 
 ## Baseline
 

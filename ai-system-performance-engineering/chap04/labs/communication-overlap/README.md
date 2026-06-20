@@ -4,7 +4,7 @@
 
 Show why Chapter 4 focuses on **exposed communication time**. The total communication volume may be the same, but the optimized path starts each bucket transfer as soon as that gradient bucket is ready.
 
-This lab is a portable analogue of the `ddp_no_overlap.py` and `ddp_overlap.py` examples in `refs/ai-performance-engineering/code/ch04`.
+This lab is a portable analogue of no-overlap and overlap-enabled DDP training paths.
 
 ## Baseline
 
