@@ -1,0 +1,3 @@
+label,model,quantization,ms_per_gen,gen_tokens,tok_per_s
+bf16,Qwen/Qwen2.5-3B-Instruct,none,258.6,32,123.7
+awq_int4,Qwen/Qwen2.5-3B-Instruct-AWQ,awq_marlin,121.0,32,264.5
