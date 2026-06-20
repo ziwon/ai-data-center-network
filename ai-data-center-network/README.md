@@ -12,6 +12,7 @@
 - [Chapter 08: IP Routing for AI/ML Fabrics](./chap08/README.md)
 - [Chapter 09: Storage Network Design and Technologies for AI Data Centers](./chap09/README.md)
 - [Chapter 10: AI Network Performance KPIs](./chap10/README.md)
+- [Chapter 11: Monitoring and Telemetry](./chap11/README.md)
 
 ## Appendix
 
