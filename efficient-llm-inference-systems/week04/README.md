@@ -505,6 +505,66 @@ INT4: weight 3.5GB -> decode 24 ms/token, 16 token decode 0.4s  (prediction)
 
 If you download an INT4 model and measure it directly, you can validate the prediction. Week 3 data + Week 4 prediction + measured comparison is a good test of your modeling ability.
 
+### Lab Results (RTX 5080 16GB, Blackwell sm_120)
+
+These labs were run on an RTX 5080. On Blackwell the prebuilt AWQ kernels for the
+plain `transformers` path are unreliable, so the Lab 1 low-bit variants use
+**bitsandbytes** (INT8 / NF4), and a separate vLLM run (`vllm_quant_bench.py`)
+tests the **fused AWQ-INT4 Marlin** kernel. The full write-up is in
+[results/RESULTS.md](results/RESULTS.md).
+
+#### The headline: same bits, opposite speed
+
+![Same bits, opposite speed: the kernel decides](results/kernel_decides.svg)
+
+The README's "INT4 40-70% faster" expectation assumed a *fused* INT4 kernel. The
+measurements split sharply by kernel, not by bit-width:
+
+| Variant | Engine | ms / 32-tok gen | Speedup vs BF16 |
+|---|---|---|---|
+| BF16 | HF generate | 380.4 | 1.00x |
+| INT8 (bnb) | HF generate | 1880.9 | **0.20x (5x slower)** |
+| NF4 (bnb) | HF generate | 660.6 | **0.58x (1.7x slower)** |
+| BF16 | vLLM | 258.6 | 1.00x |
+| **AWQ-INT4 (Marlin)** | vLLM | 121.0 | **2.14x faster** |
+
+Both bitsandbytes paths are *slower* than BF16, while the fused AWQ-INT4 path is
+**2.14x faster** — even exceeding the README's expectation. **Kernel quality
+matters as much as bit-width:** fewer bits always saves memory, but only a fused
+low-bit kernel turns the saved bytes into lower latency.
+
+#### Lab 1 — memory falls, latency rises (bitsandbytes)
+
+![bitsandbytes: memory drops, latency rises](results/bnb_mem_vs_latency.svg)
+
+Memory shrank exactly as predicted (5.76 → 3.25 → 1.98 GB), but on a desktop GPU
+where the 3B model already fits with bandwidth to spare, the dequant overhead of
+bitsandbytes dominates and latency moves the wrong way.
+
+#### Lab 2 — quality (WikiText-2 perplexity, 100 samples)
+
+| Variant | Perplexity | Δ vs BF16 |
+|---|---|---|
+| BF16 | 11.942 | — |
+| INT8 (bnb) | 12.017 | +0.63% (near-lossless) |
+| NF4 (bnb) | 12.898 | **+8.00% (exceeds 5% threshold)** |
+
+INT8 is near-lossless; 4-bit NF4 without AWQ-style salient-channel protection
+visibly costs quality on this small model — consistent with the §4.5 note that
+≤7B models need the stronger PTQ algorithms.
+
+#### Lab 3 — Orin decode projection
+
+![Orin edge projection: weight bytes to decode latency](results/orin_projection.svg)
+
+Calibrated to the Week 3 BF16 measurement (94 ms/token), the bandwidth-bound
+model projects 2x / 4x decode speedup for INT8 / INT4 on Orin — the
+memory-bound, memory-tight regime where quantization genuinely pays off, in
+contrast to the desktop RTX 5080 in Lab 1.
+
+> **Reproduce the figures:** `python week04/make_figures.py` regenerates all
+> three SVGs from the result CSVs in `results/`.
+
 ---
 
 ## 4.10 Self-Assessment Questions
