@@ -11,6 +11,7 @@
 - [Chapter 07: RoCEv2 Transport and Congestion Management](./chap07/README.md)
 - [Chapter 08: IP Routing for AI/ML Fabrics](./chap08/README.md)
 - [Chapter 09: Storage Network Design and Technologies for AI Data Centers](./chap09/README.md)
+- [Chapter 10: AI Network Performance KPIs](./chap10/README.md)
 
 ## Appendix
 
