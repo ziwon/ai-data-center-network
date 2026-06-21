@@ -23,6 +23,8 @@ You should already know:
 
 This week explains the direct motivation behind those two measurements. **If we reduce weight bytes, exactly what becomes faster, and how do we preserve quality?**
 
+Related reading: [Hardware Architectures for LLM Inference](../appendix/hardware-architectures/README.md) connects quantization to memory movement, scratchpads, GPU/TPU execution models, and scale-out communication.
+
 ---
 
 ## 4.3 Core Concept: Why Quantization?
@@ -112,7 +114,49 @@ This fits the exponential distribution of FP8 better than uniform INT8/INT4. FP8
 | INT8 | Uniform; needs per-channel scale | Uniform | Inference, strong hardware compatibility |
 | INT4 | Very coarse uniform | High loss | Weight-only quantization |
 
-### 4.4.3 Symmetric vs. Asymmetric Quantization
+### 4.4.3 INT Scale: Mapping Real Values onto an Integer Grid
+
+INT quantization is not just "store the same number with fewer bits." It maps real-valued weights or activations onto a small, uniformly spaced integer grid. The scale decides the spacing of that grid:
+
+```
+real_value ~= int_value * scale
+int_value = clamp(round(real_value / scale), qmin, qmax)
+```
+
+For symmetric INT8, `qmin=-128` and `qmax=127`. For signed INT4, the grid is only `-8..7`. This means the scale must solve two competing problems:
+
+- If `scale` is small, values near zero get fine resolution, but large values overflow the grid and are clipped.
+- If `scale` is large, large values fit, but small values collapse into the same few integer buckets.
+
+Example:
+
+```
+INT4 signed grid: -8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7
+
+scale = 0.05  -> representable range ~= [-0.40, +0.35]
+scale = 0.50  -> representable range ~= [-4.00, +3.50]
+```
+
+The first scale preserves tiny weights well, but clips any weight larger than about `0.35`. The second scale preserves the tail, but many small weights around zero round to `0` or `+/-1`. This is why outliers are so damaging for INT quantization: one large channel can force the scale to become large, reducing effective precision for the ordinary values that carry most of the distribution.
+
+The scale granularity also matters:
+
+| Scale granularity | How it works | Trade-off |
+|---|---|---|
+| Per-tensor | One scale for the whole tensor | Simple and fast, but very sensitive to outliers |
+| Per-channel | One scale per output/input channel | Better quality, common for INT8 weights |
+| Per-group | One scale per small group of weights | Stronger INT4 quality, with moderate metadata overhead |
+
+For LLMs, the practical rule is:
+
+- INT8: scale design is important.
+- INT4: scale design is critical.
+- Per-channel or per-group scale is usually better than per-tensor scale.
+- Outliers create either clipping error, if the scale is too small, or rounding error for normal values, if the scale is too large.
+
+This is also why FP8 is easier to use than INT8 in many H100-era inference paths. INT formats use uniformly spaced buckets after scaling. FP8 has a floating-point exponent, so its representable values are naturally denser near zero and sparser in the tails. FP8 still needs scaling in real kernels, but it does not force the whole tensor into one uniformly spaced integer lattice in the same way INT quantization does.
+
+### 4.4.4 Symmetric vs. Asymmetric Quantization
 
 **Symmetric:** zero point is fixed at 0, only scale is learned or computed.
 
@@ -128,7 +172,18 @@ q = round((x - zero_point) / scale)
 x ~= q * scale + zero_point
 ```
 
-Weights usually use symmetric quantization because the distribution is symmetric around zero. Activations often need asymmetric quantization, because ReLU-like outputs can be non-negative only.
+| Item | Symmetric quantization | Asymmetric quantization |
+|---|---|---|
+| Zero point | Fixed at `0` | Can shift |
+| Formula | `q = round(x / scale)` | `q = round((x - zero_point) / scale)` |
+| Distribution assumption | Centered around zero | Does not need to be centered around zero |
+| Common use | Weights | Activations |
+| Advantage | Simple and fast | Uses the integer range more efficiently |
+| Disadvantage | Inefficient for one-sided or shifted values | Adds zero-point correction overhead |
+
+Weights usually use symmetric quantization because weight distributions are often roughly centered around zero. Activations often need asymmetric quantization because activation ranges can be shifted or one-sided, so a movable zero point can use the available INT8 range more efficiently.
+
+In real LLM kernels, activations are not always asymmetric. Hardware support, kernel implementation, calibration method, and model structure can make symmetric activation quantization preferable. The conceptual shortcut is: **weights are naturally symmetric; activations are more likely to need asymmetric handling.**
 
 ---
 
@@ -507,18 +562,13 @@ If you download an INT4 model and measure it directly, you can validate the pred
 
 ### Lab Results (RTX 5080 16GB, Blackwell sm_120)
 
-These labs were run on an RTX 5080. On Blackwell the prebuilt AWQ kernels for the
-plain `transformers` path are unreliable, so the Lab 1 low-bit variants use
-**bitsandbytes** (INT8 / NF4), and a separate vLLM run (`vllm_quant_bench.py`)
-tests the **fused AWQ-INT4 Marlin** kernel. The full write-up is in
-[results/RESULTS.md](results/RESULTS.md).
+These labs were run on an RTX 5080. On Blackwell the prebuilt AWQ kernels for the plain `transformers` path are unreliable, so the Lab 1 low-bit variants use **bitsandbytes** (INT8 / NF4), and a separate vLLM run (`vllm_quant_bench.py`) tests the **fused AWQ-INT4 Marlin** kernel. The full write-up is in [results/RESULTS.md](results/RESULTS.md).
 
 #### The headline: same bits, opposite speed
 
 ![Same bits, opposite speed: the kernel decides](results/kernel_decides.svg)
 
-The README's "INT4 40-70% faster" expectation assumed a *fused* INT4 kernel. The
-measurements split sharply by kernel, not by bit-width:
+The README's "INT4 40-70% faster" expectation assumed a *fused* INT4 kernel. The measurements split sharply by kernel, not by bit-width:
 
 | Variant | Engine | ms / 32-tok gen | Speedup vs BF16 |
 |---|---|---|---|
@@ -528,18 +578,147 @@ measurements split sharply by kernel, not by bit-width:
 | BF16 | vLLM | 258.6 | 1.00x |
 | **AWQ-INT4 (Marlin)** | vLLM | 121.0 | **2.14x faster** |
 
-Both bitsandbytes paths are *slower* than BF16, while the fused AWQ-INT4 path is
-**2.14x faster** — even exceeding the README's expectation. **Kernel quality
-matters as much as bit-width:** fewer bits always saves memory, but only a fused
-low-bit kernel turns the saved bytes into lower latency.
+Both bitsandbytes paths are *slower* than BF16, while the fused AWQ-INT4 path is **2.14x faster** — even exceeding the README's expectation. **Kernel quality matters as much as bit-width:** fewer bits always saves memory, but only a fused low-bit kernel turns the saved bytes into lower latency.
+
+#### Why the kernel path dominates
+
+The key difference is where dequantization happens. HF + bitsandbytes stores fewer weight bytes, but unpacking, scale application, and dequantization are still visible costs in the forward path. vLLM + AWQ Marlin turns packed INT4 loading, scale application, dequantization, and GEMM into one fused low-bit kernel.
+
+```mermaid
+%%{init: {"theme": "base", "themeCSS": "svg { background: #FFFFFF; }", "themeVariables": {"background": "#FFFFFF"}}}%%
+flowchart LR
+    Bench[Benchmark] --> HF16[HF BF16]
+    HF16 --> HF16Path[BF16 weights<br/>standard BF16 GEMM]
+    HF16Path --> HF16Out[380.4 ms<br/>baseline]
+
+    Bench --> BNB8[HF bitsandbytes INT8]
+    BNB8 --> BNB8Path[INT8 weights + scales<br/>dequant then GEMM]
+    BNB8Path --> BNB8Out[1880.9 ms<br/>0.20x]
+
+    Bench --> BNB4[HF bitsandbytes NF4]
+    BNB4 --> BNB4Path[packed NF4 + block scales<br/>unpack + dequant + GEMM]
+    BNB4Path --> BNB4Out[660.6 ms<br/>0.58x]
+
+    Bench --> V16[vLLM BF16]
+    V16 --> V16Path[serving engine<br/>paged KV + BF16 kernels]
+    V16Path --> V16Out[258.6 ms<br/>baseline]
+
+    Bench --> Marlin[vLLM AWQ-INT4 Marlin]
+    Marlin --> MarlinPath[packed INT4 + scales<br/>fused dequant + GEMM]
+    MarlinPath --> MarlinOut[121.0 ms<br/>2.14x]
+
+    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
+    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
+    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
+    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    class Bench primary
+    class HF16,BNB8,BNB4,V16 secondary
+    class HF16Path,BNB8Path,BNB4Path,V16Path note
+    class Marlin,MarlinPath,MarlinOut accent
+    class HF16Out,BNB8Out,BNB4Out,V16Out note
+    linkStyle default stroke:#111111,stroke-width:1.2px
+    linkStyle 12,13,14 stroke:#D9392E,stroke-width:2px
+```
+
+The same result can also be read as a sequence of runtime paths:
+
+```mermaid
+%%{init: {"theme": "base", "themeCSS": "svg { background: #FFFFFF; }", "themeVariables": {"background": "#FFFFFF", "actorBkg": "#F5F1EA", "actorBorder": "#111111", "actorTextColor": "#050505", "signalColor": "#111111", "signalTextColor": "#050505", "noteBkgColor": "#F3EFE7", "noteBorderColor": "#D8D1C7", "noteTextColor": "#6F6A63", "activationBkgColor": "#F5F1EA", "activationBorderColor": "#D9392E", "labelBoxBkgColor": "#F5F1EA", "labelBoxBorderColor": "#D8D1C7", "sequenceNumberColor": "#6F6A63"}}}%%
+sequenceDiagram
+    autonumber
+
+    participant Bench as Benchmark
+    participant HF as HF generate
+    participant BNB as bitsandbytes
+    participant VLLM as vLLM
+    participant Kernel as Kernel Path
+    participant GPU as GPU
+
+    Bench->>HF: BF16 test
+    HF->>Kernel: BF16 weights -> BF16 GEMM
+    Kernel->>GPU: efficient standard matmul
+    GPU-->>Bench: 380.4 ms = 1.00x
+
+    Bench->>HF: bnb INT8 test
+    HF->>BNB: INT8 weights + scales
+    BNB->>Kernel: dequant + GEMM, not fully fused
+    Kernel->>GPU: overhead dominates
+    GPU-->>Bench: 1880.9 ms = 0.20x
+
+    Bench->>HF: bnb NF4 test
+    HF->>BNB: NF4 packed weights + block scales
+    BNB->>Kernel: unpack + dequant + GEMM
+    Kernel->>GPU: memory saved, latency not improved
+    GPU-->>Bench: 660.6 ms = 0.58x
+
+    Bench->>VLLM: BF16 test
+    VLLM->>Kernel: optimized serving path + BF16 GEMM
+    Kernel->>GPU: paged KV cache + optimized decode
+    GPU-->>Bench: 258.6 ms = 1.00x
+
+    Bench->>VLLM: AWQ-INT4 Marlin test
+    VLLM->>Kernel: packed INT4 + fused dequant GEMM
+    Kernel->>GPU: Marlin fused low-bit GEMM
+    GPU-->>Bench: 121.0 ms = 2.14x
+```
+
+In short: bitsandbytes lowered storage precision, but dequant overhead consumed the latency benefit; AWQ Marlin fused dequantization with GEMM, so the lower bit-width became an actual speedup.
+
+The most important structural difference is:
+
+| Path | Execution shape | Why it matters |
+|---|---|---|
+| bitsandbytes NF4 / INT8 | Quantized weight read -> unpack or scale apply -> dequantized fragments -> GEMM | Weight memory falls, but dequant work remains visible as extra kernel work or extra memory movement. |
+| AWQ Marlin | Packed INT4 weight read -> fused dequant + GEMM inside one optimized kernel | Weight memory falls and the dequant cost is hidden inside the matmul kernel, so the saved bytes can become lower latency. |
+
+```text
+bitsandbytes path:
+quantized storage -> unpack / scale apply -> dequant -> GEMM
+
+AWQ Marlin path:
+packed INT4 + scales -> fused low-bit GEMM
+```
+
+bitsandbytes separates dequantization from GEMM:
+
+```mermaid
+%%{init: {"theme": "base", "themeCSS": "svg { background: #FFFFFF; }", "themeVariables": {"background": "#FFFFFF", "actorBkg": "#F5F1EA", "actorBorder": "#111111", "actorTextColor": "#050505", "signalColor": "#111111", "signalTextColor": "#050505", "noteBkgColor": "#F3EFE7", "noteBorderColor": "#D8D1C7", "noteTextColor": "#6F6A63", "activationBkgColor": "#F5F1EA", "activationBorderColor": "#D9392E", "labelBoxBkgColor": "#F5F1EA", "labelBoxBorderColor": "#D8D1C7", "sequenceNumberColor": "#6F6A63"}}}%%
+sequenceDiagram
+    participant W as Quantized Weight
+    participant D as Dequantization
+    participant G as GEMM
+    participant O as Output
+
+    W->>D: unpack + scale apply
+    D->>G: dequantized fragments
+    G->>O: matmul output
+
+    Note over D,G: dequant and GEMM are effectively separate, so overhead is visible
+```
+
+AWQ Marlin fuses dequantization into the low-bit GEMM kernel:
+
+```mermaid
+%%{init: {"theme": "base", "themeCSS": "svg { background: #FFFFFF; }", "themeVariables": {"background": "#FFFFFF", "actorBkg": "#F5F1EA", "actorBorder": "#111111", "actorTextColor": "#050505", "signalColor": "#111111", "signalTextColor": "#050505", "noteBkgColor": "#F3EFE7", "noteBorderColor": "#D8D1C7", "noteTextColor": "#6F6A63", "activationBkgColor": "#F5F1EA", "activationBorderColor": "#D9392E", "labelBoxBkgColor": "#F5F1EA", "labelBoxBorderColor": "#D8D1C7", "sequenceNumberColor": "#6F6A63"}}}%%
+sequenceDiagram
+    participant W as Packed AWQ INT4 Weight
+    participant M as Marlin Fused Kernel
+    participant O as Output
+
+    W->>M: packed INT4 + scales
+    M->>M: dequant + GEMM fused
+    M->>O: matmul output
+
+    Note over M: handled inside one fused low-bit kernel
+```
+
+This is why "4-bit" alone is not the performance guarantee. The deployment question is whether the runtime has a fused kernel path for that quantized format on that GPU.
 
 #### Lab 1 — memory falls, latency rises (bitsandbytes)
 
 ![bitsandbytes: memory drops, latency rises](results/bnb_mem_vs_latency.svg)
 
-Memory shrank exactly as predicted (5.76 → 3.25 → 1.98 GB), but on a desktop GPU
-where the 3B model already fits with bandwidth to spare, the dequant overhead of
-bitsandbytes dominates and latency moves the wrong way.
+Memory shrank exactly as predicted (5.76 → 3.25 → 1.98 GB), but on a desktop GPU where the 3B model already fits with bandwidth to spare, the dequant overhead of bitsandbytes dominates and latency moves the wrong way.
 
 #### Lab 2 — quality (WikiText-2 perplexity, 100 samples)
 
@@ -549,21 +728,15 @@ bitsandbytes dominates and latency moves the wrong way.
 | INT8 (bnb) | 12.017 | +0.63% (near-lossless) |
 | NF4 (bnb) | 12.898 | **+8.00% (exceeds 5% threshold)** |
 
-INT8 is near-lossless; 4-bit NF4 without AWQ-style salient-channel protection
-visibly costs quality on this small model — consistent with the §4.5 note that
-≤7B models need the stronger PTQ algorithms.
+INT8 is near-lossless; 4-bit NF4 without AWQ-style salient-channel protection visibly costs quality on this small model — consistent with the §4.5 note that ≤7B models need the stronger PTQ algorithms.
 
 #### Lab 3 — Orin decode projection
 
 ![Orin edge projection: weight bytes to decode latency](results/orin_projection.svg)
 
-Calibrated to the Week 3 BF16 measurement (94 ms/token), the bandwidth-bound
-model projects 2x / 4x decode speedup for INT8 / INT4 on Orin — the
-memory-bound, memory-tight regime where quantization genuinely pays off, in
-contrast to the desktop RTX 5080 in Lab 1.
+Calibrated to the Week 3 BF16 measurement (94 ms/token), the bandwidth-bound model projects 2x / 4x decode speedup for INT8 / INT4 on Orin — the memory-bound, memory-tight regime where quantization genuinely pays off, in contrast to the desktop RTX 5080 in Lab 1.
 
-> **Reproduce the figures:** `python week04/make_figures.py` regenerates all
-> three SVGs from the result CSVs in `results/`.
+> **Reproduce the figures:** `python week04/make_figures.py` regenerates all three SVGs from the result CSVs in `results/`.
 
 ---
 
