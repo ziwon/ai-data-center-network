@@ -146,18 +146,23 @@ flowchart LR
 
 Rebellions의 공개 자료에서 반복되는 메시지는 **inference workload에 맞춘 SoC와 scale-out serving stack**이다.
 
-공식 RBLN NPU architecture 문서는 ATOM을 multi-core SoC로 설명한다. 공개 문서 기준 ATOM은 Neural Engines, Command Processor, on-chip local/global scratchpad memory hierarchy, NoC bus fabric, PCIe 5.0, GDDR6 interface를 포함한다. 각 Neural Engine에는 4MB local SRAM이 있고, 전체 Neural Engine이 공유하는 32MB global SRAM과 16GB off-chip GDDR6 DRAM이 언급된다.
+공식 RBLN NPU architecture 문서는 ATOM을 multi-core SoC로 설명한다. 공개 문서 기준 ATOM은 Neural Engines, Command Processor, on-chip local/global scratchpad memory hierarchy, NoC bus fabric, PCIe 5.0, GDDR6 interface를 포함한다. ATOM white paper는 Samsung 5nm, FP16 32 TFLOPS, INT8 128 TOPS, 8 Neural Engines, 총 64MB on-chip SRAM을 제시한다. RBLN-CA12 card 기준으로는 16GB GDDR6, 256GB/s memory bandwidth, PCIe Gen5 x16, 60-130W TDP, 최대 16개 hardware-isolated multi-instance가 공개되어 있다.
+
+메모리 계층은 조금 세분해서 읽어야 한다. 각 Neural Engine에는 4MB scratchpad memory가 있고, L1 Neural Cache와 32MB L2 Shared Memory가 언급된다. 따라서 "64MB on-chip SRAM"이라는 product-level 숫자와 "4MB local scratchpad + 32MB shared memory"라는 architecture-level 설명을 함께 봐야 한다.
 
 이 구조는 GPU memory hierarchy와 닮았지만, 해석은 조금 다르다.
 
 | ATOM component | Inference interpretation |
 |---|---|
 | Neural Engine | dense neural network compute를 실행하는 기본 compute tile |
-| Local SRAM | tile, activation, temporary state를 가까이 두는 scratchpad |
-| Global SRAM | engine 간 공유되는 on-chip memory layer |
+| Local scratchpad | tile, activation, temporary state를 가까이 두는 per-engine SRAM |
+| L1 Neural Cache | Neural Engine 가까이에서 data access latency를 줄이는 cache layer |
+| L2 Shared Memory | engine 간 공유되는 32MB on-chip memory layer |
 | NoC | engine과 memory 사이 data movement fabric |
 | GDDR6 DRAM | model weights, activations, cache state의 off-chip backing store |
 | Command Processor | compiled execution and scheduling control path |
+| Task Manager | local dependency를 hardware level에서 풀어 parallel execution을 돕는 control block |
+| Multi-Instance | 하나의 card를 여러 isolated inference task에 나누어 배정하는 partitioning surface |
 
 ### 3.1 ATOM의 roofline 관점
 
@@ -218,6 +223,16 @@ RBLN v0.10.4의 vLLM profiling guide도 같은 방향이다. TTFT와 TPOT만으�
 | Multi-node execution | 큰 모델 또는 높은 concurrency에서 memory capacity와 throughput을 확장한다. |
 | MoE support | expert routing은 AllToAll, load balance, irregular dispatch를 만든다. |
 | Cache-aware scheduling | KV cache locality와 memory compaction이 throughput/p99를 좌우한다. |
+
+RSD white paper에서 더 구체적으로 보이는 것은 compiler-managed tensor parallelism이다. Rebellions는 RBLN Compiler가 compile time에 model tensor를 여러 device로 나누고, Command Processor가 실행할 command stream 안에 inter-device data movement 정보를 포함한다고 설명한다.
+
+| RSD mechanism | Inference interpretation |
+|---|---|
+| Automatic multi-device splitting | tensor parallelism을 developer가 수동으로 graph surgery하지 않도록 compiler가 splitting/reconnection을 담당한다. |
+| Inter-device communication optimization | broadcast, reduce, partial sums 같은 collective pattern의 overhead와 memory footprint를 줄이는 방향이다. |
+| Intra-device layer pipelining | device 내부 operation을 겹쳐 idle time과 communication stall을 줄이려는 시도다. |
+| PCIe Gen5 x16 card-to-card path | host connectivity뿐 아니라 direct inter-card communication을 scale-out path의 일부로 사용한다. |
+| vLLM + router server | 여러 vLLM instance를 rack-level serving surface로 묶고 workload를 분산하는 운영 모델을 제시한다. |
 
 Week 1-4의 언어로 바꾸면, RSD는 다음 문제에 답하려는 시도다.
 
@@ -280,9 +295,45 @@ Custom kernel support도 흥미롭다. v0.10.4 문서는 Triton kernel을 RBLN I
 
 Disaggregated Encoder는 prefill/decode disaggregation과는 다른 축이다. 멀티모달 모델에서 visual encoder와 language model의 scheduling profile이 다르기 때문에, encoder instance와 PD(Prefill+Decode) instance를 별도 vLLM process로 분리한다. v0.10.4 문서는 이 기능을 beta로 표시하고 production 사용은 아직 권장하지 않는다고 설명한다. 따라서 이 기능은 "방향성은 중요하지만 안정성 검증이 필요한 surface"로 읽어야 한다.
 
+Rebellions white paper의 benchmark 수치는 조심해서 읽어야 한다. ATOM white paper의 T5-3B와 SDXL-Turbo 결과는 A100과의 power efficiency 비교를 제시하지만, ATOM 결과가 projected data로 표시되어 있다. RSD white paper의 Llama3-8B rack-level TPS/Watt, TPS/$ 비교도 internal testing 또는 public information 기반 추정이라는 전제가 붙는다. 따라서 이 숫자는 procurement-grade benchmark가 아니라 vendor가 강조하는 design target, 즉 "low-power inference와 scale-out efficiency"를 읽는 자료로 쓰는 것이 맞다.
+
 ### 3.5 RBLN 공개 소프트웨어 스택을 읽는 순서
 
 Rebellions의 공개 GitHub 조직에는 compiler 내부를 그대로 보여주는 repository가 있는 것은 아니다. `rebel-compiler`는 별도 접근이 필요한 binary package로 배포된다. 따라서 공개 repository를 읽을 때는 "compiler가 내부에서 어떻게 최적화하는가"보다 "어떤 integration surface와 production path를 공개했는가"에 초점을 맞추는 편이 현실적이다.
+
+RBLN compiler API 문서는 이 integration surface를 더 직접적으로 보여준다. RBLN 컴파일러는 PyTorch와 TensorFlow graph를 입력으로 받아 compile할 수 있으며, 공개 문서 기준 PyTorch `torch.nn.Module`, TensorFlow v2 `tf.function`, TensorFlow v1 `GraphDef`를 입력 surface로 제시한다. Compile pipeline은 Model Conversion, Graph Generation, Graph Optimization으로 설명되고, 결과는 RBLN Runtime에서 즉시 쓰거나 `.rbln` file로 저장해 재사용할 수 있다. Runtime 실행 surface는 `Runtime()` 또는 `AsyncRuntime()` 생성 후 `run()`을 호출하는 형태이며, 입출력 data type으로 `torch.Tensor`와 `numpy.ndarray`를 지원한다.
+
+```mermaid
+flowchart TB
+    A[PyTorch<br/>torch.nn.Module] --> B[rebel.compile_from_torch<br/>or torch.compile]
+    C[TensorFlow v2<br/>tf.function] --> D[rebel.compile_from_tf_function]
+    E[TensorFlow v1<br/>GraphDef] --> F[rebel.compile_from_tf_graph_def]
+
+    B --> G[Compilation<br/>model conversion<br/>graph generation<br/>graph optimization]
+    D --> G
+    F --> G
+
+    G --> H[Direct use]
+    G --> I[save .rbln artifact]
+    I --> J[Disk]
+    H --> K[Runtime / AsyncRuntime]
+    J --> K
+    K --> L[runtime_module.run]
+    M[Input<br/>torch.Tensor / numpy.ndarray] --> L
+    L --> N[Output<br/>torch.Tensor / numpy.ndarray]
+    L --> O[RBLN driver and devices<br/>ATOM / REBEL]
+
+    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
+    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
+    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
+    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    class A,C,E,M primary
+    class B,D,F,K,L secondary
+    class G accent
+    class H,I,J,N,O note
+```
+
+_Source: adapted from RBLN Compiler API overview._
 
 LLM inference 관점에서는 다음 네 repository가 가장 중요하다.
 
@@ -299,7 +350,30 @@ LLM inference 관점에서는 다음 네 repository가 가장 중요하다.
 
 `optimum-rbln`은 Hugging Face ecosystem과 NPU compiler/runtime 사이의 adapter다. 기존 `transformers` 또는 `diffusers` pipeline을 RBLN class로 바꾸고, export/compile된 artifact를 저장한 뒤 inference에 재사용하는 흐름을 제공한다. 따라서 model portability, compile-time shape 선택, Hugging Face API compatibility를 평가할 때 유용하다.
 
+Optimum RBLN의 Single NPU와 Multi-NPU 지원 목록은 단순한 superset/subset 관계로 읽으면 안 된다. Single NPU support는 대체로 local compile/inference coverage를 보여주고, Multi-NPU support는 model partitioning, inter-device communication, memory fit, RSD-specific validation이 함께 맞아야 하는 distributed execution contract에 가깝다.
+
+Qwen3-VL-2B-Instruct 예시는 이 차이를 잘 보여준다. 모델 이름의 2B parameter count만 보면 작아 보이지만, Qwen3-VL 튜토리얼은 이 모델을 top-level causal LM과 `visual` Vision Transformer submodule로 나누고, 각 구성요소를 별도 graph로 compile하고 별도 runtime으로 실행한다고 설명한다. 공개 예제의 RBLN config도 visual encoder와 language model 양쪽에 `tensor_parallel_size=8`을 사용하고, visual `max_seq_len=16384`, language-model `max_seq_len=262144`, `kvcache_partition_len=16384` 같은 큰 serving envelope를 잡는다. 따라서 이것은 "2B model weight 때문에 무조건 8 NPU가 필요하다"라기보다, 긴 multimodal context, 큰 visual token budget, KV cache partitioning, tensor-parallel execution을 포함한 validated RSD configuration으로 읽어야 한다.
+
+튜토리얼은 이 large envelope의 낭비 가능성도 직접 다룬다. Qwen3-VL의 ViT는 이미지 또는 비디오 프레임 단위로 실행되고 graph shape가 compile time에 고정된다. `visual.max_seq_len=16384`로 compile하면 실제 입력이 1,024 patches여도 16,384 patches 분량을 계산한다. 이를 줄이기 위해 `visual.max_seq_len=[1024, 3136, 16384]`처럼 여러 ViT graph를 함께 compile하고, runtime에 실제 patch 수를 담을 수 있는 가장 작은 bucket을 선택하는 방식을 제시한다. 예를 들어 Qwen3-VL의 `patch_size=16`, `spatial_merge_size=2` 기준으로 1024x1024 image는 1,024 merged patches, 1792x1792는 3,136, 4096x4096는 16,384에 대응한다.
+
+디코더도 같은 문제가 있다. `batch_size=8`로 compile된 decoder는 실제 active batch가 3이어도 8 slot 분량을 계산하므로, 튜토리얼은 `decoder_batch_sizes=[1, 2, 4, 8]`처럼 여러 decoder graph를 함께 compile해 실제 batch에 맞는 graph를 선택하는 방식을 설명한다. 또한 16 device server에서는 `visual`을 device 0-7에, LM을 device 8-15에 분리 배치하면 두 submodule이 같은 device memory를 동시에 점유하지 않아 큰 batch와 긴 context에서 memory pressure를 줄일 수 있다고 설명한다.
+
+그래도 GPU 대비 평가에서는 critical signal이다. 실제 workload가 작은 image, 짧은 prompt, 짧은 output이라면 한 장의 high-memory GPU로 충분할 수 있고, 8 NPU configuration은 cost, slot, operational complexity에서 불리할 수 있다. RBLN stack이 설득력을 가지려면 같은 workload/SLO에서 8 NPU 기준 tokens/sec/W, p99 latency, concurrency, server cost가 GPU baseline을 이겨야 한다.
+
+| Qwen3-VL-2B RSD question | Why it matters |
+|---|---|
+| 더 작은 `max_seq_len`으로 compile할 수 있는가? | target context가 짧으면 memory reservation과 compile envelope를 줄일 수 있다. |
+| visual `max_seq_len`을 실제 image/video resolution에 맞출 수 있는가? | patch/token budget이 visual encoder cost와 activation memory를 좌우한다. |
+| ViT input-length bucket을 몇 개 둘 것인가? | bucket 수가 많으면 padding waste는 줄지만 compile time과 device memory 사용량이 늘어난다. |
+| `decoder_batch_sizes`가 traffic의 active batch distribution과 맞는가? | decode 단계의 unused slot 계산을 줄일 수 있다. |
+| `visual`과 LM을 같은 device pool에 둘 것인가, 분리할 것인가? | memory pressure와 available NPU count 사이의 trade-off다. |
+| `tensor_parallel_size`를 1, 2, 4로 낮출 수 있는가? | minimum NPU count가 deployment economics를 결정한다. |
+| 8 NPU에서 GPU 1장 대비 p99와 tokens/sec/W가 어떤가? | 지원 여부가 아니라 production value를 판단하는 기준이다. |
+| compile-time shape가 traffic distribution과 맞는가? | 너무 큰 envelope는 padding, memory, scheduling waste를 만들 수 있다. |
+
 `torch-rbln`은 가장 낮은 software layer를 보여준다. PyTorch out-of-tree extension으로 `rbln` device, `torch.rbln`, `torch.compile` surface를 제공한다. README는 beta 상태와 API 변화 가능성을 명시하므로 production serving의 출발점으로 보기보다는, unsupported op, eager debugging, operator lowering, PyTorch integration 방향을 이해하는 자료로 보는 것이 맞다.
+
+C/C++ language binding은 Python runtime을 사용할 수 없거나 아주 낮은 latency를 요구하는 application을 위한 runtime API로 공개되어 있다. 설치 자체가 compiler 내부 분석에 큰 도움을 주지는 않지만, C/C++ service process에서 `.rbln` artifact를 load하고 inference를 호출하는 deployment boundary를 이해하는 데는 유용하다. 따라서 목적이 LLM serving stack과 model coverage 분석이면 우선순위는 낮고, embedded service, custom C++ server, Python overhead 제거, non-Python production integration을 검토할 때 살펴볼 가치가 있다.
 
 이 네 repository를 하나의 stack으로 묶으면 다음 그림이 된다.
 
@@ -671,6 +745,10 @@ Vendor docs는 architecture와 intended use case를 이해하는 데 유용하�
 | Rebellions ATOM white paper page | <https://rebellions.ai/atom-architecture-finding-the-sweet-spot-for-genai/> |
 | Rebellions LLM serving with NPU | <https://rebellions.ai/llm-serving-with-npu/> |
 | Rebellions Scalable Design | <https://rebellions.ai/rebellions-scalable-design/> |
+| RBLN Compiler API overview | <https://docs.rbln.ai/v0.10.4/ko/software/api/index.html> |
+| RBLN C/C++ language binding installation | <https://docs.rbln.ai/v0.10.4/ko/software/api/language_binding/c/installation.html> |
+| RBLN Optimum overview | <https://docs.rbln.ai/v0.10.4/ko/software/optimum/index.html> |
+| RBLN Optimum Qwen3-VL-2B tutorial | <https://docs.rbln.ai/v0.10.4/ko/software/optimum/tutorial/qwen3-vl-2b.html> |
 | vLLM RBLN documentation | <https://docs.rbln.ai/latest/software/model_serving/vllm_support/vllm-rbln.html> |
 | vLLM RBLN attention modes | <https://docs.rbln.ai/v0.10.4/ko/software/model_serving/vllm_support/features/attention-modes.html> |
 | vLLM RBLN Automatic Prefix Caching | <https://docs.rbln.ai/v0.10.4/ko/software/model_serving/vllm_support/features/prefix-caching.html> |
