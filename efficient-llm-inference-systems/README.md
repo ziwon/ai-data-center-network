@@ -7,6 +7,7 @@
 
 ## Appendix
 
+- [Hardware Architectures for LLM Inference](appendix/hardware-architectures/README.md)
 - [LLM Inference](appendix/llm-inference/README.md)
 - [Transformer](appendix/transformer/README.md)
 

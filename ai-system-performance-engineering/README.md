@@ -15,6 +15,7 @@
 ### Articles
 
 - [Making Deep Learning Go Brrrr From First Principles](https://horace.io/brrr_intro.html)
+- [Hardware Architectures for LLM Inference](../efficient-llm-inference-systems/appendix/hardware-architectures/README.md)
 
 ### Talks
 
