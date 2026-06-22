@@ -10,6 +10,7 @@ These notes are not line-by-line full translations. They are translation-oriente
 2. [Domain-Specific Architectures for AI Inference](domain-specific-architectures-for-ai-inference.ko.md)
 3. [How to Think About TPUs](tpus.ko.md)
 4. [How to Think About GPUs](gpus.ko.md)
+5. [How to Think About NPUs](npus.ko.md)
 
 ## Course Connections
 
@@ -20,6 +21,7 @@ These notes are not line-by-line full translations. They are translation-oriente
 | Low precision | Quantization reduces both memory footprint and bandwidth pressure. | Week 4 |
 | Scratchpad / SRAM | Fast local memory changes the batch size needed to saturate compute. | Week 2 |
 | Scale-up / scale-out | Tensor parallelism, expert parallelism, and serving need different fabrics. | AI Systems Performance Engineering Chapter 4 |
+| NPU deployment | Inference-first accelerators need hardware, compiler, runtime, and serving-stack evaluation together. | Week 1-4 |
 
 ## Quick Map
 
@@ -35,7 +37,8 @@ flowchart LR
     A --> I[Hardware choices]
     I --> J[GPU]
     I --> K[TPU]
-    I --> L[DSA accelerator]
+    I --> L[NPU]
+    I --> M[DSA accelerator]
 
     classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
     classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
@@ -44,7 +47,7 @@ flowchart LR
     class A primary
     class B,F,I accent
     class C,D,E,G,H secondary
-    class J,K,L note
+    class J,K,L,M note
 ```
 
 ## Source Articles
@@ -55,6 +58,7 @@ flowchart LR
 | Domain-Specific Architectures for AI Inference | <https://fleetwood.dev/posts/domain-specific-architectures> | If we redesigned inference hardware around Transformers, what principles would emerge? |
 | How to Think About TPUs | <https://jax-ml.github.io/scaling-book/tpus/> | How do TPU compute, memory, and interconnect limits shape scaling? |
 | How to Think About GPUs | <https://jax-ml.github.io/scaling-book/gpus/> | How do NVIDIA GPU internals and network topology affect LLM scaling? |
+| How to Think About NPUs | Rebellions and FuriosaAI public docs, linked in [npus.ko.md](npus.ko.md#references) | How should inference-first NPUs be evaluated against GPU/TPU systems? |
 
 ## Figure Assets
 
