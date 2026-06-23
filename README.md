@@ -6,6 +6,11 @@ AI data center networking, LLM inference, training, storage, and AI systems perf
 <img width="1024" alt="Animated AI performance fabric" src="./fabric.svg" />
 </p>
 
+## Web Wiki
+
+- [AI Data Center Systems Wiki](https://ziwon.github.io/ai-data-center-systems/): searchable GitHub Pages site with Pagefind and LLM-friendly [`llms.txt`](https://ziwon.github.io/ai-data-center-systems/llms.txt)
+- Planned custom domain: `ai-datacenter-systems.restack.tech`
+
 ## Study Tracks
 
 - [AI Data Center Network](./ai-data-center-network/README.md): AI 데이터센터 네트워크, RDMA, InfiniBand, RoCE, Clos fabric ([스터디 홈](https://app.notion.com/p/gasidaseo/AI-Data-Center-Network-Study-34a50aec5edf8097b1d0ec9c499b3913))
