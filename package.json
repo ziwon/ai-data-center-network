@@ -1,0 +1,27 @@
+{
+  "name": "ai-data-center-systems",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync:docs": "node scripts/sync-starlight-docs.mjs",
+    "dev": "npm run sync:docs && astro dev",
+    "build": "npm run sync:docs && astro build",
+    "postbuild": "node scripts/postprocess-pages.mjs",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.40.0",
+    "@mermaid-js/layout-elk": "^0.2.1",
+    "astro": "^6.4.8",
+    "astro-mermaid": "^2.0.4",
+    "katex": "^0.17.0",
+    "mermaid": "^11.15.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "sharp": "^0.35.2"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
