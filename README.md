@@ -2,12 +2,23 @@
 
 AI data center networking, LLM inference, training, storage, and AI systems performance engineering study notes.
 
-<p align="center">
-  <a href="https://ai-datacenter-systems.restack.tech/"><strong>Open the searchable web wiki →</strong></a>
-  <br />
-  <a href="https://ai-datacenter-systems.restack.tech/llms.txt">llms.txt</a>
-  · <code>ai-datacenter-systems.restack.tech</code>
-</p>
+<table align="center">
+  <tr>
+    <td align="center">
+      <h3>AI Data Center Systems Web Wiki</h3>
+      <p>
+        Searchable, reader-friendly notes for AI data center networking, inference, training,
+        storage, and systems performance engineering.
+      </p>
+      <p>
+        <a href="https://ai-datacenter-systems.restack.tech/"><strong>Open the Web Wiki</strong></a>
+        ·
+        <a href="https://ai-datacenter-systems.restack.tech/llms.txt">llms.txt</a>
+      </p>
+      <p><code>ai-datacenter-systems.restack.tech</code></p>
+    </td>
+  </tr>
+</table>
 
 <p align="center">
   <a href="https://ai-datacenter-systems.restack.tech/">
