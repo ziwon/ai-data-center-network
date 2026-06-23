@@ -113,8 +113,9 @@ function shouldPublishAsset(relative) {
 
 async function publishMarkdown(absolute, relative) {
   const source = await readFile(absolute, 'utf8');
+  const isSiteHome = relative === 'README.md';
   const title = extractTitle(source, relative);
-  const body = rewriteMarkdown(stripLeadingTitle(source), relative);
+  const body = isSiteHome ? siteHomeBody() : rewriteMarkdown(stripLeadingTitle(source), relative);
   const outRelative = markdownOutputPath(relative);
   const outAbsolute = path.join(docsOut, outRelative);
   const sourceStats = await stat(absolute);
@@ -125,7 +126,12 @@ async function publishMarkdown(absolute, relative) {
     [
       '---',
       `title: ${JSON.stringify(title)}`,
-      `description: ${JSON.stringify(descriptionFrom(source, title))}`,
+      `description: ${JSON.stringify(
+        isSiteHome
+          ? 'A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering.'
+          : descriptionFrom(source, title),
+      )}`,
+      ...(isSiteHome ? ['template: splash'] : []),
       `lastUpdated: ${sourceStats.mtime.toISOString()}`,
       '---',
       '',
@@ -140,6 +146,68 @@ async function publishMarkdown(absolute, relative) {
     route: routeFromOutput(outRelative),
     body: body.trim(),
   });
+}
+
+function siteHomeBody() {
+  return String.raw`
+<section class="adcs-home-hero">
+  <div class="adcs-home-hero-copy">
+    <p class="adcs-home-kicker">Study wiki</p>
+    <h2>AI infrastructure notes for the places where models meet machines.</h2>
+    <p>
+      Networking, inference, training, storage, and performance engineering notes organized as
+      connected study tracks.
+    </p>
+    <div class="adcs-home-actions">
+      <a href="/ai-data-center-network/">Start with AI fabric</a>
+      <a href="/efficient-llm-inference-systems/">Explore inference</a>
+    </div>
+  </div>
+  <a class="adcs-home-hero-visual" href="/ai-data-center-network/" aria-label="Open AI Data Center Network track">
+    <img src="/fabric.svg" alt="Animated AI performance fabric" />
+  </a>
+</section>
+
+<section class="adcs-track-grid" aria-label="Study tracks">
+  <a class="adcs-track-card" href="/ai-data-center-network/">
+    <span>AI Data Center Network</span>
+    <small>RDMA, InfiniBand, RoCE, Clos fabrics, telemetry, and congestion control.</small>
+  </a>
+  <a class="adcs-track-card" href="/efficient-llm-inference-systems/">
+    <span>Efficient LLM Inference Systems</span>
+    <small>KV cache, batching, quantization, GPU profiling, and serving trade-offs.</small>
+  </a>
+  <a class="adcs-track-card" href="/ai-system-performance-engineering/">
+    <span>AI Systems Performance Engineering</span>
+    <small>GPU hardware, OS and container tuning, CUDA, PyTorch, and distributed communication.</small>
+  </a>
+  <a class="adcs-track-card" href="/deep-learning-for-network-engineers/">
+    <span>Deep Learning for Network Engineers</span>
+    <small>Training fundamentals, parallelism, collectives, RDMA, RoCE, and NCCL.</small>
+  </a>
+  <a class="adcs-track-card" href="/cme295/">
+    <span>CME295 Lecture Notes</span>
+    <small>Transformer and LLM lecture notes with practical systems annotations.</small>
+  </a>
+  <a class="adcs-track-card" href="/training/">
+    <span>Training</span>
+    <small>MLPerf Training, distributed training workloads, LLMs, MoE, and LoRA.</small>
+  </a>
+  <a class="adcs-track-card" href="/storage/">
+    <span>Storage</span>
+    <small>AI workload storage, ZFS, MLPerf Storage, and checkpoint data paths.</small>
+  </a>
+</section>
+
+## Labs and Talks
+
+<section class="adcs-link-band" aria-label="Labs and talks">
+  <a href="/ai-data-center-network/clos-ebgp-lab/">Clos Fabric Lab Series</a>
+  <a href="/ai-data-center-network/ib-packet-analysis/">InfiniBand Packet Analysis</a>
+  <a href="/ai-data-center-network/rdma-examples/">RDMA Read/Write Examples</a>
+  <a href="/talks/sr-iov-with-dgx-b200/making-dgx-b200-rdma-ready.pdf">Making DGX B200 RDMA-ready</a>
+</section>
+`;
 }
 
 async function publishAsset(absolute, relative) {

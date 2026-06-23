@@ -150,6 +150,148 @@ a {
   border-color: color-mix(in srgb, var(--fabric-node-cyan), transparent 68%);
 }
 
+.adcs-home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(18rem, 1.05fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+  margin-block: 0 3rem;
+  padding-block: clamp(1.25rem, 4vw, 3rem);
+}
+
+.adcs-home-hero-copy {
+  max-width: 42rem;
+}
+
+.adcs-home-kicker {
+  margin: 0 0 0.8rem;
+  color: #d9392e;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sl-markdown-content .adcs-home-hero h2 {
+  margin: 0;
+  color: var(--sl-color-white);
+  font-size: clamp(2.2rem, 5vw, 4.7rem);
+  line-height: 0.96;
+}
+
+.adcs-home-hero-copy > p:not(.adcs-home-kicker) {
+  max-width: 36rem;
+  margin-block: 1.2rem 0;
+  color: var(--sl-color-gray-2);
+  font-size: clamp(1rem, 2vw, 1.22rem);
+}
+
+.adcs-home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block-start: 1.65rem;
+}
+
+.adcs-home-actions a,
+.adcs-link-band a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.6rem;
+  border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 55%);
+  border-radius: 6px;
+  padding: 0.58rem 0.9rem;
+  color: var(--sl-color-white);
+  background: color-mix(in srgb, var(--sl-color-black), var(--fabric-node-cyan) 7%);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.adcs-home-actions a:first-child {
+  border-color: #d9392e;
+  background: color-mix(in srgb, #d9392e, var(--sl-color-black) 86%);
+}
+
+.adcs-home-hero-visual {
+  display: block;
+}
+
+.sl-markdown-content .adcs-home-hero-visual img {
+  width: 100%;
+  aspect-ratio: 1.5;
+  object-fit: cover;
+  border-color: color-mix(in srgb, var(--fabric-node-cyan), transparent 45%);
+  border-radius: 8px;
+}
+
+.adcs-track-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-block: 1rem 2.5rem;
+}
+
+.adcs-track-card {
+  display: flex;
+  min-height: 11rem;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid color-mix(in srgb, var(--sl-color-gray-5), transparent 18%);
+  border-radius: 8px;
+  padding: 1rem;
+  color: var(--sl-color-white);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--fabric-node-cyan), transparent 92%), transparent 54%),
+    color-mix(in srgb, var(--sl-color-black), var(--sl-color-white) 2%);
+  text-decoration: none;
+}
+
+.adcs-track-card:nth-child(3n + 1) {
+  border-top-color: #d9392e;
+}
+
+.adcs-track-card span {
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.adcs-track-card small {
+  color: var(--sl-color-gray-2);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.adcs-track-card:hover,
+.adcs-home-actions a:hover,
+.adcs-link-band a:hover {
+  border-color: var(--fabric-node-cyan);
+  color: var(--sl-color-white);
+}
+
+.adcs-link-band {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block: 1rem 2.5rem;
+}
+
+@media (max-width: 56rem) {
+  .adcs-home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .adcs-track-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 56.01rem) and (max-width: 78rem) {
+  .adcs-track-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 72rem) {
   html[data-has-sidebar][data-has-toc] {
     --quiet-toc-width: 18rem;
