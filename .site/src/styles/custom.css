@@ -120,6 +120,14 @@ a {
   overflow: visible !important;
 }
 
+/* Heading anchor-link icon is a UI glyph, not a figure: keep it transparent
+   so it does not pick up the diagram image background/border above. */
+.sl-markdown-content .sl-anchor-icon svg {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
 .sl-markdown-content blockquote {
   border-inline-start-color: var(--fabric-node-cyan);
   background: color-mix(in srgb, var(--fabric-node-cyan), transparent 92%);
