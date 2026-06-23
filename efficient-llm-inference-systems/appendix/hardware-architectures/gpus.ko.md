@@ -62,6 +62,20 @@ Decode:
   small GEMV-like work -> HBM bytes 중요 -> W4/W8 weight traffic 감소가 중요
 ```
 
+### 2.1 A100에서 B300까지: 무엇이 바뀌었나
+
+NVIDIA GPU 세대 변화는 단순히 FLOPS가 늘어난 역사가 아니다. LLM 관점에서는 memory capacity, HBM bandwidth, low precision format, scale-up interconnect가 함께 바뀌었다.
+
+| Generation | Public memory signal | Low-precision / compute signal | Interconnect signal | Inference implication |
+|---|---|---|---|---|
+| A100 | 80GB HBM2e, over 2TB/s memory bandwidth | TF32, FP16/BF16, INT8/INT4 Tensor Core | NVLink generation used for 8-GPU nodes | 70B-class serving은 대개 sharding/quantization이 필요하고, decode는 HBM traffic에 민감하다. |
+| H100 | HBM3, about 3TB/s class memory bandwidth | FP8 Transformer Engine, TMA, Hopper programming model | NVLink/NVSwitch, Quantum-2 InfiniBand ecosystem | FP8 prefill/training path와 faster collectives가 중요해진다. |
+| H200 | 141GB HBM3e, 4.8TB/s memory bandwidth | Hopper compute with larger/faster memory | Hopper NVLink/NVL system family | 같은 Hopper compute라도 larger KV cache와 model fit이 좋아져 inference에 유리하다. |
+| B200 / DGX B200 | DGX B200: 8 GPUs, 1,440GB total HBM3e, 64TB/s total HBM bandwidth | Blackwell FP4/FP8 Tensor Core path | 5th-gen NVLink, 14.4TB/s aggregate NVLink bandwidth in DGX B200 | FP4/NVFP4 weight path와 large memory bandwidth가 decode cost/token을 낮추는 방향이다. |
+| B300 / DGX B300 | DGX B300 user guide: 8 x 288GB Blackwell Ultra GPUs | DGX B300: 144 PFLOPS FP4 inference class system number | 5th-gen NVLink, 14.4TB/s aggregate NVLink bandwidth in DGX B300 | 더 큰 per-node memory envelope가 long-context, MoE, high-concurrency inference의 headroom을 넓힌다. |
+
+이 표는 procurement table이 아니라 읽는 법이다. A100에서 H200까지는 "한 GPU에 더 많은 model/KV state를 올리는 능력"이 크게 개선되었고, Blackwell 세대에서는 FP4와 rack-scale NVLink domain이 inference economics의 중심으로 올라온다. 같은 parameter count라도 context length, batch size, KV cache format, quantization format에 따라 필요한 GPU 수가 바뀐다.
+
 ## 3. SIMT와 Warp Divergence
 
 GPU는 SIMT(Single Instruction, Multiple Threads) 모델을 사용한다. 같은 warp 안의 thread들이 같은 instruction을 실행할 때 효율이 높다. 분기 조건이 갈라지면 warp divergence가 생기고 일부 lane이 놀게 된다.
@@ -110,6 +124,32 @@ flowchart LR
     class E primary
 ```
 
+### 4.1 Model fit: weights보다 KV cache가 먼저 막힐 수 있다
+
+GPU memory fit을 볼 때 가장 흔한 실수는 model weight만 계산하는 것이다. Weight는 시작점일 뿐이고, production serving에서는 KV cache, activation/workspace, fragmentation, runtime reserve가 같이 들어간다.
+
+```text
+weight memory ~= parameters x bytes_per_parameter
+
+KV cache memory ~= layers
+                  x sequence_length
+                  x kv_heads
+                  x head_dim
+                  x 2  # key and value
+                  x bytes_per_element
+                  x batch_or_concurrency
+```
+
+예를 들어 70B model이 weight-only quantization으로 한 GPU memory budget에 가까스로 들어간다고 해도, 긴 context와 높은 concurrency를 붙이면 KV cache가 먼저 한계를 만든다. H200과 Blackwell의 큰 memory가 inference에서 중요한 이유는 단순히 더 큰 model을 올리기 위해서만이 아니라, 같은 model에서 더 긴 context와 더 많은 동시 request를 담기 위해서다.
+
+| Fit question | Why it matters |
+|---|---|
+| weights만 들어가는가, KV cache까지 들어가는가? | "load 가능"과 "serve 가능"은 다르다. |
+| target context length는 얼마인가? | decode capacity는 KV bytes/token에 민감하다. |
+| batch/concurrency가 얼마인가? | KV cache는 request 수와 함께 증가한다. |
+| quantization format은 무엇인가? | weight memory와 compute path는 줄어도 KV dtype이 그대로일 수 있다. |
+| fragmentation과 reserve는 얼마나 잡는가? | PagedAttention도 allocator overhead와 block waste를 완전히 없애지는 않는다. |
+
 ## 5. GPU는 왜 많은 SM을 가지는가
 
 GPU는 수백 개의 작은 작업을 동시에 실행해 latency를 숨긴다. Memory load가 걸린 warp가 기다리는 동안 다른 warp를 실행한다.
@@ -135,6 +175,45 @@ GPU scale-out은 두 계층으로 나눠 봐야 한다.
 | Rack-scale | NVL72 같은 NVSwitch fabric | 더 큰 scale-up island |
 
 Tensor parallelism은 layer 내부에서 자주 통신하므로 빠른 scale-up fabric에 묶는 것이 좋다. Pipeline parallelism은 layer boundary activation만 넘기므로 상대적으로 scale-out에 더 적합하다. MoE expert parallelism은 AllToAll이 많아 fabric과 routing의 영향을 크게 받는다.
+
+### 6.1 Interconnect 용어를 분리해서 읽기
+
+GPU interconnect 문서를 읽을 때는 비슷한 이름을 구분해야 한다.
+
+| Term | Scope | Practical reading |
+|---|---|---|
+| NV-HBI | Blackwell package 내부 die-to-die | dual-die GPU를 하나의 accelerator처럼 보이게 하는 내부 연결이다. |
+| NVLink-C2C | CPU-GPU chip-to-chip | Grace Hopper/Blackwell 같은 CPU-GPU coherent 연결에 가깝다. |
+| NVLink | GPU-GPU link | tensor parallel collective, P2P, fast scale-up traffic에 중요하다. |
+| NVSwitch | 여러 GPU 사이 switch fabric | 8-GPU node 또는 NVL72 같은 larger scale-up island를 만든다. |
+| PCIe | host/device/NIC standard I/O | CPU path, NIC, storage, fallback, non-NVLink P2P의 현실적 한계다. |
+| InfiniBand / RoCE | node/rack/cluster network | scale-out training/serving, DP/PP/EP traffic을 담당한다. |
+
+이 계층을 섞어 말하면 성능 추정이 틀어진다. Tensor parallel AllReduce가 NVLink domain 안에 머무르는지, rack 밖 RDMA를 건너는지에 따라 같은 GPU 수라도 latency와 throughput이 크게 달라진다.
+
+```mermaid
+flowchart LR
+    A[One GPU<br/>SM / HBM / L2] --> B[Package / board<br/>NV-HBI / C2C]
+    B --> C[Node scale-up<br/>NVLink / NVSwitch]
+    C --> D[Rack scale-up island<br/>NVL72 class fabric]
+    D -.-> E[Cluster scale-out<br/>InfiniBand / RoCE]
+
+    A --> F[local tensor kernels]
+    C --> G[tensor parallel collectives]
+    D --> H[large model shard<br/>rack-local serving]
+    E --> I[pipeline / expert / data parallel<br/>cross-rack traffic]
+
+    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
+    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
+    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
+    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    class A primary
+    class B,C,D secondary
+    class E accent
+    class F,G,H,I note
+```
+
+Blackwell NVL72 같은 rack-scale design은 "scale-out network가 빨라졌다"기보다, fast scale-up island를 rack 단위로 넓히려는 시도로 읽는 편이 정확하다. 그래도 cluster 전체가 하나의 NVLink domain이 되는 것은 아니며, island 밖으로 나가면 InfiniBand/RoCE의 scheduling, routing, congestion 문제가 다시 등장한다.
 
 ![H100 SuperPod networking diagram](assets/jax-scaling-book/gpu/superpod-diagram.png)
 
@@ -190,6 +269,18 @@ Weight-only quantization은 decode에 특히 효과적이다. Weight+activation 
 
 TP는 빠른 scale-up fabric에 넣고, PP는 느린 scale-out fabric으로 넘길 수 있다. MoE는 별도 검증이 필요하다. Expert routing이 fabric에 어떤 traffic pattern을 만드는지 보지 않으면 peak FLOPS로는 예측할 수 없다.
 
+### Power and cooling are architecture constraints
+
+Blackwell급 systems에서는 GPU 선택이 곧 power/cooling/topology 선택이다. DGX B200 같은 8-GPU system은 NVIDIA product page 기준 최대 약 14.3kW system power를 제시한다. 이런 class의 서버에서는 "GPU가 몇 FLOPS인가"만이 아니라 다음을 같이 봐야 한다.
+
+| Question | Why it matters |
+|---|---|
+| rack power budget이 몇 kW인가? | GPU 수보다 먼저 power feed와 cooling이 한계를 만든다. |
+| air cooling으로 가능한가, liquid cooling이 필요한가? | deployment lead time과 facility requirement가 달라진다. |
+| tokens/sec/GPU가 아니라 tokens/sec/rack은 어떤가? | serving capacity는 rack power와 network까지 포함해야 한다. |
+| NVLink domain을 넓히기 위해 어떤 rack layout이 필요한가? | cabling, switch, NIC, serviceability가 topology의 일부다. |
+| power cap을 걸면 p99와 throughput이 어떻게 변하는가? | perf/W 최적점은 max-TDP 설정과 다를 수 있다. |
+
 ## 10. Repository Connections
 
 | Repository topic | Connection |
@@ -198,6 +289,7 @@ TP는 빠른 scale-up fabric에 넣고, PP는 느린 scale-out fabric으로 넘�
 | Week 3 KV cache | decode path에서 HBM traffic과 KV cache layout을 설명한다. |
 | Week 4 quantization | FP8/FP4/W4A16이 prefill/decode에 다르게 작용하는 이유를 설명한다. |
 | AI Systems Performance Engineering Chapter 4 | NCCL, NVLink, RDMA, collective roofline과 연결된다. |
+| NPU appendix | GPU의 scale-up fabric과 NPU의 compiler/runtime envelope를 비교하는 기준을 제공한다. |
 
 ## 11. Check Questions
 
@@ -206,3 +298,19 @@ TP는 빠른 scale-up fabric에 넣고, PP는 느린 scale-out fabric으로 넘�
 3. `nvidia-smi` GPU-Util이 높은데도 실제 throughput이 낮을 수 있는 이유는 무엇인가?
 4. Tensor parallelism을 보통 NVLink/NVSwitch 안에 묶는 이유는 무엇인가?
 5. Prefill과 decode에서 quantization의 이득이 다르게 나타나는 이유는 무엇인가?
+6. "model weights가 GPU memory에 들어간다"와 "production serving이 가능하다"는 왜 다른 말인가?
+7. NVLink/NVSwitch domain 안에 머무르는 traffic과 InfiniBand/RoCE를 건너는 traffic은 어떻게 다르게 평가해야 하는가?
+8. Blackwell 세대에서 power/cooling이 architecture constraint가 되는 이유는 무엇인가?
+
+## References
+
+| Topic | Source |
+|---|---|
+| JAX Scaling Book GPU chapter | <https://jax-ml.github.io/scaling-book/gpus/> |
+| NVIDIA A100 product page | <https://www.nvidia.com/en-us/data-center/a100/> |
+| NVIDIA H100 product page | <https://www.nvidia.com/en-us/data-center/h100/> |
+| NVIDIA H200 product page | <https://www.nvidia.com/en-us/data-center/h200/> |
+| NVIDIA DGX B200 product page | <https://www.nvidia.com/en-us/data-center/dgx-b200/> |
+| NVIDIA DGX B300 product page | <https://www.nvidia.com/en-us/data-center/dgx-b300/> |
+| NVIDIA DGX B300 user guide | <https://docs.nvidia.com/dgx/dgxb300-user-guide/introduction-to-dgxb300.html> |
+| NVIDIA Blackwell architecture | <https://www.nvidia.com/en-us/data-center/technologies/blackwell-architecture/> |
