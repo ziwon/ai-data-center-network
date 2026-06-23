@@ -3,6 +3,8 @@ import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import starlightGitHubAlerts from 'starlight-github-alerts';
+import starlightImageZoom from 'starlight-image-zoom';
 
 export default defineConfig({
   site: 'https://adcs.restack.tech',
@@ -14,6 +16,7 @@ export default defineConfig({
   integrations: [
     mermaid(),
     starlight({
+      plugins: [starlightGitHubAlerts(), starlightImageZoom()],
       title: 'AI Data Center Systems',
       description:
         'AI data center networking, LLM inference, training, storage, and systems performance engineering study notes.',
