@@ -6,17 +6,17 @@ AI data center networking, LLM inference, training, storage, and AI systems perf
   <tr>
     <td align="center">
       <p>
-        <a href="https://ai-data-center-systems.restack.tech/"><strong>Open the Web Wiki</strong></a>
+        <a href="https://adcs.restack.tech/"><strong>Open the Web Wiki</strong></a>
       </p>
       <p>
-        <a href="https://ai-data-center-systems.restack.tech/"><code>ai-data-center-systems.restack.tech</code></a>
+        <a href="https://adcs.restack.tech/"><code>adcs.restack.tech</code></a>
       </p>
     </td>
   </tr>
 </table>
 
 <p align="center">
-  <a href="https://ai-data-center-systems.restack.tech/">
+  <a href="https://adcs.restack.tech/">
     <img width="1024" alt="Animated AI performance fabric" src="./fabric.svg" />
   </a>
 </p>
