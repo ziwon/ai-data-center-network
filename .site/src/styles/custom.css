@@ -19,8 +19,10 @@
   --fabric-bg-deep: #020817;
   --fabric-bg-mid: #03152d;
   --fabric-grid: #12345d;
-  --fabric-line: rgba(30, 94, 255, 0.2);
-  --fabric-line-soft: rgba(19, 233, 255, 0.14);
+  --fabric-line: rgba(30, 94, 255, 0.105);
+  --fabric-line-soft: rgba(0, 138, 160, 0.075);
+  --fabric-glow-blue: rgba(24, 132, 255, 0.08);
+  --fabric-glow-cyan: rgba(0, 138, 160, 0.075);
   --fabric-node-blue: #1684ff;
   --fabric-node-cyan: #008aa0;
   --fabric-node-violet: #735cff;
@@ -43,6 +45,8 @@
   --fabric-node-cyan: #18cfff;
   --fabric-line: rgba(24, 132, 255, 0.2);
   --fabric-line-soft: rgba(19, 233, 255, 0.14);
+  --fabric-glow-blue: rgba(24, 132, 255, 0.16);
+  --fabric-glow-cyan: rgba(19, 233, 255, 0.14);
 }
 
 body {
@@ -50,8 +54,8 @@ body {
   background:
     linear-gradient(115deg, transparent 0 48%, var(--fabric-line-soft) 48.2% 48.7%, transparent 49%),
     linear-gradient(24deg, transparent 0 53%, var(--fabric-line) 53.2% 53.5%, transparent 53.8%),
-    radial-gradient(circle at 18% 12%, rgba(24, 132, 255, 0.16), transparent 16rem),
-    radial-gradient(circle at 84% 18%, rgba(19, 233, 255, 0.14), transparent 18rem),
+    radial-gradient(circle at 18% 12%, var(--fabric-glow-blue), transparent 16rem),
+    radial-gradient(circle at 84% 18%, var(--fabric-glow-cyan), transparent 18rem),
     var(--sl-color-black);
   background-attachment: fixed;
 }
@@ -59,7 +63,7 @@ body {
 .header {
   border-bottom-color: color-mix(in srgb, var(--sl-color-gray-5), transparent 35%);
   background:
-    linear-gradient(90deg, rgba(19, 233, 255, 0.12), transparent 24rem),
+    linear-gradient(90deg, color-mix(in srgb, var(--fabric-node-cyan), transparent 90%), transparent 24rem),
     color-mix(in srgb, var(--sl-color-black), transparent 7%);
   backdrop-filter: blur(12px);
 }
@@ -67,7 +71,7 @@ body {
 .sidebar-pane {
   border-inline-end-color: color-mix(in srgb, var(--sl-color-gray-5), transparent 35%);
   background:
-    linear-gradient(180deg, rgba(30, 94, 255, 0.12), transparent 18rem),
+    linear-gradient(180deg, color-mix(in srgb, var(--fabric-node-blue), transparent 91%), transparent 18rem),
     color-mix(in srgb, var(--sl-color-black), transparent 4%);
 }
 
@@ -201,18 +205,18 @@ a {
   display: inline-flex;
   align-items: center;
   min-height: 2.6rem;
-  border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 55%);
+  border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 50%);
   border-radius: 6px;
   padding: 0.58rem 0.9rem;
   color: var(--sl-color-white);
-  background: color-mix(in srgb, var(--sl-color-black), var(--fabric-node-cyan) 7%);
+  background: color-mix(in srgb, var(--sl-color-black), var(--fabric-node-cyan) 6%);
   font-weight: 700;
   text-decoration: none;
 }
 
 .adcs-home-actions a:first-child {
-  border-color: #d9392e;
-  background: color-mix(in srgb, #d9392e, var(--sl-color-black) 86%);
+  border-color: color-mix(in srgb, #d9392e, transparent 18%);
+  background: color-mix(in srgb, #d9392e, var(--sl-color-black) 88%);
 }
 
 .adcs-home-hero-visual {
@@ -225,6 +229,36 @@ a {
   object-fit: cover;
   border-color: color-mix(in srgb, var(--fabric-node-cyan), transparent 45%);
   border-radius: 8px;
+}
+
+:root:not([data-theme="dark"]) .adcs-home-hero-visual {
+  border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 72%);
+  border-radius: 12px;
+  padding: 0.5rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.58), transparent 52%),
+    color-mix(in srgb, var(--sl-color-black), var(--fabric-node-cyan) 3%);
+}
+
+:root:not([data-theme="dark"]) .sl-markdown-content .adcs-home-hero-visual img {
+  border-color: color-mix(in srgb, var(--fabric-node-cyan), transparent 62%);
+}
+
+:root:not([data-theme="dark"]) .adcs-home-actions a:first-child {
+  color: #66180f;
+  background: color-mix(in srgb, #d9392e, var(--sl-color-black) 91%);
+}
+
+:root:not([data-theme="dark"]) .adcs-home-actions a:nth-child(2),
+:root:not([data-theme="dark"]) .adcs-link-band a {
+  color: var(--sl-color-accent-high);
+  background: color-mix(in srgb, var(--sl-color-black), var(--fabric-node-cyan) 4%);
+}
+
+:root:not([data-theme="dark"]) .adcs-track-card {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--fabric-node-cyan), transparent 95%), transparent 54%),
+    color-mix(in srgb, var(--sl-color-black), white 26%);
 }
 
 .adcs-track-grid {
