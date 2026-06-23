@@ -68,6 +68,7 @@ The chapter focuses on six major topics:
 Large AI training clusters often separate the frontend network for storage/control traffic from the backend fabric for GPU-to-GPU RDMA communication.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph FE[Frontend Network]
         ST[Storage / Data Warehouse]
@@ -118,6 +119,7 @@ AI data centers can be divided into two broad types:
 The chapter contrasts **model creation** and **model serving**. Training is about building the model, while inference is about using the model to answer real-time requests. In this chapter, training is associated with **Job Completion Time**, while inference is associated with **network latency and Time to First Token**. 
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     subgraph T[AI Training Data Center]
         T1[Large Training Dataset]
@@ -211,6 +213,7 @@ AI training requires high-performance networking because GPUs must exchange larg
 InfiniBand has traditionally been strong in HPC and AI training, but many organizations are now interested in Ethernet because it is open, widely understood, and easier to integrate with existing data center environments. 
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph IB[InfiniBand Fabric]
         IBG1[GPU Server + HCA]
@@ -331,6 +334,7 @@ Low entropy means:
 This chapter explains that RoCEv2 traffic can have limited header entropy from the switch's point of view. RoCEv2 commonly uses UDP destination port 4791, and many AI flows may share similar IP and UDP header fields. Some deployments use the UDP source port or enhanced hashing to add entropy, but simple 5-tuple ECMP can still be ineffective when many large flows look similar.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph Servers[GPU Servers]
         G1[GPU Server A]
@@ -412,6 +416,7 @@ Large AI clusters may contain tens of thousands of GPUs. Each GPU or GPU server 
 If GPUs can send at line rate, but uplinks cannot carry the total traffic, congestion becomes unavoidable.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph Servers[Server-facing bandwidth]
         A1[GPU Server 1<br/>400G]
@@ -483,6 +488,7 @@ An **elephant flow** is a very large traffic flow that consumes significant netw
 In AI/ML training, elephant flows are common because distributed training repeatedly moves large data between GPUs and servers.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant G1 as GPU Server 1
     participant G2 as GPU Server 2
@@ -562,6 +568,7 @@ This periodic burst pattern makes the fabric harder to operate than a steady tra
 Incast congestion happens when many senders transmit to one receiver or one output port at the same time.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     G1[GPU 1]
     G2[GPU 2]
@@ -603,6 +610,7 @@ Source: [blog.cisco.com](https://blogs.cisco.com/datacenter/nexus-improves-load-
 The chapter classifies load-balancing techniques into several types: **SLB, DLB, GLB, sDLB, and flow pinning**. 
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     SLB[SLB<br/>Static Load Balancing<br/>5-tuple hash<br/>No real-time awareness]
     DLB[DLB<br/>Dynamic Load Balancing<br/>Local link + queue awareness]
@@ -618,6 +626,7 @@ flowchart TB
 > Load balancing techniques become more adaptive as they move from static header hashing to local, global, and elephant-flow-aware decisions.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     P[Incoming RoCEv2 Flow]
 
@@ -801,6 +810,7 @@ The chapter divides congestion handling into two categories:
 2. Reactive congestion control
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     subgraph P[Proactive: Congestion Avoidance]
         P1[Good Topology Design]
@@ -985,7 +995,8 @@ Frame loss is prevented
 
 More detailed congestion control flow in RoCEv2:
 
-```mermaid 
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant S as Sender RNIC
     participant SW as Congested Switch
@@ -1010,6 +1021,7 @@ sequenceDiagram
 Putting it all together:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 graph LR
     A[Elephant Flow Begins]
     B[ECMP / DLB / GLB / sDLB<br/>Distributes flows across paths]

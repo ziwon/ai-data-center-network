@@ -247,6 +247,7 @@ Important properties:
 - The sender reduces the traffic rate for that flow.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Src as Sender GPU/NIC
     participant LeafA as Leaf A
@@ -268,10 +269,11 @@ sequenceDiagram
 ECN marking is based on queue usage.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef safe fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef mark fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef drop fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef safe fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef mark fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef drop fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Low queue use<br/>no marking]:::safe
     B[Queue crosses ECN threshold<br/>mark CE=11]:::mark
@@ -351,10 +353,11 @@ The chapter's example uses a pause timer of `65535` microseconds for an XOFF fra
 PFC thresholds must leave enough headroom for traffic already in flight.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef low fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef ecn fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef pfc fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef low fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef ecn fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef pfc fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     XON[XON threshold<br/>resume traffic]:::low
     ECN[ECN threshold<br/>mark packets]:::ecn
@@ -372,10 +375,11 @@ PFC pauses a priority class, not a single flow.
 If Flow A causes congestion in priority class 3, PFC can pause class 3. That also pauses Flow B and Flow C in the same priority class, even if they did not cause congestion.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef flow fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef queue fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef paused fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef flow fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef queue fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef paused fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Flow A<br/>congesting]:::flow
     B[Flow B<br/>innocent]:::flow
@@ -448,11 +452,12 @@ The idea:
 DCQCN normally places the ECN threshold below the PFC XOFF threshold.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef normal fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef ecn fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef pfc fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
-    classDef restore fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef normal fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef ecn fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef pfc fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef restore fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     N[Normal queue use]:::normal
     E[ECN threshold crossed<br/>mark CE, receiver sends CNP]:::ecn
@@ -472,6 +477,7 @@ Why this ordering matters:
 ### DCQCN Flow
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Src as Sender NIC
     participant LeafA as Leaf A
@@ -534,6 +540,7 @@ SFC attempts to combine some strengths of ECN and PFC:
 ### SFC Flow
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Src as Source NIC
     participant LeafA as Leaf A
@@ -593,9 +600,10 @@ CSIG uses in-band network telemetry, INT, ideas:
 CSIG adds a Layer 2 tag between the Ethernet header and Layer 3 header. The chapter notes that it is structurally similar to a VLAN tag and can coexist with a VLAN tag when the CSIG tag is the last tag in the Layer 2 header.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef field fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef tag fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef field fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef tag fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     ETH[Ethernet header]:::field
     VLAN[Optional VLAN tag]:::field
@@ -616,6 +624,7 @@ End-to-end flow:
 5. Source adjusts rate or path behavior.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Src as Source GPU
     participant L1 as Leaf
@@ -708,12 +717,13 @@ Checklist:
 - Record job-level impact: GPU utilization, collective latency, p99 step time, and JCT.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef config fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef test fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef signal fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef decision fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef fix fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef config fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef test fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef signal fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fix fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     C[Configure ECN, PFC,<br/>DCQCN, QoS, buffers]:::config
     W[Run AI-like workload<br/>NCCL, RDMA, storage bursts]:::test

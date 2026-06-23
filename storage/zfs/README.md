@@ -316,6 +316,7 @@ Local NVMe 또는 NVMe-only ZFS dataset
 구조를 도식화하면 다음과 같다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
   users["GPU Training Nodes<br/>PyTorch / Dataloader"] --> hot["Hot Tier<br/>Local NVMe / NVMe Hot Pool"]
   hot --> train["Active training<br/>shard / LMDB / Parquet"]
@@ -335,9 +336,9 @@ flowchart TB
   hdd --> preprocess["Preprocessing<br/>clip / shard generation"]
   preprocess --> hot
 
-  classDef hot fill:#e8f4ff,stroke:#2563eb,stroke-width:1px,color:#111827;
-  classDef warm fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#111827;
-  classDef cold fill:#f1f5f9,stroke:#475569,stroke-width:1px,color:#111827;
+  classDef hot fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef warm fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef cold fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
   class hot,train hot;
   class arc,special warm;
   class hdd,datasets cold;
@@ -683,6 +684,7 @@ Special class가 가득 차면 해당 class로 가야 할 allocation이 normal c
 Special VDEV의 allocation 경로는 다음처럼 이해하면 된다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
   write["ZFS write allocation"] --> kind{"Block type?"}
 
@@ -696,9 +698,9 @@ flowchart TD
   capacity -->|"no"| spill["spill to normal class<br/>performance becomes less predictable"]
   spill --> normal
 
-  classDef decision fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#111827;
-  classDef specialClass fill:#e8f4ff,stroke:#2563eb,stroke-width:1px,color:#111827;
-  classDef normalClass fill:#f1f5f9,stroke:#475569,stroke-width:1px,color:#111827;
+  classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef specialClass fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef normalClass fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
   class kind,size,capacity decision;
   class special,commit_special specialClass;
   class normal,spill normalClass;
@@ -839,6 +841,7 @@ AI 워크로드에서는 ARC가 다음에 도움을 준다.
 ARC와 L2ARC의 read path는 다음과 같이 볼 수 있다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
   read["Application / NFS read"] --> arc_hit{"ARC hit?"}
   arc_hit -->|"yes"| return_arc["return from RAM ARC<br/>lowest latency"]
@@ -853,10 +856,10 @@ flowchart TD
   pool_read --> fill_arc
   fill_arc --> return_disk["return data"]
 
-  classDef ram fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#111827;
-  classDef nvme fill:#e8f4ff,stroke:#2563eb,stroke-width:1px,color:#111827;
-  classDef disk fill:#f1f5f9,stroke:#475569,stroke-width:1px,color:#111827;
-  classDef decision fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#111827;
+  classDef ram fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef nvme fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef disk fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
   class arc_hit,l2_check,disk_path decision;
   class return_arc,promote,fill_arc ram;
   class l2_read,special_read nvme;
@@ -951,6 +954,7 @@ SLOG는 synchronous write에 영향을 준다.
 SLOG와 ZIL의 관계는 다음처럼 보는 것이 안전하다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
   app["Application write"] --> dirty["dirty data in TXG<br/>RAM"]
   dirty --> syncq{"sync write?"}
@@ -970,10 +974,10 @@ flowchart TD
   pool_zil -.-> replay
   replay --> pool
 
-  classDef ram fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#111827;
-  classDef log fill:#fef2f2,stroke:#dc2626,stroke-width:1px,color:#111827;
-  classDef disk fill:#f1f5f9,stroke:#475569,stroke-width:1px,color:#111827;
-  classDef decision fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#111827;
+  classDef ram fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef log fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef disk fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
   class syncq,logdev decision;
   class dirty ram;
   class slog,pool_zil,replay log;
@@ -1237,6 +1241,7 @@ Special VDEV는 캐시가 아니다.
 ## 20. 최종 아키텍처 예시
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
   gpu["GPU Training Nodes<br/>PyTorch / Dataloader / NCCL"] --> net["25/100GbE"]
   net --> zfs["ZFS Storage Server"]
@@ -1252,10 +1257,10 @@ flowchart TB
   zfs --> hdd
   zfs --> hot["NVMe Hot Training Tier<br/>WebDataset shards<br/>preprocessed clips<br/>active epoch cache"]
 
-  classDef node fill:#e8f4ff,stroke:#2563eb,stroke-width:1px,color:#111827;
-  classDef warm fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#111827;
-  classDef cold fill:#f1f5f9,stroke:#475569,stroke-width:1px,color:#111827;
-  classDef hotClass fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#111827;
+  classDef node fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef warm fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef cold fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef hotClass fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
   class gpu,net,zfs node;
   class arc,special warm;
   class hdd cold;
@@ -1309,6 +1314,7 @@ JuiceFS의 파일 저장 구조는 chunk, slice, block 개념을 사용한다.
 공식 문서에 따르면 파일은 chunk로 나뉘고, write는 slice를 만들며, object storage에는 block 단위로 저장된다. 즉 사용자는 POSIX file처럼 접근하지만, 내부적으로는 metadata engine이 file name, inode, chunk/slice mapping을 관리하고 object storage가 실제 데이터 block을 보관한다. ([JuiceFS Architecture][12])
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
   app["AI job / POSIX client<br/>PyTorch / DataLoader"] --> client["JuiceFS Client<br/>FUSE / SDK / CSI"]
   client --> meta["Metadata Engine<br/>inode / directory / chunk mapping"]
@@ -1325,10 +1331,10 @@ flowchart TD
   meta --> mapping["metadata maps<br/>file path -> chunks/slices/blocks"]
   cache --> fast["hot read cache"]
 
-  classDef clientClass fill:#e8f4ff,stroke:#2563eb,stroke-width:1px,color:#111827;
-  classDef metaClass fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#111827;
-  classDef objectClass fill:#f1f5f9,stroke:#475569,stroke-width:1px,color:#111827;
-  classDef cacheClass fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#111827;
+  classDef clientClass fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef metaClass fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef objectClass fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+  classDef cacheClass fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
   class client,app clientClass;
   class meta,mapping metaClass;
   class obj,chunk,slice,block objectClass;

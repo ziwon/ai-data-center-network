@@ -249,6 +249,7 @@ Trade-offs:
 NVMe-o-TCP session establishment follows this basic flow:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant H as Host / Initiator
     participant T as Controller / Target
@@ -282,6 +283,7 @@ The flow is:
 6. Actual RoCEv2 data transfer carries NVMe capsules and data over UDP `4791`.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant H as Host / Initiator
     participant T as Controller / Target
@@ -559,11 +561,12 @@ Checklist:
 - Record job-level metrics: GPU utilization, p99 step time, checkpoint pause, and Job Completion Time.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef model fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef test fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef signal fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef model fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef test fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef signal fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     M[Storage model<br/>block, file, object]:::model
     F[Fabric design<br/>A/B, logical, hybrid]:::model

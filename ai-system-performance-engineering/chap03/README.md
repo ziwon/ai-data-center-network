@@ -77,12 +77,13 @@
 * AI training/inference 환경에서의 실무 tuning checklist
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef workload fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef runtime fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef os fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef gpu fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef k8s fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef workload fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef runtime fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef os fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef k8s fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Training / Inference Workload]:::workload
     B[PyTorch / vLLM / TensorRT-LLM]:::runtime
@@ -129,12 +130,13 @@ AI workload에서 GPU가 낮은 utilization을 보일 때, 원인이 항상 GPU 
 GPU workload는 단순히 PyTorch 코드가 GPU에서 실행되는 구조가 아니다. 여러 계층이 순서대로 맞물린다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef app fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef fw fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef lib fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef drv fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef hw fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef app fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fw fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef lib fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef drv fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef hw fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[User Code<br/>train.py / serve.py]:::app
     B[Framework<br/>PyTorch / TensorFlow / JAX]:::fw
@@ -200,6 +202,7 @@ GPU node에서는 다음 device file들이 중요하다.
 NVIDIA software stack의 기본 순서는 다음과 같다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Application] --> B[CUDA Runtime]
     B --> C[NVIDIA Driver]
@@ -273,6 +276,7 @@ CUDA binary는 보통 다음 두 가지를 포함할 수 있다.
 | CUBIN / SASS | architecture-specific binary        | 특정 GPU architecture용 |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     A[CUDA C++ Source] --> B[nvcc]
     B --> C[PTX<br/>virtual ISA]
@@ -310,6 +314,7 @@ y = torch.matmul(x, w)
 실제 흐름은 대략 다음과 같다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant User as PyTorch Code
     participant Torch as PyTorch Dispatcher
@@ -354,6 +359,7 @@ Training loop에서 CPU는 보통 다음 일을 한다.
 * distributed process coordination
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Storage] --> B[CPU DataLoader]
     B --> C[Host Memory]
@@ -381,10 +387,11 @@ GPU가 놀고 있다면 질문은 단순하다.
 NUMA는 CPU, memory, PCIe device, GPU, NIC가 물리적으로 가까운 단위로 묶인 구조다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef numa0 fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef numa1 fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef link fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef numa0 fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef numa1 fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef link fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph N0["NUMA Node 0"]
         C0[CPU cores 0-63]:::numa0
@@ -739,6 +746,7 @@ sudo nvidia-smi -pm 1
 MPS는 Multi-Process Service다. 여러 process가 하나의 GPU를 공유할 때 context switching과 idle gap을 줄이고, kernel execution을 더 잘 overlap하도록 돕는다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph Without["Without MPS"]
         A1[Process A kernel] --> G1[GPU]
@@ -778,9 +786,10 @@ flowchart TB
 MIG는 Multi-Instance GPU다. 하나의 GPU를 hardware-level slice로 나눠 여러 개의 독립적인 logical GPU처럼 사용하는 기능이다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef gpu fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef mig fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef mig fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     GPU[Physical GPU<br/>HBM + SMs + L2 + Copy Engines]:::gpu
 
@@ -905,6 +914,7 @@ print(torch.cuda.memory_summary())
 GPU container는 host driver와 container 내부 CUDA library의 경계가 중요하다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph Host["Host OS"]
         D[NVIDIA Driver]
@@ -1160,6 +1170,7 @@ NCCL_PORT_RANGE=50000-51000
 ### Kubernetes RDMA Pattern
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     A[Pod] --> B[Multus]
     B --> C[SR-IOV / RDMA CNI]

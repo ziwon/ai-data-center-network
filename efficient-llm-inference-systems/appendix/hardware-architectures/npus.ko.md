@@ -70,6 +70,7 @@ NPU가 이기려면 보통 다음 중 하나 이상을 실제 workload에서 보
 NPU는 chip 하나가 아니라 다음 stack 전체로 평가해야 한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     A[Model graph] --> B[Compiler]
     B --> C[NPU executable]
@@ -84,10 +85,10 @@ flowchart TB
     F --> K[Prefix caching<br/>paged / hybrid KV]
     G --> L[DRA / metrics<br/>SMI / host tuning]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,G primary
     class B,D,E,F accent
     class C secondary
@@ -108,6 +109,7 @@ LLM inference의 병목은 보통 네 축으로 나타난다.
 GPU는 유연성이 강하다. 대신 broad workload를 지원하기 위해 silicon과 software가 범용성을 유지한다. NPU는 target workload가 inference로 좁아질수록 더 과감한 선택을 할 수 있다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[LLM inference] --> B[Memory movement]
     A --> C[Serving runtime]
@@ -129,10 +131,10 @@ flowchart LR
     K --> M
     L --> M
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A primary
     class B,C,D accent
     class E,F,G,H,I,J secondary
@@ -304,6 +306,7 @@ Rebellions의 공개 GitHub 조직에는 compiler 내부를 그대로 보여주�
 RBLN compiler API 문서는 이 integration surface를 더 직접적으로 보여준다. RBLN 컴파일러는 PyTorch와 TensorFlow graph를 입력으로 받아 compile할 수 있으며, 공개 문서 기준 PyTorch `torch.nn.Module`, TensorFlow v2 `tf.function`, TensorFlow v1 `GraphDef`를 입력 surface로 제시한다. Compile pipeline은 Model Conversion, Graph Generation, Graph Optimization으로 설명되고, 결과는 RBLN Runtime에서 즉시 쓰거나 `.rbln` file로 저장해 재사용할 수 있다. Runtime 실행 surface는 `Runtime()` 또는 `AsyncRuntime()` 생성 후 `run()`을 호출하는 형태이며, 입출력 data type으로 `torch.Tensor`와 `numpy.ndarray`를 지원한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     A[PyTorch<br/>torch.nn.Module] --> B[rebel.compile_from_torch<br/>or torch.compile]
     C[TensorFlow v2<br/>tf.function] --> D[rebel.compile_from_tf_function]
@@ -323,10 +326,10 @@ flowchart TB
     L --> N[Output<br/>torch.Tensor / numpy.ndarray]
     L --> O[RBLN driver and devices<br/>ATOM / REBEL]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,C,E,M primary
     class B,D,F,K,L secondary
     class G accent

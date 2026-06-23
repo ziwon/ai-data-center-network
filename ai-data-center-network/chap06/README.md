@@ -61,12 +61,13 @@ The chapter focuses on these topics:
 - Per-packet load balancing and selective packet spraying
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef workload fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef fabric fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef method fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef advanced fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
-    classDef risk fill:#fff1f2,stroke:#e11d48,stroke-dasharray:4 3,color:#7f1d1d
+    classDef workload fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fabric fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef method fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef advanced fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     W[AI training workload<br/>few applications, huge GPU flows]:::workload
     R[RoCEv2 traffic<br/>UDP/IP + BTH + QP]:::workload
@@ -136,12 +137,13 @@ In AI training, elephant flows are common:
 When multiple elephant flows hash to the same ECMP member, that link can become congested while other equal-cost links remain underused.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef hot fill:#fff1f2,stroke:#e11d48,stroke-width:3px,color:#7f1d1d
-    classDef idle fill:#f8fafc,stroke:#94a3b8,stroke-dasharray:4 3,color:#334155
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef hot fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef idle fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     G1[GPU flow 1<br/>elephant]:::gpu
     G2[GPU flow 2<br/>elephant]:::gpu
@@ -191,10 +193,11 @@ In a BGP-based IP fabric:
 4. Leaf A programs an ECMP next-hop group in the ASIC.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef route fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef route fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     LA[Leaf A<br/>ingress]:::leaf
     SA[Spine A<br/>next hop]:::spine
@@ -228,11 +231,12 @@ The switch ASIC:
 6. Sends the packet toward the chosen spine.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef packet fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef stage fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef table fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef out fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef packet fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef stage fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef table fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef out fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     P[Packet from GPU]:::packet
     H[Header parse<br/>IP, UDP, BTH, VLAN/VNI]:::stage
@@ -364,11 +368,12 @@ DLB considers signals such as:
 The ASIC or packet forwarding engine keeps a link quality table and chooses better local ECMP members for new flows or flowlets.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef signal fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef asic fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef table fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef decision fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef signal fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef asic fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef table fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     U[Interface utilization]:::signal
     Q[Queue depth / buffer use]:::signal
@@ -412,6 +417,7 @@ The switch monitors inactivity:
 - If the idle gap is longer than the inactivity timer, the next burst can be assigned to a different path.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant GPU1 as GPU 1
     participant Leaf as Ingress Leaf
@@ -463,11 +469,12 @@ DLB only sees local link quality. GLB extends the idea by using remote link qual
 Consider two ingress leaves sending traffic to the same egress leaf. Each ingress leaf may independently choose Spine A because its local link to Spine A looks good. However, Spine A may have only one congested downlink toward the egress leaf.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef hot fill:#fff1f2,stroke:#e11d48,stroke-width:3px,color:#7f1d1d
-    classDef ok fill:#f8fafc,stroke:#64748b,color:#334155
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef hot fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef ok fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     LA[Leaf A<br/>ingress]:::leaf
     LB[Leaf B<br/>ingress]:::leaf
@@ -496,11 +503,12 @@ GLB lets a leaf consider:
 - Next-hop and next-next-hop topology
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef local fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef remote fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef topo fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef decision fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef local fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef remote fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef topo fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     LQ[Local link quality<br/>Leaf to Spine]:::local
     RQ[Remote link quality<br/>Spine to egress Leaf]:::remote
@@ -551,10 +559,11 @@ The division of labor is important:
 For more detail on the BGP underlay assumptions, NNHN signaling, and GLB operational roles, see [Appendix: BGP-based Underlay and GLB NNHN](../glb-nnhn-bgp-underlay/README.md).
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef control fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef data fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef table fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef control fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef data fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef table fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     BGP[BGP NNHN<br/>next-hop and next-next-hop topology]:::control
     HB[GLB heartbeat<br/>link quality signal]:::data
@@ -639,11 +648,12 @@ Possible match inputs:
 | Ingress interface | Tie a server rail or NIC to a logical path group |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef match fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef policy fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef path fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef backup fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef match fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef policy fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef path fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef backup fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     T[Tenant / job ID]:::match
     G[GPU ID]:::match
@@ -697,11 +707,12 @@ Outputs:
 - Automated remediation
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef sched fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef telemetry fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef controller fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef fabric fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef sched fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef telemetry fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef controller fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fabric fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     S[AI scheduler<br/>tenant, job, GPU placement]:::sched
     T[Fabric telemetry<br/>utilization, queues, ECN/PFC/DCQCN]:::telemetry
@@ -731,11 +742,12 @@ Main risk:
 - Packets can arrive out of order.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef packet fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef dest fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef packet fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef dest fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     SRC[One elephant flow]:::packet
     L[Ingress leaf]:::leaf
@@ -771,11 +783,12 @@ The switch can match packet characteristics such as:
 The chapter notes that some modern 400G NICs and DPUs can handle reordering for selected RDMA operations, especially certain write operations. That makes selective spraying more practical than spraying everything.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef flow fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef match fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef normal fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef spray fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef flow fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef match fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef normal fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spray fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     F1[Flow 1]:::flow
     F2[Flow 2]:::flow
@@ -899,12 +912,13 @@ Checklist:
 - Run workload-level tests such as NCCL collectives, all-to-all patterns, storage synchronization, and checkpoint bursts.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef observe fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef test fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef signal fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef decision fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef fix fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef observe fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef test fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef signal fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fix fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     H[Inspect hash fields<br/>and ASIC support]:::observe
     W[Generate AI-like workload<br/>NCCL, RDMA, checkpoint]:::test

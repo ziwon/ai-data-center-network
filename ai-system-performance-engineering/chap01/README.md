@@ -41,12 +41,13 @@ Chapter 1 sets the foundation for the whole book:
 * Hardware, software, and algorithms must be codesigned.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef hw fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef sw fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef alg fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef metric fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef goal fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef hw fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sw fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef alg fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef metric fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef goal fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     HW[Hardware<br/>GPU, CPU, HBM, NVLink, RDMA, Storage]:::hw
     SW[Software Stack<br/>OS, Driver, CUDA, PyTorch, Runtime]:::sw
@@ -91,10 +92,11 @@ This is why Chapter 1 introduces **goodput**, **mechanical sympathy**, and **har
 An AI Systems Performance Engineer sits between several domains.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef role fill:#f8fafc,stroke:#475569,color:#0f172a
-    classDef layer fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef team fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef role fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef layer fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef team fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     PE[AI Systems<br/>Performance Engineer]:::role
 
@@ -162,10 +164,11 @@ Examples of non-useful work:
 * KV cache eviction or recomputation
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef useful fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef waste fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
-    classDef total fill:#eef6ff,stroke:#2563eb,color:#0f172a
+    classDef useful fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef waste fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef total fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     TOTAL[Total GPU Cluster Time]:::total
 
@@ -225,10 +228,11 @@ Chapter 1 emphasizes that performance work should be **profile-driven**.
 The workflow should be:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef step fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef decision fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef output fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef step fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Define workload]:::step
     B[Run baseline benchmark]:::step
@@ -289,10 +293,11 @@ For AI systems, the “machine” includes:
 * Kubernetes scheduler placement
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef machine fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef symptom fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
-    classDef fix fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef machine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef symptom fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fix fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     HBM[HBM bandwidth limit]:::machine
     ATT[Attention reads/writes too much memory]:::symptom
@@ -327,11 +332,12 @@ Examples:
 Chapter 1 frames modern AI performance as a **codesign problem**.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef hw fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef sw fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef alg fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef result fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef hw fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sw fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef alg fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef result fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     HW[Hardware<br/>GPU, HBM, NVLink, RDMA, Storage]:::hw
     SW[Software<br/>CUDA, PyTorch, NCCL, Runtime, Scheduler]:::sw
@@ -380,10 +386,11 @@ The deeper performance engineering lesson is:
 > When hardware is constrained, software and algorithmic optimization become strategic weapons.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef constraint fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
-    classDef technique fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef outcome fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef constraint fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef technique fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef outcome fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     C1[Restricted GPU access<br/>H800 instead of top-tier GPUs]:::constraint
     C2[Lower interconnect bandwidth]:::constraint
@@ -428,10 +435,11 @@ First prove whether the bottleneck is compute, memory, network, storage, runtime
 Chapter 1 is an overview chapter, so the bottleneck lens should cover the full stack.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef layer fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef metric fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef tool fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef layer fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef metric fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef tool fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     APP[Application<br/>training loop / serving API]:::layer
     RUNTIME[Runtime<br/>PyTorch / CUDA / vLLM]:::layer
@@ -529,11 +537,12 @@ flowchart TB
 A practical workflow for this chapter:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef q fill:#f8fafc,stroke:#475569,color:#0f172a
-    classDef m fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef t fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef f fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef q fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef m fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef t fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef f fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     Q1[1. What is slow?<br/>throughput, latency, cost, reliability]:::q
     Q2[2. Where is the bottleneck?<br/>GPU, CPU, network, storage, runtime, scheduler, app]:::q

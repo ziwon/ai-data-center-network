@@ -83,6 +83,7 @@ NER task            -> train NER model
 이것이 transfer learning이다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Large raw corpus] --> B[Pre-training<br/>next-token prediction]
     B --> C[Base model]
@@ -93,10 +94,10 @@ flowchart LR
     E --> H[Task-specialized model]
     F --> I[Aligned model]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,C primary
     class B,D,E,F secondary
     class G,H note
@@ -190,6 +191,7 @@ training tokens ~= 20 x model parameters
 이 관점에서 GPT-3는 parameter 수에 비해 token 수가 적어 undertrained로 볼 수 있다. 이후 model들은 더 많은 token으로 더 오래 학습하는 방향으로 이동했다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Fixed compute budget] --> B{Allocate compute}
     B --> C[More parameters<br/>larger model]
@@ -201,10 +203,10 @@ flowchart LR
     H[Too few tokens] --> I[Undertrained model]
     I -. Chinchilla correction .-> D
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,G primary
     class B,C,D,E,F secondary
     class H note
@@ -236,6 +238,7 @@ Pre-training의 어려움은 여러 층위에 있다.
 LLM training loop는 일반적인 neural network training과 같지만, scale 때문에 memory 문제가 훨씬 크다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Batch tokens] --> B[Forward pass]
     B --> C[Activations]
@@ -246,10 +249,10 @@ flowchart LR
     G --> H[Updated weights]
     H -. next step .-> B
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,H primary
     class B,D,E,G secondary
     class C,F accent
@@ -401,6 +404,7 @@ loss mainly over target answer tokens
 즉 SFT에서는 prompt/input을 parroting하게 만들고 싶은 것이 아니라, 그 input에 conditioned된 helpful answer를 생성하도록 학습한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Instruction tokens] --> B[Assistant answer tokens]
     A --> C[Conditioning context]
@@ -408,10 +412,10 @@ flowchart LR
     C -. no target loss .-> E[Do not train prompt echoing]
     D --> F[Helpful response behavior]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,C note
     class B,F primary
     class D accent
@@ -483,6 +487,7 @@ Human preference evaluation의 예로 Chatbot Arena가 있다. 두 model의 anon
 강의에서는 alignment를 pre-training 이후의 fine-tuning과 preference tuning을 포함하는 넓은 과정으로 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Pre-training<br/>broad distribution] --> B[Mid-training<br/>domain/task mix]
     B --> C[SFT<br/>instruction-output pairs]
@@ -492,10 +497,10 @@ flowchart LR
     F -. feedback .-> B
     F -. feedback .-> C
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,E primary
     class B,C,D secondary
     class F accent

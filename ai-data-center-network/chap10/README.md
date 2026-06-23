@@ -68,6 +68,7 @@ The chapter focuses on these topics:
 ![AI data center KPI stack](assets/ai-kpi-stack.svg)
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     W[AI workload<br/>training or inference] --> M[Model KPIs<br/>quality and latency]
     W --> D[Data KPIs<br/>quality and supply]
@@ -77,10 +78,10 @@ flowchart LR
     D --> R
     N --> R
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class W primary
     class M,D,I secondary
     class N note
@@ -128,6 +129,7 @@ The chapter groups AI data center KPIs into model, data, and infrastructure fami
 | Network and storage | What infrastructure signals explain the workload result? | ECN marks, PFC pauses, CNPs, drops, queue occupancy, checkpoint write time |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     K[AI data center KPIs] --> M[Model<br/>quality and prediction behavior]
     K --> D[Data<br/>quality and input pipeline]
@@ -139,10 +141,10 @@ flowchart TB
     I --> P[JCT, throughput,<br/>latency, power, scale]
     F --> C[ECN, PFC, CNP,<br/>drops, queues, checkpoints]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class K primary
     class M,D,I secondary
     class F accent
@@ -172,6 +174,7 @@ In AI training fabrics, JCT is one of the most important top-level KPIs because 
 JCT is not only compute time. It includes the pauses and waits introduced by the surrounding system.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     S[Training job start] --> L[Data loading]
     L --> F[Forward pass]
@@ -182,10 +185,10 @@ flowchart LR
     P --> V[Validation / accuracy check]
     V --> Q[Target quality reached]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class S primary
     class L,F,B,O,V secondary
     class C,P accent
@@ -428,6 +431,7 @@ These counters should be correlated with job-level metrics such as GPU utilizati
 ![Network and storage KPI signal map](assets/network-storage-kpi-signals.svg)
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     K[Top-level KPI moves] --> Q{Which path changed?}
     Q -->|Training sync| N[Network counters<br/>ECN, CNP, PFC, drops]
@@ -438,10 +442,10 @@ flowchart LR
     G --> R
     R --> V[Re-run workload<br/>and compare JCT or latency]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class K primary
     class Q accent
     class N,S,G secondary
@@ -503,6 +507,7 @@ Benchmarking an AI data center is a multi-step process. The exact method depends
 ### Benchmark Workflow
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     B[Choose benchmark suite<br/>training, inference, storage] --> D[Choose division<br/>closed or open]
     D --> H[Set up system<br/>GPU, CPU, network, storage]
@@ -513,10 +518,10 @@ flowchart TB
     A --> R[Submit results<br/>and code]
     R --> P[Peer review<br/>and publication]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class B primary
     class D,H,S,C,E secondary
     class A accent
@@ -537,6 +542,7 @@ The workflow should capture:
 MLPerf Inference uses LoadGen to issue queries to the System Under Test, SUT. LoadGen controls request generation so that results are comparable.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     L[MLPerf LoadGen] -->|queries| S[SUT<br/>system under test]
     S --> M[Trained model]
@@ -544,10 +550,10 @@ flowchart LR
     S -->|responses| L
     L --> R[Results<br/>QPS, latency, accuracy]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class L primary
     class S secondary
     class M note
@@ -581,6 +587,7 @@ The timing is end to end:
 This structure matters because it includes data pipeline, storage, GPU compute, distributed communication, and software framework behavior.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     D[Dataset loading] --> T[Distributed training]
     T --> C[Compute + communication]
@@ -589,10 +596,10 @@ flowchart LR
     Q -->|No| T
     Q -->|Yes| R[Time to train]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class D,T,C,V secondary
     class Q accent
     class R primary
@@ -609,15 +616,16 @@ The core question is:
 > Can the storage system feed the training job fast enough that GPUs are not waiting for input data?
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     S[Storage system] --> P[Training data supply]
     P --> G[GPU training job]
     G --> K[Step time and GPU utilization]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class S primary
     class P accent
     class G secondary

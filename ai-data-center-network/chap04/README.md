@@ -70,12 +70,13 @@ The chapter focuses on these topics:
 - Cable management for rail-optimized AI fabrics
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef server fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef optics fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef signal fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef cable fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
-    classDef risk fill:#fff1f2,stroke:#e11d48,stroke-dasharray:4 3,color:#7f1d1d
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef optics fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef signal fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cable fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     GPU[GPU server<br/>NVLink, NVSwitch, NICs]:::server
     NIC[400G/800G NIC ports<br/>OSFP or QSFP-DD]:::server
@@ -150,11 +151,12 @@ AMD has Infinity Fabric, while Intel has switch and interconnect technologies ar
 > - PCIe, Peripheral Component Interconnect Express: A general-purpose high-speed I/O interconnect used for NICs, GPUs, storage, and other devices.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef local fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef nic fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef fabric fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef local fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef nic fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fabric fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     G1[GPU 1]:::gpu
     G2[GPU 2]:::gpu
@@ -294,10 +296,11 @@ In data centers and data center interconnects, DWDM is useful when:
 400G ZR optics are an example of pluggable coherent DWDM optics used for data center interconnect distances, commonly up to about 80 km.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef ch fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef mux fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef fiber fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
+    classDef ch fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef mux fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fiber fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     C1[Channel lambda 1]:::ch
     C2[Channel lambda 2]:::ch
@@ -401,10 +404,11 @@ For servers with 800 Gbps OSFP ports, the switch side can be designed in two com
 This creates a practical design dependency: the cable and transceiver plan must align with both server and switch port speeds.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef server fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef switch fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef cable fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef switch fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cable fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     S[GPU server<br/>800G OSFP port]:::server
     C1[Option A<br/>800G direct cable]:::cable
@@ -598,10 +602,11 @@ Trade-offs:
 - DSP included in every pluggable module
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef asic fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef cage fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef cable fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
+    classDef asic fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cage fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cable fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     ASIC[PFE ASIC]:::asic
     CAGE[Front-panel cage]:::cage
@@ -661,10 +666,11 @@ Trade-offs:
 - Technology and operational model are still emerging
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef chip fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef optic fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef note fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
+    classDef chip fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef optic fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     ASIC[Switch ASIC package]:::chip
     O1[Optical engine 1]:::optic
@@ -701,11 +707,12 @@ LPO and CPO can benefit switch and ASIC vendors by shifting integration closer t
 Use this checklist before finalizing an AI fabric optics and cable plan.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef step fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef test fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef risk fill:#fff1f2,stroke:#e11d48,stroke-width:1px,color:#7f1d1d
-    classDef done fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
+    classDef step fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef test fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef done fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Confirm server port speed and form factor]:::step
     B[Map switch port speed and breakout plan]:::step

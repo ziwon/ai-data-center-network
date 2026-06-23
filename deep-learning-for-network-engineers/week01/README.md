@@ -37,12 +37,13 @@
 현대 Deep Learning model은 단일 GPU 또는 CPU memory 용량을 초과할 수 있다. 이 경우 학습은 여러 GPU 또는 여러 server에 분산되어야 한다. 같은 node 안의 GPU 통신은 NVLink를 사용할 수 있고, node 간 통신은 InfiniBand 또는 Ethernet 기반 fabric 같은 backend network에 의존한다. 책에서는 GPU synchronization이 network에 높은 throughput, ultra-low latency, zero packet loss라는 엄격한 요구사항을 만든다고 강조한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef model fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef decision fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
-    classDef compute fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef network fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef requirement fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef model fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef network fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef requirement fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Deep Learning Model]:::model --> B[Large Model Parameters]:::model
     B --> C{Fits in One GPU?}:::decision
@@ -75,11 +76,12 @@ flowchart TB
 Artificial neuron은 neural network의 가장 작은 계산 단위다. 입력값을 받고, weight parameter를 곱한 뒤, bias term을 더하고, activation function을 적용해 output을 만든다. 책에서는 이 과정을 matrix multiplication 이후 non-linear activation function을 적용하는 흐름으로 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef input fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef param fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef compute fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef output fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef input fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef param fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     X[Input Values]:::input --> WS[Weighted Sum]:::compute
     W[Weights]:::param --> WS
@@ -122,13 +124,14 @@ Neuron 하나는 작다.
 하지만 수십억 개 parameter를 가진 model은 weights, activations, gradients, optimizer states, mini-batch tensors를 GPU memory에 유지해야 한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef neuron fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef param fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef memory fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef decision fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef compute fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef risk fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef neuron fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef param fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef memory fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Artificial Neuron]:::neuron --> B[Weights + Bias]:::param
     B --> C[Model Parameters]:::param
@@ -161,12 +164,13 @@ Chapter 1은 단순해 보이지만, 이미 첫 번째 network design trigger를
 Chapter 2는 작은 feed-forward neural network를 사용해 training loop를 설명한다. Forward pass는 model output을 만들고, error function은 output이 expected value와 얼마나 다른지 측정하며, backward pass는 weight를 어떻게 조정해야 하는지 계산한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
-    classDef input fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef forward fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef loss fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef backward fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef update fill:#f8fafc,stroke:#64748b,color:#334155
+    classDef input fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef forward fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef loss fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef backward fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef update fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Mini-batch Input]:::input --> B[Forward Pass]:::forward
     B --> C[Model Prediction]:::forward
@@ -210,10 +214,11 @@ Backward Pass는 다음을 의미한다.
 책에서는 backpropagation이 activation output, weighted sum, input value를 직접 수정할 수 없다고 설명한다. 대신 weight adjustment를 계산하고, 이를 사용해 model weight를 업데이트한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart RL
-    classDef loss fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef gradient fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef update fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef loss fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef gradient fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef update fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Loss]:::loss --> B[Output Layer Gradient]:::gradient
     B --> C[Hidden Layer Gradient]:::gradient
@@ -256,11 +261,12 @@ Infrastructure team 입장에서는 중요하다. 불안정한 training은 비�
 Multi-class classification은 MNIST handwritten digit classification 예제로 이해할 수 있다. 이 dataset은 grayscale handwritten digit image로 구성되어 있으며, 가능한 digit이 10개이므로 output layer는 class마다 하나씩 총 10개의 neuron을 사용한다. Label은 training 전에 one-hot encoding된다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef input fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef transform fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef layer fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef output fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef input fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef transform fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef layer fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[28 x 28 Image]:::input --> B[Flatten]:::transform
     B --> C[784 Input Values]:::input
@@ -289,10 +295,11 @@ Logits
 책에서는 각 output neuron이 weighted sum을 계산해 logit을 만들고, SoftMax가 각 logit에 exponential을 적용한 뒤 모든 exponential의 합으로 나누어 probability로 변환한다고 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef logits fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef softmax fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef probability fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef logits fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef softmax fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef probability fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Output Layer Logits]:::logits --> B[SoftMax]:::softmax
     B --> C[Class 0 Probability]:::probability
@@ -326,11 +333,12 @@ gradient = predicted probability - ground truth
 책에서는 output layer neuron의 gradient가 SoftMax가 만든 probability에서 one-hot encoded ground truth 값을 빼서 계산된다고 설명한다. SoftMax와 cross-entropy loss가 잘 결합되기 때문에 이런 단순한 gradient 표현이 가능하다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
-    classDef probability fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef label fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef gradient fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef update fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef probability fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef label fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef gradient fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef update fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[SoftMax Probabilities]:::probability --> C[Output Gradient]:::gradient
     B[One-Hot Ground Truth]:::label --> C
@@ -346,6 +354,7 @@ flowchart TD
 Chapter 1-3에서 얻을 수 있는 가장 중요한 infrastructure insight는 training loop에 성격이 매우 다른 두 phase가 있다는 점이다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant GPU as GPU Compute
     participant NET as Backend Network
@@ -403,12 +412,13 @@ Local Gradients
 ```
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef data fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef gradient fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef sync fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef update fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef data fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef gradient fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sync fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef update fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph GPU_A[GPU-A]
         A1[Model Replica]:::gpu
@@ -458,12 +468,13 @@ Synchronization phase
 ```
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef compute fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef quiet fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef sync fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef risk fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
-    classDef impact fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef quiet fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sync fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef impact fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Forward / Backward Compute]:::compute --> B[Low Network Utilization]:::quiet
     B --> C[Gradient Synchronization]:::sync
@@ -568,13 +579,14 @@ Checklist:
 Chapter 1-3은 AI Training Fabric을 이해하기 위한 기반을 만든다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
-    classDef chapter fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef param fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef compute fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef network fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef risk fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
-    classDef requirement fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef chapter fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef param fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef network fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef requirement fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Chapter 1: Artificial Neuron]:::chapter --> B[Weights and Biases]:::param
     B --> C[GPU Memory Footprint]:::param

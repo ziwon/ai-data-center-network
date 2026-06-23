@@ -108,16 +108,17 @@ GPU memory hierarchy는 LLM inference의 성능 언어다.
 Week 2에서 강조한 것처럼, optimization은 traffic을 느린 계층에서 빠른 계층으로 당기는 일이다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[HBM] --> B[L2]
     B --> C[SMEM / L1]
     C --> D[Registers / TMEM]
     D --> E[Tensor Core]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A accent
     class B,C secondary
     class D note
@@ -192,6 +193,7 @@ GPU interconnect 문서를 읽을 때는 비슷한 이름을 구분해야 한다
 이 계층을 섞어 말하면 성능 추정이 틀어진다. Tensor parallel AllReduce가 NVLink domain 안에 머무르는지, rack 밖 RDMA를 건너는지에 따라 같은 GPU 수라도 latency와 throughput이 크게 달라진다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[One GPU<br/>SM / HBM / L2] --> B[Package / board<br/>NV-HBI / C2C]
     B --> C[Node scale-up<br/>NVLink / NVSwitch]
@@ -203,10 +205,10 @@ flowchart LR
     D --> H[large model shard<br/>rack-local serving]
     E --> I[pipeline / expert / data parallel<br/>cross-rack traffic]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A primary
     class B,C,D secondary
     class E accent

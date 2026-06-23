@@ -79,11 +79,12 @@ Tokenization은 입력 문장을 model이 처리할 수 있는 단위로 쪼개�
 책에서는 많은 LLM이 **Byte Pair Encoding, BPE**를 사용한다고 설명한다. BPE는 단어 전체만 vocabulary에 넣는 방식보다 rare word와 subword를 더 효율적으로 처리할 수 있다. 단순한 예제에서는 complete word를 사용하지만, 실제 LLM에서는 subword tokenization이 일반적이다. 
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef input fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef split fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef vocab fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef output fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef input fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef split fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef vocab fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     T[Input Text]:::input --> S[Subword Split]:::split
     S --> V[Vocabulary Lookup]:::vocab
@@ -141,11 +142,12 @@ Word embedding은 token을 단순한 ID가 아니라 vector space 안의 점으�
 책에서는 단순화를 위해 2차원 embedding 예제를 사용한다. 예를 들어 단어들을 adult/child, male/female 같은 의미 축에 따라 배치하면, training 이후 비슷한 의미의 단어는 가까운 위치에 놓이고 서로 대응되는 관계도 일정한 방향성을 갖게 된다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef token fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef train fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef space fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef metric fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef token fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef train fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef space fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef metric fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Token IDs]:::token --> B[Random Initial Vectors]:::space
     B --> C[Training Updates]:::train
@@ -183,11 +185,12 @@ The sky is clear, so she decided to clear the backyard.
 첫 번째 `clear`는 형용사이고, 두 번째 `clear`는 동사다. 그런데 token ID만 보면 둘 다 같은 `clear`다. 그래서 word embedding만으로는 두 단어의 위치 차이를 표현하기 어렵다. 책에서는 이런 문제를 해결하기 위해 Word Embedding Vector에 Positional Encoding Vector를 더해 최종 word representation을 만든다고 설명한다. 
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef token fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef param fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef compute fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef output fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef token fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef param fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Token ID]:::token --> B[Word Embedding Vector]:::param
     C[Token Position]:::token --> D[Positional Embedding Vector]:::param
@@ -248,13 +251,14 @@ Final Word Embedding
 각 decoder module은 attention layer, add & normalization layer, feedforward neural network로 구성된다. 마지막 decoder의 output은 vocabulary 전체에 대한 확률 분포로 변환되고, 그중 가장 가능성 높은 token이 다음 token으로 선택된다. 
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef input fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef projection fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef attention fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef norm fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef ffn fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef output fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef input fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef projection fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef attention fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef norm fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef ffn fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     X[Input Embedding]:::input --> QKV[Q / K / V Projection]:::projection
     QKV --> ATT[Self-Attention]:::attention
@@ -326,12 +330,13 @@ Different decoder layer
 Self-Attention은 한 token이 sequence 안의 다른 token들을 얼마나 참고해야 하는지 계산한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef qkv fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef compute fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef softmax fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef weight fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef output fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef qkv fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef softmax fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef weight fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     Q[Query]:::qkv --> DOT[Q · K]:::compute
     K[Key]:::qkv --> DOT
@@ -512,11 +517,12 @@ More concurrent users
 | Output projection   | 여러 attention head의 결과를 다음 layer 형태로 변환 |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef input fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef head fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef param fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef output fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef input fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef head fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef param fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     X[Input Embedding]:::input --> QKV[Q / K / V Projections]:::param
     QKV --> H1[Attention Head 1]:::head
@@ -564,11 +570,12 @@ hidden dimension
 책의 단순 예제에서는 hidden layer가 input보다 3배 큰 형태로 설명되지만, 대규모 Transformer의 일반적인 구조는 hidden dimension을 약 4배로 확장한 뒤 다시 원래 dimension으로 줄이는 방식이다. 중간 hidden layer에서는 weighted sum과 ReLU 같은 activation function을 적용한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef input fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef projection fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef compute fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef output fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef input fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef projection fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Context Vector d_model]:::input --> B[Linear Up Projection 4x]:::projection
     B --> C[Activation]:::compute
@@ -596,12 +603,13 @@ decoder_output
 SoftMax는 vocabulary 전체에 대해 다음 token이 될 확률 분포를 만든다. 책에서는 decoder output이 직접 next word를 의미하는 것이 아니라, vocabulary 전체에 대한 probability distribution으로 변환되어야 한다고 설명한다. 
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef input fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef projection fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef logits fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef softmax fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef output fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef input fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef projection fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef logits fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef softmax fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef output fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Decoder Output]:::input --> B[Linear Projection to Vocabulary Size]:::projection
     B --> C[Logits]:::logits
@@ -675,13 +683,14 @@ Inference에서는 병목이 조금 다르게 보인다. Autoregressive decoding
 따라서 네트워크 엔지니어는 “모델이 크다 → 네트워크가 빨라야 한다”로만 보면 부족하다. Training에서는 GPU 간 collective communication과 fabric 품질이 핵심이고, inference에서는 GPU memory capacity, KV Cache 관리, request scheduling, tail latency가 함께 capacity planning 대상이 된다. PagedAttention, KV quantization, TurboQuant 같은 기술은 네트워크 대역폭 자체를 늘리는 기술이라기보다, GPU memory 효율을 높여 serving concurrency와 scheduling 여유를 만드는 기술로 보는 편이 정확하다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef model fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef memory fill:#fff1f2,stroke:#e11d48,stroke-width:1px,color:#7f1d1d
-    classDef parallel fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
-    classDef comm fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef network fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef requirement fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef model fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef memory fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef parallel fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef comm fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef network fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef requirement fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     LLM[Large Language Model]:::model --> TRAIN[Training Path]:::parallel
     LLM --> SERVE[Inference Serving Path]:::parallel

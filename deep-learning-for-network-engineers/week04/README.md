@@ -40,6 +40,7 @@ Network engineer 관점에서 중요한 질문은 다음과 같다.
 Chapter 9는 하나의 client compute node가 remote server compute node의 device memory에 RDMA Write를 수행하는 절차를 설명한다. Chapter 14는 두 GPU host, 각 4 GPU로 구성된 training cluster에서 PyTorch, CUDA, NCCL이 training job을 시작하고 gradient를 동기화하는 흐름을 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
     subgraph C1["Control plane"]
         A[torchrun launch]
@@ -64,10 +65,10 @@ flowchart TD
 
     A --> B --> C --> D --> E --> F --> G --> H --> I
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A primary
     class B,C,D,E,F secondary
     class G,H accent
@@ -141,6 +142,7 @@ P_Key는 RDMA domain의 partition key다. CCN과 SCN의 NIC port가 같은 parti
 RDMA Write는 application이 remote memory에 데이터를 밀어 넣는 operation이다. Chapter 9 예제에서는 client compute node의 device memory에서 server compute node의 device memory로 write한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
     subgraph C["Client node"]
         A[Client app]
@@ -162,10 +164,10 @@ flowchart TD
 
     A --> B --> C1 --> D --> E --> F1 --> G --> H --> I
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A primary
     class B,C1,D,F1,G,H secondary
     class E accent
@@ -236,6 +238,7 @@ Global rank 0이 master rank가 된다. 예제에서는 rank 0이 `192.168.10.10
 ![NCCL bootstrap and communication paths](./assets/nccl-bootstrap-communication.svg)
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Rank 0<br/>master] --> B[NCCL Unique ID]
     C[Rank 1-3<br/>same host] -. TCP loopback .-> A
@@ -243,10 +246,10 @@ flowchart LR
     B --> E[All ranks initialize<br/>NCCL communicator]
     E --> F[Ring and tree<br/>topologies]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A primary
     class C,D note
     class B,E secondary
@@ -291,6 +294,7 @@ Ring AllReduce는 두 phase로 이해할 수 있다.
 | Local averaging | 각 GPU가 값을 GPU 수로 나눈다. | 모든 model replica가 같은 average gradient로 update된다. |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
     subgraph P1["Prepare"]
         A[Gradient bucket<br/>1024 values]
@@ -314,10 +318,10 @@ flowchart TD
 
     A --> B --> C --> D --> E --> F --> G --> H
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A primary
     class B,D,F,G secondary
     class C,E accent
@@ -360,6 +364,7 @@ Chapter 9와 Chapter 14를 합치면 AI training fabric의 요구사항이 명�
 일반 application traffic은 request-response나 many-to-one pattern이 많다. 반면 distributed training은 synchronized many-to-many burst가 많다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     subgraph A["Application traffic"]
         A1[Client] --> A4[Server]
@@ -374,10 +379,10 @@ flowchart LR
         B3 <--> B0
     end
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A1,A2,A3,A4 secondary
     class B0,B1,B2,B3 accent
 ```
@@ -564,6 +569,7 @@ NCCL Unique ID는 TCP로 배포된다. 이 TCP connection은 communicator bootst
 RDMA path가 잡히지 않을 때 switch 설정부터 바꾸면 시간을 낭비하기 쉽다. 먼저 container 또는 process namespace 안에서 RDMA device, HCA, driver, library, GPU-NIC topology가 보이는지 확인한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
     A[PyTorch process] --> B[NCCL]
     B --> C[CUDA]
@@ -574,10 +580,10 @@ flowchart TD
     G --> H[IB or RoCEv2 fabric]
     H --> I[Remote NIC or GPU]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A primary
     class B,C,D,E,F,G secondary
     class H accent

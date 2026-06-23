@@ -161,6 +161,7 @@ The idea:
 - Extended Next Hop Encoding, RFC 5549, allows this behavior.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Leaf as Leaf
     participant Spine as Spine
@@ -327,10 +328,11 @@ Example:
 - Tenant Gray overlay is mapped to Underlay Fabric Gray.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef tenant fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef overlay fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef underlay fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef tenant fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef overlay fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef underlay fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     TB[Tenant Black]:::tenant
     TG[Tenant Gray]:::tenant
@@ -371,10 +373,11 @@ Key benefits:
 - Better fit for large Clos than general-purpose IGP flooding
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef super fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef super fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     L1[Leaf 1]:::leaf
     L2[Leaf 2]:::leaf
@@ -434,10 +437,11 @@ Benefits:
 - More useful as spine count grows to 32, 64, or more
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef chosen fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px,color:#2e1065
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef chosen fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     L[Leaf announces new prefix]:::leaf
     S1[Spine 1]:::spine
@@ -469,11 +473,12 @@ Example:
 | 130 | Low congestion | Congestion-sensitive or premium workloads |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef physical fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef low fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef bw fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef cong fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef physical fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef low fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef bw fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cong fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     P[Same physical leaf-spine fabric]:::physical
     A128[FlexAlgo 128<br/>low latency plane]:::low
@@ -539,10 +544,11 @@ EVPN-VXLAN can segment tenant traffic using:
 | Routing VNI | Tenant L3 VXLAN tunnel identifier |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef tenant fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef evpn fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef fabric fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef tenant fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef evpn fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fabric fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     TA[Tenant A GPU]:::tenant
     TB[Tenant B GPU]:::tenant
@@ -588,10 +594,11 @@ Example:
 This creates end-to-end tenant isolation from GPU instance to fabric path.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef vlan fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef vrf fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef vlan fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef vrf fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     M1[MIG 1<br/>Tenant 1]:::gpu
     M2[MIG 2<br/>Tenant 2]:::gpu
@@ -639,10 +646,11 @@ Use cases:
 - Avoid static host route models
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef server fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     S1[GPU server 1<br/>BGP ASN]:::server
     S2[GPU server 2<br/>BGP ASN]:::server
@@ -708,11 +716,12 @@ Telemetry inputs:
 | Job scheduler metadata | Map workload to fabric policy |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef scheduler fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef telemetry fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef controller fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef fabric fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef scheduler fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef telemetry fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef controller fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fabric fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     J[GPU job scheduler<br/>placement and SLA]:::scheduler
     T[Fabric telemetry<br/>links, queues, ECN/PFC, probes]:::telemetry
@@ -747,9 +756,10 @@ Important terms:
 | SR path | Ordered list of segments from ingress to egress |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef node fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef sid fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef node fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sid fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     I[Ingress leaf]:::node
     S[Spine<br/>Node SID 5]:::sid
@@ -872,12 +882,13 @@ Checklist:
 - Measure workload effects: NCCL latency, p99 iteration time, GPU utilization, and JCT.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef model fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef test fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef signal fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef decision fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef fix fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef model fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef test fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef signal fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fix fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     R[Routing model<br/>BGP, RIFT, IS-IS, SR]:::model
     P[Policy model<br/>tenant, color, VRF, path]:::model

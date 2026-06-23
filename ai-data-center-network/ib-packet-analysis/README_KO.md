@@ -246,6 +246,7 @@ InfiniBand 프로토콜 스택은 두 가지 보완적인 수준에서 볼 수 �
 `tshark`로 보이는 패킷 구조는 1장의 InfiniBand Communication Stack에 잘 매핑됩니다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     ERF[ERF capture record]
     LRH[InfiniBand LRH<br/>fabric 내부 LID 라우팅]
@@ -272,6 +273,7 @@ flowchart TB
 이 캡처들은 외부 래퍼로 Endace **Extensible Record Format**(ERF)을 사용합니다. 실제 전송된 InfiniBand 프레임은 캡처 장비가 생성한 ERF 레코드로 캡슐화되며, `tshark`는 이 외부 레코드를 디코드한 다음 내부 바이트를 InfiniBand dissector에 넘깁니다. ERF가 무엇을 보존하고 무엇을 감추는지 이해해야 "패킷이 보인다"는 것과 "스니퍼가 실제로 무엇을 기록했는지 안다"는 것을 구분할 수 있습니다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     PHY["물리 계층<br/>8b/10b 또는 64b/66b 심볼<br/>training, idle, recovery"]
     LFC["링크 수준 흐름 제어<br/>FCCL / FCTBS 크레딧"]
@@ -405,6 +407,7 @@ IPv4 → ICMP Echo request
 > 여기 나열된 모든 헤더(LRH, GRH, BTH, DETH, RETH, AETH, AtomicETH, ImmDt, IETH, RDETH, XRCETH, MAD, SMP DR, IPoIB encap)의 비트 단위 필드 레이아웃, AETH syndrome 인코딩, BTH opcode 마스터 표는 참조 문서 [`packet-format-reference_KO.md`](packet-format-reference_KO.md)를 참고하세요. 이 섹션은 상위 수준의 패킷 모양을 설명하고, 참조 문서는 바이트와 비트 경계까지 내려가 설명합니다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     LRH["LRH<br/>Local Route Header<br/>DLID, SLID, VL, packet length"]
     GRH["GRH<br/>Global Route Header<br/>선택적, GID 기반 라우팅"]
@@ -421,6 +424,7 @@ flowchart LR
 흔한 패킷 모양들:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     MGMT["Management traffic<br/>QP0/QP1 제어 경로"]
     MGMT_SEQ["LRH -> BTH -> DETH -> MAD"]
@@ -484,6 +488,7 @@ InfiniBand 전송 서비스는 verbs 스타일의 모든 동작을 똑같이 지
 RDMA READ가 UC/UD에 맞지 않는 이유:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Req as Requester
     participant Resp as Responder
@@ -498,6 +503,7 @@ RDMA READ는 한 방향으로 끝나는 패킷이 아닙니다. 응답자 쪽에
 Atomic이 UC/UD에 맞지 않는 이유:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Req as Requester
     participant Resp as Responder
@@ -546,6 +552,7 @@ Tencent Cloud 글이 유용한 이유는 RDMA READ/WRITE를 verbs API 호출이 
 RDMA READ는 one-sided **pull**입니다. 요청자가 응답자 RNIC에게 원격 메모리에서 데이터를 읽어 돌려달라고 요청합니다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Req as Requester RNIC
     participant LocalMR as Local MR
@@ -657,6 +664,7 @@ RC Acknowledge
 RDMA WRITE는 one-sided **push**입니다. 요청자가 응답자가 이미 등록하고 메타데이터 교환을 통해 공유한 원격 메모리 범위로 데이터를 보냅니다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Req as Requester RNIC
     participant Fabric as InfiniBand Fabric
@@ -716,6 +724,7 @@ ACK:           LRH -> BTH(Acknowledge)       -> AETH
 캡처는 1장의 제어 경로와 데이터 경로 구분을 구체화합니다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     subgraph Control[제어 경로]
         SM[Subnet Management<br/>NodeInfo, PortInfo, SMInfo]

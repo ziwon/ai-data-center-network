@@ -48,12 +48,13 @@ The chapter focuses on these topics:
 - Rack and facility design implications
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef compute fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef power fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef cooling fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef risk fill:#fff1f2,stroke:#e11d48,stroke-dasharray:4 3,color:#7f1d1d
-    classDef facility fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef power fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cooling fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef facility fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     GPU[High-density GPU servers]:::compute
     SW[400G/800G switches and optics]:::compute
@@ -188,10 +189,11 @@ Trade-offs:
 - Dense front-panel optics may still require strong airflow and heat sinks.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef cold fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef hot fill:#fff1f2,stroke:#e11d48,stroke-width:1px,color:#7f1d1d
-    classDef eq fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
+    classDef cold fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef hot fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef eq fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     C[Cold aisle<br/>front]:::cold
     E[Server / switch / storage]:::eq
@@ -217,10 +219,11 @@ Trade-offs:
 - Mixed airflow directions can cause recirculation and hotspots.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart RL
-    classDef cold fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef hot fill:#fff1f2,stroke:#e11d48,stroke-width:1px,color:#7f1d1d
-    classDef eq fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
+    classDef cold fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef hot fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef eq fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     C[Cold air<br/>rear]:::cold
     E[Server / switch / storage]:::eq
@@ -329,10 +332,11 @@ The cycle is:
 5. Cooled coolant returns to the tank.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef tank fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef liquid fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef heat fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
+    classDef tank fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef liquid fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef heat fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     R[Rack submerged in coolant]:::tank
     HC[Hot coolant]:::heat
@@ -360,10 +364,11 @@ The cycle is:
 5. Droplets fall back into the liquid pool.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef liquid fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef vapor fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef rack fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
+    classDef liquid fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef vapor fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef rack fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     C[Cold condenser / water tube]:::liquid
     V[Vapor rises]:::vapor
@@ -389,10 +394,11 @@ In this design:
 - Cooled liquid returns to the cold plates.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef component fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef liquid fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef heat fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
+    classDef component fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef liquid fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef heat fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     P[Pump]:::liquid
     C[Cold liquid]:::liquid
@@ -436,10 +442,11 @@ Limitations:
 - Adds rear-rack weight, plumbing, and service considerations.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef cold fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef hot fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef water fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
+    classDef cold fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef hot fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef water fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     C[Cold aisle]:::cold
     R[Rack equipment]:::hot
@@ -517,11 +524,12 @@ Important design implications:
 Use this checklist before finalizing an AI data center rack and cooling design.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef step fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef test fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef risk fill:#fff1f2,stroke:#e11d48,stroke-width:1px,color:#7f1d1d
-    classDef done fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
+    classDef step fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef test fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef done fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Inventory server, switch, optics power]:::step
     B[Calculate rack kW and redundancy]:::step

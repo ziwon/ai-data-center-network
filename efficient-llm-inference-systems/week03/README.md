@@ -74,6 +74,7 @@ So the KV cache has two costs at the same time:
 In the Week 2 Qwen2.5-3B + RTX 5080 experiment, attention was not the latency bottleneck. But from a serving perspective, the capacity cost alone strongly constrains batch size and concurrent requests.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     P["Prompt tokens<br/>x1 ... xN"] --> A["Prefill<br/>compute K,V for all prompt tokens"]
     A --> C0[("KV cache<br/>K,V for x1 ... xN<br/>per layer")]

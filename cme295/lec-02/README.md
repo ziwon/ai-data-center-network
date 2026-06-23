@@ -244,6 +244,7 @@ RoPE가 중요한 이유는 다음과 같다.
 Transformer block에는 residual connection과 normalization이 들어간다. 원래 Transformer 그림에는 `Add & Norm`으로 표현된다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     X1[x] --> S1[Sublayer]
     S1 --> A1[Add residual]
@@ -260,10 +261,10 @@ flowchart LR
     P1[Post-norm<br/>original Transformer] -.-> N1
     P2[Pre-norm<br/>modern large models] -.-> N2
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class X1,X2,Y1,Y2 primary
     class S1,A1,N1,S2,A2,N2 secondary
     class P1 note
@@ -350,6 +351,7 @@ Multi-query attention, MQA는 모든 query head가 하나의 shared key/value pr
 Transformer 계열은 크게 세 가지로 나눌 수 있다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     T[Transformer family] --> ED[Encoder-Decoder]
     T --> EO[Encoder-Only]
@@ -364,10 +366,10 @@ flowchart TB
     DO --> DO1[Examples<br/>GPT-style LLMs]
     DO --> DO2[Best fit<br/>generation<br/>chatbot<br/>next-token prediction]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class T primary
     class ED,EO,DO secondary
     class ED1,ED2,EO1,EO2,DO1 note
@@ -418,6 +420,7 @@ P(x_1, ..., x_T) = \prod_{t=1}^{T} P(x_t | x_{<t})
 BERT는 Bidirectional Encoder Representations from Transformers의 약자다. 이름 그대로 Transformer encoder를 사용해 bidirectional representation을 학습한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A["[CLS] sentence A [SEP] sentence B [SEP]"] --> B[Token embeddings]
     A --> C[Position embeddings]
@@ -431,10 +434,10 @@ flowchart LR
     F --> I[Token outputs]
     I --> J[Token-level heads]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,F primary
     class B,C,D,E secondary
     class G,I note

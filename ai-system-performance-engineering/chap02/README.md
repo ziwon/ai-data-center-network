@@ -55,12 +55,13 @@
 * Blackwell Ultra, Vera Rubin, Rubin Ultra, Feynman roadmap
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef compute fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef memory fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef network fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef infra fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
-    classDef note fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef memory fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef network fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef infra fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph Workload["AI Workload"]
         T[Training / Inference Job]:::note
@@ -134,12 +135,13 @@ AI 시스템 성능 문제는 보통 다음 형태로 나타난다.
 AI 시스템 하드웨어는 대략 다음 계층으로 볼 수 있다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef app fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef mem fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef net fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef phy fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef app fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef mem fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef net fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef phy fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[Model Workload<br/>training / inference / serving]:::app
     B[Runtime / Framework<br/>PyTorch / vLLM / TensorRT-LLM]:::app
@@ -185,11 +187,12 @@ Grace Blackwell은 이 문제를 줄이기 위해 CPU와 GPU를 **NVLink-C2C**�
 Source: NVIDIA, [GB200 NVL Multi-Node Tuning Guide: System][nvidia-system], [Topology of a Compute Node][nvidia-mn-topology].
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef cpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef gpu fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef mem fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef link fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef cpu fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef mem fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef link fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph GB["Grace Blackwell Superchip"]
         CPU[Grace CPU<br/>72 cores]:::cpu
@@ -234,11 +237,12 @@ Grace Blackwell의 의미는 “CPU memory도 GPU가 접근할 수 있다”가 
 AI workload에서 memory는 단일 계층이 아니다. 성능 관점에서는 다음처럼 계층화해서 봐야 한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef fast fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef mid fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef slow fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef cold fill:#f8fafc,stroke:#64748b,color:#334155
+    classDef fast fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef mid fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef slow fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cold fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     R[Registers<br/>per-thread, fastest]:::fast
     S[Shared Memory / L1<br/>per-SM]:::fast
@@ -283,11 +287,12 @@ Source: NVIDIA Developer Blog, [Inside NVIDIA Blackwell Ultra: The Chip Powering
 아래 Mermaid는 공식 그림의 세부 회로도를 그대로 옮긴 것이 아니라, 성능 관점에서 기억해야 할 구조만 단순화한 개념도다. 핵심은 두 GPU die가 NV-HBI로 묶이고, 각 die가 HBM3e stack과 on-chip cache 계층을 통해 Tensor Core에 데이터를 공급한다는 점이다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef die fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef hbm fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef link fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef sw fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef die fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef hbm fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef link fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sw fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph B200["Blackwell B200 GPU Module"]
         D0[GPU Die 0<br/>SMs + Tensor Cores]:::die
@@ -332,11 +337,12 @@ Tensor Cores는 GPU 내부의 matrix multiplication 전용 가속기다. Transfo
 | FP4         | inference throughput과 memory efficiency 극대화 | accuracy 관리가 더 어려움      |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef p32 fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef p16 fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef p8 fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef p4 fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef p32 fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef p16 fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef p8 fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef p4 fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     FP32[FP32<br/>high precision<br/>large memory]:::p32
     FP16[FP16 / BF16<br/>mixed precision]:::p16
@@ -359,11 +365,12 @@ flowchart LR
 GPU는 CPU처럼 소수의 강한 core가 아니라, 많은 thread를 동시에 실행하는 구조다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef sm fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef warp fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef thread fill:#f8fafc,stroke:#64748b,color:#334155
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sm fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef warp fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef thread fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     GPU[GPU]:::gpu
 
@@ -408,10 +415,11 @@ flowchart TB
 책에서는 GPU 성능을 이해하려면 memory hierarchy를 반드시 봐야 한다고 설명한다. data가 HBM까지 내려가면 bandwidth는 높아도 latency가 커지고, 모든 operation이 HBM을 왕복하면 GPU가 stall될 수 있다. 따라서 reusable data를 shared memory, L1, L2에 최대한 머물게 하는 것이 중요하다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef fast fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef mid fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef slow fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef fast fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef mid fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef slow fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     REG[Registers<br/>fastest, per thread]:::fast
     SMEM[Shared Memory / L1<br/>per SM]:::fast
@@ -446,11 +454,12 @@ flowchart TB
 NVL72는 72개의 Blackwell GPU와 36개의 Grace CPU를 하나의 rack-scale system으로 묶는 구조다. 책에서는 GB200/GB300 NVL72가 18개 compute node로 구성되고, 각 node가 2개의 Grace Blackwell Superchip, 즉 4개의 Blackwell GPU와 2개의 Grace CPU를 포함한다고 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef node fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef gpu fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef switch fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef rack fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
+    classDef node fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef switch fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef rack fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph Rack["GB200 / GB300 NVL72 Rack"]
         subgraph Nodes["18 Compute Nodes"]
@@ -509,10 +518,11 @@ NVLink는 GPU 간 고속 point-to-point interconnect이고, NVSwitch는 여러 G
 Source: NVIDIA, [DGX B200 User Guide][nvidia-dgx-b200-guide], DGX B200 System Topology.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef sw fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef note fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sw fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     G0[GPU 0]:::gpu
     G1[GPU 1]:::gpu
@@ -571,10 +581,11 @@ flowchart LR
 | Disaggregated Prefill/Decode | KV cache movement            | RDMA/NIXL/NVLink path              |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef p fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef c fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef b fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef p fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef c fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef b fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     DP[Data Parallelism]:::p
     TP[Tensor Parallelism]:::p
@@ -609,10 +620,11 @@ SHARP는 collective operation 일부를 network hardware에서 처리하는 기�
 책에서는 NVSwitch ASIC 안의 SHARP engine이 reduction을 offload하여 GPU가 직접 모든 aggregation을 처리하지 않도록 하며, collective latency와 network traffic volume을 줄일 수 있다고 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef sw fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef good fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sw fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef good fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     G0[GPU 0<br/>partial gradients]:::gpu
     G1[GPU 1<br/>partial gradients]:::gpu
@@ -659,11 +671,12 @@ NVL72 rack 내부는 NVLink/NVSwitch가 담당하지만, rack 밖으로 나가�
 책에서는 NVL72 compute node가 고속 NIC와 DPU를 사용하고, BlueField-3 DPU가 RDMA, TCP/IP, NVMe-oF, storage/security/control-plane offload를 처리한다고 설명한다. DPU는 CPU 개입 없이 NIC와 GPU memory 사이 data movement를 돕기 때문에 storage streaming이나 RDMA path에서 중요하다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef rack fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef net fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef dpu fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef storage fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef rack fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef net fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef dpu fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef storage fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     R1[NVL72 Rack 1<br/>NVLink/NVSwitch domain]:::rack
     R2[NVL72 Rack 2<br/>NVLink/NVSwitch domain]:::rack
@@ -749,11 +762,12 @@ NVL72 내부에서는 NVLink/NVSwitch가 매우 높은 bandwidth와 낮은 laten
 고성능 GPU rack에서는 power와 cooling도 성능 병목이다. 책에서는 NVL72 rack이 약 120~132kW 수준의 전력을 소비할 수 있으며, 이런 밀도에서는 liquid cooling이 사실상 필수라고 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef power fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef cooling fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef risk fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef power fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cooling fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     GPU[72 GPUs<br/>high sustained load]:::gpu
     PWR[Power Delivery<br/>120-132kW rack]:::power
@@ -792,10 +806,11 @@ NVL72 같은 시스템은 hardware potential이 매우 크지만, 그만큼 moni
 책에서는 DCGM으로 GPU utilization, memory usage, temperature, NVLink throughput 등을 추적하고, GPU가 50% utilization에 머무르면 dataloader나 synchronization issue 같은 원인을 찾아야 한다고 설명한다. 또한 NVLink usage를 보면 communication bottleneck 여부를 파악할 수 있다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef metric fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef tool fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef action fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef metric fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef tool fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef action fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     M1[GPU Utilization]:::metric
     M2[HBM Usage / Bandwidth]:::metric

@@ -245,6 +245,7 @@ Source: [What is InfiniBand? (A Complete Guide)](https://www.naddod.com/blog/wha
 The packet structure visible in `tshark` maps well to the Chapter 1 InfiniBand Communication Stack.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     ERF[ERF capture record]
     LRH[InfiniBand LRH<br/>LID routing inside the fabric]
@@ -271,6 +272,7 @@ Important visible headers:
 The captures use the Endace **Extensible Record Format** (ERF) as the outer wrapper. Each on-wire InfiniBand frame is encapsulated by an ERF record emitted by the capture device, and `tshark` dissects this outer record before handing the inner bytes to the InfiniBand dissector. Understanding what ERF preserves vs hides is what separates "I see a packet" from "I know exactly what the sniffer recorded."
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     PHY["Physical layer<br/>8b/10b or 64b/66b symbols<br/>training, idle, recovery"]
     LFC["Link-level flow control<br/>FCCL / FCTBS credits"]
@@ -404,6 +406,7 @@ Building on the encapsulation diagram above, an InfiniBand packet can be read fr
 > For bit-level field layouts of every header listed here (LRH, GRH, BTH, DETH, RETH, AETH, AtomicETH, ImmDt, IETH, RDETH, XRCETH, MAD, SMP DR, IPoIB encap), the AETH syndrome encoding, and the full BTH opcode master table, see the companion [`packet-format-reference.md`](packet-format-reference.md). This section gives the high-level packet shape; the reference document drills down to byte and bit boundaries.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     LRH["LRH<br/>Local Route Header<br/>DLID, SLID, VL, packet length"]
     GRH["GRH<br/>Global Route Header<br/>optional, GID-based routing"]
@@ -420,6 +423,7 @@ flowchart LR
 Common packet shapes:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     MGMT["Management traffic<br/>QP0/QP1 control path"]
     MGMT_SEQ["LRH -> BTH -> DETH -> MAD"]
@@ -483,6 +487,7 @@ In modern RDMA software, `RC` is the common practical transport for RDMA READ an
 Why RDMA READ does not fit UC/UD:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Req as Requester
     participant Resp as Responder
@@ -497,6 +502,7 @@ RDMA READ is not just a one-way packet. It creates responder-side work: the resp
 Why Atomic does not fit UC/UD:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Req as Requester
     participant Resp as Responder
@@ -545,6 +551,7 @@ Two subtle points are easy to miss:
 RDMA READ is a one-sided **pull**. The requester asks the responder RNIC to read from remote memory and return the data.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Req as Requester RNIC
     participant LocalMR as Local MR
@@ -656,6 +663,7 @@ RC Acknowledge
 RDMA WRITE is a one-sided **push**. The requester sends data to a remote memory range that the responder has already registered and shared through metadata exchange.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant Req as Requester RNIC
     participant Fabric as InfiniBand Fabric
@@ -715,6 +723,7 @@ This explains why the current packet set is useful for RDMA/IB fundamentals but 
 The captures make the Chapter 1 distinction between control path and data path concrete.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     subgraph Control[Control path]
         SM[Subnet Management<br/>NodeInfo, PortInfo, SMInfo]

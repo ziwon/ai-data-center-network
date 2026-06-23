@@ -65,12 +65,13 @@ The chapter focuses on these topics:
 - Multi-planar scale-out architectures
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef server fill:#eef6ff,stroke:#2563eb,stroke-width:1px,color:#0f172a
-    classDef storage fill:#ecfdf5,stroke:#059669,stroke-width:1px,color:#064e3b
-    classDef training fill:#fff7ed,stroke:#ea580c,stroke-width:1px,color:#7c2d12
-    classDef inference fill:#f5f3ff,stroke:#7c3aed,stroke-width:1px,color:#2e1065
-    classDef note fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef storage fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef training fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef inference fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph Host["AI/ML Server Boundary"]
         S[GPU Server<br/>CPU + GPU + NIC + Storage Ports]:::server
@@ -165,11 +166,12 @@ GPU servers commonly include different classes of ports:
 Modern GPU servers such as NVIDIA A100/H100-based systems often contain 8 GPUs. Each GPU may be mapped to one or more NICs, but a common cost-conscious design uses one NIC per GPU.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef fabric fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef io fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef host fill:#f8fafc,stroke:#64748b,color:#334155
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fabric fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef io fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef host fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph Server["8-GPU Training Server"]
         direction TB
@@ -226,12 +228,13 @@ In Rail-Optimized Design, each GPU/NIC in a server maps to a separate rail.
 Example for an 8-GPU server:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef rail0 fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef rail1 fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef rail7 fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef switch fill:#f8fafc,stroke:#475569,color:#334155
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef rail0 fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef rail1 fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef rail7 fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef switch fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph SA["Server A"]
         direction TB
@@ -310,12 +313,13 @@ ROD gives the best latency when traffic stays within the same rail.
 | Inter-rail | Server A GPU0 to Server B GPU3 | Leaf - spine - leaf | Higher |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef fast stroke:#059669,stroke-width:3px
-    classDef slow stroke:#ea580c,stroke-width:2px,stroke-dasharray:6 4
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fast fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef slow fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A0[Server A<br/>GPU0 / NIC0]:::gpu
     L0[Leaf 0<br/>Rail 0]:::leaf
@@ -354,11 +358,12 @@ For a 512-GPU cluster:
 - Two rows of rail-optimized leaf switches
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef server fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef note fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph R1["Row / Stripe 1: 256 GPUs"]
         direction TB
@@ -399,12 +404,13 @@ The chapter describes larger designs using:
 - Controlled oversubscription at upper layers
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef endpoint fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef super fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef risk fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef endpoint fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef super fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     A[GPU Server<br/>Block A]:::endpoint
     L1[Leaf]:::leaf
@@ -447,13 +453,14 @@ Then:
 In this model, each pod preserves the ROD rule internally: GPU0/NIC0 maps to Rail 0, GPU1/NIC1 maps to Rail 1, and so on. The multi-stage Clos fabric then connects many such ROD pods through spine and super-spine layers.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef server fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef rail fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef pod fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef super fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef note fill:#fff1f2,stroke:#e11d48,stroke-dasharray:4 3,color:#7f1d1d
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef rail fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef pod fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef super fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph T3["Tier 3: super-spine layer"]
         direction LR
@@ -583,11 +590,12 @@ Important implications:
 - It may be attractive when using larger chassis-based switches or when cabling simplicity matters more than strict rail isolation.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef risk fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph Server["Server: multiple GPU rails share fewer leaves"]
         direction LR
@@ -639,14 +647,15 @@ The difference is inside the pod. Instead of mapping each GPU/NIC position to it
 - Spine connectivity is still used to connect pods into the larger multi-stage Clos fabric.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef server fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef pod fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef spine fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef super fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef risk fill:#fff1f2,stroke:#e11d48,stroke-dasharray:4 3,color:#7f1d1d
-    classDef note fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef pod fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef super fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef risk fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph T3["Tier 3: super-spine layer"]
         direction LR
@@ -743,11 +752,12 @@ Rack design is not a cosmetic detail in AI data centers. It affects:
 A typical rack is 19 inches wide and 42U tall. The chapter notes that DGX H100-class servers are large and power-dense. Four or five such systems plus network gear can push a rack into a much higher power range than traditional data centers.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef server fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef network fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef cable fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef note fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef network fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cable fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph TOR["ToR: switch per server rack"]
         direction TB
@@ -860,13 +870,14 @@ The concept:
 - Egress leaves reassemble cells into packets.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef packet fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef leaf fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef queue fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
-    classDef cell fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef spine fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef schedule fill:#fefce8,stroke:#ca8a04,color:#713f12
+    classDef packet fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef leaf fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef queue fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef cell fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef spine fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef schedule fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     P[Original packet<br/>from GPU server]:::packet
     IL[Ingress leaf<br/>line-card role]:::leaf
@@ -957,6 +968,7 @@ Clos is the default topology for most AI data center fabrics. Dragonfly and Toru
 Clos, also called fat-tree, is the most common data center topology.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph Spine["Spine Layer"]
         SP1["Spine 1"]
@@ -1032,6 +1044,7 @@ Dragonfly is a hierarchical topology where groups, blocks, bricks, or pods conne
 
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph G1["Group 1"]
         G1R1["Rack/Router 1"]
@@ -1107,6 +1120,7 @@ Dragonfly can use different intra-group designs, including full-graph inter-grou
 Torus topology connects nodes to neighbors in one, two, or three dimensions.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     A1["Rack 1"] --- A2["Rack 2"] --- A3["Rack 3"] --- A4["Rack 4"]
     B1["Rack 5"] --- B2["Rack 6"] --- B3["Rack 7"] --- B4["Rack 8"]
@@ -1196,15 +1210,16 @@ Problems with very large single-plane fabrics:
 Multi-planar architecture addresses this by replacing one massive backend fabric with multiple independent two-tier fabric planes.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef host fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef nic fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef plane1 fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef plane2 fill:#eff6ff,stroke:#0284c7,color:#0c4a6e
-    classDef plane3 fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef plane4 fill:#fefce8,stroke:#ca8a04,color:#713f12
-    classDef fabric fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef note fill:#f8fafc,stroke:#64748b,stroke-dasharray:4 3,color:#334155
+    classDef host fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef nic fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef plane1 fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef plane2 fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef plane3 fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef plane4 fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fabric fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     SRC[Source GPU Server]:::host
     SNIC[800G NIC<br/>packet spray + sequencing]:::nic
@@ -1333,13 +1348,14 @@ Different AI fabric designs optimize different constraints. A good design starts
 AI data center networks are easier to reason about when split into three scaling domains.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef server fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
-    classDef fabric fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef site fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef wan fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef limit fill:#fff1f2,stroke:#e11d48,stroke-dasharray:4 3,color:#7f1d1d
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fabric fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef site fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef wan fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef limit fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph SA["Scale-Across: multiple sites"]
         direction LR
@@ -1437,13 +1453,14 @@ A design is not finished when the topology diagram looks correct. It must be val
 Suggested validation flow:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef model fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef test fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef signal fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef decision fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef fail fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
-    classDef pass fill:#f0fdf4,stroke:#16a34a,color:#14532d
+    classDef model fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef test fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef signal fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef decision fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef fail fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef pass fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     C[1. Capacity model<br/>downlinks, uplinks, radix, oversubscription]:::model
     W[2. Workload model<br/>NCCL collectives, storage, inference, incast]:::model

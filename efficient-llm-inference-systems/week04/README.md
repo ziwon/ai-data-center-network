@@ -585,6 +585,7 @@ Both bitsandbytes paths are *slower* than BF16, while the fused AWQ-INT4 path is
 The key difference is where dequantization happens. HF + bitsandbytes stores fewer weight bytes, but unpacking, scale application, and dequantization are still visible costs in the forward path. vLLM + AWQ Marlin turns packed INT4 loading, scale application, dequantization, and GEMM into one fused low-bit kernel.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     Bench[Benchmark] --> HF16[HF BF16]
     HF16 --> HF16Path[BF16 weights<br/>standard BF16 GEMM]
@@ -606,10 +607,10 @@ flowchart LR
     Marlin --> MarlinPath[packed INT4 + scales<br/>fused dequant + GEMM]
     MarlinPath --> MarlinOut[121.0 ms<br/>2.14x]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class Bench primary
     class HF16,BNB8,BNB4,V16 secondary
     class HF16Path,BNB8Path,BNB4Path,V16Path note
@@ -622,6 +623,7 @@ flowchart LR
 The same result can also be read as a sequence of runtime paths:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     autonumber
 
@@ -680,6 +682,7 @@ packed INT4 + scales -> fused low-bit GEMM
 bitsandbytes separates dequantization from GEMM:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant W as Quantized Weight
     participant D as Dequantization
@@ -696,6 +699,7 @@ sequenceDiagram
 AWQ Marlin fuses dequantization into the low-bit GEMM kernel:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant W as Packed AWQ INT4 Weight
     participant M as Marlin Fused Kernel

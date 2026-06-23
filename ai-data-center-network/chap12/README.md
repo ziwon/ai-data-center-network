@@ -337,6 +337,7 @@ Raw IP mode is lighter, but it may require more UET-aware switching and endpoint
 UEC session establishment happens between Fabric Endpoints, FEPs, and creates a PDC.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant A as FEP A / Initiator
     participant B as FEP B / Target

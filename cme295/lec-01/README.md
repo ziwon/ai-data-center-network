@@ -67,6 +67,7 @@ Transformer는 이 문제를 attention으로 해결한다. 각 token이 sequence
 강의는 NLP, Natural Language Processing을 text를 조작하고 계산하는 field로 정의한다. NLP task는 크게 세 가지로 볼 수 있다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Text Input] --> B{NLP Task}
     B --> C[Classification<br/>single label]
@@ -76,10 +77,10 @@ flowchart LR
     D --> D1[NER<br/>POS tagging<br/>Parsing]
     E --> E1[Translation<br/>QA<br/>Summarization]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,B primary
     class C,D,E secondary
     class C1,D1,E1 note
@@ -149,6 +150,7 @@ A cute teddy bear is reading.
 Tokenization 방식은 여러 가지다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     T["A cute teddy bear is reading"] --> W["Word-level<br/>A / cute / teddy / bear / is / reading"]
     T --> S["Subword-level<br/>A / cute / teddy / bear / is / read / ##ing"]
@@ -157,10 +159,10 @@ flowchart TB
     S --> SN[balanced default<br/>lower OOV risk]
     C --> CN[robust spelling<br/>long sequence]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class T primary
     class W,S,C secondary
     class WN,CN note

@@ -96,6 +96,7 @@ Decode는 한 번에 다음 token 하나를 만든다. batch가 작으면 weight
 Week 2 lab에서 batch가 커질수록 cuBLAS path가 GEMV에서 Tensor Core GEMM으로 바뀐 것도 같은 현상이다. 알고리즘이 바뀐 것이 아니라 shape가 hardware를 먹일 수 있을 만큼 커진 것이다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Small batch decode] --> B[GEMV-like work]
     B --> C[Low arithmetic intensity]
@@ -104,10 +105,10 @@ flowchart LR
     F --> G[High arithmetic intensity]
     G --> H[Tensor Core bound]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,E primary
     class B,F secondary
     class C,G note

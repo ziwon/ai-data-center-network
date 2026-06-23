@@ -44,11 +44,12 @@ MLOps, LLMOps, AI data center network 관점에서 가장 중요한 질문은 �
 Training 중 GPU는 model weight만 저장하는 것이 아니다. Weighted sum, activation value, error, local gradient, remote gradient, learning rate, weight adjustment value도 필요하다. Training dataset, test dataset, model code 역시 memory를 사용한다. Chapter 8은 이런 memory pressure에서 출발해, 단일 GPU가 모든 요소를 담기에 충분하지 않을 수 있다고 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef mem fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef net fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef warn fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef mem fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef net fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef warn fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     GPU[Single GPU]:::gpu
 
@@ -108,10 +109,11 @@ Data Parallelism은 가장 단순하고 가장 널리 쓰이는 distributed trai
 각 GPU는 model의 full copy를 가지고, 서로 다른 mini-batch를 처리한다. Backward pass가 끝나면 각 GPU는 자신만의 gradient 값을 갖게 된다. 모든 model replica가 동일하게 유지되려면 이 gradient들을 동기화해야 한다. 책에서는 이를 각 GPU가 model replica를 들고 서로 다른 mini-batch를 처리한 뒤, iteration 끝에서 gradient를 synchronize하는 방식으로 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef batch fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef sync fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef batch fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sync fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     B1[Mini-batch A]:::batch --> G1[GPU 0<br/>Model Replica]:::gpu
     B2[Mini-batch B]:::batch --> G2[GPU 1<br/>Model Replica]:::gpu
@@ -205,10 +207,11 @@ Pipeline Parallelism은 model을 layer 또는 stage 단위로 나누는 방식�
 모든 GPU가 전체 model을 들고 있는 대신, 각 GPU가 model의 서로 다른 부분을 담당한다. 책에서는 Pipeline Parallelism을 model을 여러 GPU에 나누고, 각 GPU가 forward/backward pass의 한 stage를 처리하는 방식으로 설명한다. Pipeline을 계속 채워 GPU utilization을 높이기 위해 micro-batch를 사용한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef act fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef grad fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef act fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef grad fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     X[Input Micro-batch] --> G0[GPU 0<br/>Layers 1-10]:::gpu
     G0 -->|activation| G1[GPU 1<br/>Layers 11-20]:::gpu
@@ -229,6 +232,7 @@ flowchart LR
 처음에는 첫 번째 GPU만 active 상태다. 중간 구간에서는 모든 GPU가 active가 될 수 있다. 끝에서는 앞쪽 stage가 먼저 일을 끝내고 idle 상태가 된다. Chapter 8은 여러 time step을 따라가며 pipeline이 채워지고 비워지는 동안 GPU utilization이 어떻게 바뀌는지 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 sequenceDiagram
     participant G0 as GPU0 Stage 1
     participant G1 as GPU1 Stage 2
@@ -286,10 +290,11 @@ Forward pass 초반에는 pipeline이 아직 채워지지 않았기 때문에 GP
 | t10       | 25%            | 마지막 GPU가 마지막 micro-batch update 수행       |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef active fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef idle fill:#f8fafc,stroke:#94a3b8,color:#475569
-    classDef peak fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef active fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef idle fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef peak fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     T1[t1<br/>25%]:::idle --> T2[t2<br/>50%]:::idle
     T2 --> T3[t3<br/>75%]:::active
@@ -324,10 +329,11 @@ Tensor Parallelism은 개별 tensor operation을 여러 GPU에 나누는 방식�
 단일 layer가 너무 커서 한 GPU에 들어가지 않거나, 한 GPU에서 효율적으로 계산하기 어려울 때 필요하다. 책에서는 Tensor Parallelism을 매우 큰 model layer를 작은 slice로 나누어 각 GPU가 matrix operation의 일부를 계산하는 방식으로 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef mat fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef sync fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef mat fill:#173f32,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sync fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     X[Input Tensor X]:::mat
 
@@ -377,10 +383,11 @@ Embedding matrix를 여러 GPU에 나누면 vocabulary shard별 lookup을 위해
 다만 GPT-3급 대규모 model처럼 embedding 자체가 커지는 경우에는 distributed embedding을 사용할 수 있다. 예를 들어 row-wise parallelism에서는 vocabulary row를 GPU들에 나누고, 각 GPU가 자신이 가진 token embedding lookup을 담당한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef emb fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef sync fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef emb fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sync fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     T[Token IDs] --> G0[GPU A1<br/>Embedding Lookup]:::gpu
     G0 --> E[Embedding Vectors]:::emb
@@ -418,10 +425,11 @@ Final SoftMax
 책의 feedforward 예시는 Tensor Parallelism과 Pipeline Parallelism을 함께 사용한다. 한 hidden layer 안에서는 neuron 또는 weight matrix shard를 같은 server의 GPU들에 나누고, GPU 간 partial output은 NVLink 같은 high-speed domain에서 AllGather한다. 다음 hidden layer 또는 output layer로 넘어갈 때는 backend network를 사용한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef hsd fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef net fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
+    classDef hsd fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef net fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph H1["Stage H1 - Same Server / HsD"]
         A1[GPU A1<br/>H1 shard]:::gpu
@@ -502,11 +510,12 @@ Data Parallelism
 책은 한 stage 안에서는 Tensor Parallelism을 사용하고, stage 사이에서는 Pipeline Parallelism을 사용하는 예를 든다. 또한 같은 server 안의 GPU는 NVLink로 통신하고, stage 사이의 GPU는 backend network로 통신할 수 있다고 설명한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef server fill:#f8fafc,stroke:#64748b,color:#334155
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef nv fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef net fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef server fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef nv fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef net fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     subgraph S1["Server 1: Pipeline Stage 1"]
         A0[GPU A0<br/>Tensor shard]:::gpu
@@ -561,10 +570,11 @@ ZeRO는 data-parallel training에서 model state를 data-parallel process들에 
 FSDP는 PyTorch의 Fully Sharded Data Parallel 방식이다. PyTorch는 FSDP가 classic DDP와 비교해 model parameter, gradient, optimizer state를 sharding함으로써 GPU memory footprint를 줄이고, 단일 GPU에 들어가지 않는 model도 training할 수 있게 한다고 설명한다. ([PyTorch Documentation][2])
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef shard fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef sync fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef shard fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sync fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     G0[GPU0]:::gpu --> S0[Param / Grad / Optim Shard 0]:::shard
     G1[GPU1]:::gpu --> S1[Param / Grad / Optim Shard 1]:::shard
@@ -588,10 +598,11 @@ Expert Parallelism은 Mixture-of-Experts, MoE model에서 사용된다.
 어려운 부분은 communication이다. Expert가 여러 GPU에 분산되어 있으면, token을 가진 GPU와 선택된 expert가 있는 GPU 사이에 token을 교환해야 한다. 이때 All-to-All communication이 발생한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    classDef gpu fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef token fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef warn fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef gpu fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef token fill:#5a3520,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef warn fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     T[Input Tokens]:::token --> R[Router / Gate]
 
@@ -633,10 +644,11 @@ Network Engineer 입장에서 가장 중요한 포인트다.
 AI training fabric은 GPU-to-GPU east-west traffic과 collective communication을 처리해야 한다. 따라서 bandwidth, latency, congestion control이 핵심 설계 요소가 된다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
-    classDef compute fill:#eef6ff,stroke:#2563eb,color:#0f172a
-    classDef sync fill:#fff7ed,stroke:#ea580c,color:#7c2d12
-    classDef net fill:#fff1f2,stroke:#e11d48,color:#7f1d1d
+    classDef compute fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef sync fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef net fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
 
     C1[Forward / Backward Compute]:::compute
     S1[Collective Communication]:::sync

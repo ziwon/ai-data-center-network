@@ -42,22 +42,23 @@ git diff --check
 
 ## Mermaid Diagram Style
 
-When creating or updating Mermaid diagrams in repository READMEs, apply the same editorial diagram style used for SVGs where Mermaid supports local classes. Mermaid diagrams should feel like lightweight technical figures, not colorful slide graphics, and they must render cleanly in both GitHub README views and the Starlight GitHub Pages site.
+When creating or updating Mermaid diagrams in repository READMEs, apply the shared dark technical diagram style. Mermaid diagrams should feel like lightweight technical figures, not colorful slide graphics, and they must render cleanly in both GitHub README views and the Starlight GitHub Pages site.
 
 ### Mermaid Palette
 
-For flowcharts and other diagram types that support node classes, use the shared palette through `classDef` declarations inside each Mermaid block:
+Start every Mermaid block with the shared dark `init` directive. For flowcharts and other diagram types that support node classes, use dark `classDef` declarations inside each Mermaid block:
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Primary concept] --> B[Intermediate step]
     B --> C[Critical output]
     B --> D[Secondary note]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A primary
     class B secondary
     class C accent
@@ -73,17 +74,17 @@ flowchart LR
 - Use `note` for examples, caveats, side outputs, or supporting details.
 - Use `accent` sparingly for the critical path, bottleneck, selected expert, final selected answer, unsafe/invalid path, or main trade-off.
 - Avoid more than four visual classes in a Mermaid block unless the local diagram genuinely needs more.
-- Do not use Mermaid init/theme directives such as `%%{init: ...}%%`, `themeCSS`, or `themeVariables` in repository README diagrams. These can render differently between GitHub and the Starlight Pages site and may leak awkward backgrounds or text colors into dark-mode pages.
-- For `sequenceDiagram`, prefer the renderer default theme and concise participant/message labels instead of per-diagram color overrides. Use Mermaid for the interaction structure, not for custom sequence styling.
+- Use the shared `%%{init: ...}%%` directive shown above. Do not add `themeCSS` or alternate `themeVariables` unless a local diagram genuinely needs a checked exception.
+- For `sequenceDiagram`, keep participant/message labels concise and rely on the shared dark init directive instead of per-diagram styling.
 - Do not use gradients, icons, emojis, or multicolor class palettes unless a local file clearly established that style and the rendering has been checked in both GitHub and Pages.
 - Keep arrows simple. Use dashed arrows only for feedback loops, optional links, or explanatory references.
 
 ### Mermaid Implementation
 
-- Put `classDef` declarations inside each Mermaid flowchart block so the diagram remains portable when copied into another README.
+- Put the shared `init` directive and `classDef` declarations inside each Mermaid block so the diagram remains portable when copied into another README.
 - Reuse class names consistently: `primary`, `secondary`, `note`, `accent`.
 - Assign classes explicitly with `class ...` lines rather than relying on default Mermaid styling.
-- Do not force a white SVG background with `themeCSS`. If a diagram needs a framed light surface on the Pages site, solve it in site CSS around Mermaid containers rather than inside the Mermaid source.
+- Do not force a white SVG background with `themeCSS`. If a diagram needs a framed surface on the Pages site, solve it in site CSS around Mermaid containers rather than inside the Mermaid source.
 - For lecture notes, prefer Mermaid for conceptual flow and taxonomy diagrams; use hand-editable SVG for dense architecture, matrix, cache, or routing diagrams where precise alignment matters.
 - Before finishing, run:
 

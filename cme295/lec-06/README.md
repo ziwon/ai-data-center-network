@@ -83,6 +83,7 @@ Vanilla LLM은 prompt를 입력받고 answer를 바로 생성한다. Pre-trainin
 이번 강의는 이 중 reasoning에 초점을 둔다. Static knowledge와 external action은 retrieval, tools, agents 쪽 문제로 이어지고, evaluation은 이후 lecture의 중요한 주제가 된다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Vanilla LLM<br/>prompt to answer] --> B[Strengths<br/>language + code patterns]
     A --> C[Weakness<br/>limited reasoning]
@@ -90,10 +91,10 @@ flowchart LR
     D --> E[Test-time compute<br/>more generated tokens]
     D --> F[Training signal<br/>verifiable rewards]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,D primary
     class B,E secondary
     class C accent
@@ -145,6 +146,7 @@ question -> reasoning chain -> answer
 둘째, 더 많은 token을 생성한다는 것은 더 많은 forward pass를 수행한다는 뜻이다. 즉 reasoning token은 model이 test time에 쓰는 compute budget이다. 단순한 질문에는 적은 reasoning token이면 충분하고, 어려운 질문에는 더 긴 reasoning chain이 필요할 수 있다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Hard prompt] --> B[Decompose]
     B --> C[Subproblem 1]
@@ -155,10 +157,10 @@ flowchart LR
     G[More tokens] -.-> H[More forward passes]
     H -.-> E
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,F primary
     class B,C,D,E secondary
     class G,H note
@@ -273,6 +275,7 @@ Reasoning model을 만들려면 model이 reasoning chain을 생성하고 최종 
 따라서 reasoning을 처음 bootstrap할 때는 "정답을 맞히고, reasoning format을 따르는 output을 더 보상한다"는 RL setup이 자연스럽다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[Reasoning prompt] --> B[Policy model]
     B --> C[Reasoning chain]
@@ -283,10 +286,10 @@ flowchart LR
     F --> G
     G -. improve policy .-> B
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,B,D primary
     class C secondary
     class E note
@@ -355,6 +358,7 @@ PPO와 GRPO는 모두 policy update를 너무 크게 만들지 않기 위해 rat
 Reasoning task에서는 reward model이 아니라 verifier를 사용할 수 있으므로, GRPO의 구조가 더 단순해진다. Frozen reference model은 KL 계산에 쓰이고, trainable한 것은 policy model이다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     A[Prompt] --> B[GRPO policy]
     B --> C1[Completion 1]
@@ -367,10 +371,10 @@ flowchart TB
     E --> F[Policy update]
     G[Reference model] -. KL penalty .-> F
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,B primary
     class C1,C2,C3 secondary
     class D,E accent
@@ -429,6 +433,7 @@ Reward는 크게 두 종류다.
 R1은 R1-Zero의 약점을 줄이기 위해 multi-stage pipeline을 사용한다.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A[DeepSeek-V3 base] --> B[Cold-start SFT<br/>clean reasoning traces]
     B --> C[Reasoning RL<br/>accuracy + format + language]
@@ -437,10 +442,10 @@ flowchart LR
     E --> F[Final RL<br/>reasoning + helpfulness + harmlessness]
     F --> G[DeepSeek-R1]
 
-    classDef primary fill:#F5F1EA,stroke:#111111,stroke-width:1.4px,color:#050505
-    classDef secondary fill:#F3EFE7,stroke:#D8D1C7,stroke-width:1.2px,color:#050505
-    classDef note fill:#F5F1EA,stroke:#D8D1C7,stroke-width:1px,color:#6F6A63
-    classDef accent fill:#F5F1EA,stroke:#D9392E,stroke-width:2px,color:#050505
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     class A,G primary
     class B,C,D,E secondary
     class F accent
