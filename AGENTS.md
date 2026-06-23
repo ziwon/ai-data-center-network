@@ -42,11 +42,11 @@ git diff --check
 
 ## Mermaid Diagram Style
 
-When creating or updating Mermaid diagrams in repository READMEs, apply the same editorial diagram style used for SVGs. Mermaid diagrams should feel like lightweight technical figures, not colorful slide graphics.
+When creating or updating Mermaid diagrams in repository READMEs, apply the same editorial diagram style used for SVGs where Mermaid supports local classes. Mermaid diagrams should feel like lightweight technical figures, not colorful slide graphics, and they must render cleanly in both GitHub README views and the Starlight GitHub Pages site.
 
 ### Mermaid Palette
 
-Use the shared palette through `classDef` declarations inside each Mermaid block:
+For flowcharts and other diagram types that support node classes, use the shared palette through `classDef` declarations inside each Mermaid block:
 
 ```mermaid
 flowchart LR
@@ -73,14 +73,17 @@ flowchart LR
 - Use `note` for examples, caveats, side outputs, or supporting details.
 - Use `accent` sparingly for the critical path, bottleneck, selected expert, final selected answer, unsafe/invalid path, or main trade-off.
 - Avoid more than four visual classes in a Mermaid block unless the local diagram genuinely needs more.
-- Do not use Mermaid theme directives, gradients, icons, emojis, or multicolor class palettes unless a local file already established that style.
+- Do not use Mermaid init/theme directives such as `%%{init: ...}%%`, `themeCSS`, or `themeVariables` in repository README diagrams. These can render differently between GitHub and the Starlight Pages site and may leak awkward backgrounds or text colors into dark-mode pages.
+- For `sequenceDiagram`, prefer the renderer default theme and concise participant/message labels instead of per-diagram color overrides. Use Mermaid for the interaction structure, not for custom sequence styling.
+- Do not use gradients, icons, emojis, or multicolor class palettes unless a local file clearly established that style and the rendering has been checked in both GitHub and Pages.
 - Keep arrows simple. Use dashed arrows only for feedback loops, optional links, or explanatory references.
 
 ### Mermaid Implementation
 
-- Put `classDef` declarations inside each Mermaid block so the diagram remains portable when copied into another README.
+- Put `classDef` declarations inside each Mermaid flowchart block so the diagram remains portable when copied into another README.
 - Reuse class names consistently: `primary`, `secondary`, `note`, `accent`.
 - Assign classes explicitly with `class ...` lines rather than relying on default Mermaid styling.
+- Do not force a white SVG background with `themeCSS`. If a diagram needs a framed light surface on the Pages site, solve it in site CSS around Mermaid containers rather than inside the Mermaid source.
 - For lecture notes, prefer Mermaid for conceptual flow and taxonomy diagrams; use hand-editable SVG for dense architecture, matrix, cache, or routing diagrams where precise alignment matters.
 - Before finishing, run:
 

@@ -346,7 +346,6 @@ flowchart TD
 Chapter 1-3에서 얻을 수 있는 가장 중요한 infrastructure insight는 training loop에 성격이 매우 다른 두 phase가 있다는 점이다.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"actorBkg": "#eef6ff", "actorBorder": "#2563eb", "actorTextColor": "#0f172a", "signalColor": "#475569", "signalTextColor": "#334155", "activationBkgColor": "#fff7ed", "activationBorderColor": "#ea580c", "noteBkgColor": "#f8fafc", "noteTextColor": "#334155"}}}%%
 sequenceDiagram
     participant GPU as GPU Compute
     participant NET as Backend Network

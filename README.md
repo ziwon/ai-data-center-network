@@ -3,14 +3,14 @@
 AI data center networking, LLM inference, training, storage, and AI systems performance engineering study notes.
 
 <p align="center">
-  <a href="https://ziwon.github.io/ai-data-center-systems/"><strong>Open the searchable web wiki →</strong></a>
+  <a href="https://ai-datacenter-systems.restack.tech/"><strong>Open the searchable web wiki →</strong></a>
   <br />
-  <a href="https://ziwon.github.io/ai-data-center-systems/llms.txt">llms.txt</a>
-  · Planned custom domain: <code>ai-datacenter-systems.restack.tech</code>
+  <a href="https://ai-datacenter-systems.restack.tech/llms.txt">llms.txt</a>
+  · <code>ai-datacenter-systems.restack.tech</code>
 </p>
 
 <p align="center">
-  <a href="https://ziwon.github.io/ai-data-center-systems/">
+  <a href="https://ai-datacenter-systems.restack.tech/">
     <img width="1024" alt="Animated AI performance fabric" src="./fabric.svg" />
   </a>
 </p>
