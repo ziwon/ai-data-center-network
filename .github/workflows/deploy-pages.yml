@@ -25,19 +25,22 @@ jobs:
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: .site/package-lock.json
 
       - name: Install dependencies
         run: npm ci
+        working-directory: .site
 
       - name: Build site
         run: npm run build
+        working-directory: .site
 
       - name: Publish to gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          touch dist/.nojekyll
-          cd dist
+          touch .site/dist/.nojekyll
+          cd .site/dist
           git init
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

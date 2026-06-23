@@ -1,9 +1,10 @@
 import { copyFile, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const root = process.cwd();
-const docsOut = path.join(root, 'src', 'content', 'docs');
-const publicOut = path.join(root, 'public');
+const projectRoot = process.cwd();
+const sourceRoot = path.resolve(projectRoot, '..');
+const docsOut = path.join(projectRoot, 'src', 'content', 'docs');
+const publicOut = path.join(projectRoot, 'public');
 const siteUrl = 'https://adcs.restack.tech';
 
 const docRoots = [
@@ -34,7 +35,7 @@ const ignoredDirs = new Set([
   'node_modules',
   'public',
   'scripts',
-  'site',
+  '.site',
   'src',
   'dist',
 ]);
@@ -54,7 +55,7 @@ const generatedPublicRoots = [
 const pages = [];
 
 await cleanGeneratedOutput();
-await walk(root);
+await walk(sourceRoot);
 await writeLlmsFiles();
 
 async function cleanGeneratedOutput() {
@@ -76,7 +77,7 @@ async function walk(currentDir) {
 
   for (const entry of entries) {
     const absolute = path.join(currentDir, entry.name);
-    const relative = toPosix(path.relative(root, absolute));
+    const relative = toPosix(path.relative(sourceRoot, absolute));
 
     if (entry.isDirectory()) {
       if (ignoredDirs.has(entry.name)) continue;
