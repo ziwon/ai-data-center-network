@@ -35,7 +35,7 @@ export default defineConfig({
       ],
       tableOfContents: {
         minHeadingLevel: 2,
-        maxHeadingLevel: 4,
+        maxHeadingLevel: 2,
       },
       sidebar: [
         { label: 'Overview', slug: '' },
