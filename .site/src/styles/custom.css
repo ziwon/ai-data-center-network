@@ -553,10 +553,15 @@ ask-docs-widget {
 }
 
 .ask-docs-spinner {
+  display: none;
   width: 1em;
   height: 1em;
   flex-shrink: 0;
   animation: ask-spin 0.8s linear infinite;
+}
+
+.ask-docs-spinner:not([hidden]) {
+  display: block;
 }
 
 .ask-docs-status {
