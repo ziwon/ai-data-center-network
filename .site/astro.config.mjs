@@ -14,6 +14,11 @@ export default defineConfig({
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
   },
+  vite: {
+    optimizeDeps: {
+      include: ['d3-drag', 'd3-force', 'd3-selection', 'd3-zoom'],
+    },
+  },
   integrations: [
     mermaid(),
     starlight({
@@ -73,6 +78,7 @@ export default defineConfig({
       favicon: '/favicon.svg',
       components: {
         PageFrame: './src/components/PageFrame.astro',
+        PageSidebar: './src/components/PageSidebar.astro',
       },
       head: [
         {

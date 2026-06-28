@@ -1,0 +1,1389 @@
+<kb-graph-card>
+  <button class="kb-graph-card" type="button" data-open aria-haspopup="dialog">
+    <span class="kb-graph-copy">
+      <span class="kb-graph-title">Knowledge graph</span>
+      <span class="kb-graph-subtitle" data-count>Loading related docs</span>
+    </span>
+    <span class="kb-graph-thumb" aria-hidden="true" data-map></span>
+    <span class="kb-graph-expand" aria-hidden="true">Expand</span>
+  </button>
+
+  <dialog class="kb-graph-dialog" aria-label="Knowledge graph" data-dialog>
+    <div class="kb-graph-panel">
+      <div class="kb-graph-panel-header">
+        <div>
+          <p>Knowledge graph</p>
+          <h2 data-heading>Related documents</h2>
+        </div>
+        <div class="kb-graph-tabs" role="tablist" aria-label="Knowledge graph views">
+          <button type="button" role="tab" aria-selected="true" data-tab="page">This page</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="global">Full graph</button>
+        </div>
+        <button type="button" data-close aria-label="Close knowledge graph">×</button>
+      </div>
+      <div class="kb-graph-stage" data-stage data-view="page">
+        <div data-page-stage></div>
+        <div data-global-stage hidden></div>
+      </div>
+    </div>
+  </dialog>
+</kb-graph-card>
+
+<script>
+  let globalGraphPromise: Promise<any> | null = null;
+  let d3Promise: Promise<any> | null = null;
+
+  class KnowledgeGraphCard extends HTMLElement {
+    loadPromise: Promise<void> | null = null;
+    globalLoadPromise: Promise<void> | null = null;
+    model = null;
+    globalModel = null;
+    stageRendered = false;
+    globalRendered = false;
+    activeTab = 'page';
+    simulation = null;
+
+    connectedCallback() {
+      if (this.dataset.ready === 'true') return;
+      this.dataset.ready = 'true';
+
+      const dialog = this.querySelector<HTMLDialogElement>('[data-dialog]');
+      const open = this.querySelector<HTMLButtonElement>('[data-open]');
+      const close = this.querySelector<HTMLButtonElement>('[data-close]');
+      const tabs = [...this.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+      if (!dialog || !open || !close) return;
+
+      this.scheduleLoad();
+
+      let pointerStartedOnDialog = false;
+
+      open.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        window.requestAnimationFrame(() => {
+          openDialog(dialog);
+          this.ensureLoaded().then(() => this.renderActiveStage());
+        });
+      });
+      close.addEventListener('click', () => closeDialog(dialog));
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          this.activeTab = tab.dataset.tab || 'page';
+          this.updateTabs();
+          this.renderActiveStage();
+        });
+      });
+      dialog.addEventListener('pointerdown', (event) => {
+        pointerStartedOnDialog = event.target === dialog;
+      });
+      dialog.addEventListener('pointerup', (event) => {
+        if (pointerStartedOnDialog && event.target === dialog) closeDialog(dialog);
+        pointerStartedOnDialog = false;
+      });
+      dialog.addEventListener('close', () => this.stopSimulation());
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && dialog.open) closeDialog(dialog);
+      });
+    }
+
+    scheduleLoad() {
+      const load = () => this.ensureLoaded();
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(load, { timeout: 2200 });
+        return;
+      }
+      window.setTimeout(load, 700);
+    }
+
+    ensureLoaded() {
+      if (!this.loadPromise) this.loadPromise = this.load();
+      return this.loadPromise;
+    }
+
+    async load() {
+      try {
+        const response = await fetchFirstAvailable(graphUrls(currentRoute()));
+        if (!response.ok) throw new Error(`Graph request failed: ${response.status}`);
+        this.model = await response.json();
+        this.renderSummary(this.model);
+      } catch {
+        this.model = null;
+        this.renderSummary(null);
+      }
+      this.renderStageIfNeeded();
+    }
+
+    renderSummary(model) {
+      const count = this.querySelector<HTMLElement>('[data-count]');
+      const map = this.querySelector<HTMLElement>('[data-map]');
+      const heading = this.querySelector<HTMLElement>('[data-heading]');
+
+      if (!model || model.nodes.length === 0) {
+        if (count) count.textContent = 'Graph unavailable';
+        if (map) map.innerHTML = '<span class="kb-graph-empty-map">No graph</span>';
+        return;
+      }
+
+      const relatedDocs = model.nodes.filter((node) => node.id !== model.current.id && node.kind !== 'concept').length;
+      const relatedConcepts = model.nodes.filter((node) => node.kind === 'concept').length;
+      if (count) count.textContent = `${relatedConcepts} concepts · ${relatedDocs} docs`;
+      if (heading) heading.textContent = model.current.title;
+      if (map) renderMap(map, model, false);
+    }
+
+    renderStageIfNeeded() {
+      const dialog = this.querySelector<HTMLDialogElement>('[data-dialog]');
+      const stage = this.querySelector<HTMLElement>('[data-page-stage]');
+      if (!dialog?.open || !stage || this.stageRendered) return;
+      if (this.activeTab !== 'page') return;
+      if (!this.model) {
+        renderEmpty(stage);
+        this.stageRendered = true;
+        return;
+      }
+      renderStage(stage, this.model);
+      this.stageRendered = true;
+    }
+
+    renderActiveStage() {
+      this.updateStageVisibility();
+      if (this.activeTab === 'global') {
+        this.renderGlobalStage();
+        return;
+      }
+      this.renderStageIfNeeded();
+    }
+
+    async renderGlobalStage() {
+      const dialog = this.querySelector<HTMLDialogElement>('[data-dialog]');
+      const stage = this.querySelector<HTMLElement>('[data-global-stage]');
+      if (!dialog?.open || !stage || this.globalRendered) return;
+
+      stage.innerHTML = '<div class="kb-graph-empty"><h3>Loading full graph</h3><p>Preparing the document-concept map.</p></div>';
+      try {
+        if (!this.globalLoadPromise) this.globalLoadPromise = this.loadGlobalGraph();
+        await this.globalLoadPromise;
+        if (!this.globalModel) throw new Error('Global graph unavailable');
+        const d3 = await loadD3();
+        renderGlobalGraph(stage, this.globalModel, currentRoute(), d3, (simulation) => {
+          this.stopSimulation();
+          this.simulation = simulation;
+        });
+      } catch (error) {
+        d3Promise = null;
+        console.error('Failed to render full knowledge graph', error);
+        renderEmpty(stage, error instanceof Error ? error.message : 'Full graph failed to render.');
+        this.globalRendered = false;
+        return;
+      }
+      this.globalRendered = true;
+    }
+
+    async loadGlobalGraph() {
+      this.globalModel = await fetchGlobalGraph();
+    }
+
+    updateTabs() {
+      this.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach((tab) => {
+        tab.setAttribute('aria-selected', String(tab.dataset.tab === this.activeTab));
+      });
+    }
+
+    updateStageVisibility() {
+      const stage = this.querySelector<HTMLElement>('[data-stage]');
+      const pageStage = this.querySelector<HTMLElement>('[data-page-stage]');
+      const globalStage = this.querySelector<HTMLElement>('[data-global-stage]');
+      if (stage) stage.dataset.view = this.activeTab;
+      if (pageStage) pageStage.hidden = this.activeTab !== 'page';
+      if (globalStage) globalStage.hidden = this.activeTab !== 'global';
+    }
+
+    stopSimulation() {
+      if (this.simulation) {
+        this.simulation.stop();
+        this.simulation = null;
+      }
+    }
+  }
+
+  function currentRoute() {
+    const route = `${window.location.pathname.replace(/\/?$/, '/')}`;
+    return route === '//' ? '/' : route.toLowerCase();
+  }
+
+  function pageGraphUrl(route: string) {
+    return `/kb/pages/${routeGraphKey(route)}.json`;
+  }
+
+  async function fetchFirstAvailable(urls: string[]) {
+    let lastResponse = new Response(null, { status: 404 });
+    for (const url of urls) {
+      lastResponse = await fetch(url, { headers: { accept: 'application/json' } });
+      if (lastResponse.ok) return lastResponse;
+    }
+    return lastResponse;
+  }
+
+  function graphUrls(route: string) {
+    const staticUrl = pageGraphUrl(route);
+    if (window.location.hostname !== 'adcs.restack.tech') return [staticUrl];
+    return [`/api/kb/page?route=${encodeURIComponent(route)}`, staticUrl];
+  }
+
+  function globalGraphUrls() {
+    const staticUrl = '/kb/dcs-kb-graph.json';
+    if (window.location.hostname !== 'adcs.restack.tech') return [staticUrl];
+    return ['/api/kb/graph', staticUrl];
+  }
+
+  async function fetchGlobalGraph() {
+    if (!globalGraphPromise) {
+      globalGraphPromise = fetchFirstAvailable(globalGraphUrls()).then((response) => {
+        if (!response.ok) throw new Error(`Global graph request failed: ${response.status}`);
+        return response.json();
+      });
+    }
+    return globalGraphPromise;
+  }
+
+  async function loadD3() {
+    if (!d3Promise) {
+      d3Promise = Promise.all([
+        import('d3-force'),
+        import('d3-selection'),
+        import('d3-zoom'),
+        import('d3-drag'),
+      ]).then(([force, selection, zoom, drag]) => ({
+        ...force,
+        ...selection,
+        ...zoom,
+        ...drag,
+      }));
+    }
+    return d3Promise;
+  }
+
+  function routeGraphKey(route: string) {
+    const normalized = route === '/' ? '/' : route.replace(/\/?$/, '/').toLowerCase();
+    if (normalized === '/') return 'index';
+    return normalized
+      .replace(/^\/|\/$/g, '')
+      .split('/')
+      .map((segment) => encodeURIComponent(segment).replace(/%/g, '~'))
+      .join('__')
+      .toLowerCase();
+  }
+
+  function openDialog(dialog: HTMLDialogElement) {
+    try {
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute('open', '');
+      }
+    } catch {
+      dialog.setAttribute('open', '');
+    }
+  }
+
+  function closeDialog(dialog: HTMLDialogElement) {
+    try {
+      if (typeof dialog.close === 'function') {
+        dialog.close();
+      } else {
+        dialog.removeAttribute('open');
+      }
+    } catch {
+      dialog.removeAttribute('open');
+    }
+  }
+
+  function renderMap(container: HTMLElement, model, expanded: boolean) {
+    const current = model.current;
+    const related = model.nodes
+      .filter((node) => node.id !== current.id)
+      .sort((a, b) => Number(b.kind === 'concept') - Number(a.kind === 'concept') || a.title.localeCompare(b.title))
+      .slice(0, expanded ? 10 : 7);
+    const radius = expanded ? 33 : 34;
+    const edgeMarkup = related
+      .map((node, index) => {
+        const point = radialPoint(index, related.length, radius);
+        const edge = model.edges.find(
+          (candidate) =>
+            (candidate.source === current.id && candidate.target === node.id) ||
+            (candidate.source === node.id && candidate.target === current.id),
+        );
+        const width = Math.max(0.6, Math.min(3.2, (edge?.weight ?? 0.2) * 3));
+        return `<line x1="50" y1="50" x2="${point.x}" y2="${point.y}" stroke-width="${width.toFixed(1)}" />`;
+      })
+      .join('');
+    const nodeMarkup = related
+      .map((node, index) => {
+        const point = radialPoint(index, related.length, radius);
+        const label = compactTitle(node.title);
+        const labelPoint = labelPosition(point, expanded);
+        const labelLines = splitLabel(label);
+        const nodeBody = `
+          <title>${escapeHtml(node.title)}</title>
+          <circle cx="${point.x}" cy="${point.y}" r="${node.kind === 'concept' ? (expanded ? 5.6 : 6) : (expanded ? 4.8 : 5.4)}" />
+          <text class="kb-graph-node-label ${expanded ? '' : 'kb-graph-node-label-compact'}" x="${labelPoint.x}" y="${labelPoint.y}" text-anchor="${labelPoint.anchor}">
+            ${labelLines
+              .map(
+                (line, lineIndex) =>
+                  `<tspan x="${labelPoint.x}" dy="${lineIndex === 0 ? 0 : 4.2}">${escapeHtml(line)}</tspan>`,
+              )
+              .join('')}
+          </text>
+        `;
+        if (node.kind === 'concept') {
+          return `<g class="kb-graph-node-link kb-graph-concept-node" role="img" aria-label="${escapeHtml(node.title)}">${nodeBody}</g>`;
+        }
+        return `
+          <a class="kb-graph-node-link" href="${escapeHtml(node.route)}" aria-label="${escapeHtml(node.title)}">
+            ${nodeBody}
+          </a>
+        `;
+      })
+      .join('');
+
+    container.innerHTML = `
+      <svg class="kb-graph-map ${expanded ? 'kb-graph-map-expanded' : ''}" viewBox="0 0 100 100" role="img" aria-label="Related document graph">
+        <g class="kb-graph-edges">${edgeMarkup}</g>
+        <g class="kb-graph-nodes">${nodeMarkup}</g>
+        <a href="${escapeHtml(current.route)}" aria-label="${escapeHtml(current.title)}">
+          <circle class="kb-graph-root" cx="50" cy="50" r="${expanded ? 8.2 : 9}" />
+          <text class="kb-graph-root-label" x="50" y="53">${expanded ? 'Current' : 'Page'}</text>
+          ${expanded ? `<text class="kb-graph-root-title" x="50" y="63">${escapeHtml(compactTitle(current.title))}</text>` : ''}
+        </a>
+      </svg>
+    `;
+  }
+
+  function renderStage(container: HTMLElement, model) {
+    const concepts = model.nodes
+      .filter((node) => node.kind === 'concept')
+      .sort((a, b) => a.title.localeCompare(b.title));
+    const related = model.nodes
+      .filter((node) => node.id !== model.current.id && node.kind !== 'concept')
+      .map((node) => {
+        const edge = model.edges.find(
+          (candidate) =>
+            (candidate.source === model.current.id && candidate.target === node.id) ||
+            (candidate.source === node.id && candidate.target === model.current.id),
+        );
+        return { node, edge };
+      })
+      .sort((a, b) => (b.edge?.weight ?? 0) - (a.edge?.weight ?? 0))
+      .slice(0, 12);
+
+    const conceptItems = concepts
+      .map((concept) => {
+        const edge = model.edges.find(
+          (candidate) => candidate.source === model.current.id && candidate.target === concept.id,
+        );
+        const aliases = edge?.terms?.length ? edge.terms.join(', ') : concept.keywords?.slice(0, 3).join(', ');
+        return `
+          <article class="kb-graph-concept" id="concept-${escapeHtml(concept.id.replace(/^concept:/, ''))}">
+            <span class="kb-graph-concept-title">${escapeHtml(concept.title)}</span>
+            <span class="kb-graph-concept-group">${escapeHtml(groupLabel(concept.group))}</span>
+            <p>${escapeHtml(concept.description ?? aliases ?? '')}</p>
+          </article>
+        `;
+      })
+      .join('');
+
+    const keywordMarkup = (model.current.keywords ?? [])
+      .slice(0, 8)
+      .map((keyword) => `<span>${escapeHtml(keyword)}</span>`)
+      .join('');
+    const items = related
+      .map(({ node, edge }, index) => {
+        const terms = edge?.terms?.length ? edge.terms.join(', ') : node.keywords.slice(0, 3).join(', ');
+        const strength = Math.round((edge?.weight ?? 0.2) * 100);
+        return `
+          <a class="kb-graph-item" href="${escapeHtml(node.route)}">
+            <span class="kb-graph-item-index">${index + 1}</span>
+            <span class="kb-graph-item-copy">
+              <span class="kb-graph-item-kicker">${escapeHtml(groupLabel(node.group))} · ${escapeHtml(
+                edgeLabel(edge),
+              )}</span>
+              <span class="kb-graph-item-title">${escapeHtml(node.title)}</span>
+              <span class="kb-graph-item-meta">${escapeHtml(terms)}</span>
+              <span class="kb-graph-item-strength" aria-label="Relatedness ${strength}%">
+                <span style="inline-size: ${Math.max(8, Math.min(strength, 100))}%"></span>
+              </span>
+            </span>
+          </a>
+        `;
+      })
+      .join('');
+
+    container.innerHTML = `
+      <div class="kb-graph-stage-grid">
+        <section class="kb-graph-stage-map" aria-label="Local document graph" data-expanded-map></section>
+        <section class="kb-graph-details" aria-label="Related document list">
+          <div class="kb-graph-current">
+            <h3>${escapeHtml(model.current.title)}</h3>
+            <p>${escapeHtml(model.current.excerpt ?? '')}</p>
+            <div class="kb-graph-keywords" aria-label="Current page keywords">${keywordMarkup}</div>
+          </div>
+          ${
+            conceptItems
+              ? `<section class="kb-graph-concepts" aria-label="Concepts in this page">
+                  <h3>Concepts in this page</h3>
+                  <div>${conceptItems}</div>
+                </section>`
+              : ''
+          }
+          <div class="kb-graph-list">${items}</div>
+        </section>
+      </div>
+    `;
+    const expandedMap = container.querySelector<HTMLElement>('[data-expanded-map]');
+    if (expandedMap) renderMap(expandedMap, model, true);
+  }
+
+  function renderGlobalGraph(container: HTMLElement, graph, currentRouteValue: string, d3, onSimulation) {
+    const width = 1120;
+    const height = 680;
+    const currentNode = graph.nodes.find((node) => node.route === currentRouteValue);
+    const nodes = graph.nodes.map((node) => ({ ...node }));
+    const nodeById = new Map(nodes.map((node) => [node.id, node]));
+    const links = graph.edges
+      .map((edge) => ({
+        source: typeof edge.s === 'number' ? nodes[edge.s]?.id : typeof edge.source === 'number' ? nodes[edge.source]?.id : edge.source,
+        target: typeof edge.t === 'number' ? nodes[edge.t]?.id : typeof edge.target === 'number' ? nodes[edge.target]?.id : edge.target,
+        type: edge.type ?? graph.edgeTypes?.[edge.k] ?? 'related',
+        weight: edge.weight ?? edge.w ?? 0.2,
+      }))
+      .filter((edge) => nodeById.has(edge.source) && nodeById.has(edge.target));
+    const groups = [...new Set(nodes.map((node) => node.group).filter(Boolean))].sort();
+    const groupColors = new Map(groups.map((group, index) => [group, graphColor(index)]));
+
+    seedGlobalPositions(nodes, width, height, groups);
+
+    container.innerHTML = `
+      <div class="kb-graph-global-shell">
+        <div class="kb-graph-global-toolbar">
+          <div>
+            <h3>Full document-concept graph</h3>
+            <p>${graph.nodes.length} nodes · ${graph.edges.length} edges</p>
+          </div>
+          <div class="kb-graph-global-legend">
+            <span><i class="kb-graph-doc-key"></i>Document</span>
+            <span><i class="kb-graph-concept-key"></i>Concept</span>
+            <span><i class="kb-graph-current-key"></i>Current</span>
+          </div>
+        </div>
+        <div class="kb-graph-global-canvas" data-global-canvas></div>
+      </div>
+    `;
+
+    const canvas = container.querySelector<HTMLElement>('[data-global-canvas]');
+    if (!canvas) return;
+
+    const svg = d3.select(canvas)
+      .append('svg')
+      .attr('class', 'kb-graph-global-svg')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('role', 'img')
+      .attr('aria-label', 'Full knowledge graph');
+    const viewport = svg.append('g').attr('class', 'kb-graph-global-viewport');
+    const linkLayer = viewport.append('g').attr('class', 'kb-graph-global-links');
+    const nodeLayer = viewport.append('g').attr('class', 'kb-graph-global-nodes');
+
+    const link = linkLayer.selectAll('line')
+      .data(links)
+      .join('line')
+      .attr('class', (edge) => `kb-graph-global-link kb-graph-link-${edgeClass(edge.type)}`)
+      .attr('stroke-width', (edge) => Math.max(0.45, Math.min(2.4, edge.weight * 2.3)));
+
+    const node = nodeLayer.selectAll('g')
+      .data(nodes)
+      .join('g')
+      .attr('class', (item) => [
+        'kb-graph-global-node',
+        item.kind === 'concept' ? 'is-concept' : 'is-doc',
+        item.id === currentNode?.id ? 'is-current' : '',
+      ].filter(Boolean).join(' '))
+      .attr('tabindex', '0')
+      .attr('role', (item) => item.kind === 'concept' ? 'button' : 'link')
+      .attr('aria-label', (item) => item.title);
+
+    node.call(d3.drag()
+      .on('start', (event, item) => {
+        if (!event.active) simulation.alphaTarget(0.18).restart();
+        item.fx = item.x;
+        item.fy = item.y;
+      })
+      .on('drag', (event, item) => {
+        item.fx = event.x;
+        item.fy = event.y;
+      })
+      .on('end', (event) => {
+        if (!event.active) simulation.alphaTarget(0);
+      }));
+
+    node.append('title')
+      .text((item) => item.description ? `${item.title}\n${item.description}` : item.title);
+
+    node.each(function appendNodeShape(item) {
+      const selection = d3.select(this);
+      const radius = nodeRadius(item);
+      if (item.kind === 'concept') {
+        selection.append('rect')
+          .attr('x', -radius)
+          .attr('y', -radius)
+          .attr('width', radius * 2)
+          .attr('height', radius * 2)
+          .attr('rx', 2.2)
+          .attr('fill', '#735cff');
+      } else {
+        selection.append('circle')
+          .attr('r', radius)
+          .attr('fill', groupColors.get(item.group) || '#00c7e6');
+      }
+    });
+
+    node.append('text')
+      .attr('class', 'kb-graph-global-label')
+      .attr('y', (item) => nodeRadius(item) + 10)
+      .text((item) => shortGlobalLabel(item.title));
+
+    node.on('mouseenter', (_, item) => highlightNeighborhood(item.id, link, node))
+      .on('mouseleave', () => clearHighlight(link, node))
+      .on('focus', (_, item) => highlightNeighborhood(item.id, link, node))
+      .on('blur', () => clearHighlight(link, node))
+      .on('click', (event, item) => {
+        if (item.kind === 'concept') {
+          event.preventDefault();
+          highlightNeighborhood(item.id, link, node);
+          return;
+        }
+        if (item.route) window.location.href = item.route;
+      })
+      .on('keydown', (event, item) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        if (item.kind === 'concept') {
+          highlightNeighborhood(item.id, link, node);
+        } else if (item.route) {
+          window.location.href = item.route;
+        }
+      });
+
+    const ticked = () => {
+      link
+        .attr('x1', (edge) => edge.source.x)
+        .attr('y1', (edge) => edge.source.y)
+        .attr('x2', (edge) => edge.target.x)
+        .attr('y2', (edge) => edge.target.y);
+      node.attr('transform', (item) => `translate(${item.x},${item.y})`);
+    };
+
+    const simulation = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(links)
+        .id((item) => item.id)
+        .distance((edge) => edge.type.includes('mentions') ? 72 : 118 - edge.weight * 42)
+        .strength((edge) => edge.type.includes('mentions') ? 0.46 : 0.18))
+      .force('charge', d3.forceManyBody().strength((item) => item.kind === 'concept' ? -430 : -150))
+      .force('center', d3.forceCenter(width / 2, height / 2))
+      .force('collide', d3.forceCollide().radius((item) => nodeRadius(item) + 14).iterations(2))
+      .alphaDecay(prefersReducedMotion() ? 0.8 : 0.045)
+      .on('tick', ticked);
+
+    svg.call(d3.zoom()
+      .scaleExtent([0.35, 4])
+      .on('zoom', (event) => viewport.attr('transform', event.transform)));
+
+    if (currentNode) {
+      const current = nodes.find((item) => item.id === currentNode.id);
+      if (current) {
+        current.fx = width / 2;
+        current.fy = height / 2;
+      }
+    }
+    if (prefersReducedMotion()) {
+      simulation.tick(180);
+      simulation.stop();
+      ticked();
+    }
+    onSimulation(simulation);
+  }
+
+  function radialPoint(index: number, total: number, radius: number) {
+    const angle = -Math.PI / 2 + (index * Math.PI * 2) / Math.max(total, 1);
+    return {
+      x: (50 + Math.cos(angle) * radius).toFixed(1),
+      y: (50 + Math.sin(angle) * radius).toFixed(1),
+    };
+  }
+
+  function labelPosition(point: { x: string; y: string }, expanded: boolean) {
+    if (!expanded) return { x: point.x, y: `${Number(point.y) + 10}`, anchor: 'middle' };
+    const x = Number(point.x);
+    const y = Number(point.y);
+    if (x < 35) return { x: `${x - 6}`, y: `${y + 1.5}`, anchor: 'end' };
+    if (x > 65) return { x: `${x + 6}`, y: `${y + 1.5}`, anchor: 'start' };
+    return { x: `${x}`, y: `${y < 50 ? y - 8 : y + 11}`, anchor: 'middle' };
+  }
+
+  function compactTitle(title: string) {
+    const cleaned = title
+      .replace(/^chapter\s+\d+:\s*/i, '')
+      .replace(/^week\s+\d+:\s*/i, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const words = cleaned.split(/\s+/).filter(Boolean);
+    return words.slice(0, 5).join(' ').slice(0, 38);
+  }
+
+  function splitLabel(label: string) {
+    const words = label.split(/\s+/).filter(Boolean);
+    const lines = [];
+    let current = '';
+    for (const word of words) {
+      const next = current ? `${current} ${word}` : word;
+      if (next.length > 16 && current) {
+        lines.push(current);
+        current = word;
+      } else {
+        current = next;
+      }
+      if (lines.length === 2) break;
+    }
+    if (current && lines.length < 2) lines.push(current);
+    return lines;
+  }
+
+  function renderEmpty(container: HTMLElement, message = '') {
+    container.innerHTML = `
+      <div class="kb-graph-empty">
+        <h3>Knowledge graph is not available</h3>
+        <p>${escapeHtml(message || 'The graph is generated during the docs build from Markdown links, shared keywords, and section structure.')}</p>
+      </div>
+    `;
+  }
+
+  function seedGlobalPositions(nodes, width: number, height: number, groups: string[]) {
+    const columns = Math.ceil(Math.sqrt(groups.length || 1));
+    const groupIndex = new Map(groups.map((group, index) => [group, index]));
+    nodes.forEach((node, index) => {
+      if (node.kind === 'concept') {
+        const angle = (index / Math.max(nodes.length, 1)) * Math.PI * 2;
+        node.x = width / 2 + Math.cos(angle) * 155;
+        node.y = height / 2 + Math.sin(angle) * 120;
+        return;
+      }
+      const groupPosition = groupIndex.get(node.group) ?? 0;
+      const col = groupPosition % columns;
+      const row = Math.floor(groupPosition / columns);
+      const cellWidth = width / Math.max(columns, 1);
+      const cellHeight = height / Math.max(Math.ceil(groups.length / Math.max(columns, 1)), 1);
+      node.x = cellWidth * (col + 0.5) + ((index % 7) - 3) * 12;
+      node.y = cellHeight * (row + 0.5) + ((index % 5) - 2) * 13;
+    });
+  }
+
+  function highlightNeighborhood(id: string, link, node) {
+    const neighborIds = new Set([id]);
+    link.classed('is-active', (edge) => {
+      const source = typeof edge.source === 'string' ? edge.source : edge.source.id;
+      const target = typeof edge.target === 'string' ? edge.target : edge.target.id;
+      const active = source === id || target === id;
+      if (active) {
+        neighborIds.add(source);
+        neighborIds.add(target);
+      }
+      return active;
+    });
+    node.classed('is-dimmed', (item) => !neighborIds.has(item.id));
+    link.classed('is-dimmed', (edge) => {
+      const source = typeof edge.source === 'string' ? edge.source : edge.source.id;
+      const target = typeof edge.target === 'string' ? edge.target : edge.target.id;
+      return source !== id && target !== id;
+    });
+  }
+
+  function clearHighlight(link, node) {
+    link.classed('is-active', false).classed('is-dimmed', false);
+    node.classed('is-dimmed', false);
+  }
+
+  function nodeRadius(node) {
+    const base = node.kind === 'concept' ? 7 : 4.8;
+    return Math.min(node.kind === 'concept' ? 17 : 12, base + Math.sqrt(node.weightedDegree || node.degree || 1) * 1.9);
+  }
+
+  function graphColor(index: number) {
+    const colors = ['#00c7e6', '#7dd3fc', '#a3e635', '#fbbf24', '#f472b6', '#c084fc', '#34d399', '#fb7185', '#60a5fa'];
+    return colors[index % colors.length];
+  }
+
+  function edgeClass(type: string) {
+    if (type.includes('mentions')) return 'mentions';
+    if (type.includes('link')) return 'link';
+    if (type.includes('keyword')) return 'keyword';
+    if (type.includes('section')) return 'section';
+    return 'related';
+  }
+
+  function shortGlobalLabel(title: string) {
+    return compactTitle(title).slice(0, 28);
+  }
+
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  function groupLabel(group: string) {
+    return group
+      .split('-')
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+  }
+
+  function edgeLabel(edge) {
+    if (!edge) return 'shared concept';
+    if (edge.type.includes('link')) return 'linked';
+    if (edge.type.includes('mentions')) return 'shared concept';
+    if (edge.type.includes('keyword')) return `keyword ${Math.round(edge.weight * 100)}%`;
+    if (edge.type.includes('section')) return 'same section';
+    return 'related';
+  }
+
+  function escapeHtml(value: string) {
+    return String(value ?? '').replace(/[&<>"']/g, (char) => {
+      const entities = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      };
+      return entities[char];
+    });
+  }
+
+  if (!customElements.get('kb-graph-card')) {
+    customElements.define('kb-graph-card', KnowledgeGraphCard);
+  }
+</script>
+
+<style is:global>
+  kb-graph-card {
+    display: block;
+    margin-block-end: 1rem;
+  }
+
+  .kb-graph-card {
+    display: grid;
+    gap: 0.65rem;
+    width: 100%;
+    border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 64%);
+    border-radius: 8px;
+    padding: 0.65rem;
+    color: var(--sl-color-white);
+    background: color-mix(in srgb, var(--sl-color-black), var(--fabric-node-cyan) 4%);
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .kb-graph-card:hover,
+  .kb-graph-card:focus-visible {
+    border-color: color-mix(in srgb, var(--fabric-node-cyan), transparent 24%);
+  }
+
+  .kb-graph-card:focus-visible {
+    outline: 2px solid var(--fabric-node-cyan);
+    outline-offset: 2px;
+  }
+
+  .kb-graph-copy {
+    display: grid;
+    gap: 0.16rem;
+  }
+
+  .kb-graph-title {
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .kb-graph-subtitle {
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    line-height: 1.3;
+  }
+
+  .kb-graph-thumb {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+    background: #020817;
+  }
+
+  .kb-graph-map {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .kb-graph-map line {
+    stroke: color-mix(in srgb, var(--fabric-node-cyan), transparent 38%);
+  }
+
+  .kb-graph-map circle {
+    fill: #07111f;
+    stroke: var(--fabric-node-cyan);
+    stroke-width: 1.2;
+  }
+
+  .kb-graph-map .kb-graph-concept-node circle {
+    fill: color-mix(in srgb, var(--fabric-node-violet), #020817 76%);
+    stroke: var(--fabric-node-violet);
+  }
+
+  .kb-graph-map a:hover circle,
+  .kb-graph-map a:focus-visible circle {
+    fill: color-mix(in srgb, var(--fabric-node-cyan), transparent 72%);
+  }
+
+  .kb-graph-map text {
+    fill: #d8d1c7;
+    font-size: 3.8px;
+    text-anchor: middle;
+  }
+
+  .kb-graph-map-expanded text {
+    font-size: 3.4px;
+  }
+
+  .kb-graph-map .kb-graph-node-label {
+    fill: #f8f4ed;
+    font-size: 3.2px;
+    font-weight: 700;
+    paint-order: stroke;
+    stroke: #020817;
+    stroke-linejoin: round;
+    stroke-width: 1.6px;
+  }
+
+  .kb-graph-map .kb-graph-node-label-compact {
+    font-size: 3px;
+    font-weight: 800;
+    stroke-width: 1.25px;
+  }
+
+  .kb-graph-map .kb-graph-root {
+    fill: color-mix(in srgb, var(--fabric-node-cyan), transparent 78%);
+    stroke-width: 1.5;
+  }
+
+  .kb-graph-map .kb-graph-root-label {
+    fill: #f8f4ed;
+    font-size: 4px;
+    font-weight: 800;
+  }
+
+  .kb-graph-map .kb-graph-root-title {
+    fill: #d8d1c7;
+    font-size: 3.2px;
+    font-weight: 700;
+  }
+
+  .kb-graph-empty-map {
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+  }
+
+  .kb-graph-expand {
+    justify-self: start;
+    color: var(--fabric-node-cyan);
+    font-size: var(--sl-text-xs);
+    font-weight: 800;
+  }
+
+  .kb-graph-dialog {
+    position: fixed;
+    inset: 0;
+    width: min(78rem, calc(100vw - 2rem));
+    max-width: none;
+    max-height: min(48rem, calc(100vh - 2rem));
+    border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 58%);
+    border-radius: 8px;
+    margin: auto;
+    padding: 0;
+    color: var(--sl-color-white);
+    background: var(--sl-color-black);
+  }
+
+  .kb-graph-dialog::backdrop {
+    background: rgba(2, 8, 23, 0.68);
+    backdrop-filter: blur(4px);
+  }
+
+  .kb-graph-panel {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    max-height: inherit;
+  }
+
+  .kb-graph-panel-header {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+    padding: 1rem;
+  }
+
+  .kb-graph-panel-header p {
+    margin: 0 0 0.2rem;
+    color: var(--fabric-node-cyan);
+    font-size: var(--sl-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .kb-graph-panel-header h2 {
+    margin: 0;
+    color: var(--sl-color-white);
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
+  .kb-graph-tabs {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 7px;
+    padding: 0.2rem;
+    background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-white) 3%);
+  }
+
+  .kb-graph-panel-header .kb-graph-tabs button {
+    width: auto;
+    height: auto;
+    min-height: 1.8rem;
+    border: 0;
+    border-radius: 5px;
+    padding: 0.28rem 0.55rem;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    font-weight: 800;
+  }
+
+  .kb-graph-panel-header .kb-graph-tabs button[aria-selected='true'] {
+    color: #020817;
+    background: var(--fabric-node-cyan);
+  }
+
+  .kb-graph-panel-header button {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+    color: var(--sl-color-gray-2);
+    background: transparent;
+    font: inherit;
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .kb-graph-stage {
+    overflow: auto;
+    padding: 1rem;
+  }
+
+  .kb-graph-stage-grid {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.74fr) minmax(22rem, 1fr);
+    gap: 1rem;
+    min-width: 48rem;
+  }
+
+  .kb-graph-stage-map {
+    position: sticky;
+    top: 0;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+    padding: 0.75rem;
+    background: #020817;
+  }
+
+  .kb-graph-details,
+  .kb-graph-list {
+    display: grid;
+    align-content: start;
+    gap: 0.65rem;
+  }
+
+  .kb-graph-current {
+    display: grid;
+    gap: 0.45rem;
+    border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 58%);
+    border-radius: 6px;
+    padding: 0.8rem;
+    background: color-mix(in srgb, var(--fabric-node-cyan), var(--sl-color-black) 94%);
+  }
+
+  .kb-graph-current h3,
+  .kb-graph-empty h3 {
+    margin: 0;
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-base);
+    line-height: 1.3;
+  }
+
+  .kb-graph-current p,
+  .kb-graph-empty p {
+    margin: 0;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-sm);
+    line-height: 1.45;
+  }
+
+  .kb-graph-current p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .kb-graph-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .kb-graph-keywords span {
+    border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 64%);
+    border-radius: 999px;
+    padding: 0.16rem 0.45rem;
+    color: var(--fabric-node-cyan);
+    font-size: var(--sl-text-xs);
+    font-weight: 700;
+  }
+
+  .kb-graph-concepts {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .kb-graph-concepts h3 {
+    margin: 0;
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+    line-height: 1.3;
+  }
+
+  .kb-graph-concepts > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 0.5rem;
+  }
+
+  .kb-graph-concept {
+    display: grid;
+    gap: 0.2rem;
+    border: 1px solid color-mix(in srgb, var(--fabric-node-violet), transparent 58%);
+    border-radius: 6px;
+    padding: 0.55rem;
+    background: color-mix(in srgb, var(--fabric-node-violet), var(--sl-color-black) 94%);
+  }
+
+  .kb-graph-concept-title {
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .kb-graph-concept-group {
+    color: var(--fabric-node-violet);
+    font-size: var(--sl-text-xs);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .kb-graph-concept p {
+    margin: 0;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    line-height: 1.35;
+  }
+
+  .kb-graph-item {
+    display: grid;
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    gap: 0.7rem;
+    align-items: center;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+    padding: 0.65rem;
+    color: inherit;
+    text-decoration: none;
+    background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-white) 2%);
+  }
+
+  .kb-graph-item:hover,
+  .kb-graph-item:focus-visible {
+    border-color: color-mix(in srgb, var(--fabric-node-cyan), transparent 42%);
+  }
+
+  .kb-graph-item-index {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    aspect-ratio: 1;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 999px;
+    color: var(--fabric-node-cyan);
+    font-size: var(--sl-text-xs);
+    font-weight: 800;
+  }
+
+  .kb-graph-item-copy {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .kb-graph-item-kicker {
+    color: var(--fabric-node-cyan);
+    font-size: var(--sl-text-xs);
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .kb-graph-item-title {
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+    font-weight: 700;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .kb-graph-item-meta {
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    line-height: 1.35;
+  }
+
+  .kb-graph-item-strength {
+    display: block;
+    overflow: hidden;
+    inline-size: min(18rem, 100%);
+    block-size: 0.22rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sl-color-gray-5), transparent 55%);
+  }
+
+  .kb-graph-item-strength span {
+    display: block;
+    block-size: 100%;
+    border-radius: inherit;
+    background: var(--fabric-node-cyan);
+  }
+
+  .kb-graph-empty {
+    display: grid;
+    gap: 0.3rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+    padding: 1rem;
+    background: #020817;
+  }
+
+  .kb-graph-global-shell {
+    display: grid;
+    gap: 0.8rem;
+    min-width: 52rem;
+  }
+
+  .kb-graph-global-toolbar {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .kb-graph-global-toolbar h3 {
+    margin: 0;
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-base);
+    line-height: 1.3;
+  }
+
+  .kb-graph-global-toolbar p {
+    margin: 0.15rem 0 0;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    line-height: 1.35;
+  }
+
+  .kb-graph-global-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    font-weight: 700;
+  }
+
+  .kb-graph-global-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .kb-graph-global-legend i {
+    display: inline-block;
+    width: 0.62rem;
+    height: 0.62rem;
+    border-radius: 999px;
+    background: #00c7e6;
+  }
+
+  .kb-graph-global-legend .kb-graph-concept-key {
+    border-radius: 2px;
+    background: var(--fabric-node-violet);
+  }
+
+  .kb-graph-global-legend .kb-graph-current-key {
+    background: #f8f4ed;
+    box-shadow: 0 0 0 2px #00c7e6;
+  }
+
+  .kb-graph-global-canvas {
+    overflow: hidden;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+    background: #020817;
+  }
+
+  .kb-graph-global-svg {
+    display: block;
+    width: 100%;
+    min-height: 34rem;
+    cursor: grab;
+  }
+
+  .kb-graph-global-svg:active {
+    cursor: grabbing;
+  }
+
+  .kb-graph-global-link {
+    stroke: rgba(216, 209, 199, 0.24);
+    transition: opacity 140ms ease, stroke 140ms ease;
+  }
+
+  .kb-graph-link-mentions {
+    stroke: color-mix(in srgb, var(--fabric-node-violet), transparent 42%);
+  }
+
+  .kb-graph-link-link {
+    stroke: rgba(0, 199, 230, 0.62);
+  }
+
+  .kb-graph-link-keyword {
+    stroke: rgba(248, 244, 237, 0.28);
+  }
+
+  .kb-graph-link-section {
+    stroke: rgba(216, 209, 199, 0.16);
+  }
+
+  .kb-graph-global-node {
+    cursor: pointer;
+    outline: none;
+  }
+
+  .kb-graph-global-node circle,
+  .kb-graph-global-node rect {
+    stroke: #020817;
+    stroke-width: 1.5;
+    transition: opacity 140ms ease, stroke 140ms ease, stroke-width 140ms ease;
+  }
+
+  .kb-graph-global-node.is-current circle,
+  .kb-graph-global-node.is-current rect {
+    stroke: #f8f4ed;
+    stroke-width: 3;
+  }
+
+  .kb-graph-global-node:focus-visible circle,
+  .kb-graph-global-node:focus-visible rect {
+    stroke: var(--fabric-node-cyan);
+    stroke-width: 3;
+  }
+
+  .kb-graph-global-label {
+    fill: #f8f4ed;
+    font-size: 10px;
+    font-weight: 800;
+    text-anchor: middle;
+    paint-order: stroke;
+    pointer-events: none;
+    stroke: #020817;
+    stroke-linejoin: round;
+    stroke-width: 3px;
+  }
+
+  .kb-graph-global-node.is-concept .kb-graph-global-label {
+    fill: #ddd7ff;
+  }
+
+  .kb-graph-global-link.is-active {
+    stroke: #f8f4ed;
+    opacity: 0.92;
+  }
+
+  .kb-graph-global-link.is-dimmed,
+  .kb-graph-global-node.is-dimmed {
+    opacity: 0.14;
+  }
+
+  @media (max-width: 48rem) {
+    .kb-graph-stage-grid {
+      grid-template-columns: 1fr;
+      min-width: 0;
+    }
+
+    .kb-graph-stage-map {
+      position: static;
+    }
+
+    .kb-graph-panel-header {
+      flex-wrap: wrap;
+    }
+
+    .kb-graph-global-shell {
+      min-width: 0;
+    }
+
+    .kb-graph-global-toolbar {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .kb-graph-global-svg {
+      min-height: 26rem;
+    }
+  }
+</style>
