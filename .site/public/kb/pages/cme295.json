@@ -11,11 +11,11 @@
       "다이어그램",
       "preference",
       "grpo",
-      "and",
       "sft",
       "llm",
       "transformer",
-      "tuning"
+      "tuning",
+      "human"
     ],
     "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
   },
@@ -31,11 +31,11 @@
         "다이어그램",
         "preference",
         "grpo",
-        "and",
         "sft",
         "llm",
         "transformer",
-        "tuning"
+        "tuning",
+        "human"
       ],
       "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
     },
@@ -45,7 +45,6 @@
       "route": "/",
       "group": "home",
       "keywords": [
-        "and",
         "systems",
         "storage",
         "mlperf",
@@ -54,7 +53,8 @@
         "center",
         "notes",
         "lecture",
-        "rdma"
+        "rdma",
+        "roce"
       ],
       "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
     },
@@ -229,14 +229,14 @@
       "keywords": [
         "gpu",
         "goodput",
-        "the",
         "performance",
-        "and",
         "time",
         "nsight",
         "systems",
         "mechanical",
-        "sympathy"
+        "sympathy",
+        "bottleneck",
+        "memory"
       ],
       "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
     },
@@ -303,16 +303,16 @@
       "route": "/ai-data-center-network/chap01/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "nic",
         "memory",
         "kernel",
-        "for",
-        "are",
         "infiniband",
-        "queue"
+        "queue",
+        "remote",
+        "send",
+        "model",
+        "rnic"
       ],
       "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
     },
@@ -347,24 +347,21 @@
     {
       "source": "/",
       "target": "/cme295/",
-      "type": "link+keyword",
+      "type": "link",
       "weight": 1,
-      "terms": [
-        "lecture",
-        "and"
-      ]
+      "terms": []
     },
     {
       "source": "/cme295/",
       "target": "/cme295/lec-01/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/cme295/",
       "target": "/cme295/lec-02/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "transformer"
@@ -373,7 +370,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-03/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "llm"
@@ -382,7 +379,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-04/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "sft"
@@ -391,7 +388,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-05/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "preference",
@@ -402,12 +399,37 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-06/",
-      "type": "link+keyword+section",
+      "type": "link+section",
       "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-03/",
+      "type": "semantic+section",
+      "weight": 0.995,
       "terms": [
-        "reasoning",
-        "sft",
-        "grpo"
+        "token"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-02/",
+      "type": "semantic+section",
+      "weight": 0.957,
+      "terms": [
+        "token",
+        "attention",
+        "embedding"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-03/",
+      "type": "semantic+section",
+      "weight": 0.943,
+      "terms": [
+        "token"
       ]
     },
     {
@@ -686,74 +708,64 @@
     },
     {
       "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-02/",
-      "type": "keyword+section",
-      "weight": 0.732,
-      "terms": [
-        "token",
-        "attention",
-        "embedding"
-      ]
-    },
-    {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-03/",
-      "type": "keyword+section",
-      "weight": 0.656,
-      "terms": [
-        "token"
-      ]
+      "target": "/cme295/lec-04/",
+      "type": "semantic+section",
+      "weight": 0.787,
+      "terms": []
     },
     {
       "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-03/",
-      "type": "keyword+section",
-      "weight": 0.625,
+      "target": "/cme295/lec-05/",
+      "type": "semantic+section",
+      "weight": 0.787,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.777,
       "terms": [
-        "token"
+        "gpu",
+        "memory"
       ]
     },
     {
       "source": "/cme295/lec-02/",
       "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.48,
+      "type": "semantic+section",
+      "weight": 0.775,
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "keyword",
-      "weight": 0.475,
-      "terms": [
-        "gpu",
-        "cpu",
-        "memory"
-      ]
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-06/",
+      "type": "semantic+section",
+      "weight": 0.768,
+      "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.47,
-      "terms": [
-        "gpu"
-      ]
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-05/",
+      "type": "semantic+section",
+      "weight": 0.763,
+      "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/chap03/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.456,
+      "source": "/cme295/lec-04/",
+      "target": "/cme295/lec-05/",
+      "type": "semantic",
+      "weight": 0.72,
       "terms": [
-        "gpu"
+        "model",
+        "sft"
       ]
     },
     {
       "source": "/cme295/lec-05/",
       "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.429,
+      "type": "semantic",
+      "weight": 0.697,
       "terms": [
         "reward",
         "sft",
@@ -763,110 +775,93 @@
     {
       "source": "/cme295/lec-03/",
       "target": "/cme295/lec-04/",
-      "type": "keyword",
-      "weight": 0.403,
+      "type": "semantic",
+      "weight": 0.676,
       "terms": [
         "model"
       ]
     },
     {
-      "source": "/cme295/lec-04/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword",
-      "weight": 0.391,
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "semantic",
+      "weight": 0.675,
       "terms": [
-        "model",
-        "sft"
-      ]
-    },
-    {
-      "source": "/cme295/lec-03/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.383,
-      "terms": [
-        "model"
+        "gpu"
       ]
     },
     {
       "source": "/cme295/lec-04/",
       "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.381,
+      "type": "semantic",
+      "weight": 0.668,
       "terms": [
         "sft",
         "model"
       ]
     },
     {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.659,
+      "terms": [
+        "gpu",
+        "memory",
+        "cpu"
+      ]
     },
     {
       "source": "/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "and",
-        "systems"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/rdma-examples/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.22,
+      "target": "/ai-data-center-network/chap01/",
+      "type": "semantic",
+      "weight": 0.649,
       "terms": [
         "rdma"
       ]
     },
     {
+      "source": "/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "semantic",
+      "weight": 0.645,
+      "terms": [
+        "systems"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.641,
+      "terms": [
+        "gpu",
+        "memory"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "semantic",
+      "weight": 0.638,
+      "terms": [
+        "memory"
+      ]
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-06/",
+      "type": "semantic",
+      "weight": 0.638,
+      "terms": [
+        "model"
+      ]
+    },
+    {
       "source": "/cme295/lec-03/",
       "target": "/cme295/lec-05/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.625,
       "terms": [
         "model"
       ]
@@ -874,6 +869,13 @@
     {
       "source": "/ai-data-center-network/chap01/",
       "target": "/ai-data-center-network/rdma-examples/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-06/",
       "type": "section",
       "weight": 0.18,
       "terms": []

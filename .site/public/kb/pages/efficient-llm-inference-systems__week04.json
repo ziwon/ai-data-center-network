@@ -6,16 +6,16 @@
     "route": "/efficient-llm-inference-systems/week04/",
     "group": "efficient-llm-inference-systems",
     "keywords": [
-      "the",
       "quantization",
       "int4",
       "awq",
       "int8",
-      "and",
-      "for",
       "week",
       "scale",
-      "fp8"
+      "fp8",
+      "outliers",
+      "bf16",
+      "weight"
     ],
     "excerpt": "These notes expand Chapter 4 of the book. The source chapter is short and interview oriented; this version keeps the same core topics while connecting them to t"
   },
@@ -26,16 +26,16 @@
       "route": "/efficient-llm-inference-systems/week04/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "quantization",
         "int4",
         "awq",
         "int8",
-        "and",
-        "for",
         "week",
         "scale",
-        "fp8"
+        "fp8",
+        "outliers",
+        "bf16",
+        "weight"
       ],
       "excerpt": "These notes expand Chapter 4 of the book. The source chapter is short and interview oriented; this version keeps the same core topics while connecting them to t"
     },
@@ -66,14 +66,14 @@
       "keywords": [
         "week",
         "how",
-        "the",
-        "and",
         "hardware",
-        "are",
         "think",
         "architectures",
         "inference",
-        "copied"
+        "copied",
+        "parallelism",
+        "1-4",
+        "inference-first"
       ],
       "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course. These notes are not line by line full "
     },
@@ -83,7 +83,6 @@
       "route": "/efficient-llm-inference-systems/week04/results/results/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "bf16",
         "readme",
         "bnb",
@@ -92,7 +91,8 @@
         "speedup",
         "bitsandbytes",
         "int8",
-        "awq"
+        "awq",
+        "fused"
       ],
       "excerpt": "Hardware: RTX 5080 16GB (Blackwell, sm 120) · cu128 PyTorch 2.11 · bitsandbytes 0.49.2 · transformers 5.12.1 Model: Qwen/Qwen2.5 3B Instruct The README sketches"
     },
@@ -152,18 +152,37 @@
       "route": "/efficient-llm-inference-systems/week03/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "gqa",
         "kib",
         "mib",
-        "and",
         "cache",
         "mha",
         "gib",
         "week",
-        "batch"
+        "batch",
+        "128",
+        "decode"
       ],
       "excerpt": "3.1 Learning Goals By the end of this week, you should be able to: 1. Memorize the KV cache memory formula and estimate memory for an arbitrary model, sequence "
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "title": "How to Think About GPUs",
+      "route": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "gpu",
+        "tensor",
+        "core",
+        "b300",
+        "memory",
+        "blackwell",
+        "nvlink",
+        "dgx",
+        "warp",
+        "parallelism"
+      ],
+      "excerpt": "Source: , part of How To Scale Your Model , published 2025 08 18. This is a Korean lecture note adaptation, not a line by line full translation. The goal is to "
     },
     {
       "id": "/efficient-llm-inference-systems/week02/",
@@ -171,7 +190,6 @@
       "route": "/efficient-llm-inference-systems/week02/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "tflops",
         "batch",
         "gb/s",
@@ -180,47 +198,29 @@
         "hbm",
         "h100",
         "tb/s",
-        "dense"
+        "dense",
+        "128"
       ],
       "excerpt": "Pre lab summary. Read this before running the hands on exercises. TL;DR All inference optimization is one principle in disguise: keep data in the fastest memory"
     },
     {
-      "id": "/ai-data-center-network/chap01/",
-      "title": "Chapter 1: Wonders in the Workload",
-      "route": "/ai-data-center-network/chap01/",
-      "group": "ai-data-center-network",
+      "id": "/cme295/lec-04/",
+      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
+      "route": "/cme295/lec-04/",
+      "group": "cme295",
       "keywords": [
-        "the",
-        "and",
-        "rdma",
-        "nic",
+        "model",
+        "pre-training",
+        "sft",
+        "training",
+        "parallelism",
+        "optimizer",
+        "lora",
+        "fine-tuning",
         "memory",
-        "kernel",
-        "for",
-        "are",
-        "infiniband",
-        "queue"
+        "precision"
       ],
-      "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
-    },
-    {
-      "id": "/ai-data-center-network/chap10/",
-      "title": "Chapter 10: AI Network Performance KPIs",
-      "route": "/ai-data-center-network/chap10/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "the",
-        "and",
-        "kpis",
-        "mlperf",
-        "storage",
-        "time",
-        "benchmark",
-        "accuracy",
-        "latency",
-        "quality"
-      ],
-      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre training 이후 fine tuning과 alignment 단계가 필요한지 이해하는 것이다. 핵심 메시지는 다음과 같다. LLM training은 하나의 거대한 "
     },
     {
       "id": "/ai-system-performance-engineering/chap01/",
@@ -230,14 +230,14 @@
       "keywords": [
         "gpu",
         "goodput",
-        "the",
         "performance",
-        "and",
         "time",
         "nsight",
         "systems",
         "mechanical",
-        "sympathy"
+        "sympathy",
+        "bottleneck",
+        "memory"
       ],
       "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
     },
@@ -259,25 +259,6 @@
         "power"
       ],
       "excerpt": "Table of Contents Goal 이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다. 핵심 아이디어는 다음과 같다. AI 하드웨어 설계는 FLOPS만 높이는 문제가 아니라, GPU compute, HBM bandwidth, CPU"
-    },
-    {
-      "id": "/cme295/lec-04/",
-      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
-      "route": "/cme295/lec-04/",
-      "group": "cme295",
-      "keywords": [
-        "model",
-        "pre-training",
-        "sft",
-        "training",
-        "parallelism",
-        "optimizer",
-        "lora",
-        "fine-tuning",
-        "memory",
-        "precision"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre training 이후 fine tuning과 alignment 단계가 필요한지 이해하는 것이다. 핵심 메시지는 다음과 같다. LLM training은 하나의 거대한 "
     },
     {
       "id": "/deep-learning-for-network-engineers/week02/",
@@ -347,11 +328,11 @@
         "다이어그램",
         "preference",
         "grpo",
-        "and",
         "sft",
         "llm",
         "transformer",
-        "tuning"
+        "tuning",
+        "human"
       ],
       "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
     },
@@ -379,14 +360,14 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-01/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/cme295/",
       "target": "/cme295/lec-04/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "sft"
@@ -395,7 +376,7 @@
     {
       "source": "/efficient-llm-inference-systems/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
@@ -422,6 +403,13 @@
     },
     {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "/efficient-llm-inference-systems/week04/",
       "type": "link+section",
       "weight": 1,
@@ -430,10 +418,10 @@
     {
       "source": "/efficient-llm-inference-systems/week04/",
       "target": "/efficient-llm-inference-systems/week04/results/results/",
-      "type": "link+keyword",
+      "type": "link+semantic",
       "weight": 1,
       "terms": [
-        "the",
+        "bf16",
         "int4",
         "int8",
         "awq"
@@ -609,6 +597,38 @@
       ]
     },
     {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "quantization",
+        "Quantization",
+        "FP8",
+        "int4"
+      ]
+    },
+    {
       "source": "/efficient-llm-inference-systems/week02/",
       "target": "concept:attention",
       "type": "mentions",
@@ -724,17 +744,6 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.88,
-      "terms": [
-        "KV-cache",
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "concept:quantization",
       "type": "mentions",
@@ -749,16 +758,6 @@
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.88,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.83,
       "terms": [
         "KV cache",
         "KV Cache"
@@ -805,30 +804,43 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.805,
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-04/",
+      "type": "semantic+section",
+      "weight": 0.787,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.777,
       "terms": [
-        "FP8"
+        "gpu",
+        "memory"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.497,
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "semantic+section",
+      "weight": 0.742,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week03/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "semantic",
+      "weight": 0.742,
       "terms": [
-        "the",
-        "and",
-        "time"
+        "week"
       ]
     },
     {
       "source": "/cme295/lec-01/",
       "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "keyword",
-      "weight": 0.492,
+      "type": "semantic",
+      "weight": 0.715,
       "terms": [
         "token",
         "embedding",
@@ -837,152 +849,160 @@
       ]
     },
     {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "semantic",
+      "weight": 0.711,
+      "terms": []
+    },
+    {
       "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "keyword",
-      "weight": 0.475,
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "semantic",
+      "weight": 0.681,
       "terms": [
-        "gpu",
-        "cpu",
-        "memory"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week03/",
-      "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.416,
-      "terms": [
-        "the",
-        "and",
-        "week"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week02/",
-      "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.411,
-      "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week02/",
-      "target": "/efficient-llm-inference-systems/week03/",
-      "type": "keyword",
-      "weight": 0.377,
-      "terms": [
-        "the",
-        "batch"
+        "hbm"
       ]
     },
     {
       "source": "/efficient-llm-inference-systems/week02/",
       "target": "/efficient-llm-inference-systems/week04/results/results/",
-      "type": "keyword",
-      "weight": 0.363,
+      "type": "semantic",
+      "weight": 0.668,
       "terms": [
-        "the",
         "bf16"
       ]
     },
     {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.337,
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.667,
+      "terms": [
+        "gpu",
+        "blackwell",
+        "memory",
+        "nvlink"
+      ]
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.661,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.659,
       "terms": [
-        "the",
-        "and"
+        "gpu",
+        "memory",
+        "cpu"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and",
-        "for"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/efficient-llm-inference-systems/week02/",
       "target": "/efficient-llm-inference-systems/week03/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.659,
       "terms": [
-        "the",
-        "and"
+        "batch",
+        "128"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and"
-      ]
+      "type": "semantic",
+      "weight": 0.646,
+      "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "keyword",
-      "weight": 0.22,
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.641,
       "terms": [
-        "the",
-        "and"
+        "gpu",
+        "memory"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/efficient-llm-inference-systems/week02/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
+      "source": "/cme295/lec-01/",
       "target": "/efficient-llm-inference-systems/week03/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.641,
+      "terms": []
+    },
+    {
+      "source": "/cme295/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.638,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week02/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "semantic",
+      "weight": 0.637,
       "terms": [
-        "the",
-        "and"
+        "bf16"
       ]
     },
     {
       "source": "/efficient-llm-inference-systems/week03/",
       "target": "/efficient-llm-inference-systems/week04/results/results/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "section",
-      "weight": 0.18,
+      "type": "semantic",
+      "weight": 0.637,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/rdma-examples/",
+      "source": "/cme295/lec-04/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "semantic",
+      "weight": 0.635,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "semantic",
+      "weight": 0.634,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.627,
+      "terms": [
+        "gpu",
+        "memory"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/rdma-examples/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.595,
+      "terms": []
+    },
+    {
+      "source": "/cme295/",
+      "target": "/efficient-llm-inference-systems/",
+      "type": "semantic",
+      "weight": 0.572,
+      "terms": [
+        "llm"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -990,13 +1010,6 @@
     {
       "source": "/efficient-llm-inference-systems/",
       "target": "/efficient-llm-inference-systems/week04/results/results/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "target": "/efficient-llm-inference-systems/week02/",
       "type": "section",
       "weight": 0.18,
       "terms": []

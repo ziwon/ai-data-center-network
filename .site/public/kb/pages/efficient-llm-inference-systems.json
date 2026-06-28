@@ -45,7 +45,6 @@
       "route": "/",
       "group": "home",
       "keywords": [
-        "and",
         "systems",
         "storage",
         "mlperf",
@@ -54,7 +53,8 @@
         "center",
         "notes",
         "lecture",
-        "rdma"
+        "rdma",
+        "roce"
       ],
       "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
     },
@@ -66,14 +66,14 @@
       "keywords": [
         "week",
         "how",
-        "the",
-        "and",
         "hardware",
-        "are",
         "think",
         "architectures",
         "inference",
-        "copied"
+        "copied",
+        "parallelism",
+        "1-4",
+        "inference-first"
       ],
       "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course. These notes are not line by line full "
     },
@@ -83,7 +83,6 @@
       "route": "/efficient-llm-inference-systems/appendix/llm-inference/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "token",
         "convert",
         "logits",
@@ -92,7 +91,8 @@
         "llm",
         "transformer",
         "project",
-        "detokenize"
+        "detokenize",
+        "streamed"
       ],
       "excerpt": "Inference Pipeline ! This diagram summarizes the end to end flow of decoder only LLM inference: 1. Convert user input into token IDs with the tokenizer. 2. Add "
     },
@@ -122,7 +122,6 @@
       "group": "efficient-llm-inference-systems",
       "keywords": [
         "prompt",
-        "the",
         "batch",
         "tpot",
         "length",
@@ -130,7 +129,8 @@
         "size",
         "logits",
         "increases",
-        "sweep"
+        "sweep",
+        "ttft"
       ],
       "excerpt": "Week 1: TTFT, TPOT, Batch Throughput This chapter measures how prompt length and batch size affect latency and throughput in decoder only LLM inference. The exp"
     },
@@ -140,7 +140,6 @@
       "route": "/efficient-llm-inference-systems/week02/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "tflops",
         "batch",
         "gb/s",
@@ -149,7 +148,8 @@
         "hbm",
         "h100",
         "tb/s",
-        "dense"
+        "dense",
+        "128"
       ],
       "excerpt": "Pre lab summary. Read this before running the hands on exercises. TL;DR All inference optimization is one principle in disguise: keep data in the fastest memory"
     },
@@ -159,16 +159,16 @@
       "route": "/efficient-llm-inference-systems/week03/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "gqa",
         "kib",
         "mib",
-        "and",
         "cache",
         "mha",
         "gib",
         "week",
-        "batch"
+        "batch",
+        "128",
+        "decode"
       ],
       "excerpt": "3.1 Learning Goals By the end of this week, you should be able to: 1. Memorize the KV cache memory formula and estimate memory for an arbitrary model, sequence "
     },
@@ -178,16 +178,16 @@
       "route": "/efficient-llm-inference-systems/week04/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "quantization",
         "int4",
         "awq",
         "int8",
-        "and",
-        "for",
         "week",
         "scale",
-        "fp8"
+        "fp8",
+        "outliers",
+        "bf16",
+        "weight"
       ],
       "excerpt": "These notes expand Chapter 4 of the book. The source chapter is short and interview oriented; this version keeps the same core topics while connecting them to t"
     },
@@ -234,32 +234,32 @@
     {
       "source": "/",
       "target": "/ai-data-center-network/",
-      "type": "link+keyword",
+      "type": "link",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/",
       "target": "/efficient-llm-inference-systems/",
-      "type": "link+keyword",
+      "type": "link",
       "weight": 1,
-      "terms": [
-        "systems"
-      ]
+      "terms": []
     },
     {
       "source": "/efficient-llm-inference-systems/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/efficient-llm-inference-systems/",
       "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "llm"
+      ]
     },
     {
       "source": "/efficient-llm-inference-systems/",
@@ -299,7 +299,7 @@
     {
       "source": "/efficient-llm-inference-systems/appendix/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "inference"
@@ -343,125 +343,98 @@
     {
       "source": "/efficient-llm-inference-systems/",
       "target": "/efficient-llm-inference-systems/appendix/",
-      "type": "keyword+section",
-      "weight": 0.597,
+      "type": "semantic+section",
+      "weight": 0.872,
       "terms": [
         "llm"
       ]
     },
     {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "semantic+section",
+      "weight": 0.742,
+      "terms": []
+    },
+    {
       "source": "/efficient-llm-inference-systems/week03/",
       "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.416,
+      "type": "semantic",
+      "weight": 0.742,
       "terms": [
-        "the",
-        "and",
         "week"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week02/",
-      "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.411,
-      "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week02/",
-      "target": "/efficient-llm-inference-systems/week03/",
-      "type": "keyword",
-      "weight": 0.377,
-      "terms": [
-        "the",
-        "batch"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week01/",
-      "target": "/efficient-llm-inference-systems/week03/",
-      "type": "keyword",
-      "weight": 0.375,
-      "terms": [
-        "the",
-        "batch"
-      ]
-    },
-    {
-      "source": "/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "keyword",
-      "weight": 0.363,
-      "terms": [
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/efficient-llm-inference-systems/",
-      "type": "keyword",
-      "weight": 0.363,
-      "terms": []
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week01/",
-      "target": "/efficient-llm-inference-systems/week02/",
-      "type": "keyword",
-      "weight": 0.363,
-      "terms": [
-        "the",
-        "batch"
-      ]
-    },
-    {
-      "source": "/",
-      "target": "/efficient-llm-inference-systems/appendix/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/efficient-llm-inference-systems/appendix/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
-      "target": "/efficient-llm-inference-systems/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "transformer"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
-      "target": "/efficient-llm-inference-systems/week01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "logits"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week01/",
-      "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the"
       ]
     },
     {
       "source": "/efficient-llm-inference-systems/appendix/",
       "target": "/efficient-llm-inference-systems/week01/",
-      "type": "section",
-      "weight": 0.18,
+      "type": "semantic+section",
+      "weight": 0.682,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "semantic",
+      "weight": 0.674,
+      "terms": [
+        "transformer"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/efficient-llm-inference-systems/",
+      "type": "semantic",
+      "weight": 0.667,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week02/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "semantic",
+      "weight": 0.659,
+      "terms": [
+        "batch",
+        "128"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week02/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "semantic",
+      "weight": 0.637,
+      "terms": [
+        "bf16"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/transformer/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "semantic",
+      "weight": 0.63,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "semantic",
+      "weight": 0.618,
+      "terms": [
+        "logits"
+      ]
+    },
+    {
+      "source": "/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "type": "semantic",
+      "weight": 0.605,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week01/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "semantic",
+      "weight": 0.591,
       "terms": []
     },
     {
@@ -502,13 +475,6 @@
     {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "/efficient-llm-inference-systems/week01/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "target": "/efficient-llm-inference-systems/week02/",
       "type": "section",
       "weight": 0.18,
       "terms": []

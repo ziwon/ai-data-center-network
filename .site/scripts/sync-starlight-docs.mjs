@@ -1,5 +1,6 @@
 import { copyFile, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { embedDocuments, isEmbeddingEnabled } from './lib/embeddings.mjs';
 
 const projectRoot = process.cwd();
 const sourceRoot = path.resolve(projectRoot, '..');
@@ -65,10 +66,14 @@ const pages = [];
 const stopWords = new Set([
   'about',
   'after',
+  'all',
   'also',
+  'and',
+  'are',
   'because',
   'before',
   'between',
+  'but',
   'can',
   'chapter',
   'check',
@@ -79,6 +84,7 @@ const stopWords = new Set([
   'does',
   'each',
   'example',
+  'for',
   'from',
   'have',
   'into',
@@ -99,17 +105,23 @@ const stopWords = new Set([
   'table',
   'than',
   'that',
+  'the',
   'their',
   'there',
   'these',
   'this',
   'through',
   'using',
+  'was',
   'when',
   'where',
   'which',
   'while',
+  'will',
   'with',
+  'were',
+  'you',
+  'your',
   '있는',
   '한다',
   '위해',
@@ -495,30 +507,22 @@ async function writeKnowledgeGraph() {
     }
   }
 
-  for (const page of pages) {
-    const candidates = [];
-    const sourceKeywords = new Set(nodeByRoute.get(page.route)?.keywords ?? []);
-    for (const target of pages) {
-      if (target.route === page.route) continue;
-      const score = relatedness(nodeTerms.get(page.route), nodeTerms.get(target.route), idfByTerm);
-      if (score <= 0) continue;
-      const shared = (nodeByRoute.get(target.route)?.keywords ?? []).filter((term) => sourceKeywords.has(term));
-      candidates.push({ target: target.route, score, shared });
+  let vectors = null;
+  if (isEmbeddingEnabled()) {
+    try {
+      vectors = await embedDocuments(
+        pages.map((page) => ({ key: page.route, text: embeddingText(page) })),
+      );
+    } catch (error) {
+      console.warn(`[embeddings] disabled; falling back to keyword edges: ${error?.message ?? error}`);
+      vectors = null;
     }
+  }
 
-    candidates
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 5)
-      .forEach((candidate) => {
-        addEdge(
-          edgeScores,
-          page.route,
-          candidate.target,
-          'keyword',
-          Math.min(0.82, Math.max(0.22, candidate.score)),
-          candidate.shared.slice(0, 4),
-        );
-      });
+  if (vectors) {
+    addSemanticEdges(edgeScores, pages, vectors, nodeByRoute);
+  } else {
+    addKeywordEdges(edgeScores, pages, nodeTerms, idfByTerm, nodeByRoute);
   }
 
   for (const [route, matches] of pageConcepts) {
@@ -761,6 +765,99 @@ function topKeywords(terms, documentFrequency, documentCount, limit) {
     .filter((keyword) => keyword.term.length > 2)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
+}
+
+function addSemanticEdges(edgeScores, pages, vectors, nodeByRoute) {
+  const selectedPairs = new Set();
+  for (const page of pages) {
+    const sourceVector = vectors.get(page.route);
+    if (!sourceVector) continue;
+
+    pages
+      .filter((target) => target.route !== page.route && vectors.has(target.route))
+      .map((target) => ({
+        target: target.route,
+        score: dotProduct(sourceVector, vectors.get(target.route)),
+        shared: sharedKeywordsBetween(page.route, target.route, nodeByRoute),
+      }))
+      .filter((candidate) => candidate.score >= 0.55)
+      .sort((a, b) => b.score - a.score || a.target.localeCompare(b.target))
+      .slice(0, 6)
+      .forEach((candidate) => {
+        const key = edgeKey(page.route, candidate.target);
+        if (selectedPairs.has(key)) return;
+        selectedPairs.add(key);
+        addEdge(
+          edgeScores,
+          page.route,
+          candidate.target,
+          'semantic',
+          Math.min(0.9, Math.max(0.3, candidate.score)),
+          candidate.shared.slice(0, 4),
+        );
+      });
+  }
+}
+
+function addKeywordEdges(edgeScores, pages, nodeTerms, idfByTerm, nodeByRoute) {
+  const selectedPairs = new Set();
+  for (const page of pages) {
+    const candidates = [];
+    for (const target of pages) {
+      if (target.route === page.route) continue;
+      const score = relatedness(nodeTerms.get(page.route), nodeTerms.get(target.route), idfByTerm);
+      if (score <= 0) continue;
+      candidates.push({
+        target: target.route,
+        score,
+        shared: sharedKeywordsBetween(page.route, target.route, nodeByRoute),
+      });
+    }
+
+    candidates
+      .sort((a, b) => b.score - a.score || a.target.localeCompare(b.target))
+      .slice(0, 5)
+      .forEach((candidate) => {
+        const key = edgeKey(page.route, candidate.target);
+        if (selectedPairs.has(key)) return;
+        selectedPairs.add(key);
+        addEdge(
+          edgeScores,
+          page.route,
+          candidate.target,
+          'keyword',
+          Math.min(0.82, Math.max(0.22, candidate.score)),
+          candidate.shared.slice(0, 4),
+        );
+      });
+  }
+}
+
+function sharedKeywordsBetween(sourceRoute, targetRoute, nodeByRoute) {
+  const sourceKeywords = new Set(nodeByRoute.get(sourceRoute)?.keywords ?? []);
+  return (nodeByRoute.get(targetRoute)?.keywords ?? []).filter((term) => sourceKeywords.has(term));
+}
+
+function edgeKey(source, target) {
+  return source.localeCompare(target) <= 0 ? `${source} ${target}` : `${target} ${source}`;
+}
+
+function dotProduct(source, target) {
+  if (!source || !target || source.length !== target.length) return 0;
+  return source.reduce((sum, value, index) => sum + value * target[index], 0);
+}
+
+function embeddingText(page) {
+  const headings = [...page.body.matchAll(/^#{1,3}\s+(.+)$/gm)]
+    .map((match) => match[1])
+    .slice(0, 16);
+  return [
+    page.title,
+    ...headings,
+    descriptionFrom(page.body, page.title),
+  ]
+    .join('\n')
+    .slice(0, 6000);
 }
 
 function relatedness(sourceTerms, targetTerms, idfByTerm) {

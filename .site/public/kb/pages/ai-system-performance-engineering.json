@@ -45,7 +45,6 @@
       "route": "/",
       "group": "home",
       "keywords": [
-        "and",
         "systems",
         "storage",
         "mlperf",
@@ -54,7 +53,8 @@
         "center",
         "notes",
         "lecture",
-        "rdma"
+        "rdma",
+        "roce"
       ],
       "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
     },
@@ -104,14 +104,14 @@
       "keywords": [
         "gpu",
         "goodput",
-        "the",
         "performance",
-        "and",
         "time",
         "nsight",
         "systems",
         "mechanical",
-        "sympathy"
+        "sympathy",
+        "bottleneck",
+        "memory"
       ],
       "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
     },
@@ -180,14 +180,14 @@
       "keywords": [
         "week",
         "how",
-        "the",
-        "and",
         "hardware",
-        "are",
         "think",
         "architectures",
         "inference",
-        "copied"
+        "copied",
+        "parallelism",
+        "1-4",
+        "inference-first"
       ],
       "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course. These notes are not line by line full "
     },
@@ -228,16 +228,16 @@
       "route": "/ai-data-center-network/chap01/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "nic",
         "memory",
         "kernel",
-        "for",
-        "are",
         "infiniband",
-        "queue"
+        "queue",
+        "remote",
+        "send",
+        "model",
+        "rnic"
       ],
       "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
     },
@@ -247,8 +247,6 @@
       "route": "/ai-data-center-network/ib-packet-analysis/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "captures",
         "infiniband",
@@ -256,7 +254,9 @@
         "ipoib",
         "capture",
         "packets",
-        "bth"
+        "bth",
+        "reth",
+        "read"
       ],
       "excerpt": "English (https://www.nvidia.com/en us/networking/) (https://docs.nvidia.com/networking/display/rdmaawareprogrammingv17) (https://www.wireshark.org/docs/man page"
     }
@@ -272,7 +272,30 @@
     {
       "source": "/",
       "target": "/ai-system-performance-engineering/",
-      "type": "link+keyword",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "kubelet"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "systems"
@@ -280,36 +303,15 @@
     },
     {
       "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
       "target": "/ai-system-performance-engineering/chap02/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/",
       "target": "/ai-system-performance-engineering/chap03/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
@@ -323,34 +325,44 @@
     {
       "source": "/ai-system-performance-engineering/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "link+keyword",
+      "type": "link",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
       "target": "/ai-system-performance-engineering/chap03/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "gpu",
         "cpu",
         "memory",
-        "container",
-        "numa"
+        "container"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
       "target": "/ai-system-performance-engineering/chap03/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "gpu",
         "cpu",
         "kubernetes",
+        "memory"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "type": "semantic+section",
+      "weight": 0.945,
+      "terms": [
+        "cpu",
+        "numa",
         "memory",
-        "numa"
+        "manager"
       ]
     },
     {
@@ -512,73 +524,39 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "type": "keyword+section",
-      "weight": 0.696,
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.777,
       "terms": [
-        "cpu",
-        "numa",
-        "memory",
-        "manager",
-        "node"
+        "gpu",
+        "memory"
       ]
     },
     {
       "source": "/ai-data-center-network/chap01/",
       "target": "/ai-data-center-network/ib-packet-analysis/",
-      "type": "keyword+section",
-      "weight": 0.589,
+      "type": "semantic+section",
+      "weight": 0.711,
       "terms": [
-        "the",
-        "and",
         "rdma",
         "infiniband"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "keyword",
-      "weight": 0.475,
-      "terms": [
-        "gpu",
-        "cpu",
-        "memory"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.47,
-      "terms": [
-        "gpu"
-      ]
-    },
-    {
       "source": "/ai-system-performance-engineering/chap03/",
       "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.456,
+      "type": "semantic",
+      "weight": 0.675,
       "terms": [
         "gpu"
       ]
     },
     {
-      "source": "/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "keyword",
-      "weight": 0.363,
-      "terms": [
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "keyword+section",
-      "weight": 0.337,
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.659,
       "terms": [
         "gpu",
         "memory",
@@ -586,77 +564,90 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword+section",
-      "weight": 0.337,
+      "source": "/",
+      "target": "/ai-data-center-network/chap01/",
+      "type": "semantic",
+      "weight": 0.649,
       "terms": [
-        "gpu"
+        "rdma"
       ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": [
-        "gpu",
-        "memory",
-        "cpu"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": [
-        "gpu"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "section",
-      "weight": 0.297,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "section",
-      "weight": 0.297,
-      "terms": []
     },
     {
       "source": "/",
       "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.645,
       "terms": [
-        "and",
         "systems"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.641,
+      "terms": [
+        "gpu",
+        "memory"
       ]
     },
     {
       "source": "/ai-data-center-network/chap01/",
       "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.638,
       "terms": [
-        "the",
-        "and"
+        "memory"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/",
+      "source": "/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and"
-      ]
+      "type": "semantic",
+      "weight": 0.605,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
     }
   ]
 }

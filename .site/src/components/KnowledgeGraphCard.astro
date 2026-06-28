@@ -723,6 +723,7 @@
   function edgeClass(type: string) {
     if (type.includes('mentions')) return 'mentions';
     if (type.includes('link')) return 'link';
+    if (type.includes('semantic')) return 'semantic';
     if (type.includes('keyword')) return 'keyword';
     if (type.includes('section')) return 'section';
     return 'related';
@@ -748,6 +749,7 @@
     if (!edge) return 'shared concept';
     if (edge.type.includes('link')) return 'linked';
     if (edge.type.includes('mentions')) return 'shared concept';
+    if (edge.type.includes('semantic')) return `similar ${Math.round(edge.weight * 100)}%`;
     if (edge.type.includes('keyword')) return `keyword ${Math.round(edge.weight * 100)}%`;
     if (edge.type.includes('section')) return 'same section';
     return 'related';
@@ -1299,6 +1301,10 @@
 
   .kb-graph-link-link {
     stroke: rgba(0, 199, 230, 0.62);
+  }
+
+  .kb-graph-link-semantic {
+    stroke: color-mix(in srgb, var(--fabric-node-cyan), transparent 48%);
   }
 
   .kb-graph-link-keyword {

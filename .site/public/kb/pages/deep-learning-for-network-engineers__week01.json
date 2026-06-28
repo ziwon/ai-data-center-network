@@ -46,17 +46,36 @@
       "group": "deep-learning-for-network-engineers",
       "keywords": [
         "study",
-        "and",
-        "the",
         "backend",
         "focus",
         "networks",
         "training",
         "deep",
         "distributed",
-        "engineers"
+        "engineers",
+        "understand",
+        "congestion"
       ],
       "excerpt": "A six week engineering study of how deep learning workloads shape GPU communication, distributed training, and AI data center backend networks. Revisit artifici"
+    },
+    {
+      "id": "/deep-learning-for-network-engineers/week03/",
+      "title": "Week 3: Parallelism Strategies in Deep Learning",
+      "route": "/deep-learning-for-network-engineers/week03/",
+      "group": "deep-learning-for-network-engineers",
+      "keywords": [
+        "parallelism",
+        "gpu",
+        "gradient",
+        "pipeline",
+        "tensor",
+        "expert",
+        "stage",
+        "training",
+        "model",
+        "micro-batch"
+      ],
+      "excerpt": "Table of Contents Goal 이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend networ"
     },
     {
       "id": "concept:congestion-control",
@@ -165,42 +184,23 @@
       ]
     },
     {
-      "id": "/deep-learning-for-network-engineers/week03/",
-      "title": "Week 3: Parallelism Strategies in Deep Learning",
-      "route": "/deep-learning-for-network-engineers/week03/",
-      "group": "deep-learning-for-network-engineers",
+      "id": "/ai-data-center-network/chap03/",
+      "title": "Chapter 3: Network Design Considerations",
+      "route": "/ai-data-center-network/chap03/",
+      "group": "ai-data-center-network",
       "keywords": [
-        "parallelism",
-        "gpu",
-        "gradient",
-        "pipeline",
-        "tensor",
-        "expert",
-        "stage",
-        "training",
-        "model",
-        "micro-batch"
+        "leaf",
+        "design",
+        "clos",
+        "fabric",
+        "rail",
+        "spine",
+        "cabling",
+        "server",
+        "traffic",
+        "congestion"
       ],
-      "excerpt": "Table of Contents Goal 이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend networ"
-    },
-    {
-      "id": "/deep-learning-for-network-engineers/week02/",
-      "title": "Week 2: Large Language Model, LLM",
-      "route": "/deep-learning-for-network-engineers/week02/",
-      "group": "deep-learning-for-network-engineers",
-      "keywords": [
-        "token",
-        "vector",
-        "embedding",
-        "attention",
-        "word",
-        "decoder",
-        "layer",
-        "ffnn",
-        "parameter",
-        "책에서"
-      ],
-      "excerpt": "Table of Contents Goal 이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다. 핵심 흐름은 다음과 같다. 이 장의 목적은 특정 GPT 모델을 구현하는 것이 아니라, Transformer 기반 LLM의 기본 연산 구조를"
+      "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
     },
     {
       "id": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
@@ -227,16 +227,16 @@
       "route": "/ai-data-center-network/chap01/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "nic",
         "memory",
         "kernel",
-        "for",
-        "are",
         "infiniband",
-        "queue"
+        "queue",
+        "remote",
+        "send",
+        "model",
+        "rnic"
       ],
       "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
     },
@@ -246,37 +246,18 @@
       "route": "/ai-data-center-network/chap02/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
         "congestion",
         "flows",
-        "and",
         "traffic",
         "balancing",
         "training",
         "flow",
         "ethernet",
-        "for"
+        "load",
+        "rocev2",
+        "techniques"
       ],
       "excerpt": "Table of Contents Goal ! (https://engineering.fb.com/wp content/uploads/2024/03/Meta 24K GenAi Clusters hero.png) Source: This chapter explains why AI/ML data c"
-    },
-    {
-      "id": "/ai-data-center-network/chap03/",
-      "title": "Chapter 3: Network Design Considerations",
-      "route": "/ai-data-center-network/chap03/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "and",
-        "the",
-        "leaf",
-        "design",
-        "clos",
-        "fabric",
-        "rail",
-        "for",
-        "spine",
-        "cabling"
-      ],
-      "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
     },
     {
       "id": "/ai-data-center-network/chap10/",
@@ -284,8 +265,6 @@
       "route": "/ai-data-center-network/chap10/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "kpis",
         "mlperf",
         "storage",
@@ -293,7 +272,9 @@
         "benchmark",
         "accuracy",
         "latency",
-        "quality"
+        "quality",
+        "division",
+        "training"
       ],
       "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
     },
@@ -306,13 +287,13 @@
         "uet",
         "uec",
         "delivery",
-        "and",
-        "the",
         "packet",
         "congestion",
         "inc",
         "cbfc",
-        "pdc"
+        "pdc",
+        "llr",
+        "unordered"
       ],
       "excerpt": "Table of Contents Goal This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet based AI/HPC"
     },
@@ -379,16 +360,16 @@
       "route": "/ai-data-center-network/chap06/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
         "glb",
         "leaf",
         "spine",
         "dlb",
-        "and",
         "flow",
         "ecmp",
         "telb",
-        "path"
+        "path",
+        "packet",
+        "link"
       ],
       "excerpt": "Table of Contents Goal This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv"
     },
@@ -400,23 +381,42 @@
       "keywords": [
         "gpu",
         "goodput",
-        "the",
         "performance",
-        "and",
         "time",
         "nsight",
         "systems",
         "mechanical",
-        "sympathy"
+        "sympathy",
+        "bottleneck",
+        "memory"
       ],
       "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
+    },
+    {
+      "id": "/deep-learning-for-network-engineers/week02/",
+      "title": "Week 2: Large Language Model, LLM",
+      "route": "/deep-learning-for-network-engineers/week02/",
+      "group": "deep-learning-for-network-engineers",
+      "keywords": [
+        "token",
+        "vector",
+        "embedding",
+        "attention",
+        "word",
+        "decoder",
+        "layer",
+        "ffnn",
+        "parameter",
+        "책에서"
+      ],
+      "excerpt": "Table of Contents Goal 이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다. 핵심 흐름은 다음과 같다. 이 장의 목적은 특정 GPT 모델을 구현하는 것이 아니라, Transformer 기반 LLM의 기본 연산 구조를"
     }
   ],
   "edges": [
     {
       "source": "/deep-learning-for-network-engineers/",
       "target": "/deep-learning-for-network-engineers/week01/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "training"
@@ -425,16 +425,28 @@
     {
       "source": "/deep-learning-for-network-engineers/",
       "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/deep-learning-for-network-engineers/",
       "target": "/deep-learning-for-network-engineers/week03/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "training"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "semantic+section",
+      "weight": 0.947,
+      "terms": [
+        "traffic",
+        "ethernet"
+      ]
     },
     {
       "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
@@ -882,6 +894,17 @@
     },
     {
       "source": "/deep-learning-for-network-engineers/week01/",
+      "target": "/deep-learning-for-network-engineers/week03/",
+      "type": "semantic+section",
+      "weight": 0.93,
+      "terms": [
+        "gpu",
+        "gradient",
+        "training"
+      ]
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week01/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.93,
@@ -996,6 +1019,13 @@
       ]
     },
     {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "/deep-learning-for-network-engineers/week03/",
+      "type": "semantic+section",
+      "weight": 0.895,
+      "terms": []
+    },
+    {
       "source": "/ai-data-center-network/chap06/",
       "target": "concept:nccl",
       "type": "mentions",
@@ -1044,6 +1074,13 @@
         "data parallel",
         "Parallelism"
       ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "semantic+section",
+      "weight": 0.873,
+      "terms": []
     },
     {
       "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
@@ -1192,165 +1229,227 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap02/",
-      "type": "keyword+section",
-      "weight": 0.782,
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "semantic+section",
+      "weight": 0.789,
       "terms": [
-        "the",
-        "and",
-        "for"
+        "fabric",
+        "traffic"
       ]
     },
     {
-      "source": "/deep-learning-for-network-engineers/week01/",
-      "target": "/deep-learning-for-network-engineers/week03/",
-      "type": "keyword+section",
-      "weight": 0.737,
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.777,
       "terms": [
         "gpu",
-        "gradient",
-        "training"
+        "memory"
       ]
     },
     {
       "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "keyword",
-      "weight": 0.673,
+      "target": "/ai-data-center-network/chap03/",
+      "type": "semantic",
+      "weight": 0.775,
       "terms": [
-        "the",
-        "and",
-        "flow"
+        "traffic",
+        "congestion"
       ]
     },
     {
-      "source": "/deep-learning-for-network-engineers/week02/",
-      "target": "/deep-learning-for-network-engineers/week03/",
-      "type": "keyword+section",
-      "weight": 0.668,
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "semantic+section",
+      "weight": 0.763,
       "terms": []
     },
     {
-      "source": "/deep-learning-for-network-engineers/week01/",
-      "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "keyword+section",
-      "weight": 0.64,
-      "terms": [
-        "책에서"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "keyword+section",
-      "weight": 0.617,
-      "terms": [
-        "and",
-        "the",
-        "for"
-      ]
-    },
-    {
       "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "keyword",
-      "weight": 0.615,
-      "terms": [
-        "and",
-        "the",
-        "for"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
       "target": "/ai-data-center-network/chap06/",
-      "type": "keyword",
-      "weight": 0.566,
+      "type": "semantic",
+      "weight": 0.723,
       "terms": [
-        "the",
-        "leaf",
-        "spine",
-        "and"
+        "flow"
       ]
     },
     {
       "source": "/ai-data-center-network/chap10/",
       "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.497,
+      "type": "semantic",
+      "weight": 0.714,
       "terms": [
-        "the",
-        "and",
         "time"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword",
-      "weight": 0.494,
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/deep-learning-for-network-engineers/week01/",
+      "type": "semantic",
+      "weight": 0.71,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "semantic",
+      "weight": 0.707,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.703,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "semantic",
+      "weight": 0.698,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.677,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "semantic",
+      "weight": 0.675,
       "terms": [
-        "and",
-        "the"
+        "training"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "/deep-learning-for-network-engineers/week03/",
+      "type": "semantic",
+      "weight": 0.675,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.674,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "semantic",
+      "weight": 0.666,
+      "terms": [
+        "congestion"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/deep-learning-for-network-engineers/week01/",
+      "type": "semantic",
+      "weight": 0.664,
+      "terms": [
+        "training"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "semantic",
+      "weight": 0.664,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "semantic",
+      "weight": 0.663,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/deep-learning-for-network-engineers/week01/",
+      "type": "semantic",
+      "weight": 0.66,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "/deep-learning-for-network-engineers/week03/",
+      "type": "semantic",
+      "weight": 0.66,
+      "terms": [
+        "parallelism",
+        "training",
+        "model"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.47,
+      "target": "/deep-learning-for-network-engineers/week01/",
+      "type": "semantic",
+      "weight": 0.657,
       "terms": [
         "gpu"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/chap04/",
-      "target": "/deep-learning-for-network-engineers/week03/",
-      "type": "keyword",
-      "weight": 0.414,
+      "target": "/deep-learning-for-network-engineers/",
+      "type": "semantic",
+      "weight": 0.64,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "semantic",
+      "weight": 0.638,
       "terms": [
-        "gpu"
+        "memory"
       ]
     },
     {
       "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "keyword+section",
-      "weight": 0.397,
+      "target": "/deep-learning-for-network-engineers/week01/",
+      "type": "semantic",
+      "weight": 0.634,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "semantic",
+      "weight": 0.633,
       "terms": [
-        "the",
-        "and"
+        "congestion"
       ]
     },
     {
       "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword+section",
-      "weight": 0.396,
-      "terms": [
-        "the",
-        "and"
-      ]
+      "target": "/deep-learning-for-network-engineers/",
+      "type": "semantic",
+      "weight": 0.626,
+      "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/deep-learning-for-network-engineers/week03/",
-      "type": "keyword",
-      "weight": 0.378,
-      "terms": [
-        "gpu"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
+      "source": "/ai-data-center-network/chap06/",
       "target": "/ai-data-center-network/chap12/",
-      "type": "keyword",
-      "weight": 0.298,
+      "type": "semantic",
+      "weight": 0.604,
       "terms": [
-        "the",
-        "congestion",
-        "and"
+        "packet"
       ]
     },
     {
@@ -1361,141 +1460,10 @@
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap02/",
+      "source": "/deep-learning-for-network-engineers/week01/",
+      "target": "/deep-learning-for-network-engineers/week02/",
       "type": "section",
       "weight": 0.297,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "keyword",
-      "weight": 0.274,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "keyword",
-      "weight": 0.269,
-      "terms": [
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/cme295/lec-04/",
-      "target": "/deep-learning-for-network-engineers/week03/",
-      "type": "keyword",
-      "weight": 0.224,
-      "terms": [
-        "parallelism",
-        "training",
-        "model"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "rack"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "rdma"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/deep-learning-for-network-engineers/week01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "network"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/deep-learning-for-network-engineers/week03/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/deep-learning-for-network-engineers/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and",
-        "training"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/deep-learning-for-network-engineers/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap04/",
-      "target": "/deep-learning-for-network-engineers/week01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "gpu"
-      ]
-    },
-    {
-      "source": "/cme295/lec-04/",
-      "target": "/deep-learning-for-network-engineers/week01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "training"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "section",
-      "weight": 0.18,
       "terms": []
     },
     {
@@ -1521,7 +1489,21 @@
     },
     {
       "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
       "target": "/ai-data-center-network/chap10/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap12/",
       "type": "section",
       "weight": 0.18,
       "terms": []

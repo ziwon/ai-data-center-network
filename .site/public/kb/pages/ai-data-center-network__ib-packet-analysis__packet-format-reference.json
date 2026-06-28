@@ -6,7 +6,6 @@
     "route": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
     "group": "ai-data-center-network",
     "keywords": [
-      "the",
       "send",
       "header",
       "rdma",
@@ -15,7 +14,8 @@
       "bits",
       "bth",
       "width",
-      "byte"
+      "byte",
+      "immediate"
     ],
     "excerpt": "English This document is a bit level reference for InfiniBand packet headers, intended as a companion to the . The report focuses on what was observed in the ib"
   },
@@ -26,7 +26,6 @@
       "route": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
         "send",
         "header",
         "rdma",
@@ -35,7 +34,8 @@
         "bits",
         "bth",
         "width",
-        "byte"
+        "byte",
+        "immediate"
       ],
       "excerpt": "English This document is a bit level reference for InfiniBand packet headers, intended as a companion to the . The report focuses on what was observed in the ib"
     },
@@ -45,8 +45,6 @@
       "route": "/ai-data-center-network/ib-packet-analysis/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "captures",
         "infiniband",
@@ -54,7 +52,9 @@
         "ipoib",
         "capture",
         "packets",
-        "bth"
+        "bth",
+        "reth",
+        "read"
       ],
       "excerpt": "English (https://www.nvidia.com/en us/networking/) (https://docs.nvidia.com/networking/display/rdmaawareprogrammingv17) (https://www.wireshark.org/docs/man page"
     },
@@ -118,63 +118,6 @@
       ]
     },
     {
-      "id": "/ai-data-center-network/chap01/",
-      "title": "Chapter 1: Wonders in the Workload",
-      "route": "/ai-data-center-network/chap01/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "the",
-        "and",
-        "rdma",
-        "nic",
-        "memory",
-        "kernel",
-        "for",
-        "are",
-        "infiniband",
-        "queue"
-      ],
-      "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
-    },
-    {
-      "id": "/ai-data-center-network/chap06/",
-      "title": "Chapter 6: Efficient Load Balancing",
-      "route": "/ai-data-center-network/chap06/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "the",
-        "glb",
-        "leaf",
-        "spine",
-        "dlb",
-        "and",
-        "flow",
-        "ecmp",
-        "telb",
-        "path"
-      ],
-      "excerpt": "Table of Contents Goal This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv"
-    },
-    {
-      "id": "/ai-data-center-network/chap12/",
-      "title": "Chapter 12: Ultra Ethernet Consortium, UEC",
-      "route": "/ai-data-center-network/chap12/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "uet",
-        "uec",
-        "delivery",
-        "and",
-        "the",
-        "packet",
-        "congestion",
-        "inc",
-        "cbfc",
-        "pdc"
-      ],
-      "excerpt": "Table of Contents Goal This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet based AI/HPC"
-    },
-    {
       "id": "/ai-data-center-network/ib-packet-analysis/readme_ko/",
       "title": "InfiniBand 패킷 분석: 실전 RDMA 전송 입문서",
       "route": "/ai-data-center-network/ib-packet-analysis/readme_ko/",
@@ -232,23 +175,61 @@
       "excerpt": "Source: Masayuki Kobayashi, \"クラウドデータセンターネットワークの 'いま' と 'これから'\", AI/ML/HPCネットワーク分科会, 2023 06 12. 원본 PDF는 비출판 로컬 참조 자료이며, 이 문서는 공개 사이트용 요약과 최신 맥락 보강이다. 한 줄 요지 Clo"
     },
     {
+      "id": "/ai-data-center-network/chap01/",
+      "title": "Chapter 1: Wonders in the Workload",
+      "route": "/ai-data-center-network/chap01/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "rdma",
+        "nic",
+        "memory",
+        "kernel",
+        "infiniband",
+        "queue",
+        "remote",
+        "send",
+        "model",
+        "rnic"
+      ],
+      "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
+    },
+    {
       "id": "/ai-data-center-network/chap02/",
       "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
       "route": "/ai-data-center-network/chap02/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
         "congestion",
         "flows",
-        "and",
         "traffic",
         "balancing",
         "training",
         "flow",
         "ethernet",
-        "for"
+        "load",
+        "rocev2",
+        "techniques"
       ],
       "excerpt": "Table of Contents Goal ! (https://engineering.fb.com/wp content/uploads/2024/03/Meta 24K GenAi Clusters hero.png) Source: This chapter explains why AI/ML data c"
+    },
+    {
+      "id": "/ai-data-center-network/chap06/",
+      "title": "Chapter 6: Efficient Load Balancing",
+      "route": "/ai-data-center-network/chap06/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "glb",
+        "leaf",
+        "spine",
+        "dlb",
+        "flow",
+        "ecmp",
+        "telb",
+        "path",
+        "packet",
+        "link"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv"
     },
     {
       "id": "/ai-data-center-network/chap03/",
@@ -256,16 +237,16 @@
       "route": "/ai-data-center-network/chap03/",
       "group": "ai-data-center-network",
       "keywords": [
-        "and",
-        "the",
         "leaf",
         "design",
         "clos",
         "fabric",
         "rail",
-        "for",
         "spine",
-        "cabling"
+        "cabling",
+        "server",
+        "traffic",
+        "congestion"
       ],
       "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
     }
@@ -274,7 +255,7 @@
     {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
@@ -288,27 +269,20 @@
     {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/chap02/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/chap03/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/chap06/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/chap12/",
       "type": "link+section",
       "weight": 1,
       "terms": []
@@ -323,10 +297,9 @@
     {
       "source": "/ai-data-center-network/ib-packet-analysis/",
       "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
-      "type": "link+keyword",
+      "type": "link+semantic",
       "weight": 1,
       "terms": [
-        "the",
         "rdma",
         "bth"
       ]
@@ -334,13 +307,23 @@
     {
       "source": "/ai-data-center-network/ib-packet-analysis/",
       "target": "/ai-data-center-network/ib-packet-analysis/readme_ko/",
-      "type": "link+keyword",
+      "type": "link+semantic",
       "weight": 1,
       "terms": [
         "rdma",
         "infiniband",
         "ipoib",
         "bth"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "semantic+section",
+      "weight": 0.947,
+      "terms": [
+        "traffic",
+        "ethernet"
       ]
     },
     {
@@ -470,33 +453,6 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "concept:infiniband",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "InfiniBand"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "concept:roce",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "RoCEv2"
-      ]
-    },
-    {
       "source": "/ai-data-center-network/ib-packet-analysis/",
       "target": "concept:infiniband",
       "type": "mentions",
@@ -572,10 +528,19 @@
       ]
     },
     {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
       "source": "/ai-data-center-network/ib-packet-analysis/packet-format-reference_ko/",
       "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
-      "type": "keyword",
-      "weight": 0.909,
+      "type": "semantic",
+      "weight": 0.9,
       "terms": [
         "send",
         "rdma",
@@ -584,13 +549,11 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "concept:roce",
-      "type": "mentions",
-      "weight": 0.905,
-      "terms": [
-        "RoCEv2"
-      ]
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "semantic+section",
+      "weight": 0.873,
+      "terms": []
     },
     {
       "source": "/ai-data-center-network/chap03/",
@@ -629,132 +592,89 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap02/",
-      "type": "keyword+section",
-      "weight": 0.782,
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "semantic+section",
+      "weight": 0.789,
       "terms": [
-        "the",
-        "and",
-        "for"
+        "fabric",
+        "traffic"
       ]
     },
     {
       "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "keyword",
-      "weight": 0.673,
+      "target": "/ai-data-center-network/chap03/",
+      "type": "semantic",
+      "weight": 0.775,
       "terms": [
-        "the",
-        "and",
+        "traffic",
+        "congestion"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "semantic+section",
+      "weight": 0.763,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "semantic",
+      "weight": 0.723,
+      "terms": [
         "flow"
       ]
     },
     {
       "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "keyword+section",
-      "weight": 0.617,
-      "terms": [
-        "and",
-        "the",
-        "for"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "keyword",
-      "weight": 0.615,
-      "terms": [
-        "and",
-        "the",
-        "for"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
       "target": "/ai-data-center-network/ib-packet-analysis/",
-      "type": "keyword+section",
-      "weight": 0.589,
+      "type": "semantic+section",
+      "weight": 0.711,
       "terms": [
-        "the",
-        "and",
         "rdma",
         "infiniband"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "keyword",
-      "weight": 0.566,
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/ib-packet-analysis/readme_ko/",
+      "type": "semantic+section",
+      "weight": 0.693,
       "terms": [
-        "the",
-        "leaf",
-        "spine",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword",
-      "weight": 0.494,
-      "terms": [
-        "and",
-        "the"
+        "rdma",
+        "infiniband"
       ]
     },
     {
       "source": "/ai-data-center-network/ib-packet-analysis/packet-format-reference_ko/",
       "target": "/ai-data-center-network/ib-packet-analysis/readme_ko/",
-      "type": "keyword",
-      "weight": 0.468,
+      "type": "semantic",
+      "weight": 0.658,
       "terms": [
         "rdma",
         "bth"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "keyword+section",
-      "weight": 0.397,
+      "source": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
+      "target": "/ai-data-center-network/ib-packet-analysis/readme_ko/",
+      "type": "semantic",
+      "weight": 0.655,
       "terms": [
-        "the",
-        "and"
+        "rdma",
+        "bth"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword+section",
-      "weight": 0.396,
+      "source": "/ai-data-center-network/ib-packet-analysis/",
+      "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference_ko/",
+      "type": "semantic",
+      "weight": 0.638,
       "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": [
-        "the",
-        "rdma"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword",
-      "weight": 0.298,
-      "terms": [
-        "the",
-        "congestion",
-        "and"
+        "rdma",
+        "bth"
       ]
     },
     {
@@ -765,72 +685,6 @@
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap02/",
-      "type": "section",
-      "weight": 0.297,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "/ai-data-center-network/ib-packet-analysis/",
-      "type": "keyword",
-      "weight": 0.228,
-      "terms": [
-        "and",
-        "the",
-        "packet"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "/ai-data-center-network/ib-packet-analysis/",
-      "type": "keyword",
-      "weight": 0.223,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/ib-packet-analysis/",
-      "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference_ko/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "rdma",
-        "bth"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
-      "target": "/ai-data-center-network/ib-packet-analysis/readme_ko/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "rdma",
-        "bth"
-      ]
-    },
-    {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference_ko/",
       "type": "section",
@@ -847,13 +701,6 @@
     {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/ib-packet-analysis/readme_ko/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap03/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -867,13 +714,6 @@
     },
     {
       "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
       "target": "/ai-data-center-network/ib-packet-analysis/",
       "type": "section",
       "weight": 0.18,
@@ -902,6 +742,13 @@
     },
     {
       "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
       "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference_ko/",
       "type": "section",
       "weight": 0.18,
@@ -909,7 +756,7 @@
     },
     {
       "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/ib-packet-analysis/readme_ko/",
+      "target": "/ai-data-center-network/ib-packet-analysis/packet-format-reference/",
       "type": "section",
       "weight": 0.18,
       "terms": []

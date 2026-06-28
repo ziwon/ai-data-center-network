@@ -50,13 +50,51 @@
         "다이어그램",
         "preference",
         "grpo",
-        "and",
         "sft",
         "llm",
         "transformer",
-        "tuning"
+        "tuning",
+        "human"
       ],
       "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
+    },
+    {
+      "id": "/cme295/lec-01/",
+      "title": "Lecture 1: Transformer",
+      "route": "/cme295/lec-01/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "embedding",
+        "text",
+        "rnn",
+        "decoder",
+        "representation",
+        "self-attention",
+        "label",
+        "sequence",
+        "attention"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
+    },
+    {
+      "id": "/cme295/lec-02/",
+      "title": "Lecture 2: Transformer-Based Models & Tricks",
+      "route": "/cme295/lec-02/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "position",
+        "attention",
+        "bert",
+        "embedding",
+        "positional",
+        "transformer",
+        "encoder",
+        "nsp",
+        "head"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다. 핵심 메시지는 다음과 같다. 현대 Transformer 모델은 2017년 원래 구조를 그대로 복사한 것"
     },
     {
       "id": "concept:attention",
@@ -92,82 +130,6 @@
       ]
     },
     {
-      "id": "/cme295/lec-02/",
-      "title": "Lecture 2: Transformer-Based Models & Tricks",
-      "route": "/cme295/lec-02/",
-      "group": "cme295",
-      "keywords": [
-        "token",
-        "position",
-        "attention",
-        "bert",
-        "embedding",
-        "positional",
-        "transformer",
-        "encoder",
-        "nsp",
-        "head"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다. 핵심 메시지는 다음과 같다. 현대 Transformer 모델은 2017년 원래 구조를 그대로 복사한 것"
-    },
-    {
-      "id": "/cme295/lec-01/",
-      "title": "Lecture 1: Transformer",
-      "route": "/cme295/lec-01/",
-      "group": "cme295",
-      "keywords": [
-        "token",
-        "embedding",
-        "text",
-        "rnn",
-        "decoder",
-        "representation",
-        "self-attention",
-        "label",
-        "sequence",
-        "attention"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
-    },
-    {
-      "id": "/cme295/lec-04/",
-      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
-      "route": "/cme295/lec-04/",
-      "group": "cme295",
-      "keywords": [
-        "model",
-        "pre-training",
-        "sft",
-        "training",
-        "parallelism",
-        "optimizer",
-        "lora",
-        "fine-tuning",
-        "memory",
-        "precision"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre training 이후 fine tuning과 alignment 단계가 필요한지 이해하는 것이다. 핵심 메시지는 다음과 같다. LLM training은 하나의 거대한 "
-    },
-    {
-      "id": "/cme295/lec-06/",
-      "title": "Lecture 6: LLM Reasoning and GRPO",
-      "route": "/cme295/lec-06/",
-      "group": "cme295",
-      "keywords": [
-        "reasoning",
-        "reward",
-        "sft",
-        "model",
-        "chain",
-        "grpo",
-        "answer",
-        "advantage",
-        "pass",
-        "final"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다. 핵심 "
-    },
-    {
       "id": "/deep-learning-for-network-engineers/week02/",
       "title": "Week 2: Large Language Model, LLM",
       "route": "/deep-learning-for-network-engineers/week02/",
@@ -185,25 +147,6 @@
         "책에서"
       ],
       "excerpt": "Table of Contents Goal 이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다. 핵심 흐름은 다음과 같다. 이 장의 목적은 특정 GPT 모델을 구현하는 것이 아니라, Transformer 기반 LLM의 기본 연산 구조를"
-    },
-    {
-      "id": "/cme295/lec-05/",
-      "title": "Lecture 5: LLM Tuning and Human Preferences",
-      "route": "/cme295/lec-05/",
-      "group": "cme295",
-      "keywords": [
-        "reward",
-        "preference",
-        "model",
-        "sft",
-        "policy",
-        "ppo",
-        "dpo",
-        "rlhf",
-        "response",
-        "tuning"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 pre trained + SFT model을 human preference에 맞게 조정하는 preference tuning을 이해하는 것이다. 핵심 메시지는 다음과 같다. SFT는 model에게 \"무엇을 생성해야"
     },
     {
       "id": "/efficient-llm-inference-systems/appendix/transformer/",
@@ -225,6 +168,63 @@
       "excerpt": "LLM 추론 파이프라인 LLM은 문장을 한 번에 완성하지 않는다. 입력 문맥을 기반으로 다음 토큰 하나의 확률 분포를 계산하고, 그중 하나를 선택한 뒤, 선택된 토큰을 다시 문맥에 붙여 반복 생성한다. Autoregressive generation은 전체 문장 확률을 각 시점의 다음 토"
     },
     {
+      "id": "/cme295/lec-04/",
+      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
+      "route": "/cme295/lec-04/",
+      "group": "cme295",
+      "keywords": [
+        "model",
+        "pre-training",
+        "sft",
+        "training",
+        "parallelism",
+        "optimizer",
+        "lora",
+        "fine-tuning",
+        "memory",
+        "precision"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre training 이후 fine tuning과 alignment 단계가 필요한지 이해하는 것이다. 핵심 메시지는 다음과 같다. LLM training은 하나의 거대한 "
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "title": "LLM Inference",
+      "route": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "token",
+        "convert",
+        "logits",
+        "inference",
+        "decoding",
+        "llm",
+        "transformer",
+        "project",
+        "detokenize",
+        "streamed"
+      ],
+      "excerpt": "Inference Pipeline ! This diagram summarizes the end to end flow of decoder only LLM inference: 1. Convert user input into token IDs with the tokenizer. 2. Add "
+    },
+    {
+      "id": "/efficient-llm-inference-systems/week01/",
+      "title": "Efficient LLM Inference Systems",
+      "route": "/efficient-llm-inference-systems/week01/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "prompt",
+        "batch",
+        "tpot",
+        "length",
+        "128",
+        "size",
+        "logits",
+        "increases",
+        "sweep",
+        "ttft"
+      ],
+      "excerpt": "Week 1: TTFT, TPOT, Batch Throughput This chapter measures how prompt length and batch size affect latency and throughput in decoder only LLM inference. The exp"
+    },
+    {
       "id": "/ai-system-performance-engineering/chap01/",
       "title": "Chapter 1: Introduction and AI System Overview",
       "route": "/ai-system-performance-engineering/chap01/",
@@ -232,14 +232,14 @@
       "keywords": [
         "gpu",
         "goodput",
-        "the",
         "performance",
-        "and",
         "time",
         "nsight",
         "systems",
         "mechanical",
-        "sympathy"
+        "sympathy",
+        "bottleneck",
+        "memory"
       ],
       "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
     },
@@ -305,14 +305,14 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-01/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/cme295/",
       "target": "/cme295/lec-02/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "transformer"
@@ -321,7 +321,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-03/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "llm"
@@ -330,32 +330,39 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-04/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "sft"
       ]
     },
     {
-      "source": "/cme295/",
-      "target": "/cme295/lec-05/",
-      "type": "link+keyword+section",
-      "weight": 1,
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-03/",
+      "type": "semantic+section",
+      "weight": 0.995,
       "terms": [
-        "preference",
-        "sft",
-        "tuning"
+        "token"
       ]
     },
     {
-      "source": "/cme295/",
-      "target": "/cme295/lec-06/",
-      "type": "link+keyword+section",
-      "weight": 1,
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-02/",
+      "type": "semantic+section",
+      "weight": 0.957,
       "terms": [
-        "reasoning",
-        "sft",
-        "grpo"
+        "token",
+        "attention",
+        "embedding"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-03/",
+      "type": "semantic+section",
+      "weight": 0.943,
+      "terms": [
+        "token"
       ]
     },
     {
@@ -552,6 +559,17 @@
       ]
     },
     {
+      "source": "/efficient-llm-inference-systems/week01/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache",
+        "KV-cache"
+      ]
+    },
+    {
       "source": "/ai-system-performance-engineering/chap02/",
       "target": "concept:attention",
       "type": "mentions",
@@ -563,6 +581,17 @@
       ]
     },
     {
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "attention",
+        "Attention",
+        "self-attention"
+      ]
+    },
+    {
       "source": "/cme295/lec-01/",
       "target": "concept:kv-cache",
       "type": "mentions",
@@ -583,49 +612,62 @@
       ]
     },
     {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-02/",
-      "type": "keyword+section",
-      "weight": 0.732,
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
       "terms": [
-        "token",
-        "attention",
-        "embedding"
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week01/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "GQA"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-04/",
+      "type": "semantic+section",
+      "weight": 0.787,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.777,
+      "terms": [
+        "gpu",
+        "memory"
       ]
     },
     {
       "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-03/",
-      "type": "keyword+section",
-      "weight": 0.656,
-      "terms": [
-        "token"
-      ]
+      "target": "/cme295/lec-04/",
+      "type": "semantic+section",
+      "weight": 0.775,
+      "terms": []
     },
     {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-03/",
-      "type": "keyword+section",
-      "weight": 0.625,
+      "source": "/cme295/lec-03/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.745,
       "terms": [
         "token"
-      ]
-    },
-    {
-      "source": "/deep-learning-for-network-engineers/week02/",
-      "target": "/efficient-llm-inference-systems/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.497,
-      "terms": [
-        "attention",
-        "embedding"
       ]
     },
     {
       "source": "/cme295/lec-01/",
       "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "keyword",
-      "weight": 0.492,
+      "type": "semantic",
+      "weight": 0.715,
       "terms": [
         "token",
         "embedding",
@@ -634,28 +676,17 @@
       ]
     },
     {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.48,
+      "source": "/cme295/lec-03/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "semantic",
+      "weight": 0.696,
       "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "keyword",
-      "weight": 0.475,
-      "terms": [
-        "gpu",
-        "cpu",
-        "memory"
-      ]
     },
     {
       "source": "/cme295/lec-02/",
       "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "keyword",
-      "weight": 0.475,
+      "type": "semantic",
+      "weight": 0.693,
       "terms": [
         "token",
         "embedding",
@@ -663,30 +694,110 @@
       ]
     },
     {
-      "source": "/cme295/lec-05/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.429,
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-04/",
+      "type": "semantic",
+      "weight": 0.676,
       "terms": [
-        "reward",
-        "sft",
         "model"
       ]
     },
     {
       "source": "/cme295/lec-03/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword",
-      "weight": 0.403,
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "semantic",
+      "weight": 0.676,
       "terms": [
-        "model"
+        "token",
+        "decoding",
+        "llm"
       ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "semantic",
+      "weight": 0.674,
+      "terms": [
+        "transformer"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "semantic",
+      "weight": 0.667,
+      "terms": [
+        "embedding",
+        "attention"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.659,
+      "terms": [
+        "gpu",
+        "memory",
+        "cpu"
+      ]
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "semantic",
+      "weight": 0.657,
+      "terms": [
+        "attention",
+        "embedding"
+      ]
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "semantic",
+      "weight": 0.643,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.641,
+      "terms": [
+        "gpu",
+        "memory"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.638,
+      "terms": []
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "semantic",
+      "weight": 0.633,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/transformer/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "semantic",
+      "weight": 0.63,
+      "terms": []
     },
     {
       "source": "/cme295/lec-02/",
       "target": "/efficient-llm-inference-systems/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.391,
+      "type": "semantic",
+      "weight": 0.618,
       "terms": [
         "attention",
         "embedding",
@@ -695,103 +806,39 @@
       ]
     },
     {
-      "source": "/cme295/lec-04/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword",
-      "weight": 0.391,
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "semantic",
+      "weight": 0.618,
       "terms": [
-        "model",
-        "sft"
-      ]
-    },
-    {
-      "source": "/cme295/lec-03/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.383,
-      "terms": [
-        "model"
-      ]
-    },
-    {
-      "source": "/cme295/lec-04/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.381,
-      "terms": [
-        "sft",
-        "model"
+        "logits"
       ]
     },
     {
       "source": "/cme295/lec-01/",
-      "target": "/efficient-llm-inference-systems/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.376,
-      "terms": [
-        "attention",
-        "embedding"
-      ]
-    },
-    {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-03/",
-      "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "keyword",
-      "weight": 0.244,
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "semantic",
+      "weight": 0.602,
       "terms": [
         "token"
       ]
     },
     {
-      "source": "/cme295/lec-03/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "model"
-      ]
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "semantic",
+      "weight": 0.602,
+      "terms": []
     },
     {
-      "source": "/cme295/lec-03/",
-      "target": "/efficient-llm-inference-systems/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
+      "source": "/cme295/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "semantic",
+      "weight": 0.593,
+      "terms": [
+        "llm",
+        "transformer"
+      ]
     }
   ]
 }

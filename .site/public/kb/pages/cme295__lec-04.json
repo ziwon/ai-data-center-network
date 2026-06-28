@@ -50,11 +50,11 @@
         "다이어그램",
         "preference",
         "grpo",
-        "and",
         "sft",
         "llm",
         "transformer",
-        "tuning"
+        "tuning",
+        "human"
       ],
       "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
     },
@@ -139,6 +139,25 @@
       ]
     },
     {
+      "id": "/cme295/lec-01/",
+      "title": "Lecture 1: Transformer",
+      "route": "/cme295/lec-01/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "embedding",
+        "text",
+        "rnn",
+        "decoder",
+        "representation",
+        "self-attention",
+        "label",
+        "sequence",
+        "attention"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
+    },
+    {
       "id": "/cme295/lec-02/",
       "title": "Lecture 2: Transformer-Based Models & Tricks",
       "route": "/cme295/lec-02/",
@@ -156,25 +175,6 @@
         "head"
       ],
       "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다. 핵심 메시지는 다음과 같다. 현대 Transformer 모델은 2017년 원래 구조를 그대로 복사한 것"
-    },
-    {
-      "id": "/cme295/lec-03/",
-      "title": "Lecture 3: Large Language Models, Decoding, Prompting, and Inference",
-      "route": "/cme295/lec-03/",
-      "group": "cme295",
-      "keywords": [
-        "token",
-        "model",
-        "decoding",
-        "probability",
-        "context",
-        "expert",
-        "sampling",
-        "decoder-only",
-        "llm",
-        "top-k"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 현대 LLM을 decoder only Transformer 기반의 next token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다. 핵심 메"
     },
     {
       "id": "/cme295/lec-05/",
@@ -196,23 +196,23 @@
       "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 pre trained + SFT model을 human preference에 맞게 조정하는 preference tuning을 이해하는 것이다. 핵심 메시지는 다음과 같다. SFT는 model에게 \"무엇을 생성해야"
     },
     {
-      "id": "/cme295/lec-06/",
-      "title": "Lecture 6: LLM Reasoning and GRPO",
-      "route": "/cme295/lec-06/",
+      "id": "/cme295/lec-03/",
+      "title": "Lecture 3: Large Language Models, Decoding, Prompting, and Inference",
+      "route": "/cme295/lec-03/",
       "group": "cme295",
       "keywords": [
-        "reasoning",
-        "reward",
-        "sft",
+        "token",
         "model",
-        "chain",
-        "grpo",
-        "answer",
-        "advantage",
-        "pass",
-        "final"
+        "decoding",
+        "probability",
+        "context",
+        "expert",
+        "sampling",
+        "decoder-only",
+        "llm",
+        "top-k"
       ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다. 핵심 "
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 현대 LLM을 decoder only Transformer 기반의 next token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다. 핵심 메"
     },
     {
       "id": "/ai-system-performance-engineering/chap01/",
@@ -222,14 +222,14 @@
       "keywords": [
         "gpu",
         "goodput",
-        "the",
         "performance",
-        "and",
         "time",
         "nsight",
         "systems",
         "mechanical",
-        "sympathy"
+        "sympathy",
+        "bottleneck",
+        "memory"
       ],
       "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
     },
@@ -253,40 +253,21 @@
       "excerpt": "Table of Contents Goal 이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다. 핵심 아이디어는 다음과 같다. GPU 성능은 CUDA kernel만으로 "
     },
     {
-      "id": "/cme295/lec-01/",
-      "title": "Lecture 1: Transformer",
-      "route": "/cme295/lec-01/",
-      "group": "cme295",
-      "keywords": [
-        "token",
-        "embedding",
-        "text",
-        "rnn",
-        "decoder",
-        "representation",
-        "self-attention",
-        "label",
-        "sequence",
-        "attention"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
-    },
-    {
       "id": "/ai-data-center-network/chap01/",
       "title": "Chapter 1: Wonders in the Workload",
       "route": "/ai-data-center-network/chap01/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "nic",
         "memory",
         "kernel",
-        "for",
-        "are",
         "infiniband",
-        "queue"
+        "queue",
+        "remote",
+        "send",
+        "model",
+        "rnic"
       ],
       "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
     },
@@ -373,15 +354,15 @@
       "group": "ai-data-center-network",
       "keywords": [
         "storage",
-        "and",
-        "the",
         "file",
         "nvme-o-tcp",
         "fabric",
         "a/b",
         "nvme-o-rdma",
-        "are",
-        "checkpoint"
+        "checkpoint",
+        "infiniband",
+        "network",
+        "training"
       ],
       "excerpt": "Table of Contents Goal This chapter explains why storage networking is a separate design topic in AI data centers. The core idea is: An AI storage network is no"
     },
@@ -391,8 +372,6 @@
       "route": "/ai-data-center-network/chap10/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "kpis",
         "mlperf",
         "storage",
@@ -400,7 +379,9 @@
         "benchmark",
         "accuracy",
         "latency",
-        "quality"
+        "quality",
+        "division",
+        "training"
       ],
       "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
     },
@@ -428,14 +409,14 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-01/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/cme295/",
       "target": "/cme295/lec-02/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "transformer"
@@ -444,7 +425,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-03/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "llm"
@@ -453,7 +434,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-04/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "sft"
@@ -462,7 +443,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-05/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "preference",
@@ -471,14 +452,32 @@
       ]
     },
     {
-      "source": "/cme295/",
-      "target": "/cme295/lec-06/",
-      "type": "link+keyword+section",
-      "weight": 1,
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-03/",
+      "type": "semantic+section",
+      "weight": 0.995,
       "terms": [
-        "reasoning",
-        "sft",
-        "grpo"
+        "token"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-02/",
+      "type": "semantic+section",
+      "weight": 0.957,
+      "terms": [
+        "token",
+        "attention",
+        "embedding"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-03/",
+      "type": "semantic+section",
+      "weight": 0.943,
+      "terms": [
+        "token"
       ]
     },
     {
@@ -974,60 +973,66 @@
     },
     {
       "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-02/",
-      "type": "keyword+section",
-      "weight": 0.732,
+      "target": "/cme295/lec-04/",
+      "type": "semantic+section",
+      "weight": 0.787,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-05/",
+      "type": "semantic+section",
+      "weight": 0.787,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.777,
       "terms": [
-        "token",
-        "attention",
-        "embedding"
+        "gpu",
+        "memory"
       ]
     },
     {
       "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-03/",
-      "type": "keyword+section",
-      "weight": 0.656,
+      "target": "/cme295/lec-04/",
+      "type": "semantic+section",
+      "weight": 0.775,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-05/",
+      "type": "semantic+section",
+      "weight": 0.763,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.745,
       "terms": [
         "token"
       ]
     },
     {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-03/",
-      "type": "keyword+section",
-      "weight": 0.625,
+      "source": "/cme295/lec-04/",
+      "target": "/cme295/lec-05/",
+      "type": "semantic",
+      "weight": 0.72,
       "terms": [
-        "token"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap09/",
-      "type": "keyword+section",
-      "weight": 0.623,
-      "terms": [
-        "and",
-        "the",
-        "are"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.497,
-      "terms": [
-        "the",
-        "and",
-        "time"
+        "model",
+        "sft"
       ]
     },
     {
       "source": "/cme295/lec-01/",
       "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "keyword",
-      "weight": 0.492,
+      "type": "semantic",
+      "weight": 0.715,
       "terms": [
         "token",
         "embedding",
@@ -1036,28 +1041,19 @@
       ]
     },
     {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.48,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "keyword",
-      "weight": 0.475,
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "semantic",
+      "weight": 0.714,
       "terms": [
-        "gpu",
-        "cpu",
-        "memory"
+        "time"
       ]
     },
     {
       "source": "/cme295/lec-02/",
       "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "keyword",
-      "weight": 0.475,
+      "type": "semantic",
+      "weight": 0.693,
       "terms": [
         "token",
         "embedding",
@@ -1065,178 +1061,82 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.47,
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-04/",
+      "type": "semantic",
+      "weight": 0.676,
       "terms": [
-        "gpu"
+        "model"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/chap03/",
       "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.456,
+      "type": "semantic",
+      "weight": 0.675,
       "terms": [
         "gpu"
       ]
     },
     {
-      "source": "/cme295/lec-05/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.429,
-      "terms": [
-        "reward",
-        "sft",
-        "model"
-      ]
-    },
-    {
-      "source": "/cme295/lec-03/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword",
-      "weight": 0.403,
-      "terms": [
-        "model"
-      ]
-    },
-    {
-      "source": "/cme295/lec-04/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword",
-      "weight": 0.391,
-      "terms": [
-        "model",
-        "sft"
-      ]
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.674,
+      "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "keyword",
-      "weight": 0.39,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-03/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.383,
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.659,
       "terms": [
-        "model"
+        "gpu",
+        "memory",
+        "cpu"
       ]
     },
     {
-      "source": "/cme295/lec-04/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.381,
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.641,
       "terms": [
-        "sft",
-        "model"
-      ]
-    },
-    {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "keyword",
-      "weight": 0.266,
-      "terms": [
-        "storage",
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/cme295/lec-03/",
-      "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "keyword",
-      "weight": 0.244,
-      "terms": [
-        "token"
+        "gpu",
+        "memory"
       ]
     },
     {
       "source": "/ai-data-center-network/chap01/",
       "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.638,
       "terms": [
-        "the",
-        "and"
+        "memory"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/rdma-examples/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "rdma"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap04/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "keyword",
-      "weight": 0.22,
+      "source": "/cme295/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.638,
       "terms": []
     },
     {
       "source": "/cme295/lec-03/",
       "target": "/cme295/lec-05/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.625,
       "terms": [
         "model"
       ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap09/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
     },
     {
       "source": "/ai-data-center-network/chap01/",

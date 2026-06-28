@@ -9,13 +9,13 @@
       "uet",
       "uec",
       "delivery",
-      "and",
-      "the",
       "packet",
       "congestion",
       "inc",
       "cbfc",
-      "pdc"
+      "pdc",
+      "llr",
+      "unordered"
     ],
     "excerpt": "Table of Contents Goal This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet based AI/HPC"
   },
@@ -29,13 +29,13 @@
         "uet",
         "uec",
         "delivery",
-        "and",
-        "the",
         "packet",
         "congestion",
         "inc",
         "cbfc",
-        "pdc"
+        "pdc",
+        "llr",
+        "unordered"
       ],
       "excerpt": "Table of Contents Goal This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet based AI/HPC"
     },
@@ -148,61 +148,61 @@
       ]
     },
     {
-      "id": "/ai-data-center-network/chap06/",
-      "title": "Chapter 6: Efficient Load Balancing",
-      "route": "/ai-data-center-network/chap06/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "the",
-        "glb",
-        "leaf",
-        "spine",
-        "dlb",
-        "and",
-        "flow",
-        "ecmp",
-        "telb",
-        "path"
-      ],
-      "excerpt": "Table of Contents Goal This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv"
-    },
-    {
-      "id": "/ai-data-center-network/chap09/",
-      "title": "Chapter 9: Storage Network Design and Technologies for AI Data Centers",
-      "route": "/ai-data-center-network/chap09/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "storage",
-        "and",
-        "the",
-        "file",
-        "nvme-o-tcp",
-        "fabric",
-        "a/b",
-        "nvme-o-rdma",
-        "are",
-        "checkpoint"
-      ],
-      "excerpt": "Table of Contents Goal This chapter explains why storage networking is a separate design topic in AI data centers. The core idea is: An AI storage network is no"
-    },
-    {
       "id": "/ai-data-center-network/chap07/",
       "title": "Chapter 7: RoCEv2 Transport and Congestion Management",
       "route": "/ai-data-center-network/chap07/",
       "group": "ai-data-center-network",
       "keywords": [
         "pfc",
-        "the",
         "congestion",
         "ecn",
-        "and",
         "csig",
         "rocev2",
         "cnp",
         "sfc",
-        "pause"
+        "pause",
+        "sender",
+        "threshold"
       ],
       "excerpt": "Table of Contents Goal This chapter explains how RoCEv2 traffic is transported across Ethernet AI fabrics and how congestion is detected, signaled, and mitigate"
+    },
+    {
+      "id": "/ai-data-center-network/chap02/",
+      "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
+      "route": "/ai-data-center-network/chap02/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "congestion",
+        "flows",
+        "traffic",
+        "balancing",
+        "training",
+        "flow",
+        "ethernet",
+        "load",
+        "rocev2",
+        "techniques"
+      ],
+      "excerpt": "Table of Contents Goal ! (https://engineering.fb.com/wp content/uploads/2024/03/Meta 24K GenAi Clusters hero.png) Source: This chapter explains why AI/ML data c"
+    },
+    {
+      "id": "/ai-data-center-network/chap03/",
+      "title": "Chapter 3: Network Design Considerations",
+      "route": "/ai-data-center-network/chap03/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "leaf",
+        "design",
+        "clos",
+        "fabric",
+        "rail",
+        "spine",
+        "cabling",
+        "server",
+        "traffic",
+        "congestion"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
     },
     {
       "id": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
@@ -229,56 +229,37 @@
       "route": "/ai-data-center-network/chap01/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "nic",
         "memory",
         "kernel",
-        "for",
-        "are",
         "infiniband",
-        "queue"
+        "queue",
+        "remote",
+        "send",
+        "model",
+        "rnic"
       ],
       "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
     },
     {
-      "id": "/ai-data-center-network/chap02/",
-      "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
-      "route": "/ai-data-center-network/chap02/",
+      "id": "/ai-data-center-network/chap06/",
+      "title": "Chapter 6: Efficient Load Balancing",
+      "route": "/ai-data-center-network/chap06/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "congestion",
-        "flows",
-        "and",
-        "traffic",
-        "balancing",
-        "training",
-        "flow",
-        "ethernet",
-        "for"
-      ],
-      "excerpt": "Table of Contents Goal ! (https://engineering.fb.com/wp content/uploads/2024/03/Meta 24K GenAi Clusters hero.png) Source: This chapter explains why AI/ML data c"
-    },
-    {
-      "id": "/ai-data-center-network/chap03/",
-      "title": "Chapter 3: Network Design Considerations",
-      "route": "/ai-data-center-network/chap03/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "and",
-        "the",
+        "glb",
         "leaf",
-        "design",
-        "clos",
-        "fabric",
-        "rail",
-        "for",
         "spine",
-        "cabling"
+        "dlb",
+        "flow",
+        "ecmp",
+        "telb",
+        "path",
+        "packet",
+        "link"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
+      "excerpt": "Table of Contents Goal This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv"
     },
     {
       "id": "/ai-data-center-network/chap10/",
@@ -286,8 +267,6 @@
       "route": "/ai-data-center-network/chap10/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "kpis",
         "mlperf",
         "storage",
@@ -295,7 +274,9 @@
         "benchmark",
         "accuracy",
         "latency",
-        "quality"
+        "quality",
+        "division",
+        "training"
       ],
       "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
     },
@@ -323,7 +304,7 @@
     {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
@@ -337,14 +318,14 @@
     {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/chap02/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/chap03/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
@@ -358,13 +339,6 @@
     {
       "source": "/ai-data-center-network/",
       "target": "/ai-data-center-network/chap07/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/chap09/",
       "type": "link+section",
       "weight": 1,
       "terms": []
@@ -403,6 +377,16 @@
       "type": "link",
       "weight": 1,
       "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "semantic+section",
+      "weight": 0.947,
+      "terms": [
+        "traffic",
+        "ethernet"
+      ]
     },
     {
       "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
@@ -692,46 +676,6 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "PFC",
-        "DCQCN",
-        "ECN",
-        "tail latency"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "concept:infiniband",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "InfiniBand",
-        "Subnet Manager"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "concept:roce",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "RoCEv2"
-      ]
-    },
-    {
       "source": "/ai-data-center-network/chap10/",
       "target": "concept:congestion-control",
       "type": "mentions",
@@ -861,6 +805,13 @@
       ]
     },
     {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "semantic+section",
+      "weight": 0.873,
+      "terms": []
+    },
+    {
       "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
       "target": "concept:nccl",
       "type": "mentions",
@@ -963,163 +914,124 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap02/",
-      "type": "keyword+section",
-      "weight": 0.782,
-      "terms": [
-        "the",
-        "and",
-        "for"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "keyword",
-      "weight": 0.673,
-      "terms": [
-        "the",
-        "and",
-        "flow"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap09/",
-      "type": "keyword+section",
-      "weight": 0.623,
-      "terms": [
-        "and",
-        "the",
-        "are"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
       "target": "/ai-data-center-network/chap03/",
-      "type": "keyword+section",
-      "weight": 0.617,
+      "type": "semantic+section",
+      "weight": 0.789,
       "terms": [
-        "and",
-        "the",
-        "for"
+        "fabric",
+        "traffic"
       ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "semantic+section",
+      "weight": 0.779,
+      "terms": []
     },
     {
       "source": "/ai-data-center-network/chap02/",
       "target": "/ai-data-center-network/chap03/",
-      "type": "keyword",
-      "weight": 0.615,
+      "type": "semantic",
+      "weight": 0.775,
       "terms": [
-        "and",
-        "the",
-        "for"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "keyword",
-      "weight": 0.566,
-      "terms": [
-        "the",
-        "leaf",
-        "spine",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap07/",
-      "type": "keyword",
-      "weight": 0.548,
-      "terms": [
-        "the",
-        "congestion",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "/ai-data-center-network/chap07/",
-      "type": "keyword",
-      "weight": 0.52,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap09/",
-      "type": "keyword",
-      "weight": 0.495,
-      "terms": [
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword",
-      "weight": 0.494,
-      "terms": [
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword",
-      "weight": 0.487,
-      "terms": [
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap07/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword",
-      "weight": 0.458,
-      "terms": [
-        "and",
-        "the",
+        "traffic",
         "congestion"
       ]
     },
     {
       "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "keyword+section",
-      "weight": 0.397,
+      "target": "/ai-data-center-network/chap03/",
+      "type": "semantic+section",
+      "weight": 0.763,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "semantic",
+      "weight": 0.75,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "semantic",
+      "weight": 0.727,
       "terms": [
-        "the",
-        "and"
+        "congestion",
+        "rocev2"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword+section",
-      "weight": 0.396,
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "semantic",
+      "weight": 0.723,
       "terms": [
-        "the",
-        "and"
+        "flow"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap07/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "semantic",
+      "weight": 0.717,
+      "terms": [
+        "congestion"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "semantic",
+      "weight": 0.707,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "semantic",
+      "weight": 0.682,
+      "terms": [
+        "congestion"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "semantic",
+      "weight": 0.675,
+      "terms": [
+        "training"
       ]
     },
     {
       "source": "/ai-data-center-network/chap02/",
       "target": "/ai-data-center-network/chap12/",
-      "type": "keyword",
-      "weight": 0.298,
+      "type": "semantic",
+      "weight": 0.666,
       "terms": [
-        "the",
-        "congestion",
-        "and"
+        "congestion"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "semantic",
+      "weight": 0.633,
+      "terms": [
+        "congestion"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "semantic",
+      "weight": 0.604,
+      "terms": [
+        "packet"
       ]
     },
     {
@@ -1131,97 +1043,7 @@
     },
     {
       "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap02/",
-      "type": "section",
-      "weight": 0.297,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap07/",
-      "type": "keyword",
-      "weight": 0.282,
-      "terms": [
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap09/",
-      "type": "keyword",
-      "weight": 0.277,
-      "terms": [
-        "and",
-        "the",
-        "fabric"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "keyword",
-      "weight": 0.274,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "/ai-data-center-network/chap09/",
-      "type": "keyword",
-      "weight": 0.271,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "keyword",
-      "weight": 0.269,
-      "terms": [
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "keyword",
-      "weight": 0.266,
-      "terms": [
-        "storage",
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
       "target": "/ai-data-center-network/chap06/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap07/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap09/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -1249,6 +1071,13 @@
     },
     {
       "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
       "target": "/ai-data-center-network/chap07/",
       "type": "section",
       "weight": 0.18,
@@ -1257,6 +1086,13 @@
     {
       "source": "/ai-data-center-network/chap01/",
       "target": "/ai-data-center-network/chap10/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap12/",
       "type": "section",
       "weight": 0.18,
       "terms": []

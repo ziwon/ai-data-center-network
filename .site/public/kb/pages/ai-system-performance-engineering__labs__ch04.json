@@ -9,13 +9,13 @@
       "labs",
       "communication",
       "gpu-communication-reference",
-      "and",
-      "the",
       "directory",
       "exposed",
       "transfers",
       "multi-gpu",
-      "buffers"
+      "buffers",
+      "overlap",
+      "repeated"
     ],
     "excerpt": "This directory contains executable labs that support Chapter 4 notes on distributed networking communication. The labs adapt the chapter's distributed communica"
   },
@@ -29,13 +29,13 @@
         "labs",
         "communication",
         "gpu-communication-reference",
-        "and",
-        "the",
         "directory",
         "exposed",
         "transfers",
         "multi-gpu",
-        "buffers"
+        "buffers",
+        "overlap",
+        "repeated"
       ],
       "excerpt": "This directory contains executable labs that support Chapter 4 notes on distributed networking communication. The labs adapt the chapter's distributed communica"
     },
@@ -54,6 +54,44 @@
         "reduce-scatter",
         "all-gather"
       ]
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap02/labs/",
+      "title": "Chapter 2 Labs",
+      "route": "/ai-system-performance-engineering/chap02/labs/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "labs",
+        "contract",
+        "lab",
+        "implementation",
+        "readme.md",
+        "common.py",
+        "helpers",
+        "baseline.py",
+        "optimized.py",
+        "focused"
+      ],
+      "excerpt": "This directory is for executable labs that support Chapter 2 notes. Use template/ as the starting point for a new lab: Recommended lab contract: README.md : con"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap01/labs/",
+      "title": "Chapter 1 Labs",
+      "route": "/ai-system-performance-engineering/chap01/labs/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "labs",
+        "contract",
+        "lab",
+        "implementation",
+        "readme.md",
+        "common.py",
+        "helpers",
+        "baseline.py",
+        "optimized.py",
+        "focused"
+      ],
+      "excerpt": "This directory is for executable labs that support Chapter 1 notes. Use template/ as the starting point for a new lab: Recommended lab contract: README.md : con"
     },
     {
       "id": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
@@ -75,12 +113,30 @@
       "excerpt": "Goal Provide real GPU/NCCL entrypoints for the Chapter 4 communication labs. The other labs in this directory are CPU portable concept models. This lab is inten"
     },
     {
+      "id": "/ai-system-performance-engineering/chap04/",
+      "title": "Chapter 4: Tuning Distributed Networking Communication",
+      "route": "/ai-system-performance-engineering/chap04/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "nccl",
+        "gpu",
+        "nixl",
+        "rdma",
+        "sharp",
+        "communication",
+        "overlap",
+        "all-reduce",
+        "bucket",
+        "rank"
+      ],
+      "excerpt": "Table of Contents Goal 이번 장의 목표는 distributed training과 distributed inference에서 네트워크 통신을 단순한 “속도 문제”가 아니라 GPU goodput을 결정하는 핵심 병목으로 이해하는 것이다. 핵심 아이디어는 다음과 같다. Mu"
+    },
+    {
       "id": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
       "title": "Lab: Communication and Computation Overlap",
       "route": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
       "group": "ai-system-performance-engineering",
       "keywords": [
-        "the",
         "communication",
         "bucket",
         "overlap",
@@ -89,66 +145,29 @@
         "lab",
         "step",
         "computation",
-        "compute"
+        "compute",
+        "soon"
       ],
       "excerpt": "Goal Show why Chapter 4 focuses on exposed communication time . The total communication volume may be the same, but the optimized path starts each bucket transf"
     },
     {
-      "id": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
-      "title": "Lab: Gradient Bucketing, Fusion, and Compression",
-      "route": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
-      "group": "ai-system-performance-engineering",
+      "id": "/",
+      "title": "AI Data Center Systems",
+      "route": "/",
+      "group": "home",
       "keywords": [
-        "gradient",
-        "fusion",
-        "compression",
-        "and",
-        "the",
-        "bucketing",
-        "buckets",
-        "checksum",
-        "tolerance",
-        "optimized"
+        "systems",
+        "storage",
+        "mlperf",
+        "training",
+        "study",
+        "center",
+        "notes",
+        "lecture",
+        "rdma",
+        "roce"
       ],
-      "excerpt": "Goal Show why Chapter 4 treats gradient synchronization as both a bandwidth problem and a launch latency problem. This lab adapts the important ideas behind gra"
-    },
-    {
-      "id": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
-      "title": "Lab: NIXL-Style Tier Handoff",
-      "route": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "handoff",
-        "nixl-style",
-        "tier",
-        "the",
-        "movement",
-        "optimized",
-        "selected",
-        "transfer",
-        "disaggregated",
-        "blocks"
-      ],
-      "excerpt": "Goal Show why Chapter 4 separates training collectives from disaggregated inference data movement. NCCL is the right lens for all reduce, but KV cache handoff i"
-    },
-    {
-      "id": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
-      "title": "Lab: Pipeline and Tensor Parallel Scheduling",
-      "route": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "tensor-parallel",
-        "pipeline",
-        "scheduling",
-        "optimized",
-        "tensor",
-        "and",
-        "execution",
-        "stage",
-        "parallel",
-        "fill-drain"
-      ],
-      "excerpt": "Goal Show how pipeline bubbles and tensor parallel synchronization affect distributed model execution. Baseline The baseline models fill drain pipeline executio"
+      "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
     },
     {
       "id": "/ai-system-performance-engineering/",
@@ -213,16 +232,16 @@
       "route": "/ai-data-center-network/chap01/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "nic",
         "memory",
         "kernel",
-        "for",
-        "are",
         "infiniband",
-        "queue"
+        "queue",
+        "remote",
+        "send",
+        "model",
+        "rnic"
       ],
       "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
     },
@@ -232,16 +251,16 @@
       "route": "/ai-data-center-network/chap03/",
       "group": "ai-data-center-network",
       "keywords": [
-        "and",
-        "the",
         "leaf",
         "design",
         "clos",
         "fabric",
         "rail",
-        "for",
         "spine",
-        "cabling"
+        "cabling",
+        "server",
+        "traffic",
+        "congestion"
       ],
       "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
     },
@@ -251,8 +270,6 @@
       "route": "/ai-data-center-network/chap10/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "kpis",
         "mlperf",
         "storage",
@@ -260,7 +277,9 @@
         "benchmark",
         "accuracy",
         "latency",
-        "quality"
+        "quality",
+        "division",
+        "training"
       ],
       "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
     },
@@ -273,31 +292,59 @@
         "uet",
         "uec",
         "delivery",
-        "and",
-        "the",
         "packet",
         "congestion",
         "inc",
         "cbfc",
-        "pdc"
+        "pdc",
+        "llr",
+        "unordered"
       ],
       "excerpt": "Table of Contents Goal This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet based AI/HPC"
     }
   ],
   "edges": [
     {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "type": "link+section",
+      "source": "/",
+      "target": "/ai-system-performance-engineering/",
+      "type": "link",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "kubelet"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
       "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "type": "semantic+section",
+      "weight": 0.945,
+      "terms": [
+        "cpu",
+        "numa",
+        "memory",
+        "manager"
+      ]
     },
     {
       "source": "/ai-data-center-network/chap01/",
@@ -343,6 +390,18 @@
       ]
     },
     {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "all-reduce",
+        "all-gather",
+        "reduce-scatter"
+      ]
+    },
+    {
       "source": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
       "target": "concept:nccl",
       "type": "mentions",
@@ -363,6 +422,18 @@
       ]
     },
     {
+      "source": "/ai-system-performance-engineering/chap01/labs/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
+      "type": "semantic",
+      "weight": 0.9,
+      "terms": [
+        "labs",
+        "contract",
+        "lab",
+        "implementation"
+      ]
+    },
+    {
       "source": "/ai-system-performance-engineering/labs/ch04/",
       "target": "concept:nccl",
       "type": "mentions",
@@ -373,12 +444,11 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "source": "/",
       "target": "concept:nccl",
       "type": "mentions",
-      "weight": 0.855,
+      "weight": 0.83,
       "terms": [
-        "all-reduce",
         "collectives",
         "NCCL"
       ]
@@ -393,174 +463,165 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.805,
+      "source": "/ai-system-performance-engineering/chap02/labs/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "semantic",
+      "weight": 0.765,
       "terms": [
-        "all-gather"
+        "labs"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "type": "keyword+section",
-      "weight": 0.696,
+      "source": "/ai-system-performance-engineering/chap01/labs/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "semantic",
+      "weight": 0.764,
       "terms": [
-        "cpu",
-        "numa",
-        "memory",
-        "manager",
-        "node"
+        "labs"
       ]
     },
     {
       "source": "/ai-data-center-network/chap01/",
       "target": "/ai-data-center-network/chap03/",
-      "type": "keyword+section",
-      "weight": 0.617,
-      "terms": [
-        "and",
-        "the",
-        "for"
-      ]
+      "type": "semantic+section",
+      "weight": 0.763,
+      "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
-      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
-      "type": "keyword",
-      "weight": 0.483,
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "semantic",
+      "weight": 0.721,
       "terms": [
-        "the",
-        "optimized"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
-      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
-      "type": "keyword",
-      "weight": 0.482,
-      "terms": [
-        "the",
-        "optimized"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
-      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
-      "type": "keyword",
-      "weight": 0.439,
-      "terms": [
-        "optimized"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/labs/ch04/",
-      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
-      "type": "keyword",
-      "weight": 0.421,
-      "terms": [
-        "communication"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword+section",
-      "weight": 0.396,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
-      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
-      "type": "keyword",
-      "weight": 0.395,
-      "terms": [
-        "the",
-        "optimized"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
-      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
-      "type": "keyword",
-      "weight": 0.393,
-      "terms": [
-        "optimized",
-        "and"
+        "communication",
+        "bucket",
+        "overlap"
       ]
     },
     {
       "source": "/ai-data-center-network/chap03/",
       "target": "/ai-data-center-network/chap10/",
-      "type": "keyword",
-      "weight": 0.269,
-      "terms": [
-        "and",
-        "the"
-      ]
+      "type": "semantic",
+      "weight": 0.707,
+      "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/labs/ch04/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
-      "type": "keyword",
-      "weight": 0.22,
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "semantic",
+      "weight": 0.684,
       "terms": [
-        "the",
-        "communication",
-        "exposed"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/labs/ch04/",
-      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "and",
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/labs/ch04/",
-      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/labs/ch04/",
-      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "and"
+        "communication"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
       "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.684,
       "terms": [
-        "communication",
-        "bucket"
+        "bucket",
+        "communication"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
-      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
-      "type": "keyword",
-      "weight": 0.22,
+      "source": "/ai-system-performance-engineering/chap01/labs/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "semantic",
+      "weight": 0.671,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "semantic",
+      "weight": 0.667,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "semantic",
+      "weight": 0.664,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/ai-data-center-network/chap01/",
+      "type": "semantic",
+      "weight": 0.649,
       "terms": [
-        "gradient",
-        "buckets"
+        "rdma"
       ]
+    },
+    {
+      "source": "/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "semantic",
+      "weight": 0.648,
+      "terms": [
+        "mlperf",
+        "storage",
+        "training"
+      ]
+    },
+    {
+      "source": "/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "semantic",
+      "weight": 0.644,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "semantic",
+      "weight": 0.633,
+      "terms": [
+        "congestion"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "semantic",
+      "weight": 0.615,
+      "terms": [
+        "communication",
+        "overlap"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "semantic",
+      "weight": 0.609,
+      "terms": [
+        "communication",
+        "overlap",
+        "exposed"
+      ]
+    },
+    {
+      "source": "/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "semantic",
+      "weight": 0.599,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/ai-system-performance-engineering/chap01/labs/",
+      "type": "semantic",
+      "weight": 0.596,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
+      "type": "semantic",
+      "weight": 0.592,
+      "terms": []
     },
     {
       "source": "/ai-data-center-network/chap01/",
@@ -570,6 +631,27 @@
       "terms": []
     },
     {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/chap01/labs/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
       "source": "/ai-system-performance-engineering/",
       "target": "/ai-system-performance-engineering/labs/ch04/",
       "type": "section",
@@ -591,22 +673,22 @@
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap01/labs/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap04/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -633,22 +715,22 @@
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap01/labs/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap04/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -670,27 +752,6 @@
     {
       "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
       "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
       "type": "section",
       "weight": 0.18,
       "terms": []

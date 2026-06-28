@@ -59,80 +59,118 @@
       "excerpt": "This directory is for executable labs that support Chapter 2 notes. Use template/ as the starting point for a new lab: Recommended lab contract: README.md : con"
     },
     {
-      "id": "/ai-system-performance-engineering/chap01/labs/_template/",
-      "title": "Lab Template",
-      "route": "/ai-system-performance-engineering/chap01/labs/_template/",
+      "id": "/ai-system-performance-engineering/labs/ch04/",
+      "title": "Chapter 4 Labs",
+      "route": "/ai-system-performance-engineering/labs/ch04/",
       "group": "ai-system-performance-engineering",
       "keywords": [
-        "the",
-        "tbd",
-        "template",
-        "describe",
-        "lab",
-        "simple",
-        "optimized",
-        "removing",
-        "narrow",
-        "baseline"
+        "labs",
+        "communication",
+        "gpu-communication-reference",
+        "directory",
+        "exposed",
+        "transfers",
+        "multi-gpu",
+        "buffers",
+        "overlap",
+        "repeated"
       ],
-      "excerpt": "Goal State the performance question this lab answers. Example: \"Does removing Python loop overhead improve useful throughput for a small repeated workload?\" Bas"
+      "excerpt": "This directory contains executable labs that support Chapter 4 notes on distributed networking communication. The labs adapt the chapter's distributed communica"
     },
     {
-      "id": "/ai-system-performance-engineering/chap02/labs/_template/",
-      "title": "Lab Template",
-      "route": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "id": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "title": "Lab: GPU Communication Reference",
+      "route": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
       "group": "ai-system-performance-engineering",
       "keywords": [
-        "the",
-        "tbd",
-        "template",
-        "describe",
-        "lab",
-        "simple",
-        "scattered",
-        "optimized",
-        "narrow",
-        "access"
-      ],
-      "excerpt": "Goal State the hardware performance question this lab answers. Example: \"Does contiguous memory access improve effective throughput compared with repeated scatt"
-    },
-    {
-      "id": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "title": "Lab: Communicator Lifecycle",
-      "route": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "communicator",
-        "optimized",
-        "the",
-        "lifecycle",
-        "once",
-        "recreates",
-        "communicators",
-        "reuses",
-        "per-step",
-        "lab"
-      ],
-      "excerpt": "Goal Show why communicators and registered buffers should be created once and reused. Baseline The baseline recreates communication state for every step. Optimi"
-    },
-    {
-      "id": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "title": "Lab: DataParallel vs DDP",
-      "route": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "dataparallel",
+        "overlap.py",
         "ddp",
-        "one",
-        "scatters",
-        "replicas",
-        "ddp-shaped",
-        "optimized",
-        "anti-pattern",
-        "gathers",
-        "spend"
+        "sweep.py",
+        "backward",
+        "bucket",
+        "communication",
+        "process-group",
+        "gradient",
+        "nccl",
+        "buckets"
       ],
-      "excerpt": "Goal Show why Chapter 4 treats PyTorch DataParallel as an anti pattern for serious multi GPU training. Baseline The baseline models one Python process that scat"
+      "excerpt": "Goal Provide real GPU/NCCL entrypoints for the Chapter 4 communication labs. The other labs in this directory are CPU portable concept models. This lab is inten"
+    },
+    {
+      "id": "/ai-data-center-network/clos-ebgp-lab/",
+      "title": "Clos Fabric Lab Series",
+      "route": "/ai-data-center-network/clos-ebgp-lab/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "leaf",
+        "leaf1",
+        "bgp",
+        "spine1",
+        "spine",
+        "spine2",
+        "ecmp",
+        "bfd",
+        "lab",
+        "loopbacks"
+      ],
+      "excerpt": "This README starts with the implemented Lab 1 and records the planned direction for the next labs. The sequence is meant to move from a pure routed underlay to "
+    },
+    {
+      "id": "/",
+      "title": "AI Data Center Systems",
+      "route": "/",
+      "group": "home",
+      "keywords": [
+        "systems",
+        "storage",
+        "mlperf",
+        "training",
+        "study",
+        "center",
+        "notes",
+        "lecture",
+        "rdma",
+        "roce"
+      ],
+      "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
+    },
+    {
+      "id": "/cme295/",
+      "title": "CME295 Lecture Notes",
+      "route": "/cme295/",
+      "group": "cme295",
+      "keywords": [
+        "lecture",
+        "reasoning",
+        "다이어그램",
+        "preference",
+        "grpo",
+        "sft",
+        "llm",
+        "transformer",
+        "tuning",
+        "human"
+      ],
+      "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/",
+      "title": "Appendix",
+      "route": "/efficient-llm-inference-systems/appendix/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "appendix",
+        "reusable",
+        "weeks",
+        "background",
+        "appear",
+        "topics",
+        "multiple",
+        "across",
+        "llm",
+        "inference"
+      ],
+      "excerpt": "Reusable background notes for LLM inference topics that appear across multiple weeks."
     },
     {
       "id": "/ai-system-performance-engineering/",
@@ -194,24 +232,59 @@
   ],
   "edges": [
     {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "type": "link+section",
+      "source": "/",
+      "target": "/ai-data-center-network/clos-ebgp-lab/",
+      "type": "link",
       "weight": 1,
       "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/ai-system-performance-engineering/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/cme295/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "kubelet"
+      ]
     },
     {
       "source": "/ai-system-performance-engineering/",
       "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "type": "semantic+section",
+      "weight": 0.945,
+      "terms": [
+        "cpu",
+        "numa",
+        "memory",
+        "manager"
+      ]
+    },
+    {
       "source": "/ai-system-performance-engineering/chap01/labs/",
       "target": "/ai-system-performance-engineering/chap02/labs/",
-      "type": "keyword",
-      "weight": 1,
+      "type": "semantic",
+      "weight": 0.9,
       "terms": [
         "labs",
         "contract",
@@ -220,129 +293,127 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/labs/_template/",
-      "target": "/ai-system-performance-engineering/chap02/labs/_template/",
-      "type": "keyword",
-      "weight": 1,
-      "terms": [
-        "the",
-        "tbd",
-        "template",
-        "describe"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "type": "keyword+section",
-      "weight": 0.696,
-      "terms": [
-        "cpu",
-        "numa",
-        "memory",
-        "manager",
-        "node"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/labs/",
-      "target": "/ai-system-performance-engineering/chap01/labs/_template/",
-      "type": "keyword",
-      "weight": 0.503,
-      "terms": [
-        "lab"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/labs/_template/",
-      "target": "/ai-system-performance-engineering/chap02/labs/",
-      "type": "keyword",
-      "weight": 0.492,
-      "terms": [
-        "lab"
-      ]
-    },
-    {
       "source": "/ai-system-performance-engineering/chap02/labs/",
-      "target": "/ai-system-performance-engineering/chap02/labs/_template/",
-      "type": "keyword",
-      "weight": 0.487,
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "semantic",
+      "weight": 0.765,
       "terms": [
-        "lab"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/labs/_template/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "keyword",
-      "weight": 0.455,
-      "terms": [
-        "optimized",
-        "the",
-        "lab"
+        "labs"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/chap01/labs/",
-      "target": "/ai-system-performance-engineering/chap02/labs/_template/",
-      "type": "keyword",
-      "weight": 0.447,
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "semantic",
+      "weight": 0.764,
       "terms": [
-        "lab"
+        "labs"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "type": "keyword",
-      "weight": 0.251,
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "semantic",
+      "weight": 0.684,
       "terms": [
-        "optimized"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/labs/_template/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "keyword",
-      "weight": 0.249,
-      "terms": [
-        "optimized",
-        "the",
-        "lab"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/labs/_template/",
-      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "type": "keyword",
-      "weight": 0.226,
-      "terms": [
-        "optimized"
+        "communication"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/chap01/labs/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "lab"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/labs/",
-      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "type": "keyword",
-      "weight": 0.22,
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "semantic",
+      "weight": 0.671,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/chap02/labs/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "keyword",
-      "weight": 0.22,
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "semantic",
+      "weight": 0.667,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/clos-ebgp-lab/",
+      "target": "/ai-system-performance-engineering/chap01/labs/",
+      "type": "semantic",
+      "weight": 0.654,
       "terms": [
         "lab"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/clos-ebgp-lab/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
+      "type": "semantic",
+      "weight": 0.616,
+      "terms": [
+        "lab"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/clos-ebgp-lab/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "semantic",
+      "weight": 0.61,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "semantic",
+      "weight": 0.599,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/ai-system-performance-engineering/chap01/labs/",
+      "type": "semantic",
+      "weight": 0.596,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/",
+      "target": "/cme295/",
+      "type": "semantic",
+      "weight": 0.594,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
+      "type": "semantic",
+      "weight": 0.592,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/labs/",
+      "target": "/cme295/",
+      "type": "semantic",
+      "weight": 0.584,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "semantic",
+      "weight": 0.573,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/labs/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "semantic",
+      "weight": 0.57,
+      "terms": []
+    },
+    {
+      "source": "/cme295/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "semantic",
+      "weight": 0.561,
+      "terms": [
+        "llm"
       ]
     },
     {
@@ -354,13 +425,6 @@
     },
     {
       "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/chap01/labs/_template/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
       "target": "/ai-system-performance-engineering/chap02/labs/",
       "type": "section",
       "weight": 0.18,
@@ -368,21 +432,14 @@
     },
     {
       "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -396,13 +453,6 @@
     },
     {
       "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/chap01/labs/_template/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
       "target": "/ai-system-performance-engineering/chap02/labs/",
       "type": "section",
       "weight": 0.18,
@@ -410,21 +460,14 @@
     },
     {
       "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -438,13 +481,6 @@
     },
     {
       "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/chap01/labs/_template/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
       "target": "/ai-system-performance-engineering/chap02/labs/",
       "type": "section",
       "weight": 0.18,
@@ -452,21 +488,14 @@
     },
     {
       "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
       "type": "section",
       "weight": 0.18,
       "terms": []

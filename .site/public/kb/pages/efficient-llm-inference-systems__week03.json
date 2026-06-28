@@ -6,16 +6,16 @@
     "route": "/efficient-llm-inference-systems/week03/",
     "group": "efficient-llm-inference-systems",
     "keywords": [
-      "the",
       "gqa",
       "kib",
       "mib",
-      "and",
       "cache",
       "mha",
       "gib",
       "week",
-      "batch"
+      "batch",
+      "128",
+      "decode"
     ],
     "excerpt": "3.1 Learning Goals By the end of this week, you should be able to: 1. Memorize the KV cache memory formula and estimate memory for an arbitrary model, sequence "
   },
@@ -26,16 +26,16 @@
       "route": "/efficient-llm-inference-systems/week03/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "gqa",
         "kib",
         "mib",
-        "and",
         "cache",
         "mha",
         "gib",
         "week",
-        "batch"
+        "batch",
+        "128",
+        "decode"
       ],
       "excerpt": "3.1 Learning Goals By the end of this week, you should be able to: 1. Memorize the KV cache memory formula and estimate memory for an arbitrary model, sequence "
     },
@@ -64,7 +64,6 @@
       "route": "/efficient-llm-inference-systems/appendix/llm-inference/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "token",
         "convert",
         "logits",
@@ -73,7 +72,8 @@
         "llm",
         "transformer",
         "project",
-        "detokenize"
+        "detokenize",
+        "streamed"
       ],
       "excerpt": "Inference Pipeline ! This diagram summarizes the end to end flow of decoder only LLM inference: 1. Convert user input into token IDs with the tokenizer. 2. Add "
     },
@@ -152,16 +152,16 @@
       "route": "/efficient-llm-inference-systems/week04/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "quantization",
         "int4",
         "awq",
         "int8",
-        "and",
-        "for",
         "week",
         "scale",
-        "fp8"
+        "fp8",
+        "outliers",
+        "bf16",
+        "weight"
       ],
       "excerpt": "These notes expand Chapter 4 of the book. The source chapter is short and interview oriented; this version keeps the same core topics while connecting them to t"
     },
@@ -171,7 +171,6 @@
       "route": "/efficient-llm-inference-systems/week02/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "tflops",
         "batch",
         "gb/s",
@@ -180,47 +179,48 @@
         "hbm",
         "h100",
         "tb/s",
-        "dense"
+        "dense",
+        "128"
       ],
       "excerpt": "Pre lab summary. Read this before running the hands on exercises. TL;DR All inference optimization is one principle in disguise: keep data in the fastest memory"
     },
     {
-      "id": "/efficient-llm-inference-systems/week01/",
-      "title": "Efficient LLM Inference Systems",
-      "route": "/efficient-llm-inference-systems/week01/",
+      "id": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "title": "Domain-Specific Architectures for AI Inference",
+      "route": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "prompt",
-        "the",
-        "batch",
-        "tpot",
-        "length",
-        "128",
-        "size",
-        "logits",
-        "increases",
-        "sweep"
+        "dsa",
+        "cache",
+        "compute",
+        "week",
+        "tensor",
+        "hardware",
+        "decode",
+        "sram",
+        "accelerator",
+        "token"
       ],
-      "excerpt": "Week 1: TTFT, TPOT, Batch Throughput This chapter measures how prompt length and batch size affect latency and throughput in decoder only LLM inference. The exp"
+      "excerpt": "Source: , published 2025 08 03. This is a Korean lecture note adaptation, not a line by line full translation. The goal is to preserve the article's main argume"
     },
     {
-      "id": "/ai-data-center-network/chap10/",
-      "title": "Chapter 10: AI Network Performance KPIs",
-      "route": "/ai-data-center-network/chap10/",
-      "group": "ai-data-center-network",
+      "id": "/cme295/lec-01/",
+      "title": "Lecture 1: Transformer",
+      "route": "/cme295/lec-01/",
+      "group": "cme295",
       "keywords": [
-        "the",
-        "and",
-        "kpis",
-        "mlperf",
-        "storage",
-        "time",
-        "benchmark",
-        "accuracy",
-        "latency",
-        "quality"
+        "token",
+        "embedding",
+        "text",
+        "rnn",
+        "decoder",
+        "representation",
+        "self-attention",
+        "label",
+        "sequence",
+        "attention"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
     },
     {
       "id": "/ai-system-performance-engineering/chap01/",
@@ -230,14 +230,14 @@
       "keywords": [
         "gpu",
         "goodput",
-        "the",
         "performance",
-        "and",
         "time",
         "nsight",
         "systems",
         "mechanical",
-        "sympathy"
+        "sympathy",
+        "bottleneck",
+        "memory"
       ],
       "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
     },
@@ -271,32 +271,13 @@
         "다이어그램",
         "preference",
         "grpo",
-        "and",
         "sft",
         "llm",
         "transformer",
-        "tuning"
+        "tuning",
+        "human"
       ],
       "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
-    },
-    {
-      "id": "/cme295/lec-01/",
-      "title": "Lecture 1: Transformer",
-      "route": "/cme295/lec-01/",
-      "group": "cme295",
-      "keywords": [
-        "token",
-        "embedding",
-        "text",
-        "rnn",
-        "decoder",
-        "representation",
-        "self-attention",
-        "label",
-        "sequence",
-        "attention"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
     },
     {
       "id": "/ai-data-center-network/rdma-examples/",
@@ -379,14 +360,14 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-01/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/cme295/",
       "target": "/cme295/lec-04/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "sft"
@@ -395,20 +376,15 @@
     {
       "source": "/efficient-llm-inference-systems/",
       "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "llm"
+      ]
     },
     {
       "source": "/efficient-llm-inference-systems/",
       "target": "/efficient-llm-inference-systems/appendix/transformer/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/efficient-llm-inference-systems/",
-      "target": "/efficient-llm-inference-systems/week01/",
       "type": "link+section",
       "weight": 1,
       "terms": []
@@ -618,6 +594,40 @@
       ]
     },
     {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "MQA",
+        "GQA"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "quantization",
+        "Quantization",
+        "int4",
+        "FP8"
+      ]
+    },
+    {
       "source": "/efficient-llm-inference-systems/appendix/transformer/",
       "target": "concept:attention",
       "type": "mentions",
@@ -647,17 +657,6 @@
       "terms": [
         "quantization",
         "Quantization"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week01/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache",
-        "KV-cache"
       ]
     },
     {
@@ -775,16 +774,6 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
       "source": "/cme295/lec-01/",
       "target": "concept:kv-cache",
       "type": "mentions",
@@ -825,49 +814,36 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.805,
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-04/",
+      "type": "semantic+section",
+      "weight": 0.787,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.777,
       "terms": [
-        "FP8"
+        "gpu",
+        "memory"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/week01/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.805,
+      "source": "/efficient-llm-inference-systems/week03/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "semantic",
+      "weight": 0.742,
       "terms": [
-        "GQA"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.497,
-      "terms": [
-        "the",
-        "and",
-        "time"
-      ]
-    },
-    {
-      "source": "/deep-learning-for-network-engineers/week02/",
-      "target": "/efficient-llm-inference-systems/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.497,
-      "terms": [
-        "attention",
-        "embedding"
+        "week"
       ]
     },
     {
       "source": "/cme295/lec-01/",
       "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "keyword",
-      "weight": 0.492,
+      "type": "semantic",
+      "weight": 0.715,
       "terms": [
         "token",
         "embedding",
@@ -877,176 +853,164 @@
     },
     {
       "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "keyword",
-      "weight": 0.475,
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "semantic",
+      "weight": 0.681,
       "terms": [
-        "gpu",
-        "cpu",
-        "memory"
+        "hbm"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/week03/",
-      "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.416,
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "semantic",
+      "weight": 0.674,
       "terms": [
-        "the",
-        "and",
-        "week"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week02/",
-      "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.411,
-      "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week02/",
-      "target": "/efficient-llm-inference-systems/week03/",
-      "type": "keyword",
-      "weight": 0.377,
-      "terms": [
-        "the",
-        "batch"
+        "transformer"
       ]
     },
     {
       "source": "/cme295/lec-01/",
       "target": "/efficient-llm-inference-systems/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.376,
+      "type": "semantic",
+      "weight": 0.667,
+      "terms": [
+        "embedding",
+        "attention"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "semantic",
+      "weight": 0.66,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.659,
+      "terms": [
+        "gpu",
+        "memory",
+        "cpu"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week02/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "semantic",
+      "weight": 0.659,
+      "terms": [
+        "batch",
+        "128"
+      ]
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "semantic",
+      "weight": 0.657,
       "terms": [
         "attention",
         "embedding"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/week01/",
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "/efficient-llm-inference-systems/week03/",
-      "type": "keyword",
-      "weight": 0.375,
+      "type": "semantic",
+      "weight": 0.654,
       "terms": [
-        "the",
-        "batch"
+        "cache",
+        "week",
+        "decode"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/week01/",
-      "target": "/efficient-llm-inference-systems/week02/",
-      "type": "keyword",
-      "weight": 0.363,
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.641,
       "terms": [
-        "the",
-        "batch"
+        "gpu",
+        "memory"
       ]
     },
     {
       "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.337,
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "semantic",
+      "weight": 0.641,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/efficient-llm-inference-systems/week01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the"
-      ]
+      "source": "/cme295/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.638,
+      "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/efficient-llm-inference-systems/week03/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/efficient-llm-inference-systems/week02/",
       "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.637,
       "terms": [
-        "the",
-        "and"
+        "bf16"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/efficient-llm-inference-systems/week01/",
-      "type": "keyword",
-      "weight": 0.22,
+      "source": "/cme295/lec-04/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "semantic",
+      "weight": 0.635,
+      "terms": []
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "semantic",
+      "weight": 0.633,
       "terms": [
-        "the"
+        "token"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/efficient-llm-inference-systems/week02/",
-      "type": "keyword",
-      "weight": 0.22,
+      "source": "/cme295/lec-01/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "semantic",
+      "weight": 0.602,
       "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/efficient-llm-inference-systems/week03/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and"
+        "token"
       ]
     },
     {
       "source": "/cme295/",
       "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.593,
       "terms": [
         "llm",
         "transformer"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
-      "target": "/efficient-llm-inference-systems/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.22,
+      "source": "/cme295/",
+      "target": "/efficient-llm-inference-systems/",
+      "type": "semantic",
+      "weight": 0.572,
       "terms": [
-        "transformer"
+        "llm"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
-      "target": "/efficient-llm-inference-systems/week01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "logits"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week01/",
-      "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the"
-      ]
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
     }
   ]
 }

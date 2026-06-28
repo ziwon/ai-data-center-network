@@ -50,13 +50,32 @@
         "다이어그램",
         "preference",
         "grpo",
-        "and",
         "sft",
         "llm",
         "transformer",
-        "tuning"
+        "tuning",
+        "human"
       ],
       "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
+    },
+    {
+      "id": "/cme295/lec-01/",
+      "title": "Lecture 1: Transformer",
+      "route": "/cme295/lec-01/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "embedding",
+        "text",
+        "rnn",
+        "decoder",
+        "representation",
+        "self-attention",
+        "label",
+        "sequence",
+        "attention"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
     },
     {
       "id": "/cme295/lec-05/",
@@ -78,25 +97,6 @@
       "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 pre trained + SFT model을 human preference에 맞게 조정하는 preference tuning을 이해하는 것이다. 핵심 메시지는 다음과 같다. SFT는 model에게 \"무엇을 생성해야"
     },
     {
-      "id": "/cme295/lec-03/",
-      "title": "Lecture 3: Large Language Models, Decoding, Prompting, and Inference",
-      "route": "/cme295/lec-03/",
-      "group": "cme295",
-      "keywords": [
-        "token",
-        "model",
-        "decoding",
-        "probability",
-        "context",
-        "expert",
-        "sampling",
-        "decoder-only",
-        "llm",
-        "top-k"
-      ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 현대 LLM을 decoder only Transformer 기반의 next token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다. 핵심 메"
-    },
-    {
       "id": "/cme295/lec-04/",
       "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
       "route": "/cme295/lec-04/",
@@ -116,23 +116,80 @@
       "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre training 이후 fine tuning과 alignment 단계가 필요한지 이해하는 것이다. 핵심 메시지는 다음과 같다. LLM training은 하나의 거대한 "
     },
     {
-      "id": "/cme295/lec-01/",
-      "title": "Lecture 1: Transformer",
-      "route": "/cme295/lec-01/",
+      "id": "/deep-learning-for-network-engineers/week02/",
+      "title": "Week 2: Large Language Model, LLM",
+      "route": "/deep-learning-for-network-engineers/week02/",
+      "group": "deep-learning-for-network-engineers",
+      "keywords": [
+        "token",
+        "vector",
+        "embedding",
+        "attention",
+        "word",
+        "decoder",
+        "layer",
+        "ffnn",
+        "parameter",
+        "책에서"
+      ],
+      "excerpt": "Table of Contents Goal 이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다. 핵심 흐름은 다음과 같다. 이 장의 목적은 특정 GPT 모델을 구현하는 것이 아니라, Transformer 기반 LLM의 기본 연산 구조를"
+    },
+    {
+      "id": "/cme295/lec-03/",
+      "title": "Lecture 3: Large Language Models, Decoding, Prompting, and Inference",
+      "route": "/cme295/lec-03/",
       "group": "cme295",
       "keywords": [
         "token",
-        "embedding",
-        "text",
-        "rnn",
-        "decoder",
-        "representation",
-        "self-attention",
-        "label",
-        "sequence",
-        "attention"
+        "model",
+        "decoding",
+        "probability",
+        "context",
+        "expert",
+        "sampling",
+        "decoder-only",
+        "llm",
+        "top-k"
       ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 현대 LLM을 decoder only Transformer 기반의 next token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다. 핵심 메"
+    },
+    {
+      "id": "/deep-learning-for-network-engineers/week03/",
+      "title": "Week 3: Parallelism Strategies in Deep Learning",
+      "route": "/deep-learning-for-network-engineers/week03/",
+      "group": "deep-learning-for-network-engineers",
+      "keywords": [
+        "parallelism",
+        "gpu",
+        "gradient",
+        "pipeline",
+        "tensor",
+        "expert",
+        "stage",
+        "training",
+        "model",
+        "micro-batch"
+      ],
+      "excerpt": "Table of Contents Goal 이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend networ"
+    },
+    {
+      "id": "/storage/mlperf-storage/",
+      "title": "MLPerf Storage Benchmark",
+      "route": "/storage/mlperf-storage/",
+      "group": "storage",
+      "keywords": [
+        "storage",
+        "object",
+        "vectordb",
+        "benchmark",
+        "인덱스",
+        "cache",
+        "i/o",
+        "체크포인트",
+        "s3-compatible",
+        "비교합니다"
+      ],
+      "excerpt": "는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload, VectorDB 검색처럼 ML 시스템에서"
     },
     {
       "id": "/cme295/lec-02/",
@@ -158,14 +215,14 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-01/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/cme295/",
       "target": "/cme295/lec-02/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "transformer"
@@ -174,7 +231,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-03/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "llm"
@@ -183,7 +240,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-04/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "sft"
@@ -192,7 +249,7 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-05/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "preference",
@@ -203,19 +260,24 @@
     {
       "source": "/cme295/",
       "target": "/cme295/lec-06/",
-      "type": "link+keyword+section",
+      "type": "link+section",
       "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-03/",
+      "type": "semantic+section",
+      "weight": 0.995,
       "terms": [
-        "reasoning",
-        "sft",
-        "grpo"
+        "token"
       ]
     },
     {
       "source": "/cme295/lec-01/",
       "target": "/cme295/lec-02/",
-      "type": "keyword+section",
-      "weight": 0.732,
+      "type": "semantic+section",
+      "weight": 0.957,
       "terms": [
         "token",
         "attention",
@@ -225,33 +287,90 @@
     {
       "source": "/cme295/lec-02/",
       "target": "/cme295/lec-03/",
-      "type": "keyword+section",
-      "weight": 0.656,
+      "type": "semantic+section",
+      "weight": 0.943,
       "terms": [
         "token"
       ]
     },
     {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "/deep-learning-for-network-engineers/week03/",
+      "type": "semantic+section",
+      "weight": 0.895,
+      "terms": []
+    },
+    {
       "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-03/",
-      "type": "keyword+section",
-      "weight": 0.625,
-      "terms": [
-        "token"
-      ]
+      "target": "/cme295/lec-04/",
+      "type": "semantic+section",
+      "weight": 0.787,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-05/",
+      "type": "semantic+section",
+      "weight": 0.787,
+      "terms": []
     },
     {
       "source": "/cme295/lec-02/",
       "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.48,
+      "type": "semantic+section",
+      "weight": 0.775,
       "terms": []
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-06/",
+      "type": "semantic+section",
+      "weight": 0.768,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-05/",
+      "type": "semantic+section",
+      "weight": 0.763,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.745,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "/cme295/lec-05/",
+      "type": "semantic",
+      "weight": 0.72,
+      "terms": [
+        "model",
+        "sft"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.715,
+      "terms": [
+        "token",
+        "embedding",
+        "attention",
+        "decoder"
+      ]
     },
     {
       "source": "/cme295/lec-05/",
       "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.429,
+      "type": "semantic",
+      "weight": 0.697,
       "terms": [
         "reward",
         "sft",
@@ -259,29 +378,21 @@
       ]
     },
     {
+      "source": "/cme295/lec-02/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.693,
+      "terms": [
+        "token",
+        "embedding",
+        "attention"
+      ]
+    },
+    {
       "source": "/cme295/lec-03/",
       "target": "/cme295/lec-04/",
-      "type": "keyword",
-      "weight": 0.403,
-      "terms": [
-        "model"
-      ]
-    },
-    {
-      "source": "/cme295/lec-04/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword",
-      "weight": 0.391,
-      "terms": [
-        "model",
-        "sft"
-      ]
-    },
-    {
-      "source": "/cme295/lec-03/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.383,
+      "type": "semantic",
+      "weight": 0.676,
       "terms": [
         "model"
       ]
@@ -289,56 +400,78 @@
     {
       "source": "/cme295/lec-04/",
       "target": "/cme295/lec-06/",
-      "type": "keyword",
-      "weight": 0.381,
+      "type": "semantic",
+      "weight": 0.668,
       "terms": [
         "sft",
         "model"
       ]
     },
     {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.337,
+      "source": "/cme295/lec-04/",
+      "target": "/deep-learning-for-network-engineers/week03/",
+      "type": "semantic",
+      "weight": 0.66,
+      "terms": [
+        "parallelism",
+        "training",
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-06/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.641,
       "terms": []
     },
     {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-01/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-02/",
-      "target": "/cme295/lec-06/",
-      "type": "keyword+section",
-      "weight": 0.337,
+      "source": "/cme295/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "semantic",
+      "weight": 0.638,
       "terms": []
     },
     {
       "source": "/cme295/lec-03/",
-      "target": "/cme295/lec-05/",
-      "type": "keyword",
-      "weight": 0.22,
+      "target": "/cme295/lec-06/",
+      "type": "semantic",
+      "weight": 0.638,
       "terms": [
         "model"
       ]
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-05/",
+      "type": "semantic",
+      "weight": 0.625,
+      "terms": [
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-06/",
+      "target": "/deep-learning-for-network-engineers/week03/",
+      "type": "semantic",
+      "weight": 0.609,
+      "terms": [
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-06/",
+      "target": "/storage/mlperf-storage/",
+      "type": "semantic",
+      "weight": 0.585,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-06/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
     }
   ]
 }

@@ -8,14 +8,14 @@
     "keywords": [
       "week",
       "how",
-      "the",
-      "and",
       "hardware",
-      "are",
       "think",
       "architectures",
       "inference",
-      "copied"
+      "copied",
+      "parallelism",
+      "1-4",
+      "inference-first"
     ],
     "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course. These notes are not line by line full "
   },
@@ -28,14 +28,14 @@
       "keywords": [
         "week",
         "how",
-        "the",
-        "and",
         "hardware",
-        "are",
         "think",
         "architectures",
         "inference",
-        "copied"
+        "copied",
+        "parallelism",
+        "1-4",
+        "inference-first"
       ],
       "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course. These notes are not line by line full "
     },
@@ -197,16 +197,16 @@
       "route": "/efficient-llm-inference-systems/week04/",
       "group": "efficient-llm-inference-systems",
       "keywords": [
-        "the",
         "quantization",
         "int4",
         "awq",
         "int8",
-        "and",
-        "for",
         "week",
         "scale",
-        "fp8"
+        "fp8",
+        "outliers",
+        "bf16",
+        "weight"
       ],
       "excerpt": "These notes expand Chapter 4 of the book. The source chapter is short and interview oriented; this version keeps the same core topics while connecting them to t"
     },
@@ -264,16 +264,16 @@
       "route": "/ai-data-center-network/chap01/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "nic",
         "memory",
         "kernel",
-        "for",
-        "are",
         "infiniband",
-        "queue"
+        "queue",
+        "remote",
+        "send",
+        "model",
+        "rnic"
       ],
       "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
     },
@@ -342,14 +342,14 @@
       "keywords": [
         "gpu",
         "goodput",
-        "the",
         "performance",
-        "and",
         "time",
         "nsight",
         "systems",
         "mechanical",
-        "sympathy"
+        "sympathy",
+        "bottleneck",
+        "memory"
       ],
       "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
     },
@@ -415,21 +415,23 @@
     {
       "source": "/ai-system-performance-engineering/",
       "target": "/ai-system-performance-engineering/chap01/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "systems"
+      ]
     },
     {
       "source": "/ai-system-performance-engineering/",
       "target": "/ai-system-performance-engineering/chap02/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/",
       "target": "/ai-system-performance-engineering/chap03/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
@@ -443,14 +445,14 @@
     {
       "source": "/ai-system-performance-engineering/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "link+keyword",
+      "type": "link",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/efficient-llm-inference-systems/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
@@ -464,7 +466,7 @@
     {
       "source": "/efficient-llm-inference-systems/appendix/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": [
         "inference"
@@ -473,14 +475,17 @@
     {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "link+section",
+      "type": "link+semantic+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "week",
+        "hardware"
+      ]
     },
     {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
-      "type": "link+keyword+section",
+      "type": "link+section",
       "weight": 1,
       "terms": []
     },
@@ -494,14 +499,14 @@
     {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
-      "type": "link+keyword+section",
+      "type": "link+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
-      "type": "link+keyword+section",
+      "type": "link+semantic+section",
       "weight": 1,
       "terms": []
     },
@@ -866,6 +871,15 @@
       ]
     },
     {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "semantic+section",
+      "weight": 0.872,
+      "terms": [
+        "llm"
+      ]
+    },
+    {
       "source": "/ai-system-performance-engineering/chap04/",
       "target": "concept:quantization",
       "type": "mentions",
@@ -896,134 +910,211 @@
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/",
-      "target": "/efficient-llm-inference-systems/appendix/",
-      "type": "keyword+section",
-      "weight": 0.597,
-      "terms": [
-        "llm"
-      ]
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.81,
+      "terms": []
     },
     {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
-      "type": "keyword",
-      "weight": 0.482,
-      "terms": [
-        "decode"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "keyword",
-      "weight": 0.475,
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "semantic",
+      "weight": 0.777,
       "terms": [
         "gpu",
-        "cpu",
         "memory"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.47,
-      "terms": [
-        "gpu"
-      ]
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.718,
+      "terms": []
     },
     {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
-      "type": "keyword",
-      "weight": 0.467,
+      "type": "semantic",
+      "weight": 0.702,
       "terms": [
         "tensor"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
-      "type": "keyword",
-      "weight": 0.462,
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.696,
       "terms": []
     },
     {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "type": "semantic",
+      "weight": 0.681,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "type": "semantic",
+      "weight": 0.678,
+      "terms": [
+        "decode"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
-      "type": "keyword",
-      "weight": 0.46,
+      "type": "semantic",
+      "weight": 0.676,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/chap03/",
       "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.456,
+      "type": "semantic",
+      "weight": 0.675,
       "terms": [
         "gpu"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
-      "type": "keyword",
-      "weight": 0.444,
-      "terms": []
-    },
-    {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
-      "type": "keyword",
-      "weight": 0.437,
-      "terms": []
-    },
-    {
       "source": "/ai-system-performance-engineering/chap02/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
-      "type": "keyword",
-      "weight": 0.431,
+      "type": "semantic",
+      "weight": 0.667,
       "terms": [
         "gpu",
-        "memory",
         "blackwell",
+        "memory",
         "nvlink"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
-      "type": "keyword",
-      "weight": 0.408,
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.661,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "keyword",
-      "weight": 0.39,
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.659,
+      "terms": [
+        "gpu",
+        "memory",
+        "cpu"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.653,
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/chap03/",
+      "source": "/ai-data-center-network/rdma-examples/",
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
-      "type": "keyword",
-      "weight": 0.376,
+      "type": "semantic",
+      "weight": 0.651,
       "terms": []
     },
     {
       "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
-      "type": "keyword",
-      "weight": 0.365,
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "type": "semantic",
+      "weight": 0.65,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "semantic",
+      "weight": 0.646,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/rdma-examples/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.645,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "semantic",
+      "weight": 0.641,
+      "terms": [
+        "gpu",
+        "memory"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "semantic",
+      "weight": 0.638,
+      "terms": [
+        "memory"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "semantic",
+      "weight": 0.635,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "type": "semantic",
+      "weight": 0.628,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.627,
+      "terms": [
+        "gpu",
+        "memory"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "type": "semantic",
+      "weight": 0.626,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.616,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/rdma-examples/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.595,
       "terms": []
     },
     {
       "source": "/ai-system-performance-engineering/",
       "target": "/efficient-llm-inference-systems/",
-      "type": "keyword",
-      "weight": 0.363,
+      "type": "semantic",
+      "weight": 0.579,
       "terms": [
         "systems",
         "books"
@@ -1041,81 +1132,6 @@
       "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "type": "section",
       "weight": 0.297,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/efficient-llm-inference-systems/week04/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and",
-        "for"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/rdma-examples/",
-      "target": "/ai-system-performance-engineering/chap04/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "rdma"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap04/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap04/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
-      "type": "keyword",
-      "weight": 0.22,
       "terms": []
     },
     {

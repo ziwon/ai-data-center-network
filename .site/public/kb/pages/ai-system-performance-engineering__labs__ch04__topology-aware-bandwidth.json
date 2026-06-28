@@ -9,13 +9,13 @@
       "topology-aware",
       "links",
       "ranks",
-      "the",
       "path",
       "slow",
       "topology-agnostic",
       "fast",
       "optimized",
-      "cross-socket"
+      "cross-socket",
+      "lab"
     ],
     "excerpt": "Goal Show why NCCL path quality depends on placement. A job can use GPUs successfully and still run over a slow PCIe or cross socket path. Baseline The baseline"
   },
@@ -29,13 +29,13 @@
         "topology-aware",
         "links",
         "ranks",
-        "the",
         "path",
         "slow",
         "topology-agnostic",
         "fast",
         "optimized",
-        "cross-socket"
+        "cross-socket",
+        "lab"
       ],
       "excerpt": "Goal Show why NCCL path quality depends on placement. A job can use GPUs successfully and still run over a slow PCIe or cross socket path. Baseline The baseline"
     },
@@ -56,80 +56,23 @@
       ]
     },
     {
-      "id": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "title": "Lab: Communicator Lifecycle",
-      "route": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "id": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "title": "Lab: Symmetric Memory and NVSHMEM Patterns",
+      "route": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
       "group": "ai-system-performance-engineering",
       "keywords": [
-        "communicator",
+        "symmetric",
+        "allocates",
+        "nvshmem",
+        "patterns",
         "optimized",
-        "the",
-        "lifecycle",
-        "once",
-        "recreates",
-        "communicators",
+        "offsets",
+        "gpu-driven",
         "reuses",
-        "per-step",
-        "lab"
+        "exchanges",
+        "per-operation"
       ],
-      "excerpt": "Goal Show why communicators and registered buffers should be created once and reused. Baseline The baseline recreates communication state for every step. Optimi"
-    },
-    {
-      "id": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "title": "Lab: DataParallel vs DDP",
-      "route": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "dataparallel",
-        "ddp",
-        "one",
-        "scatters",
-        "replicas",
-        "ddp-shaped",
-        "optimized",
-        "anti-pattern",
-        "gathers",
-        "spend"
-      ],
-      "excerpt": "Goal Show why Chapter 4 treats PyTorch DataParallel as an anti pattern for serious multi GPU training. Baseline The baseline models one Python process that scat"
-    },
-    {
-      "id": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
-      "title": "Lab: Memory Bandwidth Pattern",
-      "route": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "walks",
-        "the",
-        "contiguous",
-        "lab",
-        "access",
-        "pattern",
-        "locality",
-        "hardware",
-        "bandwidth",
-        "nominal"
-      ],
-      "excerpt": "Goal Show that hardware performance depends on access pattern, not only on nominal compute capacity. Chapter 2 frames hardware as a bottleneck structure. This l"
-    },
-    {
-      "id": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
-      "title": "Lab: Communication and Computation Overlap",
-      "route": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "the",
-        "communication",
-        "bucket",
-        "overlap",
-        "exposed",
-        "optimized",
-        "lab",
-        "step",
-        "computation",
-        "compute"
-      ],
-      "excerpt": "Goal Show why Chapter 4 focuses on exposed communication time . The total communication volume may be the same, but the optimized path starts each bucket transf"
+      "excerpt": "Goal Show why persistent symmetric buffers matter for GPU driven communication patterns. Baseline The baseline allocates and registers a transfer buffer for eac"
     },
     {
       "id": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
@@ -144,30 +87,30 @@
         "work",
         "useful",
         "scoring",
-        "the",
         "lab",
-        "baseline"
+        "baseline",
+        "expensive"
       ],
       "excerpt": "Goal Show why a system can process many items while still delivering poor useful work. Chapter 1 argues that performance engineering should optimize goodput , n"
     },
     {
-      "id": "/ai-system-performance-engineering/",
-      "title": "AI Systems Performance Engineering",
-      "route": "/ai-system-performance-engineering/",
+      "id": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
+      "title": "Lab: Memory Bandwidth Pattern",
+      "route": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
       "group": "ai-system-performance-engineering",
       "keywords": [
-        "engineering",
-        "2025.12",
-        "2026.04",
-        "2025.08",
-        "systems",
-        "books",
-        "numa-aware",
-        "talks",
-        "uncore",
-        "kubelet"
+        "walks",
+        "contiguous",
+        "lab",
+        "access",
+        "pattern",
+        "locality",
+        "hardware",
+        "bandwidth",
+        "nominal",
+        "stride"
       ],
-      "excerpt": "Resources Books (2025.12) Articles : NUMA, cloud VM topology, Kubernetes CPU Manager, uncore bottlenecks : GPU local CPU placement, kubelet topology policies, N"
+      "excerpt": "Goal Show that hardware performance depends on access pattern, not only on nominal compute capacity. Chapter 2 frames hardware as a bottleneck structure. This l"
     },
     {
       "id": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
@@ -189,23 +132,99 @@
       "excerpt": "Ronak Nathani, \"Keeping GPU Workloads NUMA Local in Kubernetes\" 요약 노트. 원문: 한 줄 요지 GPU workload에서 CPU가 request preparation, batching, dataloader, pinned memory s"
     },
     {
-      "id": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "title": "Never Underestimate Memory Architecture",
-      "route": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "id": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "title": "Lab: GPU Communication Reference",
+      "route": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
       "group": "ai-system-performance-engineering",
       "keywords": [
-        "cpu",
-        "numa",
-        "memory",
-        "instance",
-        "manager",
-        "gpu",
-        "node",
-        "zone",
-        "cloud",
-        "kubernetes"
+        "overlap.py",
+        "ddp",
+        "sweep.py",
+        "backward",
+        "bucket",
+        "communication",
+        "process-group",
+        "gradient",
+        "nccl",
+        "buckets"
       ],
-      "excerpt": "Bryan Boreham, Grafana Labs, CNCF 발표 요약 노트. 원본 영상: 발표 자료: 한 줄 요지 대형 서버와 cloud VM에서는 CPU, memory, cache, PCIe device가 균일하게 연결되어 있지 않다. Workload가 NUMA boundary와 s"
+      "excerpt": "Goal Provide real GPU/NCCL entrypoints for the Chapter 4 communication labs. The other labs in this directory are CPU portable concept models. This lab is inten"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "title": "Lab: Communication and Computation Overlap",
+      "route": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "communication",
+        "bucket",
+        "overlap",
+        "exposed",
+        "optimized",
+        "lab",
+        "step",
+        "computation",
+        "compute",
+        "soon"
+      ],
+      "excerpt": "Goal Show why Chapter 4 focuses on exposed communication time . The total communication volume may be the same, but the optimized path starts each bucket transf"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "title": "Lab: Communicator Lifecycle",
+      "route": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "communicator",
+        "optimized",
+        "lifecycle",
+        "once",
+        "recreates",
+        "communicators",
+        "reuses",
+        "per-step",
+        "lab",
+        "baseline"
+      ],
+      "excerpt": "Goal Show why communicators and registered buffers should be created once and reused. Baseline The baseline recreates communication state for every step. Optimi"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "title": "Lab Template",
+      "route": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "tbd",
+        "template",
+        "describe",
+        "lab",
+        "simple",
+        "scattered",
+        "optimized",
+        "narrow",
+        "access",
+        "baseline"
+      ],
+      "excerpt": "Goal State the hardware performance question this lab answers. Example: \"Does contiguous memory access improve effective throughput compared with repeated scatt"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "title": "Lab: DataParallel vs DDP",
+      "route": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "dataparallel",
+        "ddp",
+        "one",
+        "scatters",
+        "replicas",
+        "ddp-shaped",
+        "optimized",
+        "anti-pattern",
+        "gathers",
+        "spend"
+      ],
+      "excerpt": "Goal Show why Chapter 4 treats PyTorch DataParallel as an anti pattern for serious multi GPU training. Baseline The baseline models one Python process that scat"
     },
     {
       "id": "/ai-data-center-network/chap01/",
@@ -213,16 +232,16 @@
       "route": "/ai-data-center-network/chap01/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "rdma",
         "nic",
         "memory",
         "kernel",
-        "for",
-        "are",
         "infiniband",
-        "queue"
+        "queue",
+        "remote",
+        "send",
+        "model",
+        "rnic"
       ],
       "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
     },
@@ -232,16 +251,16 @@
       "route": "/ai-data-center-network/chap03/",
       "group": "ai-data-center-network",
       "keywords": [
-        "and",
-        "the",
         "leaf",
         "design",
         "clos",
         "fabric",
         "rail",
-        "for",
         "spine",
-        "cabling"
+        "cabling",
+        "server",
+        "traffic",
+        "congestion"
       ],
       "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
     },
@@ -251,8 +270,6 @@
       "route": "/ai-data-center-network/chap10/",
       "group": "ai-data-center-network",
       "keywords": [
-        "the",
-        "and",
         "kpis",
         "mlperf",
         "storage",
@@ -260,7 +277,9 @@
         "benchmark",
         "accuracy",
         "latency",
-        "quality"
+        "quality",
+        "division",
+        "training"
       ],
       "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
     },
@@ -273,32 +292,18 @@
         "uet",
         "uec",
         "delivery",
-        "and",
-        "the",
         "packet",
         "congestion",
         "inc",
         "cbfc",
-        "pdc"
+        "pdc",
+        "llr",
+        "unordered"
       ],
       "excerpt": "Table of Contents Goal This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet based AI/HPC"
     }
   ],
   "edges": [
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": []
-    },
     {
       "source": "/ai-data-center-network/chap01/",
       "target": "concept:nccl",
@@ -343,12 +348,14 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "source": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
       "target": "concept:nccl",
       "type": "mentions",
-      "weight": 0.905,
+      "weight": 0.93,
       "terms": [
-        "NCCL"
+        "NCCL",
+        "all-reduce",
+        "allreduce"
       ]
     },
     {
@@ -370,147 +377,246 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "type": "keyword+section",
-      "weight": 0.696,
-      "terms": [
-        "cpu",
-        "numa",
-        "memory",
-        "manager",
-        "node"
-      ]
-    },
-    {
       "source": "/ai-data-center-network/chap01/",
       "target": "/ai-data-center-network/chap03/",
-      "type": "keyword+section",
-      "weight": 0.617,
+      "type": "semantic+section",
+      "weight": 0.763,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "target": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
+      "type": "semantic",
+      "weight": 0.758,
       "terms": [
-        "and",
-        "the",
-        "for"
+        "lab",
+        "access"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
       "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "keyword",
-      "weight": 0.45,
+      "type": "semantic",
+      "weight": 0.737,
       "terms": [
         "optimized",
-        "the",
         "lab"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "source": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
       "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
-      "type": "keyword",
-      "weight": 0.44,
-      "terms": [
-        "the",
-        "optimized"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "keyword+section",
-      "weight": 0.396,
-      "terms": [
-        "the",
-        "and"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
-      "type": "keyword",
-      "weight": 0.396,
+      "type": "semantic",
+      "weight": 0.736,
       "terms": [
         "optimized"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
-      "target": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
-      "type": "keyword",
-      "weight": 0.39,
+      "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
+      "type": "semantic",
+      "weight": 0.732,
       "terms": [
-        "the",
+        "optimized",
         "lab"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
       "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
-      "type": "keyword",
-      "weight": 0.389,
+      "type": "semantic",
+      "weight": 0.732,
       "terms": [
-        "the"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
-      "type": "keyword",
-      "weight": 0.381,
-      "terms": [
-        "the",
-        "optimized",
         "lab"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "keyword",
-      "weight": 0.269,
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
+      "type": "semantic+section",
+      "weight": 0.729,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
+      "target": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
+      "type": "semantic",
+      "weight": 0.728,
       "terms": [
-        "and",
-        "the"
+        "lab"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "keyword",
-      "weight": 0.259,
+      "target": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "type": "semantic",
+      "weight": 0.727,
       "terms": [
+        "lab",
         "optimized",
-        "the",
-        "lab"
+        "baseline"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "type": "keyword",
-      "weight": 0.251,
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "semantic",
+      "weight": 0.717,
       "terms": [
-        "optimized"
+        "optimized",
+        "reuses"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "semantic+section",
+      "weight": 0.715,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "semantic",
+      "weight": 0.707,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
+      "type": "semantic",
+      "weight": 0.703,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "semantic",
+      "weight": 0.702,
+      "terms": [
+        "optimized",
+        "lab"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
       "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
-      "type": "keyword",
-      "weight": 0.221,
+      "type": "semantic",
+      "weight": 0.7,
       "terms": [
-        "the",
-        "optimized"
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "semantic",
+      "weight": 0.688,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "type": "semantic",
+      "weight": 0.686,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "semantic",
+      "weight": 0.684,
+      "terms": [
+        "bucket",
+        "communication"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
+      "type": "semantic",
+      "weight": 0.679,
+      "terms": [
+        "optimized",
+        "lab"
       ]
     },
     {
       "source": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
+      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "type": "semantic",
+      "weight": 0.677,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/_template/",
       "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic",
+      "weight": 0.677,
       "terms": [
         "optimized",
-        "the"
+        "lab"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
+      "type": "semantic",
+      "weight": 0.674,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
+      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "type": "semantic",
+      "weight": 0.667,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "semantic",
+      "weight": 0.66,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "semantic",
+      "weight": 0.654,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/_template/",
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "semantic",
+      "weight": 0.654,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "semantic",
+      "weight": 0.633,
+      "terms": [
+        "congestion"
       ]
     },
     {
@@ -521,43 +627,8 @@
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap12/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -565,6 +636,13 @@
     {
       "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
       "target": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap02/labs/_template/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -599,49 +677,7 @@
     },
     {
       "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
-      "target": "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
       "type": "section",
       "weight": 0.18,
       "terms": []

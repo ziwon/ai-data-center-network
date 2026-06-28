@@ -46,3 +46,5 @@ AI data center networking, LLM inference, training, storage, and AI systems perf
 - [Ask this docs](https://adcs.restack.tech/): AI-powered Q&A panel — right, bottom, and expand modes; character counter with rate-limit hint; markdown rendering; Q&A logs stored in Cloudflare D1; admin page at [`/admin/qa-logs/`](https://adcs.restack.tech/admin/qa-logs/)
 
   <img width="422" height="320" alt="adcs-ask-docs" src="https://github.com/user-attachments/assets/0bf83a9d-ef55-40f1-8016-3b178fb15def" />
+
+- Knowledge graph: per-page document-concept graphs from a curated concept catalog, multilingual (KO/EN) embedding-based semantic links via Cloudflare Workers AI (`@cf/baai/bge-m3`), and a lazy-loaded full graph view rendered with d3-force; production serves page and global graph data through the Cloudflare Worker with D1 fallback

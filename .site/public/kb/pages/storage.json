@@ -27,7 +27,6 @@
       "route": "/",
       "group": "home",
       "keywords": [
-        "and",
         "systems",
         "storage",
         "mlperf",
@@ -36,7 +35,8 @@
         "center",
         "notes",
         "lecture",
-        "rdma"
+        "rdma",
+        "roce"
       ],
       "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
     },
@@ -77,78 +77,12 @@
         "스토리지"
       ],
       "excerpt": "HDD + NVMe 기반 중소형 AI 스토리지 설계 기준 이 문서는 AI 연구실, 대학 FTP/미러 운영팀, 중소형 AI 기업, MLOps/Infra 엔지니어가 엔터프라이즈 스토리지를 바로 도입하기 어려운 상황에서 HDD + NVMe + OpenZFS로 AI 학습 워크로드를 어디까지 감"
-    },
-    {
-      "id": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "title": "Cloud Data Center Network의 지금과 앞으로",
-      "route": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "network",
-        "ethernet",
-        "fabric",
-        "ai/ml",
-        "rdma",
-        "traffic",
-        "routing",
-        "adaptive",
-        "frontend",
-        "rack"
-      ],
-      "excerpt": "Source: Masayuki Kobayashi, \"クラウドデータセンターネットワークの 'いま' と 'これから'\", AI/ML/HPCネットワーク分科会, 2023 06 12. 원본 PDF는 비출판 로컬 참조 자료이며, 이 문서는 공개 사이트용 요약과 최신 맥락 보강이다. 한 줄 요지 Clo"
-    },
-    {
-      "id": "/ai-system-performance-engineering/chap02/labs/",
-      "title": "Chapter 2 Labs",
-      "route": "/ai-system-performance-engineering/chap02/labs/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "labs",
-        "contract",
-        "lab",
-        "implementation",
-        "readme.md",
-        "common.py",
-        "helpers",
-        "baseline.py",
-        "optimized.py",
-        "focused"
-      ],
-      "excerpt": "This directory is for executable labs that support Chapter 2 notes. Use template/ as the starting point for a new lab: Recommended lab contract: README.md : con"
-    },
-    {
-      "id": "/training/",
-      "title": "MLPerf Training",
-      "route": "/training/",
-      "group": "training",
-      "keywords": [
-        "pretraining",
-        "moe",
-        "embedding",
-        "slurm",
-        "checkpoint",
-        "nemo",
-        "671b",
-        "flux.1",
-        "llama",
-        "3.1"
-      ],
-      "excerpt": "은 MLPerf Training 벤치마크의 reference implementation 모음입니다. 실제 제출용 최적화 코드라기보다, AI 데이터센터에서 대규모 학습 워크로드가 어떤 compute, network, storage, orchestration 요구사항을 만드는지 읽고 실험하"
     }
   ],
   "edges": [
     {
       "source": "/",
       "target": "/storage/",
-      "type": "link+keyword",
-      "weight": 1,
-      "terms": [
-        "storage"
-      ]
-    },
-    {
-      "source": "/",
-      "target": "/training/",
       "type": "link",
       "weight": 1,
       "terms": []
@@ -156,11 +90,9 @@
     {
       "source": "/storage/",
       "target": "/storage/mlperf-storage/",
-      "type": "link+keyword+section",
+      "type": "link+section",
       "weight": 1,
-      "terms": [
-        "storage"
-      ]
+      "terms": []
     },
     {
       "source": "/storage/",
@@ -172,36 +104,8 @@
     {
       "source": "/storage/mlperf-storage/",
       "target": "/storage/zfs/",
-      "type": "keyword+section",
-      "weight": 0.454,
-      "terms": []
-    },
-    {
-      "source": "/storage/mlperf-storage/",
-      "target": "/training/",
-      "type": "keyword",
-      "weight": 0.363,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/storage/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/labs/",
-      "target": "/storage/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/storage/",
-      "target": "/training/",
-      "type": "keyword",
-      "weight": 0.22,
+      "type": "semantic+section",
+      "weight": 0.847,
       "terms": []
     }
   ]
