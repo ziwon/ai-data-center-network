@@ -34,6 +34,9 @@ jobs:
       - name: Build site
         run: npm run build
         working-directory: .site
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_AI_TOKEN: ${{ secrets.CF_AI_TOKEN }}
 
       - name: Publish to gh-pages
         env:
