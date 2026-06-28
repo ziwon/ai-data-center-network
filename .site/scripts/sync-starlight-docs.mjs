@@ -126,6 +126,7 @@ async function publishMarkdown(absolute, relative) {
     [
       '---',
       `title: ${JSON.stringify(title)}`,
+      ...(isSiteHome ? [] : [`slug: ${JSON.stringify(slugFromRoute(routeFromOutput(outRelative)))}`]),
       `description: ${JSON.stringify(
         isSiteHome
           ? 'A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering.'
@@ -221,12 +222,19 @@ function markdownOutputPath(relative) {
   if (relative.endsWith('/README.md')) {
     return `${relative.slice(0, -'/README.md'.length)}/index.md`;
   }
+  if (relative.endsWith('.md')) {
+    return `${relative.slice(0, -'.md'.length)}/index.md`;
+  }
   return relative;
 }
 
 function routeFromOutput(outRelative) {
   if (outRelative === 'index.md') return '/';
   return `/${outRelative.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '/')}`.toLowerCase();
+}
+
+function slugFromRoute(route) {
+  return route.replace(/^\//, '').replace(/\/$/, '');
 }
 
 function extractTitle(markdown, relative) {
