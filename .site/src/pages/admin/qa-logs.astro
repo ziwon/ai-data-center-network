@@ -1,0 +1,476 @@
+---
+// Standalone admin page — no Starlight layout
+---
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Q&A Logs — AI Data Center Systems</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0f1a;
+      --bg2: #111827;
+      --bg3: #1a2236;
+      --border: #1e2d45;
+      --cyan: #38bdf8;
+      --cyan-dim: rgba(56,189,248,0.12);
+      --text: #e2e8f0;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --red: #f87171;
+      --radius: 8px;
+      --font: ui-sans-serif, system-ui, sans-serif;
+      --mono: ui-monospace, monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100dvh;
+    }
+
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .header-left { display: flex; flex-direction: column; gap: 0.2rem; }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .header h1 { font-size: 1.5rem; font-weight: 700; }
+    .header-link { font-size: 12px; color: var(--text-muted); }
+
+    /* ── Auth ── */
+    .auth-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .auth-bar label { font-size: 12px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+    .auth-bar input {
+      flex: 1;
+      min-width: 0;
+      max-width: 260px;
+      padding: 0.35rem 0.6rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text);
+      font: inherit;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .auth-bar input:focus { outline: none; border-color: var(--cyan); }
+    .auth-status { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+    .auth-status.ok { color: var(--cyan); }
+    .auth-status.err { color: var(--red); }
+
+    /* ── Controls ── */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .search-wrap { position: relative; flex: 1; min-width: 180px; max-width: 360px; }
+    .search-wrap svg {
+      position: absolute;
+      left: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.45rem 0.75rem 0.45rem 2rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font: inherit;
+    }
+    .search-input:focus { outline: none; border-color: var(--cyan); }
+    .search-input::placeholder { color: var(--text-muted); }
+
+    .meta { margin-left: auto; font-size: 12px; color: var(--text-muted); }
+    .meta strong { color: var(--text-dim); }
+
+    /* ── Table ── */
+    .table-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: var(--bg2); }
+    th {
+      padding: 0.6rem 1rem;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg2); }
+    tbody tr.expanded { background: var(--bg3); }
+    td {
+      padding: 0.75rem 1rem;
+      vertical-align: top;
+    }
+
+    .col-id    { width: 52px; color: var(--text-muted); font-family: var(--mono); font-size: 12px; }
+    .col-time  { width: 130px; white-space: nowrap; color: var(--text-dim); font-family: var(--mono); font-size: 12px; }
+    .col-q     { width: 40%; }
+    .col-a     { }
+
+    .q-text { color: var(--text); font-size: 13px; }
+    .a-preview { color: var(--text-muted); font-size: 12px; line-height: 1.5; }
+
+    /* ── Expanded row ── */
+    .expand-row td {
+      padding: 0 1rem 1rem;
+      background: var(--bg3);
+    }
+    .expand-inner {
+      display: grid;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .expand-section h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.5rem;
+    }
+    .expand-section p { font-size: 13px; line-height: 1.7; color: var(--text-dim); }
+    .expand-section .full-answer { white-space: pre-wrap; font-size: 13px; color: var(--text); line-height: 1.7; }
+    .source-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .source-chips a {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    .source-chips a:hover { border-color: var(--cyan); color: var(--cyan); text-decoration: none; }
+
+    /* ── Pagination ── */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .btn {
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg2);
+      color: var(--text-dim);
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn:hover:not(:disabled) { border-color: var(--cyan); color: var(--cyan); }
+    .btn:disabled { opacity: 0.35; cursor: default; }
+    .page-info { font-size: 12px; color: var(--text-muted); padding: 0 0.25rem; }
+
+    /* ── States ── */
+    .state-row td {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* ── Spinner ── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--cyan);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .col-id, .col-a { display: none; }
+      .col-time { width: 100px; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="header">
+    <div class="header-left">
+      <span class="eyebrow">AI Data Center Systems</span>
+      <h1>Q&amp;A Logs</h1>
+    </div>
+    <a class="header-link" href="/">← 사이트로 돌아가기</a>
+  </header>
+
+  <div class="auth-bar">
+    <label for="token-input">Admin Token</label>
+    <input id="token-input" type="password" placeholder="x-admin-token 값 입력" autocomplete="off" />
+    <span class="auth-status" id="auth-status">미인증</span>
+  </div>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="8.5" cy="8.5" r="5.5"/><path d="M13.5 13.5L17 17"/>
+      </svg>
+      <input class="search-input" id="search-input" type="search" placeholder="질문 검색..." />
+    </div>
+    <span class="meta" id="meta-info"></span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-id">#</th>
+          <th class="col-time">시간</th>
+          <th class="col-q">질문</th>
+          <th class="col-a">답변 미리보기</th>
+        </tr>
+      </thead>
+      <tbody id="log-body">
+        <tr class="state-row"><td colspan="4">Token을 입력하면 로그를 불러옵니다.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination" id="pagination" hidden>
+    <button class="btn" id="btn-prev" disabled>← 이전</button>
+    <span class="page-info" id="page-info"></span>
+    <button class="btn" id="btn-next" disabled>다음 →</button>
+  </div>
+
+</div>
+
+<script>
+  const API = '/api/ask/logs';
+  const SS_KEY = 'adcs_admin_token';
+
+  let state = { token: '', page: 1, q: '', total: 0, pages: 1 };
+
+  const tokenInput  = document.getElementById('token-input');
+  const authStatus  = document.getElementById('auth-status');
+  const searchInput = document.getElementById('search-input');
+  const logBody     = document.getElementById('log-body');
+  const metaInfo    = document.getElementById('meta-info');
+  const pagination  = document.getElementById('pagination');
+  const btnPrev     = document.getElementById('btn-prev');
+  const btnNext     = document.getElementById('btn-next');
+  const pageInfo    = document.getElementById('page-info');
+
+  // Restore token from sessionStorage
+  const saved = sessionStorage.getItem(SS_KEY);
+  if (saved) { tokenInput.value = saved; state.token = saved; loadLogs(); }
+
+  tokenInput.addEventListener('change', () => {
+    state.token = tokenInput.value.trim();
+    state.page = 1;
+    sessionStorage.setItem(SS_KEY, state.token);
+    if (state.token) loadLogs(); else renderEmpty('Token을 입력하면 로그를 불러옵니다.');
+  });
+
+  let searchTimer;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      state.q = searchInput.value.trim();
+      state.page = 1;
+      loadLogs();
+    }, 350);
+  });
+
+  btnPrev.addEventListener('click', () => { state.page--; loadLogs(); });
+  btnNext.addEventListener('click', () => { state.page++; loadLogs(); });
+
+  async function loadLogs() {
+    if (!state.token) return;
+    renderLoading();
+
+    const params = new URLSearchParams({ page: String(state.page) });
+    if (state.q) params.set('q', state.q);
+
+    try {
+      const res = await fetch(`${API}?${params}`, {
+        headers: { 'x-admin-token': state.token },
+      });
+
+      if (res.status === 401) {
+        authStatus.textContent = '인증 실패';
+        authStatus.className = 'auth-status err';
+        renderEmpty('Token이 올바르지 않습니다.');
+        return;
+      }
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || `Error ${res.status}`);
+
+      state.total = data.total;
+      state.pages = data.pages;
+
+      authStatus.textContent = '인증됨';
+      authStatus.className = 'auth-status ok';
+
+      renderLogs(data.logs);
+      renderPagination();
+    } catch (err) {
+      renderEmpty(`오류: ${err.message}`);
+    }
+  }
+
+  function renderLoading() {
+    logBody.innerHTML = `<tr class="state-row"><td colspan="4"><span class="spinner"></span>불러오는 중...</td></tr>`;
+    pagination.hidden = true;
+    metaInfo.innerHTML = '';
+  }
+
+  function renderEmpty(msg) {
+    logBody.innerHTML = `<tr class="state-row"><td colspan="4">${msg}</td></tr>`;
+    pagination.hidden = true;
+    metaInfo.innerHTML = '';
+  }
+
+  function renderLogs(logs) {
+    if (!logs.length) {
+      renderEmpty(state.q ? `"${state.q}"에 해당하는 질문이 없습니다.` : '아직 로그가 없습니다.');
+      metaInfo.innerHTML = `총 <strong>0</strong>건`;
+      return;
+    }
+
+    metaInfo.innerHTML = `총 <strong>${state.total.toLocaleString()}</strong>건`;
+
+    logBody.innerHTML = '';
+    logs.forEach((log) => {
+      const tr = document.createElement('tr');
+      tr.dataset.id = log.id;
+      tr.innerHTML = `
+        <td class="col-id">${log.id}</td>
+        <td class="col-time">${formatTime(log.time)}</td>
+        <td class="col-q"><span class="q-text">${esc(log.question)}</span></td>
+        <td class="col-a"><span class="a-preview">${esc(log.answer.slice(0, 120))}…</span></td>
+      `;
+
+      const expandTr = document.createElement('tr');
+      expandTr.className = 'expand-row';
+      expandTr.hidden = true;
+      expandTr.innerHTML = `<td colspan="4">
+        <div class="expand-inner">
+          <div class="expand-section">
+            <h4>질문</h4>
+            <p>${esc(log.question)}</p>
+          </div>
+          <div class="expand-section">
+            <h4>답변</h4>
+            <div class="full-answer">${esc(log.answer)}</div>
+          </div>
+          ${log.sources.length ? `
+          <div class="expand-section">
+            <h4>Sources</h4>
+            <div class="source-chips">
+              ${log.sources.map(s => `<a href="${esc(s.url)}" target="_blank">${esc(s.title)}</a>`).join('')}
+            </div>
+          </div>` : ''}
+        </div>
+      </td>`;
+
+      tr.addEventListener('click', () => {
+        const isOpen = !expandTr.hidden;
+        expandTr.hidden = isOpen;
+        tr.classList.toggle('expanded', !isOpen);
+      });
+
+      logBody.append(tr, expandTr);
+    });
+  }
+
+  function renderPagination() {
+    if (state.pages <= 1) { pagination.hidden = true; return; }
+    pagination.hidden = false;
+    pageInfo.textContent = `${state.page} / ${state.pages}`;
+    btnPrev.disabled = state.page <= 1;
+    btnNext.disabled = state.page >= state.pages;
+  }
+
+  function formatTime(iso) {
+    const d = new Date(iso);
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const min = String(d.getMinutes()).padStart(2, '0');
+    return `${mm}-${dd} ${hh}:${min}`;
+  }
+
+  function esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+</script>
+</body>
+</html>

@@ -1,18 +1,24 @@
 const memoryBuckets = new Map();
+const PAGE_SIZE = 20;
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
     const origin = request.headers.get('origin') || '';
     const allowedOrigin = env.ALLOWED_ORIGIN || 'https://adcs.restack.tech';
     const corsHeaders = {
       'access-control-allow-origin': allowedOrigin,
-      'access-control-allow-methods': 'POST, OPTIONS',
-      'access-control-allow-headers': 'content-type',
+      'access-control-allow-methods': 'GET, POST, OPTIONS',
+      'access-control-allow-headers': 'content-type, x-admin-token',
       vary: 'Origin',
     };
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: corsHeaders });
+    }
+
+    if (url.pathname === '/api/ask/logs') {
+      return handleLogs(request, env, corsHeaders);
     }
 
     if (request.method !== 'POST') {
@@ -59,6 +65,12 @@ export default {
     }
 
     const answer = await askGitHubModels({ env, question, sources });
+
+    if (env.QA_DB) {
+      const ip = request.headers.get('cf-connecting-ip') || 'unknown';
+      ctx.waitUntil(logQA({ db: env.QA_DB, ip, question, answer, sources }));
+    }
+
     return json(
       { answer },
       200,
@@ -70,6 +82,62 @@ export default {
     );
   },
 };
+
+async function handleLogs(request, env, corsHeaders) {
+  if (request.method !== 'GET') {
+    return json({ error: 'Method not allowed' }, 405, corsHeaders);
+  }
+
+  const token = request.headers.get('x-admin-token') || '';
+  if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+    return json({ error: 'Unauthorized' }, 401, corsHeaders);
+  }
+
+  if (!env.QA_DB) {
+    return json({ error: 'Database not configured' }, 500, corsHeaders);
+  }
+
+  const url = new URL(request.url);
+  const page = Math.max(1, parsePositiveInt(url.searchParams.get('page'), 1));
+  const q = (url.searchParams.get('q') || '').trim();
+  const offset = (page - 1) * PAGE_SIZE;
+
+  let total, rows;
+
+  if (q) {
+    const like = `%${q}%`;
+    const countRow = await env.QA_DB.prepare(
+      'SELECT COUNT(*) AS n FROM qa_logs WHERE question LIKE ?',
+    ).bind(like).first();
+    total = countRow?.n ?? 0;
+
+    const result = await env.QA_DB.prepare(
+      'SELECT id, ts, question, answer, sources FROM qa_logs WHERE question LIKE ? ORDER BY ts DESC LIMIT ? OFFSET ?',
+    ).bind(like, PAGE_SIZE, offset).all();
+    rows = result.results;
+  } else {
+    const countRow = await env.QA_DB.prepare('SELECT COUNT(*) AS n FROM qa_logs').first();
+    total = countRow?.n ?? 0;
+
+    const result = await env.QA_DB.prepare(
+      'SELECT id, ts, question, answer, sources FROM qa_logs ORDER BY ts DESC LIMIT ? OFFSET ?',
+    ).bind(PAGE_SIZE, offset).all();
+    rows = result.results;
+  }
+
+  return json({
+    total,
+    page,
+    pages: Math.max(1, Math.ceil(total / PAGE_SIZE)),
+    logs: rows.map((row) => ({
+      id: row.id,
+      time: new Date(row.ts * 1000).toISOString(),
+      question: row.question,
+      answer: row.answer,
+      sources: JSON.parse(row.sources || '[]'),
+    })),
+  }, 200, corsHeaders);
+}
 
 async function askGitHubModels({ env, question, sources }) {
   const context = sources
@@ -134,6 +202,21 @@ async function askGitHubModels({ env, question, sources }) {
   const answer = data?.choices?.[0]?.message?.content;
   if (!answer) throw new Error('GitHub Models returned an empty answer');
   return answer;
+}
+
+async function logQA({ db, ip, question, answer, sources }) {
+  const enc = new TextEncoder();
+  const hash = await crypto.subtle.digest('SHA-256', enc.encode(ip));
+  const ipHash = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+  await db.prepare(
+    'INSERT INTO qa_logs (ts, ip_hash, question, answer, sources) VALUES (?, ?, ?, ?, ?)',
+  ).bind(
+    Math.floor(Date.now() / 1000),
+    ipHash,
+    question,
+    answer,
+    JSON.stringify(sources),
+  ).run();
 }
 
 async function checkRateLimit(request, env) {

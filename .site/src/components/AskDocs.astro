@@ -15,7 +15,10 @@
       </div>
 
       <label class="ask-docs-field">
-        <span>Question</span>
+        <span class="ask-docs-field-row">
+          <span>Question</span>
+          <span class="ask-docs-char" data-char>0 / 800</span>
+        </span>
         <textarea
           name="question"
           rows="4"
@@ -23,17 +26,23 @@
           placeholder="이 문서에서 핵심 운영 체크포인트는 무엇인가요?"
           data-question
         ></textarea>
+        <span class="ask-docs-hint">시간당 최대 20회 · 질문당 최대 800자</span>
       </label>
 
       <div class="ask-docs-actions">
-        <button class="ask-docs-submit" type="submit" data-submit>Ask</button>
+        <button class="ask-docs-submit" type="submit" data-submit>
+          <svg class="ask-docs-spinner" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" stroke-dasharray="56" stroke-dashoffset="14" stroke-linecap="round"/>
+          </svg>
+          <span data-submit-label>Ask</span>
+        </button>
         <p class="ask-docs-status" data-status></p>
       </div>
 
       <section class="ask-docs-answer" data-answer hidden></section>
       <section class="ask-docs-sources" data-sources hidden>
         <h3>Sources</h3>
-        <ol data-source-list></ol>
+        <ul class="ask-docs-source-chips" data-source-list></ul>
       </section>
     </form>
   </dialog>
@@ -73,8 +82,17 @@
       const close = this.querySelector<HTMLButtonElement>('[data-close]');
       const form = this.querySelector<HTMLFormElement>('form');
       const question = this.querySelector<HTMLTextAreaElement>('[data-question]');
+      const charEl = this.querySelector<HTMLElement>('[data-char]');
 
       if (!dialog || !open || !close || !form || !question) return;
+
+      question.addEventListener('input', () => {
+        const len = question.value.length;
+        if (charEl) {
+          charEl.textContent = `${len} / 800`;
+          charEl.classList.toggle('ask-docs-char--warn', len > 700);
+        }
+      });
 
       open.addEventListener('click', () => {
         openDialog(dialog);
@@ -90,7 +108,7 @@
         event.preventDefault();
         const value = question.value.trim();
         if (!value) {
-          this.setStatus('질문을 입력해주세요.');
+          this.setStatus('질문을 입력해주세요.', 'error');
           return;
         }
         await this.ask(value);
@@ -99,12 +117,17 @@
 
     private async ask(question: string) {
       const submit = this.querySelector<HTMLButtonElement>('[data-submit]');
+      const submitLabel = this.querySelector<HTMLElement>('[data-submit-label]');
+      const spinner = this.querySelector<SVGElement>('.ask-docs-spinner');
       const answer = this.querySelector<HTMLElement>('[data-answer]');
       const sources = this.querySelector<HTMLElement>('[data-sources]');
-      const sourceList = this.querySelector<HTMLOListElement>('[data-source-list]');
+      const sourceList = this.querySelector<HTMLElement>('[data-source-list]');
       const endpoint = this.dataset.endpoint || '/api/ask';
 
       submit?.setAttribute('disabled', '');
+      if (spinner) spinner.hidden = false;
+      if (submitLabel) submitLabel.textContent = '생각 중...';
+
       if (answer) {
         answer.hidden = true;
         answer.replaceChildren();
@@ -113,16 +136,16 @@
         sources.hidden = true;
         sourceList.replaceChildren();
       }
-      this.setStatus('문서에서 근거를 찾는 중...');
+      this.setStatus('문서에서 근거를 찾는 중...', 'loading');
 
       try {
         const context = await this.collectSources(question);
         if (context.length === 0) {
-          this.setStatus('관련 문서 조각을 찾지 못했습니다.');
+          this.setStatus('관련 문서 조각을 찾지 못했습니다.', 'error');
           return;
         }
 
-        this.setStatus('답변을 생성하는 중...');
+        this.setStatus('답변을 생성하는 중...', 'loading');
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
@@ -140,12 +163,14 @@
 
         this.renderAnswer(payload.answer || '답변을 생성하지 못했습니다.');
         this.renderSources(context);
-        this.setStatus('');
+        this.setStatus('', '');
       } catch (error) {
         const message = error instanceof Error ? error.message : '요청 중 오류가 발생했습니다.';
-        this.setStatus(message);
+        this.setStatus(message, 'error');
       } finally {
         submit?.removeAttribute('disabled');
+        if (spinner) spinner.hidden = true;
+        if (submitLabel) submitLabel.textContent = 'Ask';
       }
     }
 
@@ -196,23 +221,13 @@
     private renderAnswer(text: string) {
       const answer = this.querySelector<HTMLElement>('[data-answer]');
       if (!answer) return;
-      const paragraphs = text
-        .split(/\n{2,}/)
-        .map((part) => part.trim())
-        .filter(Boolean);
-      answer.replaceChildren(
-        ...paragraphs.map((paragraph) => {
-          const p = document.createElement('p');
-          p.textContent = paragraph;
-          return p;
-        }),
-      );
+      answer.replaceChildren(...parseMarkdown(text));
       answer.hidden = false;
     }
 
     private renderSources(sources: AskSource[]) {
       const wrap = this.querySelector<HTMLElement>('[data-sources]');
-      const list = this.querySelector<HTMLOListElement>('[data-source-list]');
+      const list = this.querySelector<HTMLElement>('[data-source-list]');
       if (!wrap || !list) return;
       list.replaceChildren(
         ...sources.map((source) => {
@@ -227,10 +242,82 @@
       wrap.hidden = false;
     }
 
-    private setStatus(message: string) {
+    private setStatus(message: string, type: 'loading' | 'error' | '') {
       const status = this.querySelector<HTMLElement>('[data-status]');
-      if (status) status.textContent = message;
+      if (!status) return;
+      status.textContent = message;
+      status.dataset.type = type;
     }
+  }
+
+  function parseMarkdown(markdown: string): Node[] {
+    const blocks = markdown.trim().split(/\n{2,}/);
+    return blocks.flatMap((block) => {
+      const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
+      if (!lines.length) return [];
+
+      if (lines[0].match(/^\d+\. /)) {
+        const ol = document.createElement('ol');
+        let currentLi: HTMLLIElement | null = null;
+        for (const line of lines) {
+          const m = line.match(/^(\d+)\. (.*)/);
+          if (m) {
+            currentLi = document.createElement('li');
+            currentLi.append(...parseInline(m[2]));
+            ol.append(currentLi);
+          } else if (currentLi) {
+            currentLi.append(document.createTextNode(' '), ...parseInline(line));
+          }
+        }
+        return [ol];
+      }
+
+      if (lines[0].match(/^[-*] /)) {
+        const ul = document.createElement('ul');
+        let currentLi: HTMLLIElement | null = null;
+        for (const line of lines) {
+          const m = line.match(/^[-*] (.*)/);
+          if (m) {
+            currentLi = document.createElement('li');
+            currentLi.append(...parseInline(m[1]));
+            ul.append(currentLi);
+          } else if (currentLi) {
+            currentLi.append(document.createTextNode(' '), ...parseInline(line));
+          }
+        }
+        return [ul];
+      }
+
+      const p = document.createElement('p');
+      p.append(...parseInline(lines.join(' ')));
+      return [p];
+    });
+  }
+
+  function parseInline(text: string): (Text | HTMLElement)[] {
+    const result: (Text | HTMLElement)[] = [];
+    const regex = /\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`/g;
+    let last = 0;
+    let match: RegExpExecArray | null;
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > last) result.push(document.createTextNode(text.slice(last, match.index)));
+      if (match[1] !== undefined) {
+        const el = document.createElement('strong');
+        el.textContent = match[1];
+        result.push(el);
+      } else if (match[2] !== undefined) {
+        const el = document.createElement('em');
+        el.textContent = match[2];
+        result.push(el);
+      } else if (match[3] !== undefined) {
+        const el = document.createElement('code');
+        el.textContent = match[3];
+        result.push(el);
+      }
+      last = match.index + match[0].length;
+    }
+    if (last < text.length) result.push(document.createTextNode(text.slice(last)));
+    return result;
   }
 
   function stripPagefindMarkup(value: string) {

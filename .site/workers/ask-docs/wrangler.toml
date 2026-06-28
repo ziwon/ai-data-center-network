@@ -3,7 +3,7 @@ main = "src/index.js"
 compatibility_date = "2026-06-28"
 
 routes = [
-  { pattern = "adcs.restack.tech/api/ask", zone_name = "restack.tech" }
+  { pattern = "adcs.restack.tech/api/ask*", zone_name = "restack.tech" }
 ]
 
 [vars]
@@ -16,3 +16,9 @@ RATE_LIMIT_WINDOW_SECONDS = "3600"
 [[kv_namespaces]]
 binding = "ASK_DOCS_RATE_LIMIT"
 id = "07322ffb079841da9811132d68d28bc4"
+
+[[d1_databases]]
+binding = "QA_DB"
+database_name = "adcs-qa-logs"
+database_id = "f7da8195-c401-4d79-977e-fa9641cacf77"
+migrations_dir = "migrations"
