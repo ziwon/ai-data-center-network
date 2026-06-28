@@ -32,6 +32,7 @@
 
 ### Articles
 
+- [Cloud Data Center Network의 지금과 앞으로](./articles/cloud-data-center-network-now-and-next.ko.md): web-scale fabric과 AI/ML scheduled fabric의 차이, RDMA, frontend/backend 분리, adaptive routing
 - [InfiniBand vs RoCEv2 실측 비교 — 대규모 AI 학습 클러스터의 네트워크 선택](https://elice.io/ko/resources/blog/infiniband-vs-rocev2-benchmark) (2026.04)
 - [DGX B300 ConnectX-8 기반 800G 네트워크에서 소규모 클러스터를 스위치 없이 구성하는 방법](https://blog.sionic.ai/dgx-b300-direct) (2026.04)
 - [A Practical Guide to RoCEv2 Lossless Networks for GPU Clusters](https://www.aicplight.com/blog-news/a-practical-guide-to-rocev2-lossless-networks-for-gpu-clusters-230) (2026.04)
