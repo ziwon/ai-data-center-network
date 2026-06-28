@@ -193,7 +193,22 @@
       margin-bottom: 0.5rem;
     }
     .expand-section p { font-size: 13px; line-height: 1.7; color: var(--text-dim); }
-    .expand-section .full-answer { white-space: pre-wrap; font-size: 13px; color: var(--text); line-height: 1.7; }
+    .full-answer { font-size: 13px; line-height: 1.75; color: var(--text); }
+    .full-answer p { margin: 0 0 0.65rem; }
+    .full-answer p:last-child { margin-bottom: 0; }
+    .full-answer ol,
+    .full-answer ul { margin: 0.4rem 0 0.65rem; padding-inline-start: 1.4rem; display: grid; gap: 0.35rem; }
+    .full-answer li { color: var(--text); }
+    .full-answer strong { color: #fff; font-weight: 700; }
+    .full-answer em { font-style: italic; color: var(--text-dim); }
+    .full-answer code {
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 0.875em;
+    }
     .source-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
     .source-chips a {
       display: inline-block;
@@ -417,25 +432,52 @@
       const expandTr = document.createElement('tr');
       expandTr.className = 'expand-row';
       expandTr.hidden = true;
-      expandTr.innerHTML = `<td colspan="4">
-        <div class="expand-inner">
-          <div class="expand-section">
-            <h4>질문</h4>
-            <p>${esc(log.question)}</p>
-          </div>
-          <div class="expand-section">
-            <h4>답변</h4>
-            <div class="full-answer">${esc(log.answer)}</div>
-          </div>
-          ${log.sources.length ? `
-          <div class="expand-section">
-            <h4>Sources</h4>
-            <div class="source-chips">
-              ${log.sources.map(s => `<a href="${esc(s.url)}" target="_blank">${esc(s.title)}</a>`).join('')}
-            </div>
-          </div>` : ''}
-        </div>
-      </td>`;
+
+      const expandTd = document.createElement('td');
+      expandTd.colSpan = 4;
+
+      const inner = document.createElement('div');
+      inner.className = 'expand-inner';
+
+      // Question
+      const qSec = document.createElement('div');
+      qSec.className = 'expand-section';
+      qSec.innerHTML = `<h4>질문</h4>`;
+      const qP = document.createElement('p');
+      qP.textContent = log.question;
+      qSec.append(qP);
+      inner.append(qSec);
+
+      // Answer — markdown rendered
+      const aSec = document.createElement('div');
+      aSec.className = 'expand-section';
+      aSec.innerHTML = `<h4>답변</h4>`;
+      const aDiv = document.createElement('div');
+      aDiv.className = 'full-answer';
+      aDiv.append(...parseMarkdown(log.answer));
+      aSec.append(aDiv);
+      inner.append(aSec);
+
+      // Sources
+      if (log.sources.length) {
+        const sSec = document.createElement('div');
+        sSec.className = 'expand-section';
+        sSec.innerHTML = `<h4>Sources</h4>`;
+        const chips = document.createElement('div');
+        chips.className = 'source-chips';
+        log.sources.forEach((s) => {
+          const a = document.createElement('a');
+          a.href = s.url;
+          a.target = '_blank';
+          a.textContent = s.title;
+          chips.append(a);
+        });
+        sSec.append(chips);
+        inner.append(sSec);
+      }
+
+      expandTd.append(inner);
+      expandTr.append(expandTd);
 
       tr.addEventListener('click', () => {
         const isOpen = !expandTr.hidden;
@@ -462,6 +504,76 @@
     const hh = String(d.getHours()).padStart(2, '0');
     const min = String(d.getMinutes()).padStart(2, '0');
     return `${mm}-${dd} ${hh}:${min}`;
+  }
+
+  function parseMarkdown(markdown) {
+    const blocks = markdown.trim().split(/\n{2,}/);
+    return blocks.flatMap((block) => {
+      const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
+      if (!lines.length) return [];
+
+      if (lines[0].match(/^\d+\. /)) {
+        const ol = document.createElement('ol');
+        let currentLi = null;
+        for (const line of lines) {
+          const m = line.match(/^(\d+)\. (.*)/);
+          if (m) {
+            currentLi = document.createElement('li');
+            currentLi.append(...parseInline(m[2]));
+            ol.append(currentLi);
+          } else if (currentLi) {
+            currentLi.append(document.createTextNode(' '), ...parseInline(line));
+          }
+        }
+        return [ol];
+      }
+
+      if (lines[0].match(/^[-*] /)) {
+        const ul = document.createElement('ul');
+        let currentLi = null;
+        for (const line of lines) {
+          const m = line.match(/^[-*] (.*)/);
+          if (m) {
+            currentLi = document.createElement('li');
+            currentLi.append(...parseInline(m[1]));
+            ul.append(currentLi);
+          } else if (currentLi) {
+            currentLi.append(document.createTextNode(' '), ...parseInline(line));
+          }
+        }
+        return [ul];
+      }
+
+      const p = document.createElement('p');
+      p.append(...parseInline(lines.join(' ')));
+      return [p];
+    });
+  }
+
+  function parseInline(text) {
+    const result = [];
+    const regex = /\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`/g;
+    let last = 0;
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > last) result.push(document.createTextNode(text.slice(last, match.index)));
+      if (match[1] !== undefined) {
+        const el = document.createElement('strong');
+        el.textContent = match[1];
+        result.push(el);
+      } else if (match[2] !== undefined) {
+        const el = document.createElement('em');
+        el.textContent = match[2];
+        result.push(el);
+      } else if (match[3] !== undefined) {
+        const el = document.createElement('code');
+        el.textContent = match[3];
+        result.push(el);
+      }
+      last = match.index + match[0].length;
+    }
+    if (last < text.length) result.push(document.createTextNode(text.slice(last)));
+    return result;
   }
 
   function esc(str) {
