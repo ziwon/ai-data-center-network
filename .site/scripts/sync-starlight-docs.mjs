@@ -34,6 +34,7 @@ const ignoredDirs = new Set([
   '.github',
   'node_modules',
   'public',
+  'refs',
   'scripts',
   '.site',
   'src',
@@ -50,6 +51,7 @@ const generatedPublicRoots = [
   'training',
   'storage',
   'talks',
+  'refs',
 ];
 
 const pages = [];

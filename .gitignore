@@ -1,6 +1,8 @@
 __pycache__/
 *.py[cod]
-refs
+
+# Local reference material; never version or publish.
+refs/
 ai-data-center-network/ib-packets
 .site/node_modules/
 .site/dist/
