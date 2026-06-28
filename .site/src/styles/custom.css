@@ -184,6 +184,12 @@ a {
   color: var(--sl-color-white);
   font-size: clamp(2.2rem, 5vw, 4.7rem);
   line-height: 0.96;
+  /* Starlight markdown sets overflow-wrap: anywhere, which breaks long words
+     like "infrastructure" mid-character. Keep whole-word wrapping in the
+     hero headline and only hyphenate when a word truly cannot fit. */
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: auto;
 }
 
 .adcs-home-hero-copy > p:not(.adcs-home-kicker) {
