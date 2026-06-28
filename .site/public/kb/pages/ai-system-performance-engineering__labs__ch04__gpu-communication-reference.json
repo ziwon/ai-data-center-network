@@ -1,0 +1,647 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+    "title": "Lab: GPU Communication Reference",
+    "route": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+    "group": "ai-system-performance-engineering",
+    "keywords": [
+      "overlap.py",
+      "ddp",
+      "sweep.py",
+      "backward",
+      "bucket",
+      "communication",
+      "process-group",
+      "gradient",
+      "nccl",
+      "buckets"
+    ],
+    "excerpt": "Goal Provide real GPU/NCCL entrypoints for the Chapter 4 communication labs. The other labs in this directory are CPU portable concept models. This lab is inten"
+  },
+  "nodes": [
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "title": "Lab: GPU Communication Reference",
+      "route": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "overlap.py",
+        "ddp",
+        "sweep.py",
+        "backward",
+        "bucket",
+        "communication",
+        "process-group",
+        "gradient",
+        "nccl",
+        "buckets"
+      ],
+      "excerpt": "Goal Provide real GPU/NCCL entrypoints for the Chapter 4 communication labs. The other labs in this directory are CPU portable concept models. This lab is inten"
+    },
+    {
+      "id": "concept:nccl",
+      "kind": "concept",
+      "title": "NCCL",
+      "label": "NCCL",
+      "group": "distributed-training",
+      "description": "NVIDIA collective communication library used by distributed GPU training.",
+      "keywords": [
+        "NCCL",
+        "collectives",
+        "all-reduce",
+        "allreduce",
+        "reduce-scatter",
+        "all-gather"
+      ]
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/",
+      "title": "Chapter 4 Labs",
+      "route": "/ai-system-performance-engineering/labs/ch04/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "labs",
+        "communication",
+        "gpu-communication-reference",
+        "and",
+        "the",
+        "directory",
+        "exposed",
+        "transfers",
+        "multi-gpu",
+        "buffers"
+      ],
+      "excerpt": "This directory contains executable labs that support Chapter 4 notes on distributed networking communication. The labs adapt the chapter's distributed communica"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap02/labs/",
+      "title": "Chapter 2 Labs",
+      "route": "/ai-system-performance-engineering/chap02/labs/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "labs",
+        "contract",
+        "lab",
+        "implementation",
+        "readme.md",
+        "common.py",
+        "helpers",
+        "baseline.py",
+        "optimized.py",
+        "focused"
+      ],
+      "excerpt": "This directory is for executable labs that support Chapter 2 notes. Use template/ as the starting point for a new lab: Recommended lab contract: README.md : con"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "title": "Lab: Communication and Computation Overlap",
+      "route": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "the",
+        "communication",
+        "bucket",
+        "overlap",
+        "exposed",
+        "optimized",
+        "lab",
+        "step",
+        "computation",
+        "compute"
+      ],
+      "excerpt": "Goal Show why Chapter 4 focuses on exposed communication time . The total communication volume may be the same, but the optimized path starts each bucket transf"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "title": "Lab: DataParallel vs DDP",
+      "route": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "dataparallel",
+        "ddp",
+        "one",
+        "scatters",
+        "replicas",
+        "ddp-shaped",
+        "optimized",
+        "anti-pattern",
+        "gathers",
+        "spend"
+      ],
+      "excerpt": "Goal Show why Chapter 4 treats PyTorch DataParallel as an anti pattern for serious multi GPU training. Baseline The baseline models one Python process that scat"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "title": "Lab: Gradient Bucketing, Fusion, and Compression",
+      "route": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gradient",
+        "fusion",
+        "compression",
+        "and",
+        "the",
+        "bucketing",
+        "buckets",
+        "checksum",
+        "tolerance",
+        "optimized"
+      ],
+      "excerpt": "Goal Show why Chapter 4 treats gradient synchronization as both a bandwidth problem and a launch latency problem. This lab adapts the important ideas behind gra"
+    },
+    {
+      "id": "/ai-system-performance-engineering/",
+      "title": "AI Systems Performance Engineering",
+      "route": "/ai-system-performance-engineering/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "engineering",
+        "2025.12",
+        "2026.04",
+        "2025.08",
+        "systems",
+        "books",
+        "numa-aware",
+        "talks",
+        "uncore",
+        "kubelet"
+      ],
+      "excerpt": "Resources Books (2025.12) Articles : NUMA, cloud VM topology, Kubernetes CPU Manager, uncore bottlenecks : GPU local CPU placement, kubelet topology policies, N"
+    },
+    {
+      "id": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "title": "Keeping GPU Workloads NUMA-Local in Kubernetes",
+      "route": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "numa",
+        "cpu",
+        "pod",
+        "node",
+        "container",
+        "kubelet",
+        "memory",
+        "gpu",
+        "manager",
+        "request"
+      ],
+      "excerpt": "Ronak Nathani, \"Keeping GPU Workloads NUMA Local in Kubernetes\" 요약 노트. 원문: 한 줄 요지 GPU workload에서 CPU가 request preparation, batching, dataloader, pinned memory s"
+    },
+    {
+      "id": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "title": "Never Underestimate Memory Architecture",
+      "route": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "cpu",
+        "numa",
+        "memory",
+        "instance",
+        "manager",
+        "gpu",
+        "node",
+        "zone",
+        "cloud",
+        "kubernetes"
+      ],
+      "excerpt": "Bryan Boreham, Grafana Labs, CNCF 발표 요약 노트. 원본 영상: 발표 자료: 한 줄 요지 대형 서버와 cloud VM에서는 CPU, memory, cache, PCIe device가 균일하게 연결되어 있지 않다. Workload가 NUMA boundary와 s"
+    },
+    {
+      "id": "/ai-data-center-network/chap01/",
+      "title": "Chapter 1: Wonders in the Workload",
+      "route": "/ai-data-center-network/chap01/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "rdma",
+        "nic",
+        "memory",
+        "kernel",
+        "for",
+        "are",
+        "infiniband",
+        "queue"
+      ],
+      "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
+    },
+    {
+      "id": "/ai-data-center-network/chap03/",
+      "title": "Chapter 3: Network Design Considerations",
+      "route": "/ai-data-center-network/chap03/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "and",
+        "the",
+        "leaf",
+        "design",
+        "clos",
+        "fabric",
+        "rail",
+        "for",
+        "spine",
+        "cabling"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
+    },
+    {
+      "id": "/ai-data-center-network/chap10/",
+      "title": "Chapter 10: AI Network Performance KPIs",
+      "route": "/ai-data-center-network/chap10/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "kpis",
+        "mlperf",
+        "storage",
+        "time",
+        "benchmark",
+        "accuracy",
+        "latency",
+        "quality"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
+    },
+    {
+      "id": "/ai-data-center-network/chap12/",
+      "title": "Chapter 12: Ultra Ethernet Consortium, UEC",
+      "route": "/ai-data-center-network/chap12/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "uet",
+        "uec",
+        "delivery",
+        "and",
+        "the",
+        "packet",
+        "congestion",
+        "inc",
+        "cbfc",
+        "pdc"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet based AI/HPC"
+    }
+  ],
+  "edges": [
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "allreduce",
+        "collectives"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "collectives",
+        "NCCL",
+        "allreduce"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "allreduce",
+        "collectives"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap12/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "collectives",
+        "NCCL",
+        "allreduce"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "all-reduce",
+        "allreduce"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "NCCL",
+        "all-reduce"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "type": "keyword+section",
+      "weight": 0.696,
+      "terms": [
+        "cpu",
+        "numa",
+        "memory",
+        "manager",
+        "node"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "keyword+section",
+      "weight": 0.617,
+      "terms": [
+        "and",
+        "the",
+        "for"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.482,
+      "terms": [
+        "the",
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.421,
+      "terms": [
+        "communication"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "keyword+section",
+      "weight": 0.396,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "keyword",
+      "weight": 0.269,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.227,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/labs/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "communication",
+        "exposed"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "communication",
+        "bucket"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "ddp"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gradient",
+        "buckets"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap02/labs/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

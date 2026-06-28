@@ -1,0 +1,1260 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+    "title": "Keeping GPU Workloads NUMA-Local in Kubernetes",
+    "route": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+    "group": "ai-system-performance-engineering",
+    "keywords": [
+      "numa",
+      "cpu",
+      "pod",
+      "node",
+      "container",
+      "kubelet",
+      "memory",
+      "gpu",
+      "manager",
+      "request"
+    ],
+    "excerpt": "Ronak Nathani, \"Keeping GPU Workloads NUMA Local in Kubernetes\" 요약 노트. 원문: 한 줄 요지 GPU workload에서 CPU가 request preparation, batching, dataloader, pinned memory s"
+  },
+  "nodes": [
+    {
+      "id": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "title": "Keeping GPU Workloads NUMA-Local in Kubernetes",
+      "route": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "numa",
+        "cpu",
+        "pod",
+        "node",
+        "container",
+        "kubelet",
+        "memory",
+        "gpu",
+        "manager",
+        "request"
+      ],
+      "excerpt": "Ronak Nathani, \"Keeping GPU Workloads NUMA Local in Kubernetes\" 요약 노트. 원문: 한 줄 요지 GPU workload에서 CPU가 request preparation, batching, dataloader, pinned memory s"
+    },
+    {
+      "id": "/ai-system-performance-engineering/",
+      "title": "AI Systems Performance Engineering",
+      "route": "/ai-system-performance-engineering/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "engineering",
+        "2025.12",
+        "2026.04",
+        "2025.08",
+        "systems",
+        "books",
+        "numa-aware",
+        "talks",
+        "uncore",
+        "kubelet"
+      ],
+      "excerpt": "Resources Books (2025.12) Articles : NUMA, cloud VM topology, Kubernetes CPU Manager, uncore bottlenecks : GPU local CPU placement, kubelet topology policies, N"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap03/",
+      "title": "Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments",
+      "route": "/ai-system-performance-engineering/chap03/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "cpu",
+        "kubernetes",
+        "memory",
+        "cuda",
+        "container",
+        "mig",
+        "numa",
+        "image",
+        "kernel"
+      ],
+      "excerpt": "Table of Contents Goal 이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다. 핵심 아이디어는 다음과 같다. GPU 성능은 CUDA kernel만으로 "
+    },
+    {
+      "id": "concept:numa",
+      "kind": "concept",
+      "title": "NUMA",
+      "label": "NUMA",
+      "group": "systems",
+      "description": "CPU and memory locality model that matters for GPU, NIC, and memory placement.",
+      "keywords": [
+        "NUMA",
+        "NUMA locality",
+        "NUMA node",
+        "NUMA domain",
+        "remote memory"
+      ]
+    },
+    {
+      "id": "concept:topology-aware-scheduling",
+      "kind": "concept",
+      "title": "Topology-Aware Scheduling",
+      "label": "Topology-Aware Scheduling",
+      "group": "kubernetes",
+      "description": "Placement decisions that keep CPUs, memory, NICs, and GPUs close to each other.",
+      "keywords": [
+        "Topology-Aware Scheduling",
+        "topology-aware scheduling",
+        "Topology Manager",
+        "CPU Manager",
+        "Memory Manager",
+        "single-numa-node"
+      ]
+    },
+    {
+      "id": "concept:congestion-control",
+      "kind": "concept",
+      "title": "Congestion Control",
+      "label": "Congestion Control",
+      "group": "network",
+      "description": "Mechanisms that prevent fabric overload, queue buildup, and packet loss.",
+      "keywords": [
+        "Congestion Control",
+        "congestion control",
+        "ECN",
+        "PFC",
+        "DCQCN",
+        "lossless Ethernet",
+        "tail latency"
+      ]
+    },
+    {
+      "id": "concept:nccl",
+      "kind": "concept",
+      "title": "NCCL",
+      "label": "NCCL",
+      "group": "distributed-training",
+      "description": "NVIDIA collective communication library used by distributed GPU training.",
+      "keywords": [
+        "NCCL",
+        "collectives",
+        "all-reduce",
+        "allreduce",
+        "reduce-scatter",
+        "all-gather"
+      ]
+    },
+    {
+      "id": "concept:rdma",
+      "kind": "concept",
+      "title": "RDMA",
+      "label": "RDMA",
+      "group": "network",
+      "description": "Remote direct memory access data path for low-latency GPU and storage communication.",
+      "keywords": [
+        "RDMA",
+        "Remote Direct Memory Access",
+        "InfiniBand verbs"
+      ]
+    },
+    {
+      "id": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "title": "Never Underestimate Memory Architecture",
+      "route": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "cpu",
+        "numa",
+        "memory",
+        "instance",
+        "manager",
+        "gpu",
+        "node",
+        "zone",
+        "cloud",
+        "kubernetes"
+      ],
+      "excerpt": "Bryan Boreham, Grafana Labs, CNCF 발표 요약 노트. 원본 영상: 발표 자료: 한 줄 요지 대형 서버와 cloud VM에서는 CPU, memory, cache, PCIe device가 균일하게 연결되어 있지 않다. Workload가 NUMA boundary와 s"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap02/",
+      "title": "Chapter 2: AI System Hardware Overview",
+      "route": "/ai-system-performance-engineering/chap02/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "rack",
+        "blackwell",
+        "memory",
+        "grace",
+        "nvl72",
+        "cpu",
+        "hbm",
+        "nvlink",
+        "power"
+      ],
+      "excerpt": "Table of Contents Goal 이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다. 핵심 아이디어는 다음과 같다. AI 하드웨어 설계는 FLOPS만 높이는 문제가 아니라, GPU compute, HBM bandwidth, CPU"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap04/",
+      "title": "Chapter 4: Tuning Distributed Networking Communication",
+      "route": "/ai-system-performance-engineering/chap04/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "nccl",
+        "gpu",
+        "nixl",
+        "rdma",
+        "sharp",
+        "communication",
+        "overlap",
+        "all-reduce",
+        "bucket",
+        "rank"
+      ],
+      "excerpt": "Table of Contents Goal 이번 장의 목표는 distributed training과 distributed inference에서 네트워크 통신을 단순한 “속도 문제”가 아니라 GPU goodput을 결정하는 핵심 병목으로 이해하는 것이다. 핵심 아이디어는 다음과 같다. Mu"
+    },
+    {
+      "id": "/ai-data-center-network/chap01/",
+      "title": "Chapter 1: Wonders in the Workload",
+      "route": "/ai-data-center-network/chap01/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "rdma",
+        "nic",
+        "memory",
+        "kernel",
+        "for",
+        "are",
+        "infiniband",
+        "queue"
+      ],
+      "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
+    },
+    {
+      "id": "/ai-data-center-network/ib-packet-analysis/",
+      "title": "InfiniBand Packet Analysis: A Practical RDMA Transport Primer",
+      "route": "/ai-data-center-network/ib-packet-analysis/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "rdma",
+        "captures",
+        "infiniband",
+        "packet",
+        "ipoib",
+        "capture",
+        "packets",
+        "bth"
+      ],
+      "excerpt": "English (https://www.nvidia.com/en us/networking/) (https://docs.nvidia.com/networking/display/rdmaawareprogrammingv17) (https://www.wireshark.org/docs/man page"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap01/",
+      "title": "Chapter 1: Introduction and AI System Overview",
+      "route": "/ai-system-performance-engineering/chap01/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "goodput",
+        "the",
+        "performance",
+        "and",
+        "time",
+        "nsight",
+        "systems",
+        "mechanical",
+        "sympathy"
+      ],
+      "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
+    },
+    {
+      "id": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "title": "Cloud Data Center Network의 지금과 앞으로",
+      "route": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "network",
+        "ethernet",
+        "fabric",
+        "ai/ml",
+        "rdma",
+        "traffic",
+        "routing",
+        "adaptive",
+        "frontend",
+        "rack"
+      ],
+      "excerpt": "Source: Masayuki Kobayashi, \"クラウドデータセンターネットワークの 'いま' と 'これから'\", AI/ML/HPCネットワーク分科会, 2023 06 12. 원본 PDF는 비출판 로컬 참조 자료이며, 이 문서는 공개 사이트용 요약과 최신 맥락 보강이다. 한 줄 요지 Clo"
+    },
+    {
+      "id": "/ai-data-center-network/chap02/",
+      "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
+      "route": "/ai-data-center-network/chap02/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "congestion",
+        "flows",
+        "and",
+        "traffic",
+        "balancing",
+        "training",
+        "flow",
+        "ethernet",
+        "for"
+      ],
+      "excerpt": "Table of Contents Goal ! (https://engineering.fb.com/wp content/uploads/2024/03/Meta 24K GenAi Clusters hero.png) Source: This chapter explains why AI/ML data c"
+    },
+    {
+      "id": "/ai-data-center-network/chap03/",
+      "title": "Chapter 3: Network Design Considerations",
+      "route": "/ai-data-center-network/chap03/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "and",
+        "the",
+        "leaf",
+        "design",
+        "clos",
+        "fabric",
+        "rail",
+        "for",
+        "spine",
+        "cabling"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
+    },
+    {
+      "id": "/ai-data-center-network/chap10/",
+      "title": "Chapter 10: AI Network Performance KPIs",
+      "route": "/ai-data-center-network/chap10/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "kpis",
+        "mlperf",
+        "storage",
+        "time",
+        "benchmark",
+        "accuracy",
+        "latency",
+        "quality"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
+    },
+    {
+      "id": "/ai-data-center-network/chap12/",
+      "title": "Chapter 12: Ultra Ethernet Consortium, UEC",
+      "route": "/ai-data-center-network/chap12/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "uet",
+        "uec",
+        "delivery",
+        "and",
+        "the",
+        "packet",
+        "congestion",
+        "inc",
+        "cbfc",
+        "pdc"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet based AI/HPC"
+    }
+  ],
+  "edges": [
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "gpu",
+        "cpu",
+        "memory",
+        "container",
+        "numa"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "gpu",
+        "cpu",
+        "kubernetes",
+        "memory",
+        "numa"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "congestion control",
+        "Congestion Control",
+        "ECN",
+        "PFC"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "tail latency",
+        "congestion control",
+        "Congestion Control",
+        "PFC"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "allreduce",
+        "collectives"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "remote memory"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA",
+        "InfiniBand verbs"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "PFC",
+        "ECN",
+        "DCQCN",
+        "congestion control"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA",
+        "Remote Direct Memory Access"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "PFC",
+        "congestion control",
+        "Congestion Control",
+        "ECN"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "collectives",
+        "NCCL",
+        "allreduce"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "ECN",
+        "PFC",
+        "tail latency",
+        "congestion control"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "allreduce",
+        "collectives"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap12/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "PFC",
+        "congestion control",
+        "Congestion Control",
+        "ECN"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap12/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "collectives",
+        "NCCL",
+        "allreduce"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap12/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/ib-packet-analysis/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "allreduce",
+        "collectives"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/ib-packet-analysis/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "remote memory"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/ib-packet-analysis/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NUMA",
+        "NUMA node",
+        "NUMA locality",
+        "remote memory"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "concept:topology-aware-scheduling",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "single-numa-node",
+        "Memory Manager",
+        "CPU Manager",
+        "Topology Manager"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NUMA",
+        "NUMA node",
+        "NUMA domain",
+        "remote memory"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "concept:topology-aware-scheduling",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "CPU Manager",
+        "Topology Manager",
+        "single-numa-node"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "all-reduce",
+        "collectives"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "all-reduce",
+        "all-gather"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NUMA",
+        "NUMA locality",
+        "NUMA node"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "all-gather",
+        "all-reduce"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NUMA",
+        "NUMA node",
+        "NUMA locality",
+        "remote memory"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "concept:topology-aware-scheduling",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Topology Manager",
+        "CPU Manager",
+        "single-numa-node",
+        "topology-aware scheduling"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "all-reduce",
+        "all-gather",
+        "reduce-scatter"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NUMA",
+        "remote memory",
+        "NUMA domain"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "congestion control",
+        "Congestion Control",
+        "tail latency"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:topology-aware-scheduling",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "topology-aware scheduling",
+        "Topology-Aware Scheduling"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:topology-aware-scheduling",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "topology-aware scheduling",
+        "Topology-Aware Scheduling"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "tail latency",
+        "ECN"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "tail latency"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "NUMA"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "tail latency"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "NUMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "NUMA"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "concept:topology-aware-scheduling",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "CPU Manager"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "keyword+section",
+      "weight": 0.782,
+      "terms": [
+        "the",
+        "and",
+        "for"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "type": "keyword+section",
+      "weight": 0.696,
+      "terms": [
+        "cpu",
+        "numa",
+        "memory",
+        "manager",
+        "node"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "keyword+section",
+      "weight": 0.617,
+      "terms": [
+        "and",
+        "the",
+        "for"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "keyword",
+      "weight": 0.615,
+      "terms": [
+        "and",
+        "the",
+        "for"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/ib-packet-analysis/",
+      "type": "keyword+section",
+      "weight": 0.589,
+      "terms": [
+        "the",
+        "and",
+        "rdma",
+        "infiniband"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.497,
+      "terms": [
+        "the",
+        "and",
+        "time"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "keyword",
+      "weight": 0.475,
+      "terms": [
+        "gpu",
+        "cpu",
+        "memory"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "keyword",
+      "weight": 0.47,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "keyword",
+      "weight": 0.456,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "keyword+section",
+      "weight": 0.396,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": [
+        "gpu",
+        "memory",
+        "cpu"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": [
+        "gpu",
+        "memory",
+        "cpu"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "keyword",
+      "weight": 0.298,
+      "terms": [
+        "the",
+        "congestion",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap01/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "keyword",
+      "weight": 0.274,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "keyword",
+      "weight": 0.269,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap12/",
+      "target": "/ai-data-center-network/ib-packet-analysis/",
+      "type": "keyword",
+      "weight": 0.228,
+      "terms": [
+        "and",
+        "the",
+        "packet"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rack"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap12/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/ib-packet-analysis/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

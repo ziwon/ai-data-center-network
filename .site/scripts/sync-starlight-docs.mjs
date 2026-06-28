@@ -5,6 +5,7 @@ const projectRoot = process.cwd();
 const sourceRoot = path.resolve(projectRoot, '..');
 const docsOut = path.join(projectRoot, 'src', 'content', 'docs');
 const publicOut = path.join(projectRoot, 'public');
+const conceptsPath = path.join(projectRoot, 'kb', 'concepts.json');
 const siteUrl = 'https://adcs.restack.tech';
 
 const docRoots = [
@@ -32,13 +33,18 @@ const assetExtensions = new Set([
 const ignoredDirs = new Set([
   '.git',
   '.github',
+  '.mypy_cache',
+  '.pytest_cache',
+  '.venv',
   'node_modules',
   'public',
   'refs',
   'scripts',
   '.site',
+  '__pycache__',
   'src',
   'dist',
+  'venv',
 ]);
 
 const generatedPublicRoots = [
@@ -56,9 +62,85 @@ const generatedPublicRoots = [
 
 const pages = [];
 
+const stopWords = new Set([
+  'about',
+  'after',
+  'also',
+  'because',
+  'before',
+  'between',
+  'can',
+  'chapter',
+  'check',
+  'content',
+  'contents',
+  'could',
+  'data',
+  'does',
+  'each',
+  'example',
+  'from',
+  'have',
+  'into',
+  'learning',
+  'more',
+  'most',
+  'note',
+  'practical',
+  'questions',
+  'results',
+  'only',
+  'over',
+  'section',
+  'should',
+  'summary',
+  'such',
+  'system',
+  'table',
+  'than',
+  'that',
+  'their',
+  'there',
+  'these',
+  'this',
+  'through',
+  'using',
+  'when',
+  'where',
+  'which',
+  'while',
+  'with',
+  '있는',
+  '한다',
+  '위해',
+  '대한',
+  '그리고',
+  '또는',
+  '에서',
+  '으로',
+]);
+
+const weakConceptAliases = new Set([
+  'benchmark',
+  'gdr',
+  'recovery',
+  'verbs',
+]);
+
+const weakSingleHitAliases = new Set([
+  ...weakConceptAliases,
+  'attention',
+  'checkpoint',
+  'checkpointing',
+  'collectives',
+  'remote memory',
+  'tail latency',
+]);
+
 await cleanGeneratedOutput();
 await walk(sourceRoot);
 await writeLlmsFiles();
+await writeKnowledgeGraph();
 
 async function cleanGeneratedOutput() {
   await rm(docsOut, { recursive: true, force: true });
@@ -72,6 +154,8 @@ async function cleanGeneratedOutput() {
   );
   await rm(path.join(publicOut, 'llms.txt'), { force: true });
   await rm(path.join(publicOut, 'llms-full.txt'), { force: true });
+  await rm(path.join(publicOut, 'kb', 'dcs-kb-graph.json'), { force: true });
+  await rm(path.join(publicOut, 'kb', 'pages'), { recursive: true, force: true });
 }
 
 async function walk(currentDir) {
@@ -82,7 +166,7 @@ async function walk(currentDir) {
     const relative = toPosix(path.relative(sourceRoot, absolute));
 
     if (entry.isDirectory()) {
-      if (ignoredDirs.has(entry.name)) continue;
+      if (shouldIgnoreDirectory(entry.name)) continue;
       if (relative === 'ai-data-center-network/ib-packets') continue;
       await walk(absolute);
       continue;
@@ -354,6 +438,482 @@ async function writeLlmsFiles() {
 
   await writeFile(path.join(publicOut, 'llms.txt'), llmsLines.join('\n'));
   await writeFile(path.join(publicOut, 'llms-full.txt'), fullLines.join('\n'));
+}
+
+async function writeKnowledgeGraph() {
+  const concepts = await readConceptCatalog();
+  const routeByKey = new Map(pages.map((page) => [normalizeRoute(page.route), page.route]));
+  const nodeTerms = new Map();
+  const documentFrequency = new Map();
+
+  for (const page of pages) {
+    const terms = termFrequency(page);
+    nodeTerms.set(page.route, terms);
+    for (const term of terms.keys()) {
+      documentFrequency.set(term, (documentFrequency.get(term) ?? 0) + 1);
+    }
+  }
+
+  const nodes = pages.map((page) => {
+    const keywords = topKeywords(nodeTerms.get(page.route), documentFrequency, pages.length, 10);
+    return {
+      id: page.route,
+      title: page.title,
+      route: page.route,
+      group: groupFromRoute(page.route),
+      keywords: keywords.map((keyword) => keyword.term),
+      excerpt: descriptionFrom(page.body, page.title),
+    };
+  });
+
+  const nodeByRoute = new Map(nodes.map((node) => [node.route, node]));
+  const conceptNodes = concepts.map((concept) => ({
+    id: conceptNodeId(concept.id),
+    kind: 'concept',
+    title: concept.label,
+    label: concept.label,
+    group: concept.group,
+    description: concept.description,
+    keywords: concept.aliases.slice(0, 8),
+  }));
+  const conceptById = new Map(conceptNodes.map((concept) => [concept.id, concept]));
+  const pageConcepts = new Map(
+    pages.map((page) => [page.route, matchConcepts(page, concepts)]),
+  );
+  const idfByTerm = new Map(
+    [...documentFrequency].map(([term, count]) => [
+      term,
+      Math.log((pages.length + 1) / (count + 1)) + 1,
+    ]),
+  );
+  const edgeScores = new Map();
+
+  for (const page of pages) {
+    for (const targetRoute of extractInternalLinks(page, routeByKey)) {
+      if (targetRoute === page.route) continue;
+      addEdge(edgeScores, page.route, targetRoute, 'link', 1, []);
+    }
+  }
+
+  for (const page of pages) {
+    const candidates = [];
+    const sourceKeywords = new Set(nodeByRoute.get(page.route)?.keywords ?? []);
+    for (const target of pages) {
+      if (target.route === page.route) continue;
+      const score = relatedness(nodeTerms.get(page.route), nodeTerms.get(target.route), idfByTerm);
+      if (score <= 0) continue;
+      const shared = (nodeByRoute.get(target.route)?.keywords ?? []).filter((term) => sourceKeywords.has(term));
+      candidates.push({ target: target.route, score, shared });
+    }
+
+    candidates
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5)
+      .forEach((candidate) => {
+        addEdge(
+          edgeScores,
+          page.route,
+          candidate.target,
+          'keyword',
+          Math.min(0.82, Math.max(0.22, candidate.score)),
+          candidate.shared.slice(0, 4),
+        );
+      });
+  }
+
+  for (const [route, matches] of pageConcepts) {
+    for (const match of matches) {
+      const weight = Math.min(0.95, 0.78 + Math.min(match.count, 6) * 0.025);
+      addEdge(edgeScores, route, conceptNodeId(match.id), 'mentions', weight, match.aliases.slice(0, 4));
+    }
+  }
+
+  for (const page of pages) {
+    const siblings = pages
+      .filter((candidate) => candidate.route !== page.route && groupFromRoute(candidate.route) === groupFromRoute(page.route))
+      .slice(0, 3);
+    for (const sibling of siblings) {
+      addEdge(edgeScores, page.route, sibling.route, 'section', 0.18, []);
+    }
+  }
+
+  const edges = [...edgeScores.values()]
+    .filter((edge) => edge.source !== edge.target)
+    .sort(compareEdges);
+
+  await mkdir(path.join(publicOut, 'kb'), { recursive: true });
+  await writeGlobalGraph(nodes, conceptNodes, edges);
+  await writePageGraphs(nodes, conceptNodes, edges, nodeByRoute, conceptById);
+}
+
+async function writeGlobalGraph(nodes, conceptNodes, edges) {
+  const graphEdges = capGlobalEdges(edges);
+  const degree = new Map();
+  const weightedDegree = new Map();
+
+  for (const edge of graphEdges) {
+    degree.set(edge.source, (degree.get(edge.source) ?? 0) + 1);
+    degree.set(edge.target, (degree.get(edge.target) ?? 0) + 1);
+    weightedDegree.set(edge.source, (weightedDegree.get(edge.source) ?? 0) + edge.weight);
+    weightedDegree.set(edge.target, (weightedDegree.get(edge.target) ?? 0) + edge.weight);
+  }
+
+  const globalNodes = [
+    ...nodes.map((node) => ({
+      id: node.id,
+      kind: 'doc',
+      title: node.title,
+      route: node.route,
+      group: node.group,
+      degree: degree.get(node.id) ?? 0,
+      weightedDegree: roundWeight(weightedDegree.get(node.id) ?? 0),
+    })),
+    ...conceptNodes.map((node) => ({
+      id: node.id,
+      kind: 'concept',
+      title: node.title,
+      group: node.group,
+      description: node.description,
+      degree: degree.get(node.id) ?? 0,
+      weightedDegree: roundWeight(weightedDegree.get(node.id) ?? 0),
+    })),
+  ];
+
+  const globalGraph = {
+    version: 1,
+    generatedAt: new Date().toISOString(),
+    nodes: globalNodes,
+    edgeTypes: [...new Set(graphEdges.map((edge) => edge.type))].sort(),
+    edges: compactGlobalEdges(globalNodes, graphEdges),
+  };
+
+  await writeFile(
+    path.join(publicOut, 'kb', 'dcs-kb-graph.json'),
+    `${JSON.stringify(globalGraph)}\n`,
+  );
+}
+
+function compactGlobalEdges(nodes, edges) {
+  const nodeIndex = new Map(nodes.map((node, index) => [node.id, index]));
+  const edgeTypeIndex = new Map([...new Set(edges.map((edge) => edge.type))].sort().map((type, index) => [type, index]));
+  return edges
+    .map((edge) => ({
+      s: nodeIndex.get(edge.source),
+      t: nodeIndex.get(edge.target),
+      k: edgeTypeIndex.get(edge.type),
+      w: edge.weight,
+    }))
+    .filter((edge) => edge.s !== undefined && edge.t !== undefined && edge.k !== undefined);
+}
+
+function capGlobalEdges(edges) {
+  const mentions = edges.filter((edge) => edge.type.includes('mentions'));
+  const links = edges.filter((edge) => !edge.type.includes('mentions') && edge.type.includes('link'));
+  const rest = edges.filter((edge) => !edge.type.includes('mentions') && !edge.type.includes('link'));
+  const cappedRest = capEdgesByNode(rest, 7);
+  const unique = new Map();
+
+  for (const edge of [...mentions, ...links, ...cappedRest].sort(compareEdges)) {
+    unique.set(`${edge.source} ${edge.target}`, edge);
+  }
+  return [...unique.values()].sort(compareEdges);
+}
+
+function capEdgesByNode(edges, limit) {
+  const selected = new Map();
+  const byNode = new Map();
+  for (const edge of edges.sort(compareEdges)) {
+    if (!byNode.has(edge.source)) byNode.set(edge.source, []);
+    if (!byNode.has(edge.target)) byNode.set(edge.target, []);
+    byNode.get(edge.source).push(edge);
+    byNode.get(edge.target).push(edge);
+  }
+
+  for (const [, nodeEdges] of byNode) {
+    for (const edge of nodeEdges.slice(0, limit)) {
+      selected.set(`${edge.source} ${edge.target}`, edge);
+    }
+  }
+  return [...selected.values()].sort(compareEdges);
+}
+
+async function readConceptCatalog() {
+  const source = await readFile(conceptsPath, 'utf8').catch(() => '[]');
+  const parsed = JSON.parse(source);
+  return parsed
+    .map((concept) => ({
+      id: String(concept.id || '').trim(),
+      label: String(concept.label || concept.id || '').trim(),
+      group: String(concept.group || 'concept').trim(),
+      description: String(concept.description || '').trim(),
+      aliases: [
+        String(concept.label || concept.id || '').trim(),
+        ...(concept.aliases ?? []).map((alias) => String(alias).trim()),
+      ].filter((alias, index, aliases) => alias && aliases.indexOf(alias) === index && !weakConceptAliases.has(alias.toLowerCase())),
+    }))
+    .filter((concept) => concept.id && concept.label && concept.aliases.length > 0);
+}
+
+function matchConcepts(page, concepts) {
+  const text = searchableText(page);
+  return concepts
+    .map((concept) => {
+      const hits = concept.aliases
+        .map((alias) => ({ alias, count: aliasMatchCount(text, alias) }))
+        .filter((hit) => hit.count > 0);
+      if (hits.length === 0) return null;
+
+      const count = hits.reduce((sum, hit) => sum + hit.count, 0);
+      const hasDistinctiveAlias = hits.some((hit) => isDistinctiveConceptAlias(hit.alias));
+      if (count < 2 && !hasDistinctiveAlias) return null;
+
+      return {
+        ...concept,
+        aliases: hits.sort((a, b) => b.count - a.count || a.alias.localeCompare(b.alias)).map((hit) => hit.alias),
+        count,
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.count - a.count || b.aliases.length - a.aliases.length || a.label.localeCompare(b.label))
+    .slice(0, 12);
+}
+
+function searchableText(page) {
+  return [
+    page.title,
+    page.body.replace(/```[\s\S]*?```/g, ' '),
+  ]
+    .join('\n')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\[[^\]]+\]\([^)]+\)/g, ' ')
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
+}
+
+function aliasMatchCount(text, alias) {
+  const normalized = alias.toLowerCase().trim();
+  if (!normalized) return 0;
+  const escaped = normalized.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (/^[a-z0-9][a-z0-9 .+/#-]*$/i.test(normalized)) {
+    return [...text.matchAll(new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, 'gi'))].length;
+  }
+  let count = 0;
+  let index = text.indexOf(normalized);
+  while (index !== -1) {
+    count += 1;
+    index = text.indexOf(normalized, index + normalized.length);
+  }
+  return count;
+}
+
+function isDistinctiveConceptAlias(alias) {
+  const normalized = alias.trim();
+  const lower = normalized.toLowerCase();
+  if (!normalized || weakSingleHitAliases.has(lower)) return false;
+  return (
+    /[\s/+.-]/.test(normalized) ||
+    /^[A-Z0-9]{3,}$/.test(normalized) ||
+    /[A-Z][a-z]+[A-Z]/.test(normalized)
+  );
+}
+
+function termFrequency(page) {
+  const text = [
+    page.title,
+    page.title,
+    page.body.replace(/```[\s\S]*?```/g, ' '),
+  ]
+    .join('\n')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\[[^\]]+\]\([^)]+\)/g, ' ')
+    .replace(/[^\p{L}\p{N}\s./+-]/gu, ' ');
+  const terms = new Map();
+  for (const raw of text.match(/[\p{L}\p{N}][\p{L}\p{N}./+-]{1,}/gu) ?? []) {
+    const term = normalizeTerm(raw);
+    if (term.length < 3 && !/^[가-힣]{2,}$/u.test(term)) continue;
+    if (!term || stopWords.has(term)) continue;
+    terms.set(term, (terms.get(term) ?? 0) + 1);
+  }
+  return terms;
+}
+
+function normalizeTerm(term) {
+  const normalized = term
+    .toLowerCase()
+    .replace(/^[-./+]+|[-./+]+$/g, '')
+    .trim();
+  const withoutLongSuffix = normalized.replace(
+    /(?:에서|으로|에게|보다|부터|까지|처럼|마다|이다|이며|이고|하고|되는|된다|한다|하여|해서|하면|들과|들의)$/u,
+    '',
+  );
+  if (withoutLongSuffix.length > 3) {
+    return withoutLongSuffix.replace(/(?:은|는|이|가|을|를|의|에|로|도|만|와|과)$/u, '');
+  }
+  return withoutLongSuffix;
+}
+
+function topKeywords(terms, documentFrequency, documentCount, limit) {
+  return [...terms.entries()]
+    .map(([term, count]) => ({
+      term,
+      score: count * (Math.log((documentCount + 1) / ((documentFrequency.get(term) ?? 0) + 1)) + 1),
+    }))
+    .filter((keyword) => keyword.term.length > 2)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+}
+
+function relatedness(sourceTerms, targetTerms, idfByTerm) {
+  if (!sourceTerms || !targetTerms) return 0;
+  let sharedScore = 0;
+  let sourceScore = 0;
+  let targetScore = 0;
+
+  for (const [term, count] of sourceTerms) {
+    const idf = idfByTerm.get(term) ?? 1;
+    sourceScore += Math.min(count, 8) * idf;
+    if (targetTerms.has(term)) {
+      sharedScore += Math.min(count, targetTerms.get(term), 8) * idf;
+    }
+  }
+  for (const [term, count] of targetTerms) {
+    const idf = idfByTerm.get(term) ?? 1;
+    targetScore += Math.min(count, 8) * idf;
+  }
+
+  const denominator = Math.sqrt(sourceScore * targetScore);
+  return denominator === 0 ? 0 : sharedScore / denominator;
+}
+
+function extractInternalLinks(page, routeByKey) {
+  const links = new Set();
+  const patterns = [
+    /\[[^\]]*\]\(([^)\s]+)(?:\s+["'][^"']+["'])?\)/g,
+    /<a\b[^>]*\bhref=["']([^"']+)["'][^>]*>/g,
+  ];
+
+  for (const pattern of patterns) {
+    for (const match of page.body.matchAll(pattern)) {
+      const route = routeFromHref(match[1], page.route, routeByKey);
+      if (route) links.add(route);
+    }
+  }
+  return links;
+}
+
+function routeFromHref(href, sourceRoute, routeByKey) {
+  if (!href || /^(?:[a-z][a-z0-9+.-]*:|#|mailto:)/i.test(href)) return '';
+  const [cleanHref] = href.split(/[?#]/, 1);
+  if (!cleanHref || assetExtensions.has(path.extname(cleanHref).toLowerCase())) return '';
+
+  const baseRoute = sourceRoute.endsWith('/') ? sourceRoute : `${sourceRoute}/`;
+  const rawRoute = cleanHref.startsWith('/')
+    ? cleanHref
+    : `/${path.posix.normalize(path.posix.join(baseRoute, cleanHref))}`;
+  const normalized = normalizeRoute(rawRoute.replace(/README\.md$/i, '').replace(/\.md$/i, '/'));
+  return routeByKey.get(normalized) ?? '';
+}
+
+function addEdge(edgeScores, source, target, type, weight, terms) {
+  const [a, b] = source.localeCompare(target) <= 0 ? [source, target] : [target, source];
+  const key = `${a} ${b}`;
+  const previous = edgeScores.get(key);
+  if (!previous) {
+    edgeScores.set(key, { source: a, target: b, type, weight: roundWeight(weight), terms });
+    return;
+  }
+
+  previous.weight = roundWeight(Math.min(1, previous.weight + weight * 0.65));
+  if (!previous.type.includes(type)) previous.type = `${previous.type}+${type}`;
+  previous.terms = [...new Set([...(previous.terms ?? []), ...terms])].slice(0, 6);
+}
+
+function normalizeRoute(route) {
+  if (!route) return '/';
+  const normalized = `/${route}`.replace(/\/+/g, '/').toLowerCase();
+  return normalized.endsWith('/') ? normalized : `${normalized}/`;
+}
+
+function groupFromRoute(route) {
+  const [first] = route.replace(/^\/|\/$/g, '').split('/');
+  return first || 'home';
+}
+
+async function writePageGraphs(nodes, conceptNodes, edges, nodeByRoute, conceptById) {
+  const pageOut = path.join(publicOut, 'kb', 'pages');
+  await mkdir(pageOut, { recursive: true });
+
+  await Promise.all(nodes.map(async (current) => {
+    const localEdges = edges
+      .filter((edge) => edge.source === current.id || edge.target === current.id)
+      .sort(compareEdges)
+      .slice(0, 10);
+    const localIds = new Set([current.id]);
+    for (const edge of localEdges) {
+      localIds.add(edge.source === current.id ? edge.target : edge.source);
+    }
+
+    const currentConceptIds = edges
+      .filter((edge) => edge.type.includes('mentions') && edge.source === current.id)
+      .sort(compareEdges)
+      .slice(0, 8)
+      .map((edge) => edge.target);
+    for (const conceptId of currentConceptIds) {
+      localIds.add(conceptId);
+    }
+
+    for (const conceptId of currentConceptIds) {
+      const conceptDocs = edges
+        .filter((edge) => edge.type.includes('mentions') && edge.target === conceptId && edge.source !== current.id)
+        .sort(compareEdges)
+        .slice(0, 4);
+      for (const edge of conceptDocs) {
+        localIds.add(edge.source);
+      }
+    }
+
+    const localNodes = [...localIds]
+      .map((id) => nodeByRoute.get(id) ?? conceptById.get(id))
+      .filter(Boolean);
+    const localGraph = {
+      version: 1,
+      current,
+      nodes: localNodes,
+      edges: edges.filter((edge) => localIds.has(edge.source) && localIds.has(edge.target)),
+    };
+
+    await writeFile(
+      path.join(pageOut, `${routeGraphKey(current.route)}.json`),
+      `${JSON.stringify(localGraph, null, 2)}\n`,
+    );
+  }));
+}
+
+function conceptNodeId(id) {
+  return `concept:${id}`;
+}
+
+function compareEdges(a, b) {
+  return b.weight - a.weight || a.source.localeCompare(b.source) || a.target.localeCompare(b.target);
+}
+
+function routeGraphKey(route) {
+  const normalized = normalizeRoute(route);
+  if (normalized === '/') return 'index';
+  return normalized
+    .replace(/^\/|\/$/g, '')
+    .split('/')
+    .map((segment) => encodeURIComponent(segment).replace(/%/g, '~'))
+    .join('__')
+    .toLowerCase();
+}
+
+function roundWeight(value) {
+  return Math.round(value * 1000) / 1000;
+}
+
+function shouldIgnoreDirectory(name) {
+  return ignoredDirs.has(name) || /^\.?venv(?:$|[-_.])/.test(name);
 }
 
 function toPosix(value) {

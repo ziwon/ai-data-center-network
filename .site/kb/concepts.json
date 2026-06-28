@@ -1,0 +1,114 @@
+[
+  {
+    "id": "rdma",
+    "label": "RDMA",
+    "group": "network",
+    "description": "Remote direct memory access data path for low-latency GPU and storage communication.",
+    "aliases": ["RDMA", "Remote Direct Memory Access", "InfiniBand verbs"]
+  },
+  {
+    "id": "roce",
+    "label": "RoCE",
+    "group": "network",
+    "description": "RDMA over Converged Ethernet, usually discussed with lossless Ethernet and congestion control.",
+    "aliases": ["RoCE", "RDMA over Converged Ethernet", "RoCEv2"]
+  },
+  {
+    "id": "infiniband",
+    "label": "InfiniBand",
+    "group": "network",
+    "description": "High-performance network fabric commonly used for GPU clusters and HPC systems.",
+    "aliases": ["InfiniBand", "IB fabric", "IB packet", "Subnet Manager"]
+  },
+  {
+    "id": "clos",
+    "label": "Clos Fabric",
+    "group": "network",
+    "description": "Leaf-spine fabric topology used to scale east-west data center traffic.",
+    "aliases": ["Clos", "leaf-spine", "leaf spine", "spine-leaf", "CLOS"]
+  },
+  {
+    "id": "bgp",
+    "label": "BGP",
+    "group": "network",
+    "description": "Routing protocol used in underlays, eBGP fabrics, and data center route control.",
+    "aliases": ["BGP", "eBGP", "iBGP", "BGP underlay"]
+  },
+  {
+    "id": "congestion-control",
+    "label": "Congestion Control",
+    "group": "network",
+    "description": "Mechanisms that prevent fabric overload, queue buildup, and packet loss.",
+    "aliases": ["congestion control", "ECN", "PFC", "DCQCN", "lossless Ethernet", "tail latency"]
+  },
+  {
+    "id": "numa",
+    "label": "NUMA",
+    "group": "systems",
+    "description": "CPU and memory locality model that matters for GPU, NIC, and memory placement.",
+    "aliases": ["NUMA", "NUMA locality", "NUMA node", "NUMA domain", "remote memory"]
+  },
+  {
+    "id": "gpu-direct-rdma",
+    "label": "GPUDirect RDMA",
+    "group": "gpu",
+    "description": "Direct NIC-to-GPU data path that avoids unnecessary CPU memory staging.",
+    "aliases": ["GPUDirect RDMA", "GPU Direct RDMA", "GPU-direct RDMA"]
+  },
+  {
+    "id": "nccl",
+    "label": "NCCL",
+    "group": "distributed-training",
+    "description": "NVIDIA collective communication library used by distributed GPU training.",
+    "aliases": ["NCCL", "collectives", "all-reduce", "allreduce", "reduce-scatter", "all-gather"]
+  },
+  {
+    "id": "topology-aware-scheduling",
+    "label": "Topology-Aware Scheduling",
+    "group": "kubernetes",
+    "description": "Placement decisions that keep CPUs, memory, NICs, and GPUs close to each other.",
+    "aliases": ["topology-aware scheduling", "Topology Manager", "CPU Manager", "Memory Manager", "single-numa-node"]
+  },
+  {
+    "id": "kv-cache",
+    "label": "KV Cache",
+    "group": "inference",
+    "description": "Transformer key-value cache used to avoid recomputing attention state during decoding.",
+    "aliases": ["KV cache", "key-value cache", "KV-cache", "k/v cache"]
+  },
+  {
+    "id": "attention",
+    "label": "Attention",
+    "group": "model-architecture",
+    "description": "Transformer attention mechanism and its MHA, MQA, GQA, RoPE, and FlashAttention variants.",
+    "aliases": ["attention", "self-attention", "MHA", "MQA", "GQA", "RoPE", "FlashAttention"]
+  },
+  {
+    "id": "quantization",
+    "label": "Quantization",
+    "group": "inference",
+    "description": "Lower-precision model representation for memory bandwidth and inference efficiency.",
+    "aliases": ["quantization", "int8", "int4", "FP8", "bitsandbytes", "bnb"]
+  },
+  {
+    "id": "parallelism",
+    "label": "Parallelism",
+    "group": "distributed-training",
+    "description": "Data, tensor, pipeline, and expert parallel strategies for training or serving models.",
+    "aliases": ["data parallel", "tensor parallel", "pipeline parallel", "expert parallel", "3D parallelism"]
+  },
+  {
+    "id": "checkpointing",
+    "label": "Checkpointing",
+    "group": "storage",
+    "description": "Model state persistence and recovery path for training systems.",
+    "aliases": ["checkpoint", "checkpointing", "model checkpoint"]
+  },
+  {
+    "id": "mlperf",
+    "label": "MLPerf",
+    "group": "benchmark",
+    "description": "Benchmark suites for evaluating AI training, inference, and storage systems.",
+    "aliases": ["MLPerf", "MLPerf Training", "MLPerf Storage"]
+  }
+]

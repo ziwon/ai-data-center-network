@@ -1,0 +1,541 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+    "title": "Lab: Gradient Bucketing, Fusion, and Compression",
+    "route": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+    "group": "ai-system-performance-engineering",
+    "keywords": [
+      "gradient",
+      "fusion",
+      "compression",
+      "and",
+      "the",
+      "bucketing",
+      "buckets",
+      "checksum",
+      "tolerance",
+      "optimized"
+    ],
+    "excerpt": "Goal Show why Chapter 4 treats gradient synchronization as both a bandwidth problem and a launch latency problem. This lab adapts the important ideas behind gra"
+  },
+  "nodes": [
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "title": "Lab: Gradient Bucketing, Fusion, and Compression",
+      "route": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gradient",
+        "fusion",
+        "compression",
+        "and",
+        "the",
+        "bucketing",
+        "buckets",
+        "checksum",
+        "tolerance",
+        "optimized"
+      ],
+      "excerpt": "Goal Show why Chapter 4 treats gradient synchronization as both a bandwidth problem and a launch latency problem. This lab adapts the important ideas behind gra"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "title": "Lab: NIXL-Style Tier Handoff",
+      "route": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "handoff",
+        "nixl-style",
+        "tier",
+        "the",
+        "movement",
+        "optimized",
+        "selected",
+        "transfer",
+        "disaggregated",
+        "blocks"
+      ],
+      "excerpt": "Goal Show why Chapter 4 separates training collectives from disaggregated inference data movement. NCCL is the right lens for all reduce, but KV cache handoff i"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "title": "Lab: Communication and Computation Overlap",
+      "route": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "the",
+        "communication",
+        "bucket",
+        "overlap",
+        "exposed",
+        "optimized",
+        "lab",
+        "step",
+        "computation",
+        "compute"
+      ],
+      "excerpt": "Goal Show why Chapter 4 focuses on exposed communication time . The total communication volume may be the same, but the optimized path starts each bucket transf"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "title": "Lab: Symmetric Memory and NVSHMEM Patterns",
+      "route": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "symmetric",
+        "allocates",
+        "nvshmem",
+        "patterns",
+        "and",
+        "optimized",
+        "for",
+        "the",
+        "offsets",
+        "gpu-driven"
+      ],
+      "excerpt": "Goal Show why persistent symmetric buffers matter for GPU driven communication patterns. Baseline The baseline allocates and registers a transfer buffer for eac"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "title": "Lab: Pipeline and Tensor Parallel Scheduling",
+      "route": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "tensor-parallel",
+        "pipeline",
+        "scheduling",
+        "optimized",
+        "tensor",
+        "and",
+        "execution",
+        "stage",
+        "parallel",
+        "fill-drain"
+      ],
+      "excerpt": "Goal Show how pipeline bubbles and tensor parallel synchronization affect distributed model execution. Baseline The baseline models fill drain pipeline executio"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "title": "Lab: Communicator Lifecycle",
+      "route": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "communicator",
+        "optimized",
+        "the",
+        "lifecycle",
+        "once",
+        "recreates",
+        "communicators",
+        "reuses",
+        "per-step",
+        "lab"
+      ],
+      "excerpt": "Goal Show why communicators and registered buffers should be created once and reused. Baseline The baseline recreates communication state for every step. Optimi"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "title": "Lab: DataParallel vs DDP",
+      "route": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "dataparallel",
+        "ddp",
+        "one",
+        "scatters",
+        "replicas",
+        "ddp-shaped",
+        "optimized",
+        "anti-pattern",
+        "gathers",
+        "spend"
+      ],
+      "excerpt": "Goal Show why Chapter 4 treats PyTorch DataParallel as an anti pattern for serious multi GPU training. Baseline The baseline models one Python process that scat"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/",
+      "title": "Chapter 4 Labs",
+      "route": "/ai-system-performance-engineering/labs/ch04/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "labs",
+        "communication",
+        "gpu-communication-reference",
+        "and",
+        "the",
+        "directory",
+        "exposed",
+        "transfers",
+        "multi-gpu",
+        "buffers"
+      ],
+      "excerpt": "This directory contains executable labs that support Chapter 4 notes on distributed networking communication. The labs adapt the chapter's distributed communica"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "title": "Lab: GPU Communication Reference",
+      "route": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "overlap.py",
+        "ddp",
+        "sweep.py",
+        "backward",
+        "bucket",
+        "communication",
+        "process-group",
+        "gradient",
+        "nccl",
+        "buckets"
+      ],
+      "excerpt": "Goal Provide real GPU/NCCL entrypoints for the Chapter 4 communication labs. The other labs in this directory are CPU portable concept models. This lab is inten"
+    },
+    {
+      "id": "/efficient-llm-inference-systems/week04/results/results/",
+      "title": "Week 4 Lab Results",
+      "route": "/efficient-llm-inference-systems/week04/results/results/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "the",
+        "bf16",
+        "readme",
+        "bnb",
+        "lab",
+        "int4",
+        "speedup",
+        "bitsandbytes",
+        "int8",
+        "awq"
+      ],
+      "excerpt": "Hardware: RTX 5080 16GB (Blackwell, sm 120) · cu128 PyTorch 2.11 · bitsandbytes 0.49.2 · transformers 5.12.1 Model: Qwen/Qwen2.5 3B Instruct The README sketches"
+    },
+    {
+      "id": "/ai-system-performance-engineering/",
+      "title": "AI Systems Performance Engineering",
+      "route": "/ai-system-performance-engineering/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "engineering",
+        "2025.12",
+        "2026.04",
+        "2025.08",
+        "systems",
+        "books",
+        "numa-aware",
+        "talks",
+        "uncore",
+        "kubelet"
+      ],
+      "excerpt": "Resources Books (2025.12) Articles : NUMA, cloud VM topology, Kubernetes CPU Manager, uncore bottlenecks : GPU local CPU placement, kubelet topology policies, N"
+    }
+  ],
+  "edges": [
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.619,
+      "terms": [
+        "optimized",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "type": "keyword",
+      "weight": 0.483,
+      "terms": [
+        "the",
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.482,
+      "terms": [
+        "the",
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.451,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "type": "keyword",
+      "weight": 0.45,
+      "terms": [
+        "optimized",
+        "the",
+        "lab"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.439,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.436,
+      "terms": [
+        "and",
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.425,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.421,
+      "terms": [
+        "communication"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.398,
+      "terms": [
+        "and",
+        "optimized",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "type": "keyword",
+      "weight": 0.395,
+      "terms": [
+        "the",
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.393,
+      "terms": [
+        "optimized",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.383,
+      "terms": [
+        "optimized",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "type": "keyword",
+      "weight": 0.255,
+      "terms": [
+        "optimized",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "type": "keyword",
+      "weight": 0.251,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.247,
+      "terms": [
+        "optimized",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.227,
+      "terms": [
+        "optimized"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "communication",
+        "exposed"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/",
+      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "communication",
+        "bucket"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "ddp"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gradient",
+        "buckets"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "target": "/efficient-llm-inference-systems/week04/results/results/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/",
+      "target": "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

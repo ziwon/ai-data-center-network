@@ -1,0 +1,436 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/efficient-llm-inference-systems/appendix/",
+    "title": "Appendix",
+    "route": "/efficient-llm-inference-systems/appendix/",
+    "group": "efficient-llm-inference-systems",
+    "keywords": [
+      "appendix",
+      "reusable",
+      "weeks",
+      "background",
+      "appear",
+      "topics",
+      "multiple",
+      "across",
+      "llm",
+      "inference"
+    ],
+    "excerpt": "Reusable background notes for LLM inference topics that appear across multiple weeks."
+  },
+  "nodes": [
+    {
+      "id": "/efficient-llm-inference-systems/appendix/",
+      "title": "Appendix",
+      "route": "/efficient-llm-inference-systems/appendix/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "appendix",
+        "reusable",
+        "weeks",
+        "background",
+        "appear",
+        "topics",
+        "multiple",
+        "across",
+        "llm",
+        "inference"
+      ],
+      "excerpt": "Reusable background notes for LLM inference topics that appear across multiple weeks."
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "title": "Hardware Architectures for LLM Inference",
+      "route": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "week",
+        "how",
+        "the",
+        "and",
+        "hardware",
+        "are",
+        "think",
+        "architectures",
+        "inference",
+        "copied"
+      ],
+      "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course. These notes are not line by line full "
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "title": "LLM Inference",
+      "route": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "the",
+        "token",
+        "convert",
+        "logits",
+        "inference",
+        "decoding",
+        "llm",
+        "transformer",
+        "project",
+        "detokenize"
+      ],
+      "excerpt": "Inference Pipeline ! This diagram summarizes the end to end flow of decoder only LLM inference: 1. Convert user input into token IDs with the tokenizer. 2. Add "
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/transformer/",
+      "title": "Transformer",
+      "route": "/efficient-llm-inference-systems/appendix/transformer/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "다음과",
+        "토큰을",
+        "attention",
+        "embedding",
+        "score",
+        "hel",
+        "softmax",
+        "mask",
+        "transformer",
+        "head"
+      ],
+      "excerpt": "LLM 추론 파이프라인 LLM은 문장을 한 번에 완성하지 않는다. 입력 문맥을 기반으로 다음 토큰 하나의 확률 분포를 계산하고, 그중 하나를 선택한 뒤, 선택된 토큰을 다시 문맥에 붙여 반복 생성한다. Autoregressive generation은 전체 문장 확률을 각 시점의 다음 토"
+    },
+    {
+      "id": "/efficient-llm-inference-systems/",
+      "title": "Efficient LLM Inference Systems",
+      "route": "/efficient-llm-inference-systems/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "2022.11",
+        "llm",
+        "efficient",
+        "2023.11",
+        "2022.08",
+        "2023.06",
+        "2020.01",
+        "2022.10",
+        "systems",
+        "books"
+      ],
+      "excerpt": "Appendix Resources Books (2026) Papers (2023.11) (2022.11) (2022.08) (2022.10) (2022.11) (2023.06) (2020.01) LLM Architecture"
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "title": "Domain-Specific Architectures for AI Inference",
+      "route": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "dsa",
+        "cache",
+        "compute",
+        "week",
+        "tensor",
+        "hardware",
+        "decode",
+        "sram",
+        "accelerator",
+        "token"
+      ],
+      "excerpt": "Source: , published 2025 08 03. This is a Korean lecture note adaptation, not a line by line full translation. The goal is to preserve the article's main argume"
+    },
+    {
+      "id": "/",
+      "title": "AI Data Center Systems",
+      "route": "/",
+      "group": "home",
+      "keywords": [
+        "and",
+        "systems",
+        "storage",
+        "mlperf",
+        "training",
+        "study",
+        "center",
+        "notes",
+        "lecture",
+        "rdma"
+      ],
+      "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
+    },
+    {
+      "id": "/ai-data-center-network/",
+      "title": "AI Data Center Network",
+      "route": "/ai-data-center-network/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "2026.04",
+        "2026.01",
+        "2026.02",
+        "2026.05",
+        "2026.03",
+        "2025.11",
+        "2025.10",
+        "2024.08",
+        "2024.07",
+        "2024.03"
+      ],
+      "excerpt": "Table of Contents Appendix Resources Books (2026.02) (2026.05) (2022.10) Articles : web scale fabric과 AI/ML scheduled fabric의 차이, RDMA, frontend/backend 분리, ada"
+    },
+    {
+      "id": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "title": "Appendix: BGP-based Underlay and GLB NNHN in AI Data Center Fabrics",
+      "route": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "bgp",
+        "glb",
+        "nnhn",
+        "leaf",
+        "spine",
+        "quality",
+        "underlay",
+        "juniper",
+        "ingress"
+      ],
+      "excerpt": "Supplement to Chapter 6's GLB section, with additional BGP underlay context. This appendix covers (1) why eBGP is the de facto underlay routing protocol for mod"
+    },
+    {
+      "id": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "title": "Lab: Communicator Lifecycle",
+      "route": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "communicator",
+        "optimized",
+        "the",
+        "lifecycle",
+        "once",
+        "recreates",
+        "communicators",
+        "reuses",
+        "per-step",
+        "lab"
+      ],
+      "excerpt": "Goal Show why communicators and registered buffers should be created once and reused. Baseline The baseline recreates communication state for every step. Optimi"
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "title": "How to Think About GPUs",
+      "route": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "gpu",
+        "tensor",
+        "core",
+        "b300",
+        "memory",
+        "blackwell",
+        "nvlink",
+        "dgx",
+        "warp",
+        "parallelism"
+      ],
+      "excerpt": "Source: , part of How To Scale Your Model , published 2025 08 18. This is a Korean lecture note adaptation, not a line by line full translation. The goal is to "
+    }
+  ],
+  "edges": [
+    {
+      "source": "/",
+      "target": "/ai-data-center-network/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/efficient-llm-inference-systems/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "systems"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "inference"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "keyword+section",
+      "weight": 0.597,
+      "terms": [
+        "llm"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "keyword",
+      "weight": 0.467,
+      "terms": [
+        "tensor"
+      ]
+    },
+    {
+      "source": "/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "type": "keyword",
+      "weight": 0.363,
+      "terms": [
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/efficient-llm-inference-systems/",
+      "type": "keyword",
+      "weight": 0.363,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "transformer"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

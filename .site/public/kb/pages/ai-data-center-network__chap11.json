@@ -1,0 +1,1652 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/ai-data-center-network/chap11/",
+    "title": "Chapter 11: Monitoring and Telemetry",
+    "route": "/ai-data-center-network/chap11/",
+    "group": "ai-data-center-network",
+    "keywords": [
+      "ifa",
+      "and",
+      "telemetry",
+      "queue",
+      "monitoring",
+      "snmp",
+      "mirroring",
+      "the",
+      "collector",
+      "metadata"
+    ],
+    "excerpt": "Table of Contents Goal This chapter explains how monitoring and telemetry change in AI/ML data center fabrics. The core idea is: AI fabric monitoring is not jus"
+  },
+  "nodes": [
+    {
+      "id": "/ai-data-center-network/chap11/",
+      "title": "Chapter 11: Monitoring and Telemetry",
+      "route": "/ai-data-center-network/chap11/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "ifa",
+        "and",
+        "telemetry",
+        "queue",
+        "monitoring",
+        "snmp",
+        "mirroring",
+        "the",
+        "collector",
+        "metadata"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains how monitoring and telemetry change in AI/ML data center fabrics. The core idea is: AI fabric monitoring is not jus"
+    },
+    {
+      "id": "/ai-data-center-network/",
+      "title": "AI Data Center Network",
+      "route": "/ai-data-center-network/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "2026.04",
+        "2026.01",
+        "2026.02",
+        "2026.05",
+        "2026.03",
+        "2025.11",
+        "2025.10",
+        "2024.08",
+        "2024.07",
+        "2024.03"
+      ],
+      "excerpt": "Table of Contents Appendix Resources Books (2026.02) (2026.05) (2022.10) Articles : web scale fabric과 AI/ML scheduled fabric의 차이, RDMA, frontend/backend 분리, ada"
+    },
+    {
+      "id": "concept:congestion-control",
+      "kind": "concept",
+      "title": "Congestion Control",
+      "label": "Congestion Control",
+      "group": "network",
+      "description": "Mechanisms that prevent fabric overload, queue buildup, and packet loss.",
+      "keywords": [
+        "Congestion Control",
+        "congestion control",
+        "ECN",
+        "PFC",
+        "DCQCN",
+        "lossless Ethernet",
+        "tail latency"
+      ]
+    },
+    {
+      "id": "concept:rdma",
+      "kind": "concept",
+      "title": "RDMA",
+      "label": "RDMA",
+      "group": "network",
+      "description": "Remote direct memory access data path for low-latency GPU and storage communication.",
+      "keywords": [
+        "RDMA",
+        "Remote Direct Memory Access",
+        "InfiniBand verbs"
+      ]
+    },
+    {
+      "id": "concept:checkpointing",
+      "kind": "concept",
+      "title": "Checkpointing",
+      "label": "Checkpointing",
+      "group": "storage",
+      "description": "Model state persistence and recovery path for training systems.",
+      "keywords": [
+        "Checkpointing",
+        "checkpoint",
+        "checkpointing",
+        "model checkpoint"
+      ]
+    },
+    {
+      "id": "concept:clos",
+      "kind": "concept",
+      "title": "Clos Fabric",
+      "label": "Clos Fabric",
+      "group": "network",
+      "description": "Leaf-spine fabric topology used to scale east-west data center traffic.",
+      "keywords": [
+        "Clos Fabric",
+        "Clos",
+        "leaf-spine",
+        "leaf spine",
+        "spine-leaf",
+        "CLOS"
+      ]
+    },
+    {
+      "id": "concept:roce",
+      "kind": "concept",
+      "title": "RoCE",
+      "label": "RoCE",
+      "group": "network",
+      "description": "RDMA over Converged Ethernet, usually discussed with lossless Ethernet and congestion control.",
+      "keywords": [
+        "RoCE",
+        "RDMA over Converged Ethernet",
+        "RoCEv2"
+      ]
+    },
+    {
+      "id": "concept:bgp",
+      "kind": "concept",
+      "title": "BGP",
+      "label": "BGP",
+      "group": "network",
+      "description": "Routing protocol used in underlays, eBGP fabrics, and data center route control.",
+      "keywords": [
+        "BGP",
+        "eBGP",
+        "iBGP",
+        "BGP underlay"
+      ]
+    },
+    {
+      "id": "/ai-data-center-network/chap07/",
+      "title": "Chapter 7: RoCEv2 Transport and Congestion Management",
+      "route": "/ai-data-center-network/chap07/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "pfc",
+        "the",
+        "congestion",
+        "ecn",
+        "and",
+        "csig",
+        "rocev2",
+        "cnp",
+        "sfc",
+        "pause"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains how RoCEv2 traffic is transported across Ethernet AI fabrics and how congestion is detected, signaled, and mitigate"
+    },
+    {
+      "id": "/ai-data-center-network/chap10/",
+      "title": "Chapter 10: AI Network Performance KPIs",
+      "route": "/ai-data-center-network/chap10/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "kpis",
+        "mlperf",
+        "storage",
+        "time",
+        "benchmark",
+        "accuracy",
+        "latency",
+        "quality"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
+    },
+    {
+      "id": "/ai-data-center-network/chap06/",
+      "title": "Chapter 6: Efficient Load Balancing",
+      "route": "/ai-data-center-network/chap06/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "glb",
+        "leaf",
+        "spine",
+        "dlb",
+        "and",
+        "flow",
+        "ecmp",
+        "telb",
+        "path"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv"
+    },
+    {
+      "id": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "title": "Cloud Data Center Network의 지금과 앞으로",
+      "route": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "network",
+        "ethernet",
+        "fabric",
+        "ai/ml",
+        "rdma",
+        "traffic",
+        "routing",
+        "adaptive",
+        "frontend",
+        "rack"
+      ],
+      "excerpt": "Source: Masayuki Kobayashi, \"クラウドデータセンターネットワークの 'いま' と 'これから'\", AI/ML/HPCネットワーク分科会, 2023 06 12. 원본 PDF는 비출판 로컬 참조 자료이며, 이 문서는 공개 사이트용 요약과 최신 맥락 보강이다. 한 줄 요지 Clo"
+    },
+    {
+      "id": "/ai-data-center-network/chap01/",
+      "title": "Chapter 1: Wonders in the Workload",
+      "route": "/ai-data-center-network/chap01/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "rdma",
+        "nic",
+        "memory",
+        "kernel",
+        "for",
+        "are",
+        "infiniband",
+        "queue"
+      ],
+      "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
+    },
+    {
+      "id": "/ai-data-center-network/chap02/",
+      "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
+      "route": "/ai-data-center-network/chap02/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "congestion",
+        "flows",
+        "and",
+        "traffic",
+        "balancing",
+        "training",
+        "flow",
+        "ethernet",
+        "for"
+      ],
+      "excerpt": "Table of Contents Goal ! (https://engineering.fb.com/wp content/uploads/2024/03/Meta 24K GenAi Clusters hero.png) Source: This chapter explains why AI/ML data c"
+    },
+    {
+      "id": "/ai-data-center-network/chap03/",
+      "title": "Chapter 3: Network Design Considerations",
+      "route": "/ai-data-center-network/chap03/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "and",
+        "the",
+        "leaf",
+        "design",
+        "clos",
+        "fabric",
+        "rail",
+        "for",
+        "spine",
+        "cabling"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
+    },
+    {
+      "id": "/ai-data-center-network/chap09/",
+      "title": "Chapter 9: Storage Network Design and Technologies for AI Data Centers",
+      "route": "/ai-data-center-network/chap09/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "storage",
+        "and",
+        "the",
+        "file",
+        "nvme-o-tcp",
+        "fabric",
+        "a/b",
+        "nvme-o-rdma",
+        "are",
+        "checkpoint"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains why storage networking is a separate design topic in AI data centers. The core idea is: An AI storage network is no"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap01/",
+      "title": "Chapter 1: Introduction and AI System Overview",
+      "route": "/ai-system-performance-engineering/chap01/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "goodput",
+        "the",
+        "performance",
+        "and",
+        "time",
+        "nsight",
+        "systems",
+        "mechanical",
+        "sympathy"
+      ],
+      "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap02/",
+      "title": "Chapter 2: AI System Hardware Overview",
+      "route": "/ai-system-performance-engineering/chap02/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "rack",
+        "blackwell",
+        "memory",
+        "grace",
+        "nvl72",
+        "cpu",
+        "hbm",
+        "nvlink",
+        "power"
+      ],
+      "excerpt": "Table of Contents Goal 이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다. 핵심 아이디어는 다음과 같다. AI 하드웨어 설계는 FLOPS만 높이는 문제가 아니라, GPU compute, HBM bandwidth, CPU"
+    },
+    {
+      "id": "/ai-data-center-network/chap08/",
+      "title": "Chapter 8: IP Routing for AI/ML Fabrics",
+      "route": "/ai-data-center-network/chap08/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "bgp",
+        "tenant",
+        "and",
+        "routing",
+        "the",
+        "is-is",
+        "srv6",
+        "segment",
+        "for",
+        "fabric"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains routing choices for AI/ML data center fabrics. The core idea is: AI fabric routing is no longer just reachability. "
+    },
+    {
+      "id": "/ai-data-center-network/clos-ebgp-lab/",
+      "title": "Clos Fabric Lab Series",
+      "route": "/ai-data-center-network/clos-ebgp-lab/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "leaf",
+        "leaf1",
+        "bgp",
+        "spine1",
+        "spine",
+        "the",
+        "spine2",
+        "and",
+        "ecmp",
+        "bfd"
+      ],
+      "excerpt": "This README starts with the implemented Lab 1 and records the planned direction for the next labs. The sequence is meant to move from a pure routed underlay to "
+    },
+    {
+      "id": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "title": "Appendix: BGP-based Underlay and GLB NNHN in AI Data Center Fabrics",
+      "route": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "bgp",
+        "glb",
+        "nnhn",
+        "leaf",
+        "spine",
+        "quality",
+        "underlay",
+        "juniper",
+        "ingress"
+      ],
+      "excerpt": "Supplement to Chapter 6's GLB section, with additional BGP underlay context. This appendix covers (1) why eBGP is the de facto underlay routing protocol for mod"
+    }
+  ],
+  "edges": [
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/chap01/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/chap08/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/chap09/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/chap11/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/clos-ebgp-lab/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "the",
+        "glb",
+        "leaf",
+        "spine"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap08/",
+      "target": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "bgp",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/clos-ebgp-lab/",
+      "target": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "the",
+        "bgp",
+        "leaf",
+        "spine"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Clos",
+        "CLOS"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "congestion control",
+        "Congestion Control",
+        "ECN",
+        "PFC"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "tail latency",
+        "congestion control",
+        "Congestion Control",
+        "PFC"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA",
+        "InfiniBand verbs"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "PFC",
+        "ECN",
+        "DCQCN",
+        "congestion control"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA",
+        "Remote Direct Memory Access"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RDMA over Converged Ethernet"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Clos",
+        "CLOS",
+        "Clos Fabric",
+        "leaf-spine"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "PFC",
+        "congestion control",
+        "Congestion Control",
+        "ECN"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "concept:bgp",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "BGP",
+        "BGP underlay",
+        "eBGP"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Clos",
+        "CLOS",
+        "leaf-spine",
+        "spine-leaf"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "PFC",
+        "ECN",
+        "DCQCN",
+        "congestion control"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE",
+        "RDMA over Converged Ethernet"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap07/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Clos",
+        "CLOS",
+        "leaf-spine",
+        "spine-leaf"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap07/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "PFC",
+        "ECN",
+        "DCQCN",
+        "congestion control"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap07/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA",
+        "Remote Direct Memory Access"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap07/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RDMA over Converged Ethernet",
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap08/",
+      "target": "concept:bgp",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "BGP",
+        "eBGP",
+        "iBGP"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap08/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Clos",
+        "CLOS",
+        "leaf-spine"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap08/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "DCQCN",
+        "ECN",
+        "PFC",
+        "congestion control"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "PFC",
+        "DCQCN",
+        "ECN",
+        "tail latency"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "ECN",
+        "PFC",
+        "tail latency",
+        "congestion control"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap11/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "ECN",
+        "PFC",
+        "tail latency",
+        "DCQCN"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap11/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/clos-ebgp-lab/",
+      "target": "concept:bgp",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "BGP",
+        "eBGP"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/clos-ebgp-lab/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Clos",
+        "CLOS",
+        "Clos Fabric"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "target": "concept:bgp",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "BGP",
+        "eBGP",
+        "BGP underlay"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Clos",
+        "CLOS",
+        "leaf-spine"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "ECN",
+        "PFC",
+        "tail latency",
+        "DCQCN"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap08/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap11/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "checkpoint"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "congestion control",
+        "Congestion Control",
+        "tail latency"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "checkpoint"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap08/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap11/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "Clos",
+        "CLOS",
+        "leaf-spine"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap11/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "leaf-spine",
+        "spine-leaf"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "leaf-spine"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "concept:bgp",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "BGP"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "concept:bgp",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "BGP"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap11/",
+      "target": "concept:bgp",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "BGP"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "keyword+section",
+      "weight": 0.782,
+      "terms": [
+        "the",
+        "and",
+        "for"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "keyword",
+      "weight": 0.673,
+      "terms": [
+        "the",
+        "and",
+        "flow"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap09/",
+      "type": "keyword+section",
+      "weight": 0.623,
+      "terms": [
+        "and",
+        "the",
+        "are"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "keyword+section",
+      "weight": 0.617,
+      "terms": [
+        "and",
+        "the",
+        "for"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "keyword",
+      "weight": 0.615,
+      "terms": [
+        "and",
+        "the",
+        "for"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "keyword",
+      "weight": 0.566,
+      "terms": [
+        "the",
+        "leaf",
+        "spine",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "keyword",
+      "weight": 0.548,
+      "terms": [
+        "the",
+        "congestion",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "/ai-data-center-network/chap08/",
+      "type": "keyword",
+      "weight": 0.535,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap07/",
+      "target": "/ai-data-center-network/chap11/",
+      "type": "keyword",
+      "weight": 0.521,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "keyword",
+      "weight": 0.52,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap08/",
+      "type": "keyword",
+      "weight": 0.511,
+      "terms": [
+        "and",
+        "the",
+        "for",
+        "fabric"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/ai-data-center-network/chap11/",
+      "type": "keyword",
+      "weight": 0.502,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.497,
+      "terms": [
+        "the",
+        "and",
+        "time"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap09/",
+      "type": "keyword",
+      "weight": 0.495,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "keyword+section",
+      "weight": 0.397,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "/ai-data-center-network/chap11/",
+      "type": "keyword",
+      "weight": 0.298,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap01/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap02/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap11/",
+      "type": "keyword",
+      "weight": 0.289,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "keyword",
+      "weight": 0.282,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap09/",
+      "type": "keyword",
+      "weight": 0.277,
+      "terms": [
+        "and",
+        "the",
+        "fabric"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "keyword",
+      "weight": 0.274,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap11/",
+      "type": "keyword",
+      "weight": 0.273,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "/ai-data-center-network/chap09/",
+      "type": "keyword",
+      "weight": 0.271,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "keyword",
+      "weight": 0.269,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "keyword",
+      "weight": 0.266,
+      "terms": [
+        "storage",
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/chap08/",
+      "type": "keyword",
+      "weight": 0.265,
+      "terms": [
+        "the",
+        "and",
+        "for"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap08/",
+      "target": "/ai-data-center-network/chap09/",
+      "type": "keyword",
+      "weight": 0.258,
+      "terms": [
+        "and",
+        "the",
+        "fabric"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap08/",
+      "target": "/ai-data-center-network/chap11/",
+      "type": "keyword",
+      "weight": 0.241,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-system-performance-engineering/chap02/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rack"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap02/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap03/",
+      "target": "/ai-data-center-network/clos-ebgp-lab/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "and",
+        "the",
+        "leaf",
+        "spine"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap06/",
+      "target": "/ai-data-center-network/clos-ebgp-lab/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "leaf",
+        "spine",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap07/",
+      "target": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap08/",
+      "target": "/ai-data-center-network/clos-ebgp-lab/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "bgp",
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap11/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/",
+      "target": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap03/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap06/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap08/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap09/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/chap11/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/clos-ebgp-lab/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap07/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap08/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap11/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/clos-ebgp-lab/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/glb-nnhn-bgp-underlay/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

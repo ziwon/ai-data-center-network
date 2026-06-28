@@ -1,0 +1,344 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/cme295/lec-06/",
+    "title": "Lecture 6: LLM Reasoning and GRPO",
+    "route": "/cme295/lec-06/",
+    "group": "cme295",
+    "keywords": [
+      "reasoning",
+      "reward",
+      "sft",
+      "model",
+      "chain",
+      "grpo",
+      "answer",
+      "advantage",
+      "pass",
+      "final"
+    ],
+    "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다. 핵심 "
+  },
+  "nodes": [
+    {
+      "id": "/cme295/lec-06/",
+      "title": "Lecture 6: LLM Reasoning and GRPO",
+      "route": "/cme295/lec-06/",
+      "group": "cme295",
+      "keywords": [
+        "reasoning",
+        "reward",
+        "sft",
+        "model",
+        "chain",
+        "grpo",
+        "answer",
+        "advantage",
+        "pass",
+        "final"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다. 핵심 "
+    },
+    {
+      "id": "/cme295/",
+      "title": "CME295 Lecture Notes",
+      "route": "/cme295/",
+      "group": "cme295",
+      "keywords": [
+        "lecture",
+        "reasoning",
+        "다이어그램",
+        "preference",
+        "grpo",
+        "and",
+        "sft",
+        "llm",
+        "transformer",
+        "tuning"
+      ],
+      "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
+    },
+    {
+      "id": "/cme295/lec-05/",
+      "title": "Lecture 5: LLM Tuning and Human Preferences",
+      "route": "/cme295/lec-05/",
+      "group": "cme295",
+      "keywords": [
+        "reward",
+        "preference",
+        "model",
+        "sft",
+        "policy",
+        "ppo",
+        "dpo",
+        "rlhf",
+        "response",
+        "tuning"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 pre trained + SFT model을 human preference에 맞게 조정하는 preference tuning을 이해하는 것이다. 핵심 메시지는 다음과 같다. SFT는 model에게 \"무엇을 생성해야"
+    },
+    {
+      "id": "/cme295/lec-03/",
+      "title": "Lecture 3: Large Language Models, Decoding, Prompting, and Inference",
+      "route": "/cme295/lec-03/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "model",
+        "decoding",
+        "probability",
+        "context",
+        "expert",
+        "sampling",
+        "decoder-only",
+        "llm",
+        "top-k"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 현대 LLM을 decoder only Transformer 기반의 next token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다. 핵심 메"
+    },
+    {
+      "id": "/cme295/lec-04/",
+      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
+      "route": "/cme295/lec-04/",
+      "group": "cme295",
+      "keywords": [
+        "model",
+        "pre-training",
+        "sft",
+        "training",
+        "parallelism",
+        "optimizer",
+        "lora",
+        "fine-tuning",
+        "memory",
+        "precision"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre training 이후 fine tuning과 alignment 단계가 필요한지 이해하는 것이다. 핵심 메시지는 다음과 같다. LLM training은 하나의 거대한 "
+    },
+    {
+      "id": "/cme295/lec-01/",
+      "title": "Lecture 1: Transformer",
+      "route": "/cme295/lec-01/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "embedding",
+        "text",
+        "rnn",
+        "decoder",
+        "representation",
+        "self-attention",
+        "label",
+        "sequence",
+        "attention"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
+    },
+    {
+      "id": "/cme295/lec-02/",
+      "title": "Lecture 2: Transformer-Based Models & Tricks",
+      "route": "/cme295/lec-02/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "position",
+        "attention",
+        "bert",
+        "embedding",
+        "positional",
+        "transformer",
+        "encoder",
+        "nsp",
+        "head"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다. 핵심 메시지는 다음과 같다. 현대 Transformer 모델은 2017년 원래 구조를 그대로 복사한 것"
+    }
+  ],
+  "edges": [
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-01/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-02/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "transformer"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-03/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "llm"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-04/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "sft"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-05/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "preference",
+        "sft",
+        "tuning"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-06/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "reasoning",
+        "sft",
+        "grpo"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-02/",
+      "type": "keyword+section",
+      "weight": 0.732,
+      "terms": [
+        "token",
+        "attention",
+        "embedding"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-03/",
+      "type": "keyword+section",
+      "weight": 0.656,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-03/",
+      "type": "keyword+section",
+      "weight": 0.625,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-04/",
+      "type": "keyword+section",
+      "weight": 0.48,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-05/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword",
+      "weight": 0.429,
+      "terms": [
+        "reward",
+        "sft",
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-04/",
+      "type": "keyword",
+      "weight": 0.403,
+      "terms": [
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "/cme295/lec-05/",
+      "type": "keyword",
+      "weight": 0.391,
+      "terms": [
+        "model",
+        "sft"
+      ]
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword",
+      "weight": 0.383,
+      "terms": [
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword",
+      "weight": 0.381,
+      "terms": [
+        "sft",
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-04/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-05/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-05/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-05/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "model"
+      ]
+    }
+  ]
+}

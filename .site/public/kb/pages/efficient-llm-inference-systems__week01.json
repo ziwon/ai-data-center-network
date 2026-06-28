@@ -1,0 +1,809 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/efficient-llm-inference-systems/week01/",
+    "title": "Efficient LLM Inference Systems",
+    "route": "/efficient-llm-inference-systems/week01/",
+    "group": "efficient-llm-inference-systems",
+    "keywords": [
+      "prompt",
+      "the",
+      "batch",
+      "tpot",
+      "length",
+      "128",
+      "size",
+      "logits",
+      "increases",
+      "sweep"
+    ],
+    "excerpt": "Week 1: TTFT, TPOT, Batch Throughput This chapter measures how prompt length and batch size affect latency and throughput in decoder only LLM inference. The exp"
+  },
+  "nodes": [
+    {
+      "id": "/efficient-llm-inference-systems/week01/",
+      "title": "Efficient LLM Inference Systems",
+      "route": "/efficient-llm-inference-systems/week01/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "prompt",
+        "the",
+        "batch",
+        "tpot",
+        "length",
+        "128",
+        "size",
+        "logits",
+        "increases",
+        "sweep"
+      ],
+      "excerpt": "Week 1: TTFT, TPOT, Batch Throughput This chapter measures how prompt length and batch size affect latency and throughput in decoder only LLM inference. The exp"
+    },
+    {
+      "id": "/efficient-llm-inference-systems/",
+      "title": "Efficient LLM Inference Systems",
+      "route": "/efficient-llm-inference-systems/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "2022.11",
+        "llm",
+        "efficient",
+        "2023.11",
+        "2022.08",
+        "2023.06",
+        "2020.01",
+        "2022.10",
+        "systems",
+        "books"
+      ],
+      "excerpt": "Appendix Resources Books (2026) Papers (2023.11) (2022.11) (2022.08) (2022.10) (2022.11) (2023.06) (2020.01) LLM Architecture"
+    },
+    {
+      "id": "concept:kv-cache",
+      "kind": "concept",
+      "title": "KV Cache",
+      "label": "KV Cache",
+      "group": "inference",
+      "description": "Transformer key-value cache used to avoid recomputing attention state during decoding.",
+      "keywords": [
+        "KV Cache",
+        "KV cache",
+        "key-value cache",
+        "KV-cache",
+        "k/v cache"
+      ]
+    },
+    {
+      "id": "concept:attention",
+      "kind": "concept",
+      "title": "Attention",
+      "label": "Attention",
+      "group": "model-architecture",
+      "description": "Transformer attention mechanism and its MHA, MQA, GQA, RoPE, and FlashAttention variants.",
+      "keywords": [
+        "Attention",
+        "attention",
+        "self-attention",
+        "MHA",
+        "MQA",
+        "GQA",
+        "RoPE",
+        "FlashAttention"
+      ]
+    },
+    {
+      "id": "/efficient-llm-inference-systems/week03/",
+      "title": "Week 3 — Transformer Inference and the KV Cache",
+      "route": "/efficient-llm-inference-systems/week03/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "the",
+        "gqa",
+        "kib",
+        "mib",
+        "and",
+        "cache",
+        "mha",
+        "gib",
+        "week",
+        "batch"
+      ],
+      "excerpt": "3.1 Learning Goals By the end of this week, you should be able to: 1. Memorize the KV cache memory formula and estimate memory for an arbitrary model, sequence "
+    },
+    {
+      "id": "/efficient-llm-inference-systems/week02/",
+      "title": "Week 2 — Hardware Foundations for Inference",
+      "route": "/efficient-llm-inference-systems/week02/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "the",
+        "tflops",
+        "batch",
+        "gb/s",
+        "bf16",
+        "peak",
+        "hbm",
+        "h100",
+        "tb/s",
+        "dense"
+      ],
+      "excerpt": "Pre lab summary. Read this before running the hands on exercises. TL;DR All inference optimization is one principle in disguise: keep data in the fastest memory"
+    },
+    {
+      "id": "/ai-data-center-network/chap10/",
+      "title": "Chapter 10: AI Network Performance KPIs",
+      "route": "/ai-data-center-network/chap10/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "kpis",
+        "mlperf",
+        "storage",
+        "time",
+        "benchmark",
+        "accuracy",
+        "latency",
+        "quality"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap01/",
+      "title": "Chapter 1: Introduction and AI System Overview",
+      "route": "/ai-system-performance-engineering/chap01/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "goodput",
+        "the",
+        "performance",
+        "and",
+        "time",
+        "nsight",
+        "systems",
+        "mechanical",
+        "sympathy"
+      ],
+      "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "title": "LLM Inference",
+      "route": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "the",
+        "token",
+        "convert",
+        "logits",
+        "inference",
+        "decoding",
+        "llm",
+        "transformer",
+        "project",
+        "detokenize"
+      ],
+      "excerpt": "Inference Pipeline ! This diagram summarizes the end to end flow of decoder only LLM inference: 1. Convert user input into token IDs with the tokenizer. 2. Add "
+    },
+    {
+      "id": "/efficient-llm-inference-systems/week04/",
+      "title": "Week 4 — Quantization",
+      "route": "/efficient-llm-inference-systems/week04/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "the",
+        "quantization",
+        "int4",
+        "awq",
+        "int8",
+        "and",
+        "for",
+        "week",
+        "scale",
+        "fp8"
+      ],
+      "excerpt": "These notes expand Chapter 4 of the book. The source chapter is short and interview oriented; this version keeps the same core topics while connecting them to t"
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/",
+      "title": "Appendix",
+      "route": "/efficient-llm-inference-systems/appendix/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "appendix",
+        "reusable",
+        "weeks",
+        "background",
+        "appear",
+        "topics",
+        "multiple",
+        "across",
+        "llm",
+        "inference"
+      ],
+      "excerpt": "Reusable background notes for LLM inference topics that appear across multiple weeks."
+    },
+    {
+      "id": "/ai-data-center-network/rdma-examples/",
+      "title": "RDMA Read/Write 실전 입문",
+      "route": "/ai-data-center-network/rdma-examples/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "rdma",
+        "rocev2",
+        "가능함",
+        "ibv",
+        "필요함",
+        "gid",
+        "wqe",
+        "메모리",
+        "네트워크",
+        "이더넷"
+      ],
+      "excerpt": "목표: 이 글 하나로 RDMA Read와 Write를 직접 작성하고 실행할 수 있는 기준을 정리함. 0. 왜 또 RDMA인가 LLM 추론과 학습이 GPU 클러스터의 일이 되면서 RDMA는 더 이상 HPC 영역만의 전유물이 아님. NCCL의 IB plugin, NIXL, Mooncake의"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap02/",
+      "title": "Chapter 2: AI System Hardware Overview",
+      "route": "/ai-system-performance-engineering/chap02/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "rack",
+        "blackwell",
+        "memory",
+        "grace",
+        "nvl72",
+        "cpu",
+        "hbm",
+        "nvlink",
+        "power"
+      ],
+      "excerpt": "Table of Contents Goal 이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다. 핵심 아이디어는 다음과 같다. AI 하드웨어 설계는 FLOPS만 높이는 문제가 아니라, GPU compute, HBM bandwidth, CPU"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap03/",
+      "title": "Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments",
+      "route": "/ai-system-performance-engineering/chap03/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "cpu",
+        "kubernetes",
+        "memory",
+        "cuda",
+        "container",
+        "mig",
+        "numa",
+        "image",
+        "kernel"
+      ],
+      "excerpt": "Table of Contents Goal 이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다. 핵심 아이디어는 다음과 같다. GPU 성능은 CUDA kernel만으로 "
+    },
+    {
+      "id": "/cme295/",
+      "title": "CME295 Lecture Notes",
+      "route": "/cme295/",
+      "group": "cme295",
+      "keywords": [
+        "lecture",
+        "reasoning",
+        "다이어그램",
+        "preference",
+        "grpo",
+        "and",
+        "sft",
+        "llm",
+        "transformer",
+        "tuning"
+      ],
+      "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
+    },
+    {
+      "id": "/cme295/lec-01/",
+      "title": "Lecture 1: Transformer",
+      "route": "/cme295/lec-01/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "embedding",
+        "text",
+        "rnn",
+        "decoder",
+        "representation",
+        "self-attention",
+        "label",
+        "sequence",
+        "attention"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
+    }
+  ],
+  "edges": [
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-01/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/rdma-examples/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention",
+        "MHA"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week01/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache",
+        "KV-cache"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week02/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention",
+        "GQA"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache",
+        "KV-cache"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week03/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "GQA",
+        "attention",
+        "Attention",
+        "MHA"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week03/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache",
+        "KV-cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week04/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "attention",
+        "Attention",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week04/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "attention",
+        "Attention"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week01/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "GQA"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/",
+      "target": "/efficient-llm-inference-systems/appendix/",
+      "type": "keyword+section",
+      "weight": 0.597,
+      "terms": [
+        "llm"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.497,
+      "terms": [
+        "the",
+        "and",
+        "time"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "keyword",
+      "weight": 0.475,
+      "terms": [
+        "gpu",
+        "cpu",
+        "memory"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week03/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "keyword",
+      "weight": 0.416,
+      "terms": [
+        "the",
+        "and",
+        "week"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week02/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "keyword",
+      "weight": 0.411,
+      "terms": [
+        "the"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week02/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "keyword",
+      "weight": 0.377,
+      "terms": [
+        "the",
+        "batch"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week01/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "keyword",
+      "weight": 0.375,
+      "terms": [
+        "the",
+        "batch"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week01/",
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "keyword",
+      "weight": 0.363,
+      "terms": [
+        "the",
+        "batch"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "llm",
+        "transformer"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/llm-inference/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "logits"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/week01/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/week01/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/week02/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/week03/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/",
+      "target": "/efficient-llm-inference-systems/week04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

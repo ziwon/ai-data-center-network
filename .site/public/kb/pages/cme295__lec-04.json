@@ -1,0 +1,1256 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/cme295/lec-04/",
+    "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
+    "route": "/cme295/lec-04/",
+    "group": "cme295",
+    "keywords": [
+      "model",
+      "pre-training",
+      "sft",
+      "training",
+      "parallelism",
+      "optimizer",
+      "lora",
+      "fine-tuning",
+      "memory",
+      "precision"
+    ],
+    "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre training 이후 fine tuning과 alignment 단계가 필요한지 이해하는 것이다. 핵심 메시지는 다음과 같다. LLM training은 하나의 거대한 "
+  },
+  "nodes": [
+    {
+      "id": "/cme295/lec-04/",
+      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
+      "route": "/cme295/lec-04/",
+      "group": "cme295",
+      "keywords": [
+        "model",
+        "pre-training",
+        "sft",
+        "training",
+        "parallelism",
+        "optimizer",
+        "lora",
+        "fine-tuning",
+        "memory",
+        "precision"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre training 이후 fine tuning과 alignment 단계가 필요한지 이해하는 것이다. 핵심 메시지는 다음과 같다. LLM training은 하나의 거대한 "
+    },
+    {
+      "id": "/cme295/",
+      "title": "CME295 Lecture Notes",
+      "route": "/cme295/",
+      "group": "cme295",
+      "keywords": [
+        "lecture",
+        "reasoning",
+        "다이어그램",
+        "preference",
+        "grpo",
+        "and",
+        "sft",
+        "llm",
+        "transformer",
+        "tuning"
+      ],
+      "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
+    },
+    {
+      "id": "concept:attention",
+      "kind": "concept",
+      "title": "Attention",
+      "label": "Attention",
+      "group": "model-architecture",
+      "description": "Transformer attention mechanism and its MHA, MQA, GQA, RoPE, and FlashAttention variants.",
+      "keywords": [
+        "Attention",
+        "attention",
+        "self-attention",
+        "MHA",
+        "MQA",
+        "GQA",
+        "RoPE",
+        "FlashAttention"
+      ]
+    },
+    {
+      "id": "concept:parallelism",
+      "kind": "concept",
+      "title": "Parallelism",
+      "label": "Parallelism",
+      "group": "distributed-training",
+      "description": "Data, tensor, pipeline, and expert parallel strategies for training or serving models.",
+      "keywords": [
+        "Parallelism",
+        "data parallel",
+        "tensor parallel",
+        "pipeline parallel",
+        "expert parallel",
+        "3D parallelism"
+      ]
+    },
+    {
+      "id": "concept:quantization",
+      "kind": "concept",
+      "title": "Quantization",
+      "label": "Quantization",
+      "group": "inference",
+      "description": "Lower-precision model representation for memory bandwidth and inference efficiency.",
+      "keywords": [
+        "Quantization",
+        "quantization",
+        "int8",
+        "int4",
+        "FP8",
+        "bitsandbytes",
+        "bnb"
+      ]
+    },
+    {
+      "id": "concept:checkpointing",
+      "kind": "concept",
+      "title": "Checkpointing",
+      "label": "Checkpointing",
+      "group": "storage",
+      "description": "Model state persistence and recovery path for training systems.",
+      "keywords": [
+        "Checkpointing",
+        "checkpoint",
+        "checkpointing",
+        "model checkpoint"
+      ]
+    },
+    {
+      "id": "concept:kv-cache",
+      "kind": "concept",
+      "title": "KV Cache",
+      "label": "KV Cache",
+      "group": "inference",
+      "description": "Transformer key-value cache used to avoid recomputing attention state during decoding.",
+      "keywords": [
+        "KV Cache",
+        "KV cache",
+        "key-value cache",
+        "KV-cache",
+        "k/v cache"
+      ]
+    },
+    {
+      "id": "/cme295/lec-02/",
+      "title": "Lecture 2: Transformer-Based Models & Tricks",
+      "route": "/cme295/lec-02/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "position",
+        "attention",
+        "bert",
+        "embedding",
+        "positional",
+        "transformer",
+        "encoder",
+        "nsp",
+        "head"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다. 핵심 메시지는 다음과 같다. 현대 Transformer 모델은 2017년 원래 구조를 그대로 복사한 것"
+    },
+    {
+      "id": "/cme295/lec-03/",
+      "title": "Lecture 3: Large Language Models, Decoding, Prompting, and Inference",
+      "route": "/cme295/lec-03/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "model",
+        "decoding",
+        "probability",
+        "context",
+        "expert",
+        "sampling",
+        "decoder-only",
+        "llm",
+        "top-k"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 현대 LLM을 decoder only Transformer 기반의 next token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다. 핵심 메"
+    },
+    {
+      "id": "/cme295/lec-05/",
+      "title": "Lecture 5: LLM Tuning and Human Preferences",
+      "route": "/cme295/lec-05/",
+      "group": "cme295",
+      "keywords": [
+        "reward",
+        "preference",
+        "model",
+        "sft",
+        "policy",
+        "ppo",
+        "dpo",
+        "rlhf",
+        "response",
+        "tuning"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 pre trained + SFT model을 human preference에 맞게 조정하는 preference tuning을 이해하는 것이다. 핵심 메시지는 다음과 같다. SFT는 model에게 \"무엇을 생성해야"
+    },
+    {
+      "id": "/cme295/lec-06/",
+      "title": "Lecture 6: LLM Reasoning and GRPO",
+      "route": "/cme295/lec-06/",
+      "group": "cme295",
+      "keywords": [
+        "reasoning",
+        "reward",
+        "sft",
+        "model",
+        "chain",
+        "grpo",
+        "answer",
+        "advantage",
+        "pass",
+        "final"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다. 핵심 "
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap01/",
+      "title": "Chapter 1: Introduction and AI System Overview",
+      "route": "/ai-system-performance-engineering/chap01/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "goodput",
+        "the",
+        "performance",
+        "and",
+        "time",
+        "nsight",
+        "systems",
+        "mechanical",
+        "sympathy"
+      ],
+      "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap03/",
+      "title": "Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments",
+      "route": "/ai-system-performance-engineering/chap03/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "cpu",
+        "kubernetes",
+        "memory",
+        "cuda",
+        "container",
+        "mig",
+        "numa",
+        "image",
+        "kernel"
+      ],
+      "excerpt": "Table of Contents Goal 이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다. 핵심 아이디어는 다음과 같다. GPU 성능은 CUDA kernel만으로 "
+    },
+    {
+      "id": "/cme295/lec-01/",
+      "title": "Lecture 1: Transformer",
+      "route": "/cme295/lec-01/",
+      "group": "cme295",
+      "keywords": [
+        "token",
+        "embedding",
+        "text",
+        "rnn",
+        "decoder",
+        "representation",
+        "self-attention",
+        "label",
+        "sequence",
+        "attention"
+      ],
+      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다. 핵심 메시지는 다음과 "
+    },
+    {
+      "id": "/ai-data-center-network/chap01/",
+      "title": "Chapter 1: Wonders in the Workload",
+      "route": "/ai-data-center-network/chap01/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "rdma",
+        "nic",
+        "memory",
+        "kernel",
+        "for",
+        "are",
+        "infiniband",
+        "queue"
+      ],
+      "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap02/",
+      "title": "Chapter 2: AI System Hardware Overview",
+      "route": "/ai-system-performance-engineering/chap02/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "gpu",
+        "rack",
+        "blackwell",
+        "memory",
+        "grace",
+        "nvl72",
+        "cpu",
+        "hbm",
+        "nvlink",
+        "power"
+      ],
+      "excerpt": "Table of Contents Goal 이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다. 핵심 아이디어는 다음과 같다. AI 하드웨어 설계는 FLOPS만 높이는 문제가 아니라, GPU compute, HBM bandwidth, CPU"
+    },
+    {
+      "id": "/ai-system-performance-engineering/chap04/",
+      "title": "Chapter 4: Tuning Distributed Networking Communication",
+      "route": "/ai-system-performance-engineering/chap04/",
+      "group": "ai-system-performance-engineering",
+      "keywords": [
+        "nccl",
+        "gpu",
+        "nixl",
+        "rdma",
+        "sharp",
+        "communication",
+        "overlap",
+        "all-reduce",
+        "bucket",
+        "rank"
+      ],
+      "excerpt": "Table of Contents Goal 이번 장의 목표는 distributed training과 distributed inference에서 네트워크 통신을 단순한 “속도 문제”가 아니라 GPU goodput을 결정하는 핵심 병목으로 이해하는 것이다. 핵심 아이디어는 다음과 같다. Mu"
+    },
+    {
+      "id": "/deep-learning-for-network-engineers/week02/",
+      "title": "Week 2: Large Language Model, LLM",
+      "route": "/deep-learning-for-network-engineers/week02/",
+      "group": "deep-learning-for-network-engineers",
+      "keywords": [
+        "token",
+        "vector",
+        "embedding",
+        "attention",
+        "word",
+        "decoder",
+        "layer",
+        "ffnn",
+        "parameter",
+        "책에서"
+      ],
+      "excerpt": "Table of Contents Goal 이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다. 핵심 흐름은 다음과 같다. 이 장의 목적은 특정 GPT 모델을 구현하는 것이 아니라, Transformer 기반 LLM의 기본 연산 구조를"
+    },
+    {
+      "id": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "title": "Domain-Specific Architectures for AI Inference",
+      "route": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "group": "efficient-llm-inference-systems",
+      "keywords": [
+        "dsa",
+        "cache",
+        "compute",
+        "week",
+        "tensor",
+        "hardware",
+        "decode",
+        "sram",
+        "accelerator",
+        "token"
+      ],
+      "excerpt": "Source: , published 2025 08 03. This is a Korean lecture note adaptation, not a line by line full translation. The goal is to preserve the article's main argume"
+    },
+    {
+      "id": "/ai-data-center-network/chap09/",
+      "title": "Chapter 9: Storage Network Design and Technologies for AI Data Centers",
+      "route": "/ai-data-center-network/chap09/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "storage",
+        "and",
+        "the",
+        "file",
+        "nvme-o-tcp",
+        "fabric",
+        "a/b",
+        "nvme-o-rdma",
+        "are",
+        "checkpoint"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains why storage networking is a separate design topic in AI data centers. The core idea is: An AI storage network is no"
+    },
+    {
+      "id": "/ai-data-center-network/chap10/",
+      "title": "Chapter 10: AI Network Performance KPIs",
+      "route": "/ai-data-center-network/chap10/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "the",
+        "and",
+        "kpis",
+        "mlperf",
+        "storage",
+        "time",
+        "benchmark",
+        "accuracy",
+        "latency",
+        "quality"
+      ],
+      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
+    },
+    {
+      "id": "/ai-data-center-network/rdma-examples/",
+      "title": "RDMA Read/Write 실전 입문",
+      "route": "/ai-data-center-network/rdma-examples/",
+      "group": "ai-data-center-network",
+      "keywords": [
+        "rdma",
+        "rocev2",
+        "가능함",
+        "ibv",
+        "필요함",
+        "gid",
+        "wqe",
+        "메모리",
+        "네트워크",
+        "이더넷"
+      ],
+      "excerpt": "목표: 이 글 하나로 RDMA Read와 Write를 직접 작성하고 실행할 수 있는 기준을 정리함. 0. 왜 또 RDMA인가 LLM 추론과 학습이 GPU 클러스터의 일이 되면서 RDMA는 더 이상 HPC 영역만의 전유물이 아님. NCCL의 IB plugin, NIXL, Mooncake의"
+    }
+  ],
+  "edges": [
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-01/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-02/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "transformer"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-03/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "llm"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-04/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "sft"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-05/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "preference",
+        "sft",
+        "tuning"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "/cme295/lec-06/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "reasoning",
+        "sft",
+        "grpo"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "3D parallelism",
+        "data parallel"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/rdma-examples/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap01/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "FP8",
+        "quantization",
+        "Quantization"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "tensor parallel",
+        "expert parallel",
+        "data parallel"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "FP8"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint",
+        "model checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention",
+        "MHA"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "RoPE",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "GQA",
+        "MQA"
+      ]
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "data parallel",
+        "tensor parallel"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "quantization",
+        "Quantization"
+      ]
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "quantization",
+        "Quantization",
+        "FP8",
+        "int8"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "MQA",
+        "GQA"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "quantization",
+        "Quantization",
+        "int4",
+        "FP8"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "KV-cache",
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "attention",
+        "Attention"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/cme295/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "quantization",
+        "Quantization"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/deep-learning-for-network-engineers/week02/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "FP8"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-02/",
+      "type": "keyword+section",
+      "weight": 0.732,
+      "terms": [
+        "token",
+        "attention",
+        "embedding"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-03/",
+      "type": "keyword+section",
+      "weight": 0.656,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-03/",
+      "type": "keyword+section",
+      "weight": 0.625,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap09/",
+      "type": "keyword+section",
+      "weight": 0.623,
+      "terms": [
+        "and",
+        "the",
+        "are"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap10/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.497,
+      "terms": [
+        "the",
+        "and",
+        "time"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.492,
+      "terms": [
+        "token",
+        "embedding",
+        "attention",
+        "decoder"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-04/",
+      "type": "keyword+section",
+      "weight": 0.48,
+      "terms": []
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap03/",
+      "type": "keyword",
+      "weight": 0.475,
+      "terms": [
+        "gpu",
+        "cpu",
+        "memory"
+      ]
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.475,
+      "terms": [
+        "token",
+        "embedding",
+        "attention"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "keyword",
+      "weight": 0.47,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap03/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "keyword",
+      "weight": 0.456,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/cme295/lec-05/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword",
+      "weight": 0.429,
+      "terms": [
+        "reward",
+        "sft",
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-04/",
+      "type": "keyword",
+      "weight": 0.403,
+      "terms": [
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "/cme295/lec-05/",
+      "type": "keyword",
+      "weight": 0.391,
+      "terms": [
+        "model",
+        "sft"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap02/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "keyword",
+      "weight": 0.39,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword",
+      "weight": 0.383,
+      "terms": [
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-04/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword",
+      "weight": 0.381,
+      "terms": [
+        "sft",
+        "model"
+      ]
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-04/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-05/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-01/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-05/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-02/",
+      "target": "/cme295/lec-06/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "keyword",
+      "weight": 0.266,
+      "terms": [
+        "storage",
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.244,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "the",
+        "and"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap09/",
+      "target": "/ai-system-performance-engineering/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "and",
+        "the"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/rdma-examples/",
+      "target": "/ai-system-performance-engineering/chap04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma"
+      ]
+    },
+    {
+      "source": "/ai-system-performance-engineering/chap04/",
+      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/cme295/lec-03/",
+      "target": "/cme295/lec-05/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "model"
+      ]
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/chap10/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/ai-data-center-network/chap01/",
+      "target": "/ai-data-center-network/rdma-examples/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}
