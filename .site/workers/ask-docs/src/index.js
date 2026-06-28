@@ -23,6 +23,24 @@ export default {
       );
     }
 
+    if (url.pathname === '/api/kb/page') {
+      return handleKbPage(request, env, corsHeaders).catch((err) =>
+        json({ error: err?.message || String(err) }, 500, corsHeaders),
+      );
+    }
+
+    if (url.pathname === '/api/kb/graph') {
+      return handleKbGraph(request, env, corsHeaders).catch((err) =>
+        json({ error: err?.message || String(err) }, 500, corsHeaders),
+      );
+    }
+
+    if (url.pathname === '/api/kb/concepts') {
+      return handleKbConcepts(request, env, corsHeaders).catch((err) =>
+        json({ error: err?.message || String(err) }, 500, corsHeaders),
+      );
+    }
+
     if (request.method !== 'POST') {
       return json({ error: 'Method not allowed' }, 405, corsHeaders);
     }
@@ -84,6 +102,140 @@ export default {
     );
   },
 };
+
+async function handleKbPage(request, env, corsHeaders) {
+  if (request.method !== 'GET') {
+    return json({ error: 'Method not allowed' }, 405, corsHeaders);
+  }
+
+  const url = new URL(request.url);
+  const route = normalizeRoute(url.searchParams.get('route') || '/');
+  const graphKey = routeGraphKey(route);
+
+  if (env.QA_DB) {
+    const fromD1 = await readPageGraphFromD1(env.QA_DB, route, graphKey);
+    if (fromD1) {
+      return json(fromD1, 200, {
+        ...corsHeaders,
+        'cache-control': 'public, max-age=300',
+      });
+    }
+  }
+
+  const staticGraph = await fetchStaticPageGraph(url, graphKey);
+  if (!staticGraph) {
+    return json({ error: 'Knowledge graph not found' }, 404, corsHeaders);
+  }
+  return json(staticGraph, 200, {
+    ...corsHeaders,
+    'cache-control': 'public, max-age=300',
+  });
+}
+
+async function readPageGraphFromD1(db, route, graphKey) {
+  try {
+    const row = await db.prepare(
+      'SELECT graph_json FROM kb_page_graphs WHERE route = ? OR graph_key = ? LIMIT 1',
+    ).bind(route, graphKey).first();
+    if (!row?.graph_json) return null;
+    return JSON.parse(row.graph_json);
+  } catch {
+    return null;
+  }
+}
+
+async function handleKbGraph(request, env, corsHeaders) {
+  if (request.method !== 'GET') {
+    return json({ error: 'Method not allowed' }, 405, corsHeaders);
+  }
+
+  const url = new URL(request.url);
+  if (env.QA_DB) {
+    const fromD1 = await readGlobalGraphFromD1(env.QA_DB);
+    if (fromD1) {
+      return json(fromD1, 200, {
+        ...corsHeaders,
+        'cache-control': 'public, max-age=300',
+      });
+    }
+  }
+
+  const staticGraph = await fetchStaticGlobalGraph(url);
+  if (!staticGraph) {
+    return json({ error: 'Knowledge graph not found' }, 404, corsHeaders);
+  }
+  return json(staticGraph, 200, {
+    ...corsHeaders,
+    'cache-control': 'public, max-age=300',
+  });
+}
+
+async function readGlobalGraphFromD1(db) {
+  try {
+    const row = await db.prepare(
+      "SELECT graph_json FROM kb_global_graph WHERE id = 'main' LIMIT 1",
+    ).first();
+    if (!row?.graph_json) return null;
+    return JSON.parse(row.graph_json);
+  } catch {
+    return null;
+  }
+}
+
+async function handleKbConcepts(request, env, corsHeaders) {
+  if (request.method !== 'GET') {
+    return json({ error: 'Method not allowed' }, 405, corsHeaders);
+  }
+  if (!env.QA_DB) {
+    return json({ error: 'Database not configured' }, 500, corsHeaders);
+  }
+
+  const result = await env.QA_DB.prepare(
+    'SELECT id, label, concept_group, description, aliases, updated_at FROM kb_concepts ORDER BY concept_group, label',
+  ).all();
+  return json({
+    concepts: (result.results ?? []).map((row) => ({
+      id: row.id,
+      label: row.label,
+      group: row.concept_group,
+      description: row.description,
+      aliases: parseJsonArray(row.aliases),
+      updatedAt: row.updated_at,
+    })),
+  }, 200, {
+    ...corsHeaders,
+    'cache-control': 'public, max-age=300',
+  });
+}
+
+async function fetchStaticPageGraph(url, graphKey) {
+  const graphUrl = new URL(`/kb/pages/${graphKey}.json`, url.origin);
+  const response = await fetch(graphUrl, {
+    headers: { accept: 'application/json' },
+    cf: { cacheTtl: 300, cacheEverything: true },
+  });
+  if (!response.ok) return null;
+  return response.json();
+}
+
+async function fetchStaticGlobalGraph(url) {
+  const graphUrl = new URL('/kb/dcs-kb-graph.json', url.origin);
+  const response = await fetch(graphUrl, {
+    headers: { accept: 'application/json' },
+    cf: { cacheTtl: 300, cacheEverything: true },
+  });
+  if (!response.ok) return null;
+  return response.json();
+}
+
+function parseJsonArray(value) {
+  try {
+    const parsed = JSON.parse(value || '[]');
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
 
 async function handleLogs(request, env, corsHeaders) {
   if (request.method !== 'GET') {
@@ -292,6 +444,23 @@ function normalizePath(value) {
   } catch {
     return '/';
   }
+}
+
+function normalizeRoute(route) {
+  const text = String(route || '/').trim();
+  const path = text.startsWith('/') ? text : `/${text}`;
+  return path.replace(/\/?$/, '/').replace(/\/+/g, '/').toLowerCase();
+}
+
+function routeGraphKey(route) {
+  const normalized = normalizeRoute(route);
+  if (normalized === '/') return 'index';
+  return normalized
+    .replace(/^\/|\/$/g, '')
+    .split('/')
+    .map((segment) => encodeURIComponent(segment).replace(/%/g, '~'))
+    .join('__')
+    .toLowerCase();
 }
 
 function parsePositiveInt(value, fallback) {

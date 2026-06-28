@@ -3,7 +3,8 @@ main = "src/index.js"
 compatibility_date = "2026-06-28"
 
 routes = [
-  { pattern = "adcs.restack.tech/api/ask*", zone_name = "restack.tech" }
+  { pattern = "adcs.restack.tech/api/ask*", zone_name = "restack.tech" },
+  { pattern = "adcs.restack.tech/api/kb*", zone_name = "restack.tech" }
 ]
 
 [vars]
