@@ -37,6 +37,8 @@ jobs:
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CF_AI_TOKEN: ${{ secrets.CF_AI_TOKEN }}
+          PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.PUBLIC_GA_MEASUREMENT_ID }}
+          PUBLIC_GOOGLE_ADSENSE_CLIENT: ${{ secrets.PUBLIC_GOOGLE_ADSENSE_CLIENT }}
 
       - name: Publish to gh-pages
         env:

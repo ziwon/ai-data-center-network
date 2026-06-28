@@ -7,6 +7,57 @@ import starlightGitHubAlerts from 'starlight-github-alerts';
 import starlightImageZoom from 'starlight-image-zoom';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 
+const googleAnalyticsId = getGoogleTagId('PUBLIC_GA_MEASUREMENT_ID', /^G-[A-Z0-9]+$/);
+const googleAdSenseClient =
+  getGoogleTagId('PUBLIC_GOOGLE_ADSENSE_CLIENT', /^ca-pub-\d+$/) ?? 'ca-pub-8128231647578658';
+
+function getGoogleTagId(name, pattern) {
+  const value = process.env[name]?.trim();
+  return value && pattern.test(value) ? value : undefined;
+}
+
+function googleAnalyticsHeadEntries(measurementId) {
+  if (!measurementId) {
+    return [];
+  }
+
+  return [
+    {
+      tag: 'script',
+      attrs: {
+        async: true,
+        src: `https://www.googletagmanager.com/gtag/js?id=${measurementId}`,
+      },
+    },
+    {
+      tag: 'script',
+      content: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${measurementId}');
+      `,
+    },
+  ];
+}
+
+function googleAdSenseHeadEntries(client) {
+  if (!client) {
+    return [];
+  }
+
+  return [
+    {
+      tag: 'script',
+      attrs: {
+        async: true,
+        crossorigin: 'anonymous',
+        src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}`,
+      },
+    },
+  ];
+}
+
 export default defineConfig({
   site: 'https://adcs.restack.tech',
   trailingSlash: 'always',
@@ -81,6 +132,8 @@ export default defineConfig({
         PageSidebar: './src/components/PageSidebar.astro',
       },
       head: [
+        ...googleAnalyticsHeadEntries(googleAnalyticsId),
+        ...googleAdSenseHeadEntries(googleAdSenseClient),
         {
           tag: 'meta',
           attrs: { property: 'og:image', content: 'https://adcs.restack.tech/og.png' },
