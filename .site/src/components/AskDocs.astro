@@ -281,7 +281,8 @@
     private async searchPagefind(question: string): Promise<AskSource[]> {
       if (import.meta.env.DEV) return [];
       try {
-        this.pagefind ||= import('/pagefind/pagefind.js') as Promise<Pagefind>;
+        const url = '/pagefind/pagefind.js';
+        this.pagefind ||= import(/* @vite-ignore */ url) as Promise<Pagefind>;
         const pf     = await this.pagefind;
         const search = await pf.search(question, { limit: 5 });
         const data   = await Promise.all(search.results.map((r) => r.data()));
