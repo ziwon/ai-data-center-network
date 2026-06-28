@@ -178,6 +178,7 @@ bash run_with_docker.sh
 
 - MoE는 dense LLM보다 all-to-all과 expert load balancing이 중요합니다.
 - 같은 8 GPU 단일 노드에서도 NVLink, PCIe, NUMA 배치에 따라 expert parallel 성능이 달라질 수 있습니다.
+- Kubernetes에서 실행한다면 [AI Systems Performance Engineering Chapter 3](../ai-system-performance-engineering/chap03/README.md)의 NUMA-local GPU workload case study처럼 CPU pinning, Topology Manager, GPU-local memory path를 함께 확인해야 합니다.
 - AMD/NVIDIA config를 나눠 accelerator별 software stack 차이를 비교할 수 있습니다.
 
 ### 5. DeepSeek V3 671B: 대규모 MoE multi-node Slurm

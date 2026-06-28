@@ -1084,6 +1084,43 @@ memoryManagerPolicy: "Static"
 
 > GPU + NIC + CPU core + memory locality가 중요한 RDMA/NCCL workload에서는 `single-numa-node` 정책을 검토해야 한다.
 
+### Case Study: Kubernetes에서 GPU Workload를 NUMA-Local하게 유지하기
+
+Ronak Nathani의 ["Keeping GPU Workloads NUMA-Local in Kubernetes"](https://ronaknathani.com/blog/2026/05/keeping-gpu-workloads-numa-local-in-kubernetes/)는 이 장의 NUMA, CPU pinning, Kubernetes Topology Manager 내용을 실제 운영 문제로 연결하는 좋은 사례다.
+
+Related articles:
+
+* [Keeping GPU Workloads NUMA-Local in Kubernetes](../articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko.md)는 이 case study의 kubelet policy, failure mode, topology-aware scheduling을 더 자세히 정리한다.
+* [Never Underestimate Memory Architecture](../articles/never-underestimate-memory-architecture.ko.md)는 Grafana의 production NUMA 사례, cloud VM topology, Kubernetes CPU Manager, uncore bottleneck을 더 넓게 정리한다.
+
+핵심은 GPU workload가 GPU 안에서만 실행되지 않는다는 점이다. CPU는 training에서는 dataloader, preprocessing, pinned memory staging, kernel launch를 담당하고, inference에서는 tokenization, request batching, input formatting, postprocessing, server event loop를 담당한다. 이 CPU thread와 host memory가 GPU가 붙은 PCIe root complex와 다른 NUMA node에 있으면 H2D/DMA 경로가 socket interconnect를 건너게 된다. workload는 정상처럼 보이지만 step time, p99 latency, dataloader wait time이 조용히 나빠질 수 있다.
+
+Kubernetes에서는 locality 보장이 단계적으로 강해진다.
+
+| Level | Kubelet setting | What it gives | Workload requirement |
+| --- | --- | --- | --- |
+| 1 | `cpuManagerPolicy: static` | Guaranteed QoS pod에 exclusive logical CPU 할당 | 모든 container의 CPU/memory `requests == limits`, integer CPU request |
+| 2 | `cpuManagerPolicyOptions: full-pcpus-only=true` | SMT sibling을 나누지 않고 physical core 단위로 할당 | exclusive CPU request가 SMT thread 수의 배수여야 함 |
+| 3 | `topologyManagerPolicy: single-numa-node` | CPU/device/hugepage topology hint가 한 NUMA node에 맞을 때만 admit | critical container가 한 NUMA node 안에 들어야 함 |
+| 3+ | `memoryManagerPolicy: Static` | memory request도 NUMA admission에 포함 | `reservedMemory` 설정과 NUMA별 memory capacity planning 필요 |
+
+중요한 실패 모드는 "느리게 성공"과 "빠르게 실패"의 차이다. `cpuManagerPolicy: static`만 쓰면 kubelet CPU allocator가 보통 NUMA-local하게 pack하려고 하지만, node fragmentation이 생기면 한 container의 CPU가 여러 NUMA node에 걸칠 수 있다. Pod는 Running이고 GPU도 보이지만 p99나 step time만 나빠진다. 반대로 `single-numa-node`를 켜면 맞지 않는 pod는 `TopologyAffinityError`로 admission 단계에서 실패한다. 운영 관점에서는 조용한 성능 저하보다 명시적 실패가 디버깅하기 쉽다.
+
+다만 기본 Kubernetes scheduler는 node 전체의 aggregate CPU/memory/GPU만 보고 placement를 결정한다. NUMA node별 남은 CPU가 `20 + 40`처럼 쪼개져 있어도 "총 60 vCPU available"로 보일 수 있다. 이 경우 scheduler는 pod를 보냈지만 kubelet이 `TopologyAffinityError`로 거부하는 루프가 생긴다. 큰 GPU cluster에서는 `NodeResourceTopology` CRD, NFD Topology Updater, `NodeResourceTopologyMatch` scheduler plugin 같은 topology-aware scheduling 구성이 필요할 수 있다.
+
+실무 검증은 먼저 node topology를 확인하고, 그 다음 container 안의 실제 CPU affinity를 확인한다.
+
+```bash
+lscpu -e=CPU,CORE,SOCKET,NODE
+numactl -H
+nvidia-smi topo -m
+
+kubectl exec <pod-name> -c <container-name> -- taskset -cp 1
+kubectl exec <pod-name> -c <container-name> -- grep Cpus_allowed_list /proc/1/status
+```
+
+Training workload에서는 dataloader worker, pinned memory, GPU-local preprocessing thread가 같은 NUMA domain에 있는지 봐야 한다. Inference workload에서는 tokenization, batching thread, model server worker, GPU copy path가 p99 tail latency에 영향을 준다. 둘 다 "GPU utilization"보다 GPU가 기다린 시간, H2D copy time, CPU run queue, remote memory access, p95/p99 latency 또는 step time variance를 같이 봐야 한다.
+
 ## Kubernetes, SLURM, and Job Scheduling
 
 AI cluster에서는 Kubernetes와 SLURM이 모두 쓰인다.
@@ -1688,3 +1725,4 @@ GPU clock locking은 benchmark reproducibility와 run-to-run variance 분석에�
 * Kubernetes, [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 * Kubernetes, [Pod Quality of Service Classes](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/)
 * Kubernetes, [Node Resource Managers](https://kubernetes.io/docs/concepts/policy/node-resource-managers/)
+* Ronak Nathani, [Keeping GPU Workloads NUMA-Local in Kubernetes](https://ronaknathani.com/blog/2026/05/keeping-gpu-workloads-numa-local-in-kubernetes/)

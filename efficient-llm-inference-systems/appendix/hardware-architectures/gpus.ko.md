@@ -291,6 +291,7 @@ Blackwell급 systems에서는 GPU 선택이 곧 power/cooling/topology 선택이
 | Week 3 KV cache | decode path에서 HBM traffic과 KV cache layout을 설명한다. |
 | Week 4 quantization | FP8/FP4/W4A16이 prefill/decode에 다르게 작용하는 이유를 설명한다. |
 | AI Systems Performance Engineering Chapter 4 | NCCL, NVLink, RDMA, collective roofline과 연결된다. |
+| AI Systems Performance Engineering Chapter 3 | Kubernetes에서 CPU pinning, NUMA locality, Topology Manager가 GPU serving p99와 training step time에 미치는 영향을 연결한다. |
 | NPU appendix | GPU의 scale-up fabric과 NPU의 compiler/runtime envelope를 비교하는 기준을 제공한다. |
 
 ## 11. Check Questions
