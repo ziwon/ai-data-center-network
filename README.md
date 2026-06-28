@@ -40,3 +40,9 @@ AI data center networking, LLM inference, training, storage, and AI systems perf
 - [Clos Fabric Lab Series](./ai-data-center-network/clos-ebgp-lab/README.md)
 - [InfiniBand Packet Analysis](./ai-data-center-network/ib-packet-analysis/README.md)
 - [RDMA Read/Write Examples](./ai-data-center-network/rdma-examples/README.md)
+
+## News
+
+- [Ask this docs](https://adcs.restack.tech/): AI-powered Q&A panel — right, bottom, and expand modes; character counter with rate-limit hint; markdown rendering; Q&A logs stored in Cloudflare D1; admin page at [`/admin/qa-logs/`](https://adcs.restack.tech/admin/qa-logs/)
+
+  <img width="422" height="320" alt="adcs-ask-docs" src="https://github.com/user-attachments/assets/0bf83a9d-ef55-40f1-8016-3b178fb15def" />
