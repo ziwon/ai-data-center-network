@@ -18,7 +18,9 @@ export default {
     }
 
     if (url.pathname === '/api/ask/logs') {
-      return handleLogs(request, env, corsHeaders);
+      return handleLogs(request, env, corsHeaders).catch((err) =>
+        json({ error: err?.message || String(err) }, 500, corsHeaders),
+      );
     }
 
     if (request.method !== 'POST') {
@@ -104,25 +106,29 @@ async function handleLogs(request, env, corsHeaders) {
 
   let total, rows;
 
-  if (q) {
-    const like = `%${q}%`;
-    const countRow = await env.QA_DB.prepare(
-      'SELECT COUNT(*) AS n FROM qa_logs WHERE question LIKE ?',
-    ).bind(like).first();
-    total = countRow?.n ?? 0;
+  try {
+    if (q) {
+      const like = `%${q}%`;
+      const countRow = await env.QA_DB.prepare(
+        'SELECT COUNT(*) AS n FROM qa_logs WHERE question LIKE ?',
+      ).bind(like).first();
+      total = countRow?.n ?? 0;
 
-    const result = await env.QA_DB.prepare(
-      'SELECT id, ts, question, answer, sources FROM qa_logs WHERE question LIKE ? ORDER BY ts DESC LIMIT ? OFFSET ?',
-    ).bind(like, PAGE_SIZE, offset).all();
-    rows = result.results;
-  } else {
-    const countRow = await env.QA_DB.prepare('SELECT COUNT(*) AS n FROM qa_logs').first();
-    total = countRow?.n ?? 0;
+      const result = await env.QA_DB.prepare(
+        'SELECT id, ts, question, answer, sources FROM qa_logs WHERE question LIKE ? ORDER BY ts DESC LIMIT ? OFFSET ?',
+      ).bind(like, PAGE_SIZE, offset).all();
+      rows = result.results ?? [];
+    } else {
+      const countRow = await env.QA_DB.prepare('SELECT COUNT(*) AS n FROM qa_logs').first();
+      total = countRow?.n ?? 0;
 
-    const result = await env.QA_DB.prepare(
-      'SELECT id, ts, question, answer, sources FROM qa_logs ORDER BY ts DESC LIMIT ? OFFSET ?',
-    ).bind(PAGE_SIZE, offset).all();
-    rows = result.results;
+      const result = await env.QA_DB.prepare(
+        'SELECT id, ts, question, answer, sources FROM qa_logs ORDER BY ts DESC LIMIT ? OFFSET ?',
+      ).bind(PAGE_SIZE, offset).all();
+      rows = result.results ?? [];
+    }
+  } catch (err) {
+    return json({ error: `DB error: ${err?.message || String(err)}` }, 500, corsHeaders);
   }
 
   return json({
@@ -134,7 +140,7 @@ async function handleLogs(request, env, corsHeaders) {
       time: new Date(row.ts * 1000).toISOString(),
       question: row.question,
       answer: row.answer,
-      sources: JSON.parse(row.sources || '[]'),
+      sources: (() => { try { return JSON.parse(row.sources || '[]'); } catch { return []; } })(),
     })),
   }, 200, corsHeaders);
 }
