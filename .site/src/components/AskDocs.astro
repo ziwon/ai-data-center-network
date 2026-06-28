@@ -1,51 +1,70 @@
-<ask-docs-widget data-endpoint="/api/ask">
-  <button class="ask-docs-button" type="button" data-open>
-    <span aria-hidden="true">?</span>
+<ask-docs-widget>
+  <button class="ask-fab" type="button" data-open aria-label="Ask this docs">
+    <span class="ask-fab-icon" aria-hidden="true">?</span>
     Ask this docs
   </button>
 
-  <dialog class="ask-docs-dialog" aria-label="Ask this docs" data-dialog>
-    <form class="ask-docs-panel" method="dialog">
-      <div class="ask-docs-header">
+  <div class="ask-panel" data-panel hidden>
+    <div class="ask-resize-handle" data-resize aria-hidden="true"></div>
+
+    <div class="ask-panel-inner">
+      <header class="ask-header">
         <div>
-          <p class="ask-docs-eyebrow">AI Data Center Systems</p>
-          <h2>Ask this docs</h2>
+          <p class="ask-eyebrow">AI Data Center Systems</p>
+          <h2 class="ask-title">Ask this docs</h2>
         </div>
-        <button class="ask-docs-close" type="button" aria-label="Close" data-close>×</button>
+        <div class="ask-header-controls">
+          <button class="ask-mode-btn" data-mode-btn="right" title="오른쪽 패널" aria-label="오른쪽 패널">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="6" height="16" rx="1.5" opacity="0.35"/><rect x="8" y="0" width="8" height="16" rx="1.5"/></svg>
+          </button>
+          <button class="ask-mode-btn" data-mode-btn="bottom" title="하단 패널" aria-label="하단 패널">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="16" height="6" rx="1.5" opacity="0.35"/><rect x="0" y="8" width="16" height="8" rx="1.5"/></svg>
+          </button>
+          <button class="ask-mode-btn" data-mode-btn="expand" title="전체 확장" aria-label="전체 확장">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.5V1h4.5M10.5 1H15v4.5M15 10.5V15h-4.5M5.5 15H1v-4.5"/></svg>
+          </button>
+          <button class="ask-close-btn" type="button" aria-label="닫기" data-close>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="ask-body">
+        <label class="ask-field">
+          <span class="ask-field-row">
+            <span>Question</span>
+            <span class="ask-char" data-char>0 / 800</span>
+          </span>
+          <textarea
+            name="question"
+            rows="3"
+            maxlength="800"
+            placeholder="이 문서에서 핵심 운영 체크포인트는 무엇인가요?"
+            data-question
+          ></textarea>
+          <span class="ask-hint">시간당 최대 20회 · 질문당 최대 800자</span>
+        </label>
+
+        <div class="ask-actions">
+          <button class="ask-submit" type="button" data-submit>
+            <svg class="ask-spinner" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" stroke-dasharray="56" stroke-dashoffset="14" stroke-linecap="round"/>
+            </svg>
+            <span data-submit-label>Ask</span>
+          </button>
+          <p class="ask-status" data-status></p>
+        </div>
+
+        <section class="ask-answer" data-answer hidden></section>
+        <section class="ask-sources" data-sources hidden>
+          <h3>Sources</h3>
+          <ul class="ask-source-chips" data-source-list></ul>
+        </section>
       </div>
+    </div>
+  </div>
 
-      <label class="ask-docs-field">
-        <span class="ask-docs-field-row">
-          <span>Question</span>
-          <span class="ask-docs-char" data-char>0 / 800</span>
-        </span>
-        <textarea
-          name="question"
-          rows="4"
-          maxlength="800"
-          placeholder="이 문서에서 핵심 운영 체크포인트는 무엇인가요?"
-          data-question
-        ></textarea>
-        <span class="ask-docs-hint">시간당 최대 20회 · 질문당 최대 800자</span>
-      </label>
-
-      <div class="ask-docs-actions">
-        <button class="ask-docs-submit" type="submit" data-submit>
-          <svg class="ask-docs-spinner" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden>
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" stroke-dasharray="56" stroke-dashoffset="14" stroke-linecap="round"/>
-          </svg>
-          <span data-submit-label>Ask</span>
-        </button>
-        <p class="ask-docs-status" data-status></p>
-      </div>
-
-      <section class="ask-docs-answer" data-answer hidden></section>
-      <section class="ask-docs-sources" data-sources hidden>
-        <h3>Sources</h3>
-        <ul class="ask-docs-source-chips" data-source-list></ul>
-      </section>
-    </form>
-  </dialog>
+  <div class="ask-backdrop" data-backdrop hidden></div>
 </ask-docs-widget>
 
 <script>
@@ -57,120 +76,188 @@
       content?: string;
     }>;
   };
-
   type Pagefind = {
-    search: (query: string, options?: { limit?: number }) => Promise<{ results: PagefindResult[] }>;
+    search: (q: string, opts?: { limit?: number }) => Promise<{ results: PagefindResult[] }>;
   };
-
-  type AskSource = {
-    title: string;
-    url: string;
-    excerpt: string;
-  };
+  type AskSource = { title: string; url: string; excerpt: string };
+  type PanelMode = 'right' | 'bottom' | 'expand';
 
   const MAX_SOURCE_CHARS = 2600;
+  const LS_MODE = 'ask-panel-mode';
+  const LS_W    = 'ask-panel-w';
+  const LS_H    = 'ask-panel-h';
 
   class AskDocsWidget extends HTMLElement {
     private pagefind?: Promise<Pagefind>;
+    private mode: PanelMode = 'right';
 
     connectedCallback() {
       if (this.dataset.ready === 'true') return;
       this.dataset.ready = 'true';
 
-      const dialog = this.querySelector<HTMLDialogElement>('[data-dialog]');
-      const open = this.querySelector<HTMLButtonElement>('[data-open]');
-      const close = this.querySelector<HTMLButtonElement>('[data-close]');
-      const form = this.querySelector<HTMLFormElement>('form');
-      const question = this.querySelector<HTMLTextAreaElement>('[data-question]');
-      const charEl = this.querySelector<HTMLElement>('[data-char]');
+      const panel    = this.querySelector<HTMLElement>('[data-panel]')!;
+      const backdrop = this.querySelector<HTMLElement>('[data-backdrop]')!;
+      const fab      = this.querySelector<HTMLButtonElement>('[data-open]')!;
+      const closeBtn = this.querySelector<HTMLButtonElement>('[data-close]')!;
+      const question = this.querySelector<HTMLTextAreaElement>('[data-question]')!;
+      const charEl   = this.querySelector<HTMLElement>('[data-char]')!;
+      const resize   = this.querySelector<HTMLElement>('[data-resize]')!;
 
-      if (!dialog || !open || !close || !form || !question) return;
+      // Restore saved mode and sizes
+      this.mode = (localStorage.getItem(LS_MODE) as PanelMode) || 'right';
+      const savedW = localStorage.getItem(LS_W);
+      const savedH = localStorage.getItem(LS_H);
+      if (savedW) this.style.setProperty('--ask-w', savedW);
+      if (savedH) this.style.setProperty('--ask-h', savedH);
+      this.applyMode();
+
+      fab.addEventListener('click', () => this.openPanel());
+      closeBtn.addEventListener('click', () => this.closePanel());
+      backdrop.addEventListener('click', () => this.closePanel());
+
+      this.querySelectorAll<HTMLButtonElement>('[data-mode-btn]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const m = btn.dataset.modeBtn as PanelMode;
+          this.setMode(m);
+        });
+      });
 
       question.addEventListener('input', () => {
         const len = question.value.length;
-        if (charEl) {
-          charEl.textContent = `${len} / 800`;
-          charEl.classList.toggle('ask-docs-char--warn', len > 700);
+        charEl.textContent = `${len} / 800`;
+        charEl.classList.toggle('ask-char--warn', len > 700);
+      });
+
+      this.querySelector<HTMLButtonElement>('[data-submit]')!
+        .addEventListener('click', async () => {
+          const value = question.value.trim();
+          if (!value) { this.setStatus('질문을 입력해주세요.', 'error'); return; }
+          await this.ask(value);
+        });
+
+      question.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+          const value = question.value.trim();
+          if (value) this.ask(value);
         }
       });
 
-      open.addEventListener('click', () => {
-        openDialog(dialog);
-        question.focus();
-      });
+      // Resize handle
+      resize.addEventListener('pointerdown', (e) => this.startResize(e));
 
-      close.addEventListener('click', () => closeDialog(dialog));
-      dialog.addEventListener('click', (event) => {
-        if (event.target === dialog) closeDialog(dialog);
-      });
-
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const value = question.value.trim();
-        if (!value) {
-          this.setStatus('질문을 입력해주세요.', 'error');
-          return;
-        }
-        await this.ask(value);
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.hidden) this.closePanel();
       });
     }
 
+    private openPanel() {
+      const panel    = this.querySelector<HTMLElement>('[data-panel]')!;
+      const backdrop = this.querySelector<HTMLElement>('[data-backdrop]')!;
+      const question = this.querySelector<HTMLTextAreaElement>('[data-question]')!;
+      panel.hidden    = false;
+      backdrop.hidden = this.mode !== 'expand';
+      requestAnimationFrame(() => { panel.dataset.open = ''; });
+      setTimeout(() => question.focus(), 260);
+    }
+
+    private closePanel() {
+      const panel    = this.querySelector<HTMLElement>('[data-panel]')!;
+      const backdrop = this.querySelector<HTMLElement>('[data-backdrop]')!;
+      delete panel.dataset.open;
+      backdrop.hidden = true;
+      panel.addEventListener('transitionend', () => { panel.hidden = true; }, { once: true });
+    }
+
+    private setMode(mode: PanelMode) {
+      this.mode = mode;
+      localStorage.setItem(LS_MODE, mode);
+      this.applyMode();
+      const backdrop = this.querySelector<HTMLElement>('[data-backdrop]')!;
+      const panel    = this.querySelector<HTMLElement>('[data-panel]')!;
+      if (!panel.hidden) backdrop.hidden = mode !== 'expand';
+    }
+
+    private applyMode() {
+      this.dataset.mode = this.mode;
+      this.querySelectorAll<HTMLButtonElement>('[data-mode-btn]').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.modeBtn === this.mode);
+      });
+    }
+
+    private startResize(e: PointerEvent) {
+      e.preventDefault();
+      const isRight  = this.mode === 'right';
+      const isBottom = this.mode === 'bottom';
+      if (!isRight && !isBottom) return;
+
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const startW = this.offsetWidth;
+      const startH = this.offsetHeight;
+
+      const onMove = (e: PointerEvent) => {
+        if (isRight) {
+          const w = Math.max(320, Math.min(window.innerWidth * 0.8, startW - (e.clientX - startX)));
+          this.style.setProperty('--ask-w', `${w}px`);
+        } else {
+          const h = Math.max(200, Math.min(window.innerHeight * 0.85, startH - (e.clientY - startY)));
+          this.style.setProperty('--ask-h', `${h}px`);
+        }
+      };
+
+      const onUp = () => {
+        if (isRight)  localStorage.setItem(LS_W, this.style.getPropertyValue('--ask-w'));
+        if (isBottom) localStorage.setItem(LS_H, this.style.getPropertyValue('--ask-h'));
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onUp);
+      };
+
+      document.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerup', onUp);
+    }
+
     private async ask(question: string) {
-      const submit = this.querySelector<HTMLButtonElement>('[data-submit]');
-      const submitLabel = this.querySelector<HTMLElement>('[data-submit-label]');
-      const spinner = this.querySelector<SVGElement>('.ask-docs-spinner');
-      const answer = this.querySelector<HTMLElement>('[data-answer]');
-      const sources = this.querySelector<HTMLElement>('[data-sources]');
-      const sourceList = this.querySelector<HTMLElement>('[data-source-list]');
-      const endpoint = this.dataset.endpoint || '/api/ask';
+      const submit      = this.querySelector<HTMLButtonElement>('[data-submit]')!;
+      const submitLabel = this.querySelector<HTMLElement>('[data-submit-label]')!;
+      const spinner     = this.querySelector<SVGElement>('.ask-spinner')!;
+      const answer      = this.querySelector<HTMLElement>('[data-answer]')!;
+      const sources     = this.querySelector<HTMLElement>('[data-sources]')!;
+      const sourceList  = this.querySelector<HTMLElement>('[data-source-list]')!;
+      const endpoint    = this.dataset.endpoint || '/api/ask';
 
-      submit?.setAttribute('disabled', '');
-      if (spinner) spinner.hidden = false;
-      if (submitLabel) submitLabel.textContent = '생각 중...';
-
-      if (answer) {
-        answer.hidden = true;
-        answer.replaceChildren();
-      }
-      if (sources && sourceList) {
-        sources.hidden = true;
-        sourceList.replaceChildren();
-      }
+      submit.disabled = true;
+      spinner.hidden  = false;
+      submitLabel.textContent = '생각 중...';
+      answer.hidden = true;
+      answer.replaceChildren();
+      sources.hidden = true;
+      sourceList.replaceChildren();
       this.setStatus('문서에서 근거를 찾는 중...', 'loading');
 
       try {
         const context = await this.collectSources(question);
-        if (context.length === 0) {
-          this.setStatus('관련 문서 조각을 찾지 못했습니다.', 'error');
-          return;
-        }
+        if (!context.length) { this.setStatus('관련 문서 조각을 찾지 못했습니다.', 'error'); return; }
 
         this.setStatus('답변을 생성하는 중...', 'loading');
-        const response = await fetch(endpoint, {
+        const res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ question, sources: context }),
         });
 
-        const payload = (await response.json().catch(() => ({}))) as {
-          answer?: string;
-          error?: string;
-        };
-
-        if (!response.ok) {
-          throw new Error(payload.error || `Request failed: ${response.status}`);
-        }
+        const payload = await res.json().catch(() => ({})) as { answer?: string; error?: string };
+        if (!res.ok) throw new Error(payload.error || `Request failed: ${res.status}`);
 
         this.renderAnswer(payload.answer || '답변을 생성하지 못했습니다.');
         this.renderSources(context);
         this.setStatus('', '');
-      } catch (error) {
-        const message = error instanceof Error ? error.message : '요청 중 오류가 발생했습니다.';
-        this.setStatus(message, 'error');
+      } catch (err) {
+        this.setStatus(err instanceof Error ? err.message : '요청 중 오류가 발생했습니다.', 'error');
       } finally {
-        submit?.removeAttribute('disabled');
-        if (spinner) spinner.hidden = true;
-        if (submitLabel) submitLabel.textContent = 'Ask';
+        submit.disabled = false;
+        spinner.hidden  = true;
+        submitLabel.textContent = 'Ask';
       }
     }
 
@@ -178,112 +265,88 @@
       const current = this.currentPageSource(question);
       const results = await this.searchPagefind(question);
       const seen = new Set<string>();
-      const sources = [current, ...results].filter((source): source is AskSource => {
-        if (!source || seen.has(source.url)) return false;
-        seen.add(source.url);
-        return true;
-      });
-      return sources.slice(0, 6);
+      return [current, ...results]
+        .filter((s): s is AskSource => !!s && !seen.has(s.url) && !!seen.add(s.url))
+        .slice(0, 6);
     }
 
     private currentPageSource(question: string): AskSource | undefined {
-      const main = document.querySelector('main[data-pagefind-body]');
+      const main  = document.querySelector('main[data-pagefind-body]');
       const title = document.querySelector('h1')?.textContent?.trim() || document.title;
-      const text = main ? extractRelevantText(main, question) : '';
+      const text  = main ? extractRelevantText(main, question) : '';
       if (!text) return undefined;
-      return {
-        title,
-        url: location.pathname,
-        excerpt: text.slice(0, MAX_SOURCE_CHARS),
-      };
+      return { title, url: location.pathname, excerpt: text.slice(0, MAX_SOURCE_CHARS) };
     }
 
     private async searchPagefind(question: string): Promise<AskSource[]> {
       if (import.meta.env.DEV) return [];
       try {
-        const pagefindUrl = '/pagefind/pagefind.js';
-        this.pagefind ||= import(pagefindUrl) as Promise<Pagefind>;
-        const pagefind = await this.pagefind;
-        const search = await pagefind.search(question, { limit: 5 });
-        const data = await Promise.all(search.results.map((result) => result.data()));
+        this.pagefind ||= import('/pagefind/pagefind.js') as Promise<Pagefind>;
+        const pf     = await this.pagefind;
+        const search = await pf.search(question, { limit: 5 });
+        const data   = await Promise.all(search.results.map((r) => r.data()));
         return data
           .map((item) => ({
-            title: item.meta?.title || item.url,
-            url: item.url,
-            excerpt: stripPagefindMarkup(item.excerpt || item.content || '').slice(0, MAX_SOURCE_CHARS),
+            title:   item.meta?.title || item.url,
+            url:     item.url,
+            excerpt: stripMarkup(item.excerpt || item.content || '').slice(0, MAX_SOURCE_CHARS),
           }))
           .filter((item) => item.excerpt.length > 0);
-      } catch {
-        return [];
-      }
+      } catch { return []; }
     }
 
     private renderAnswer(text: string) {
-      const answer = this.querySelector<HTMLElement>('[data-answer]');
-      if (!answer) return;
-      answer.replaceChildren(...parseMarkdown(text));
-      answer.hidden = false;
+      const el = this.querySelector<HTMLElement>('[data-answer]')!;
+      el.replaceChildren(...parseMarkdown(text));
+      el.hidden = false;
     }
 
     private renderSources(sources: AskSource[]) {
-      const wrap = this.querySelector<HTMLElement>('[data-sources]');
-      const list = this.querySelector<HTMLElement>('[data-source-list]');
-      if (!wrap || !list) return;
-      list.replaceChildren(
-        ...sources.map((source) => {
-          const item = document.createElement('li');
-          const link = document.createElement('a');
-          link.href = source.url;
-          link.textContent = source.title;
-          item.append(link);
-          return item;
-        }),
-      );
+      const wrap = this.querySelector<HTMLElement>('[data-sources]')!;
+      const list = this.querySelector<HTMLElement>('[data-source-list]')!;
+      list.replaceChildren(...sources.map((s) => {
+        const li = document.createElement('li');
+        const a  = document.createElement('a');
+        a.href        = s.url;
+        a.textContent = s.title;
+        li.append(a);
+        return li;
+      }));
       wrap.hidden = false;
     }
 
     private setStatus(message: string, type: 'loading' | 'error' | '') {
-      const status = this.querySelector<HTMLElement>('[data-status]');
-      if (!status) return;
-      status.textContent = message;
-      status.dataset.type = type;
+      const el = this.querySelector<HTMLElement>('[data-status]')!;
+      el.textContent  = message;
+      el.dataset.type = type;
     }
   }
 
+  // ── Markdown renderer ──────────────────────────────────────
+
   function parseMarkdown(markdown: string): Node[] {
-    const blocks = markdown.trim().split(/\n{2,}/);
-    return blocks.flatMap((block) => {
+    return markdown.trim().split(/\n{2,}/).flatMap((block) => {
       const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
       if (!lines.length) return [];
 
       if (lines[0].match(/^\d+\. /)) {
         const ol = document.createElement('ol');
-        let currentLi: HTMLLIElement | null = null;
+        let li: HTMLLIElement | null = null;
         for (const line of lines) {
           const m = line.match(/^(\d+)\. (.*)/);
-          if (m) {
-            currentLi = document.createElement('li');
-            currentLi.append(...parseInline(m[2]));
-            ol.append(currentLi);
-          } else if (currentLi) {
-            currentLi.append(document.createTextNode(' '), ...parseInline(line));
-          }
+          if (m) { li = document.createElement('li'); li.append(...parseInline(m[2])); ol.append(li); }
+          else if (li) li.append(document.createTextNode(' '), ...parseInline(line));
         }
         return [ol];
       }
 
       if (lines[0].match(/^[-*] /)) {
         const ul = document.createElement('ul');
-        let currentLi: HTMLLIElement | null = null;
+        let li: HTMLLIElement | null = null;
         for (const line of lines) {
           const m = line.match(/^[-*] (.*)/);
-          if (m) {
-            currentLi = document.createElement('li');
-            currentLi.append(...parseInline(m[1]));
-            ul.append(currentLi);
-          } else if (currentLi) {
-            currentLi.append(document.createTextNode(' '), ...parseInline(line));
-          }
+          if (m) { li = document.createElement('li'); li.append(...parseInline(m[1])); ul.append(li); }
+          else if (li) li.append(document.createTextNode(' '), ...parseInline(line));
         }
         return [ul];
       }
@@ -296,106 +359,51 @@
 
   function parseInline(text: string): (Text | HTMLElement)[] {
     const result: (Text | HTMLElement)[] = [];
-    const regex = /\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`/g;
-    let last = 0;
-    let match: RegExpExecArray | null;
-    while ((match = regex.exec(text)) !== null) {
-      if (match.index > last) result.push(document.createTextNode(text.slice(last, match.index)));
-      if (match[1] !== undefined) {
-        const el = document.createElement('strong');
-        el.textContent = match[1];
-        result.push(el);
-      } else if (match[2] !== undefined) {
-        const el = document.createElement('em');
-        el.textContent = match[2];
-        result.push(el);
-      } else if (match[3] !== undefined) {
-        const el = document.createElement('code');
-        el.textContent = match[3];
-        result.push(el);
-      }
-      last = match.index + match[0].length;
+    const re = /\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`/g;
+    let last = 0, m: RegExpExecArray | null;
+    while ((m = re.exec(text)) !== null) {
+      if (m.index > last) result.push(document.createTextNode(text.slice(last, m.index)));
+      const tag = m[1] !== undefined ? 'strong' : m[2] !== undefined ? 'em' : 'code';
+      const el  = document.createElement(tag);
+      el.textContent = m[1] ?? m[2] ?? m[3];
+      result.push(el);
+      last = m.index + m[0].length;
     }
     if (last < text.length) result.push(document.createTextNode(text.slice(last)));
     return result;
   }
 
-  function stripPagefindMarkup(value: string) {
-    const template = document.createElement('template');
-    template.innerHTML = value;
-    return (template.content.textContent || '').replace(/\s+/g, ' ').trim();
+  // ── Helpers ────────────────────────────────────────────────
+
+  function stripMarkup(value: string) {
+    const t = document.createElement('template');
+    t.innerHTML = value;
+    return (t.content.textContent || '').replace(/\s+/g, ' ').trim();
   }
 
   function extractRelevantText(root: Element, question: string) {
-    const terms = tokenize(question);
-    const blocks = Array.from(
-      root.querySelectorAll('h1, h2, h3, p, li, blockquote, pre'),
-    )
-      .map((element) => ({
-        text: (element.textContent || '').replace(/\s+/g, ' ').trim(),
-        weight: element.matches('h1, h2, h3') ? 2 : 1,
-      }))
-      .filter((block) => block.text.length > 24);
+    const terms  = tokenize(question);
+    const blocks = Array.from(root.querySelectorAll('h1,h2,h3,p,li,blockquote,pre'))
+      .map((el) => ({ text: (el.textContent || '').replace(/\s+/g, ' ').trim(), weight: el.matches('h1,h2,h3') ? 2 : 1 }))
+      .filter((b) => b.text.length > 24);
 
-    if (blocks.length === 0) {
-      return (root.textContent || '').replace(/\s+/g, ' ').trim().slice(0, MAX_SOURCE_CHARS);
-    }
+    if (!blocks.length) return (root.textContent || '').replace(/\s+/g, ' ').trim().slice(0, MAX_SOURCE_CHARS);
 
-    const scored = blocks.map((block, index) => ({
-      ...block,
-      index,
-      score: scoreText(block.text, terms) * block.weight,
-    }));
+    const scored = blocks.map((b, i) => ({ ...b, i, score: scoreText(b.text, terms) * b.weight }));
+    const sel    = new Set<number>();
+    scored.slice(0, 4).forEach((b) => sel.add(b.i));
+    scored.sort((a, b) => b.score - a.score).slice(0, 10).forEach((b) => { sel.add(b.i); if (b.i > 0) sel.add(b.i - 1); });
 
-    const selectedIndexes = new Set<number>();
-    for (const item of scored.slice(0, 4)) selectedIndexes.add(item.index);
-    for (const item of scored.sort((a, b) => b.score - a.score).slice(0, 10)) {
-      selectedIndexes.add(item.index);
-      if (item.index > 0) selectedIndexes.add(item.index - 1);
-    }
-
-    const selected = blocks
-      .filter((_, index) => selectedIndexes.has(index))
-      .map((block) => block.text);
-
-    return selected.join('\n\n').slice(0, MAX_SOURCE_CHARS);
+    return blocks.filter((_, i) => sel.has(i)).map((b) => b.text).join('\n\n').slice(0, MAX_SOURCE_CHARS);
   }
 
-  function tokenize(value: string) {
-    return value
-      .toLowerCase()
-      .split(/[^0-9a-zA-Z가-힣_+-]+/)
-      .map((term) => term.trim())
-      .filter((term) => term.length >= 2);
+  function tokenize(v: string) {
+    return v.toLowerCase().split(/[^0-9a-zA-Z가-힣_+-]+/).map((t) => t.trim()).filter((t) => t.length >= 2);
   }
 
   function scoreText(text: string, terms: string[]) {
-    const lower = text.toLowerCase();
-    return terms.reduce((score, term) => score + (lower.includes(term) ? 1 : 0), 0);
-  }
-
-  function openDialog(dialog: HTMLDialogElement) {
-    try {
-      if (typeof dialog.showModal === 'function') {
-        dialog.showModal();
-      } else {
-        dialog.setAttribute('open', '');
-      }
-    } catch {
-      dialog.setAttribute('open', '');
-    }
-  }
-
-  function closeDialog(dialog: HTMLDialogElement) {
-    try {
-      if (typeof dialog.close === 'function') {
-        dialog.close();
-      } else {
-        dialog.removeAttribute('open');
-      }
-    } catch {
-      dialog.removeAttribute('open');
-    }
+    const l = text.toLowerCase();
+    return terms.reduce((s, t) => s + (l.includes(t) ? 1 : 0), 0);
   }
 
   if (!customElements.get('ask-docs-widget')) {
