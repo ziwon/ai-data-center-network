@@ -360,3 +360,205 @@ a {
     --sl-content-width: 76rem;
   }
 }
+
+ask-docs-widget {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 1000;
+}
+
+.ask-docs-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 38%);
+  border-radius: 999px;
+  padding: 0.65rem 0.95rem;
+  color: var(--sl-color-white);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--fabric-node-cyan), transparent 82%), transparent),
+    color-mix(in srgb, var(--sl-color-black), #050505 12%);
+  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.2);
+  font: inherit;
+  font-size: var(--sl-text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ask-docs-button span {
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  background: var(--fabric-node-cyan);
+  color: #020817;
+  line-height: 1;
+}
+
+.ask-docs-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(42rem, calc(100vw - 2rem));
+  max-height: min(44rem, calc(100vh - 2rem));
+  border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 58%);
+  border-radius: 8px;
+  margin: auto;
+  padding: 0;
+  color: var(--sl-color-white);
+  background: var(--sl-color-black);
+  box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.34);
+}
+
+.ask-docs-dialog::backdrop {
+  background: rgba(2, 8, 23, 0.62);
+  backdrop-filter: blur(4px);
+}
+
+.ask-docs-panel {
+  display: grid;
+  gap: 1rem;
+  max-height: inherit;
+  overflow: auto;
+  padding: 1.2rem;
+}
+
+.ask-docs-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ask-docs-eyebrow {
+  margin: 0 0 0.25rem;
+  color: var(--fabric-node-cyan);
+  font-size: var(--sl-text-xs);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ask-docs-header h2 {
+  margin: 0;
+  color: var(--sl-color-white);
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.ask-docs-close {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 6px;
+  color: var(--sl-color-gray-2);
+  background: transparent;
+  font: inherit;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ask-docs-field {
+  display: grid;
+  gap: 0.45rem;
+  color: var(--sl-color-gray-2);
+  font-size: var(--sl-text-sm);
+  font-weight: 700;
+}
+
+.ask-docs-field textarea {
+  resize: vertical;
+  min-height: 7rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 6px;
+  padding: 0.75rem;
+  color: var(--sl-color-white);
+  background: color-mix(in srgb, var(--sl-color-black), var(--fabric-node-cyan) 4%);
+  font: inherit;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.ask-docs-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.ask-docs-submit {
+  min-height: 2.35rem;
+  border: 1px solid color-mix(in srgb, #d9392e, transparent 18%);
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  color: var(--sl-color-white);
+  background: color-mix(in srgb, #d9392e, var(--sl-color-black) 20%);
+  font: inherit;
+  font-size: var(--sl-text-sm);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ask-docs-submit:disabled {
+  cursor: wait;
+  opacity: 0.66;
+}
+
+.ask-docs-status {
+  min-height: 1.4rem;
+  margin: 0;
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-sm);
+}
+
+.ask-docs-answer {
+  display: grid;
+  gap: 0.75rem;
+  border-block-start: 1px solid var(--sl-color-gray-5);
+  padding-block-start: 1rem;
+}
+
+.ask-docs-answer p {
+  margin: 0;
+  color: var(--sl-color-gray-1);
+  line-height: 1.65;
+}
+
+.ask-docs-sources {
+  border-block-start: 1px solid var(--sl-color-gray-5);
+  padding-block-start: 1rem;
+}
+
+.ask-docs-sources h3 {
+  margin: 0 0 0.5rem;
+  color: var(--sl-color-white);
+  font-size: var(--sl-text-sm);
+}
+
+.ask-docs-sources ol {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+.ask-docs-sources li {
+  padding-block: 0.18rem;
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-sm);
+}
+
+@media (max-width: 50em) {
+  ask-docs-widget {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .ask-docs-button {
+    min-height: 2.55rem;
+    padding: 0.55rem 0.75rem;
+  }
+}

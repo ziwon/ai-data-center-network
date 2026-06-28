@@ -1,0 +1,317 @@
+<ask-docs-widget data-endpoint="/api/ask">
+  <button class="ask-docs-button" type="button" data-open>
+    <span aria-hidden="true">?</span>
+    Ask this docs
+  </button>
+
+  <dialog class="ask-docs-dialog" aria-label="Ask this docs" data-dialog>
+    <form class="ask-docs-panel" method="dialog">
+      <div class="ask-docs-header">
+        <div>
+          <p class="ask-docs-eyebrow">AI Data Center Systems</p>
+          <h2>Ask this docs</h2>
+        </div>
+        <button class="ask-docs-close" type="button" aria-label="Close" data-close>×</button>
+      </div>
+
+      <label class="ask-docs-field">
+        <span>Question</span>
+        <textarea
+          name="question"
+          rows="4"
+          maxlength="800"
+          placeholder="이 문서에서 핵심 운영 체크포인트는 무엇인가요?"
+          data-question
+        ></textarea>
+      </label>
+
+      <div class="ask-docs-actions">
+        <button class="ask-docs-submit" type="submit" data-submit>Ask</button>
+        <p class="ask-docs-status" data-status></p>
+      </div>
+
+      <section class="ask-docs-answer" data-answer hidden></section>
+      <section class="ask-docs-sources" data-sources hidden>
+        <h3>Sources</h3>
+        <ol data-source-list></ol>
+      </section>
+    </form>
+  </dialog>
+</ask-docs-widget>
+
+<script>
+  type PagefindResult = {
+    data: () => Promise<{
+      url: string;
+      excerpt?: string;
+      meta?: { title?: string };
+      content?: string;
+    }>;
+  };
+
+  type Pagefind = {
+    search: (query: string, options?: { limit?: number }) => Promise<{ results: PagefindResult[] }>;
+  };
+
+  type AskSource = {
+    title: string;
+    url: string;
+    excerpt: string;
+  };
+
+  const MAX_SOURCE_CHARS = 2600;
+
+  class AskDocsWidget extends HTMLElement {
+    private pagefind?: Promise<Pagefind>;
+
+    connectedCallback() {
+      if (this.dataset.ready === 'true') return;
+      this.dataset.ready = 'true';
+
+      const dialog = this.querySelector<HTMLDialogElement>('[data-dialog]');
+      const open = this.querySelector<HTMLButtonElement>('[data-open]');
+      const close = this.querySelector<HTMLButtonElement>('[data-close]');
+      const form = this.querySelector<HTMLFormElement>('form');
+      const question = this.querySelector<HTMLTextAreaElement>('[data-question]');
+
+      if (!dialog || !open || !close || !form || !question) return;
+
+      open.addEventListener('click', () => {
+        openDialog(dialog);
+        question.focus();
+      });
+
+      close.addEventListener('click', () => closeDialog(dialog));
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) closeDialog(dialog);
+      });
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const value = question.value.trim();
+        if (!value) {
+          this.setStatus('질문을 입력해주세요.');
+          return;
+        }
+        await this.ask(value);
+      });
+    }
+
+    private async ask(question: string) {
+      const submit = this.querySelector<HTMLButtonElement>('[data-submit]');
+      const answer = this.querySelector<HTMLElement>('[data-answer]');
+      const sources = this.querySelector<HTMLElement>('[data-sources]');
+      const sourceList = this.querySelector<HTMLOListElement>('[data-source-list]');
+      const endpoint = this.dataset.endpoint || '/api/ask';
+
+      submit?.setAttribute('disabled', '');
+      if (answer) {
+        answer.hidden = true;
+        answer.replaceChildren();
+      }
+      if (sources && sourceList) {
+        sources.hidden = true;
+        sourceList.replaceChildren();
+      }
+      this.setStatus('문서에서 근거를 찾는 중...');
+
+      try {
+        const context = await this.collectSources(question);
+        if (context.length === 0) {
+          this.setStatus('관련 문서 조각을 찾지 못했습니다.');
+          return;
+        }
+
+        this.setStatus('답변을 생성하는 중...');
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ question, sources: context }),
+        });
+
+        const payload = (await response.json().catch(() => ({}))) as {
+          answer?: string;
+          error?: string;
+        };
+
+        if (!response.ok) {
+          throw new Error(payload.error || `Request failed: ${response.status}`);
+        }
+
+        this.renderAnswer(payload.answer || '답변을 생성하지 못했습니다.');
+        this.renderSources(context);
+        this.setStatus('');
+      } catch (error) {
+        const message = error instanceof Error ? error.message : '요청 중 오류가 발생했습니다.';
+        this.setStatus(message);
+      } finally {
+        submit?.removeAttribute('disabled');
+      }
+    }
+
+    private async collectSources(question: string): Promise<AskSource[]> {
+      const current = this.currentPageSource(question);
+      const results = await this.searchPagefind(question);
+      const seen = new Set<string>();
+      const sources = [current, ...results].filter((source): source is AskSource => {
+        if (!source || seen.has(source.url)) return false;
+        seen.add(source.url);
+        return true;
+      });
+      return sources.slice(0, 6);
+    }
+
+    private currentPageSource(question: string): AskSource | undefined {
+      const main = document.querySelector('main[data-pagefind-body]');
+      const title = document.querySelector('h1')?.textContent?.trim() || document.title;
+      const text = main ? extractRelevantText(main, question) : '';
+      if (!text) return undefined;
+      return {
+        title,
+        url: location.pathname,
+        excerpt: text.slice(0, MAX_SOURCE_CHARS),
+      };
+    }
+
+    private async searchPagefind(question: string): Promise<AskSource[]> {
+      if (import.meta.env.DEV) return [];
+      try {
+        const pagefindUrl = '/pagefind/pagefind.js';
+        this.pagefind ||= import(pagefindUrl) as Promise<Pagefind>;
+        const pagefind = await this.pagefind;
+        const search = await pagefind.search(question, { limit: 5 });
+        const data = await Promise.all(search.results.map((result) => result.data()));
+        return data
+          .map((item) => ({
+            title: item.meta?.title || item.url,
+            url: item.url,
+            excerpt: stripPagefindMarkup(item.excerpt || item.content || '').slice(0, MAX_SOURCE_CHARS),
+          }))
+          .filter((item) => item.excerpt.length > 0);
+      } catch {
+        return [];
+      }
+    }
+
+    private renderAnswer(text: string) {
+      const answer = this.querySelector<HTMLElement>('[data-answer]');
+      if (!answer) return;
+      const paragraphs = text
+        .split(/\n{2,}/)
+        .map((part) => part.trim())
+        .filter(Boolean);
+      answer.replaceChildren(
+        ...paragraphs.map((paragraph) => {
+          const p = document.createElement('p');
+          p.textContent = paragraph;
+          return p;
+        }),
+      );
+      answer.hidden = false;
+    }
+
+    private renderSources(sources: AskSource[]) {
+      const wrap = this.querySelector<HTMLElement>('[data-sources]');
+      const list = this.querySelector<HTMLOListElement>('[data-source-list]');
+      if (!wrap || !list) return;
+      list.replaceChildren(
+        ...sources.map((source) => {
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = source.url;
+          link.textContent = source.title;
+          item.append(link);
+          return item;
+        }),
+      );
+      wrap.hidden = false;
+    }
+
+    private setStatus(message: string) {
+      const status = this.querySelector<HTMLElement>('[data-status]');
+      if (status) status.textContent = message;
+    }
+  }
+
+  function stripPagefindMarkup(value: string) {
+    const template = document.createElement('template');
+    template.innerHTML = value;
+    return (template.content.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function extractRelevantText(root: Element, question: string) {
+    const terms = tokenize(question);
+    const blocks = Array.from(
+      root.querySelectorAll('h1, h2, h3, p, li, blockquote, pre'),
+    )
+      .map((element) => ({
+        text: (element.textContent || '').replace(/\s+/g, ' ').trim(),
+        weight: element.matches('h1, h2, h3') ? 2 : 1,
+      }))
+      .filter((block) => block.text.length > 24);
+
+    if (blocks.length === 0) {
+      return (root.textContent || '').replace(/\s+/g, ' ').trim().slice(0, MAX_SOURCE_CHARS);
+    }
+
+    const scored = blocks.map((block, index) => ({
+      ...block,
+      index,
+      score: scoreText(block.text, terms) * block.weight,
+    }));
+
+    const selectedIndexes = new Set<number>();
+    for (const item of scored.slice(0, 4)) selectedIndexes.add(item.index);
+    for (const item of scored.sort((a, b) => b.score - a.score).slice(0, 10)) {
+      selectedIndexes.add(item.index);
+      if (item.index > 0) selectedIndexes.add(item.index - 1);
+    }
+
+    const selected = blocks
+      .filter((_, index) => selectedIndexes.has(index))
+      .map((block) => block.text);
+
+    return selected.join('\n\n').slice(0, MAX_SOURCE_CHARS);
+  }
+
+  function tokenize(value: string) {
+    return value
+      .toLowerCase()
+      .split(/[^0-9a-zA-Z가-힣_+-]+/)
+      .map((term) => term.trim())
+      .filter((term) => term.length >= 2);
+  }
+
+  function scoreText(text: string, terms: string[]) {
+    const lower = text.toLowerCase();
+    return terms.reduce((score, term) => score + (lower.includes(term) ? 1 : 0), 0);
+  }
+
+  function openDialog(dialog: HTMLDialogElement) {
+    try {
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute('open', '');
+      }
+    } catch {
+      dialog.setAttribute('open', '');
+    }
+  }
+
+  function closeDialog(dialog: HTMLDialogElement) {
+    try {
+      if (typeof dialog.close === 'function') {
+        dialog.close();
+      } else {
+        dialog.removeAttribute('open');
+      }
+    } catch {
+      dialog.removeAttribute('open');
+    }
+  }
+
+  if (!customElements.get('ask-docs-widget')) {
+    customElements.define('ask-docs-widget', AskDocsWidget);
+  }
+</script>

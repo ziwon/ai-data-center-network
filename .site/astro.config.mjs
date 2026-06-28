@@ -71,6 +71,9 @@ export default defineConfig({
       description:
         'AI data center networking, LLM inference, training, storage, and systems performance engineering study notes.',
       favicon: '/favicon.svg',
+      components: {
+        PageFrame: './src/components/PageFrame.astro',
+      },
       head: [
         {
           tag: 'meta',
