@@ -1,8 +1,8 @@
 # Kernel Case Studies (practice)
 
 References and backlog for hands-on GPU kernel case studies — the *do* half of
-this track. Learn the patterns in [PMPP](../../courses/pmpp/README.md) and
-[Heterogeneous Systems](../../courses/heterogeneous-systems/README.md), then
+this track. Learn the patterns in [PMPP](../../pmpp/README.md) and
+[Heterogeneous Systems](../../heterogeneous-systems/README.md), then
 implement and profile them here with [Profiling](../profiling/README.md).
 
 ## Scope
@@ -15,7 +15,7 @@ Focus on kernels and runtime paths that explain real inference behavior:
 - Triton, CUTLASS, CUDA C++, and production inference kernels
 - Nsight Compute evidence: SM utilization, memory throughput, L2 hit rate, Tensor Core usage, warp stalls
 
-Related background: [PMPP](../../courses/pmpp/README.md), [Profiling](../profiling/README.md)
+Related background: [PMPP](../../pmpp/README.md), [Profiling](../profiling/README.md)
 
 ## Resource Index
 
@@ -28,7 +28,7 @@ Resources here are grouped by media type.
 - [gpu-mode/lectures](https://github.com/gpu-mode/lectures)
 - [GPU MODE YouTube channel](https://www.youtube.com/@GPUMODE/videos)
 
-GPU MODE itself is tracked in [GPU MODE](../../courses/gpu-mode/README.md). This section only pulls out the lectures that are directly useful for kernel case studies.
+GPU MODE itself is tracked in [GPU MODE](../../gpu-mode/README.md). This section only pulls out the lectures that are directly useful for kernel case studies.
 
 High-value kernel lectures:
 
@@ -51,7 +51,7 @@ High-value kernel lectures:
 
 The classic parallel-pattern building blocks (reduction, scan, histogram,
 convolution, sparse, graph) are covered as a course in
-[Heterogeneous Systems (Onur Mutlu)](../../courses/heterogeneous-systems/README.md).
+[Heterogeneous Systems (Onur Mutlu)](../../heterogeneous-systems/README.md).
 Each meeting there maps to a case study in the backlog below.
 
 #### CUDA Crash Course
@@ -77,7 +77,7 @@ Each meeting there maps to a case study in the backlog below.
 
 ### Books
 
-- [PMPP](../../courses/pmpp/README.md): background text for basic kernel patterns.
+- [PMPP](../../pmpp/README.md): background text for basic kernel patterns.
 
 ### Podcasts / Ongoing Feeds
 

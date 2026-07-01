@@ -1,49 +1,37 @@
 # GPU Systems
 
-A learning track for GPU architecture and CUDA kernel programming, organized by
-**role** rather than by topic. The goal is to learn how GPUs actually run
-kernels and why real inference workloads are fast or slow.
+A learning track for GPU architecture and CUDA kernel programming. The goal is
+to learn how GPUs actually run kernels and why real inference workloads are fast
+or slow.
 
-## How this track is organized
+This track is a **hub**: it aggregates a few external courses plus the reference
+and lab material that supports them. Each folder plays one role — you either
+*learn* it (a course), *look it up* (`appendix/`), or *practice* it (`labs/`).
 
-Each subfolder has one job. If you are unsure where something belongs, ask which
-role it plays: are you *learning* it, *looking it up*, or *practicing* it?
+## Layout
 
-| Tier | Role | Use it for |
+| Folder | Role | Contents |
 |---|---|---|
-| [`courses/`](courses/) | **Learn** | Structured lecture series, followed in order |
-| [`reference/`](reference/) | **Look up** | Official docs and architecture facts, consulted on demand |
-| [`practice/`](practice/) | **Do** | Hands-on kernel work and profiling |
+| [`pmpp/`](pmpp/README.md) | Course — **primary spine** | Programming Massively Parallel Processors |
+| [`heterogeneous-systems/`](heterogeneous-systems/README.md) | Course — complement | Onur Mutlu parallel-pattern course |
+| [`gpu-mode/`](gpu-mode/README.md) | Course — advanced feed | GPU MODE modern ML kernels |
+| [`appendix/`](appendix/) | Reference | [architecture](appendix/architecture/README.md), [CUDA](appendix/cuda/README.md) docs |
+| [`labs/`](labs/) | Practice | [profiling](labs/profiling/README.md), [kernels](labs/kernels/README.md) |
 
 This split also resolves the CUDA overlap: CUDA-the-course lives in
-[`courses/pmpp`](courses/pmpp/README.md), CUDA-the-reference lives in
-[`reference/cuda`](reference/cuda/README.md), and CUDA-the-practice lives in
-[`practice/kernels`](practice/kernels/README.md).
+[`pmpp/`](pmpp/README.md), CUDA-the-reference lives in
+[`appendix/cuda/`](appendix/cuda/README.md), and CUDA-the-practice lives in
+[`labs/kernels/`](labs/kernels/README.md).
 
 ## Suggested path
 
-1. **Spine:** work through [PMPP](courses/pmpp/README.md) as the primary course.
-2. **Complement:** use [Heterogeneous Systems (Onur Mutlu)](courses/heterogeneous-systems/README.md)
+1. **Spine:** work through [PMPP](pmpp/README.md) as the primary course.
+2. **Complement:** use [Heterogeneous Systems (Onur Mutlu)](heterogeneous-systems/README.md)
    in parallel for a second pass over the classic parallel patterns.
-3. **Practice as you go:** for each concept, profile a real kernel in
-   [`practice/`](practice/) and confirm the behavior with
-   [Nsight Compute](practice/profiling/README.md).
-4. **Reference on demand:** consult [`reference/`](reference/) for the exact
-   NVIDIA architecture and CUDA API details.
-5. **Later / advanced:** track [GPU MODE](courses/gpu-mode/README.md) as an
-   ongoing feed for modern ML kernels.
-
-## Index
-
-### courses/ — learn
-- [PMPP / Programming Massively Parallel Processors](courses/pmpp/README.md) — primary spine
-- [Heterogeneous Systems (Onur Mutlu)](courses/heterogeneous-systems/README.md) — parallel-pattern complement
-- [GPU MODE](courses/gpu-mode/README.md) — advanced ML-kernel feed
-
-### reference/ — look up
-- [GPU Architecture](reference/architecture/README.md) — execution model + NVIDIA architecture
-- [CUDA](reference/cuda/README.md) — NVIDIA CUDA programming and best-practices docs
-
-### practice/ — do
-- [Profiling](practice/profiling/README.md) — Nsight Compute
-- [Kernel Case Studies](practice/kernels/README.md) — hands-on kernel analysis
+3. **Practice as you go:** for each concept, implement and profile a real kernel
+   in [`labs/`](labs/) and confirm the behavior with
+   [Nsight Compute](labs/profiling/README.md).
+4. **Reference on demand:** consult [`appendix/`](appendix/) for the exact NVIDIA
+   architecture and CUDA API details.
+5. **Later / advanced:** track [GPU MODE](gpu-mode/README.md) as an ongoing feed
+   for modern ML kernels.

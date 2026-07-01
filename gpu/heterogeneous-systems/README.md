@@ -12,7 +12,7 @@ angle and adds irregular workloads (sparse, graph).
 ## Parallel patterns
 
 Classical building blocks behind GPU kernels. Each pattern maps directly to a
-case study in [`practice/kernels`](../../practice/kernels/README.md).
+case study in [`labs/kernels`](../labs/kernels/README.md).
 
 | Meeting | Topic | Kernel pattern |
 |---|---|---|
@@ -31,7 +31,7 @@ case study in [`practice/kernels`](../../practice/kernels/README.md).
 - Watch a PMPP lecture on a pattern, then the matching meeting here for a second
   explanation.
 - After both, implement and profile the pattern in
-  [`practice/kernels`](../../practice/kernels/README.md).
+  [`labs/kernels`](../labs/kernels/README.md).
 
 ## Notes
 

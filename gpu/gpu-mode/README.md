@@ -3,7 +3,7 @@
 Advanced, ongoing feed for modern ML kernels (formerly CUDA MODE). Treat this as
 a **later / advanced** course: come here after the [PMPP](../pmpp/README.md)
 foundation is in place. Specific kernel lectures pulled out for hands-on work
-live in [`practice/kernels`](../../practice/kernels/README.md).
+live in [`labs/kernels`](../labs/kernels/README.md).
 
 ## Resource Index
 
@@ -45,9 +45,9 @@ Where each lecture theme connects in this track:
 | Lecture theme | Related area |
 |---|---|
 | CUDA programming basics | [PMPP](../pmpp/README.md) |
-| GPU architecture concepts | [Architecture reference](../../reference/architecture/README.md) |
-| CUDA API / best-practices details | [CUDA reference](../../reference/cuda/README.md) |
-| Nsight Compute workflow or metrics | [Profiling](../../practice/profiling/README.md) |
-| Triton, CUTLASS, FlashAttention, low-bit kernels | [Kernel case studies](../../practice/kernels/README.md) |
+| GPU architecture concepts | [Architecture reference](../appendix/architecture/README.md) |
+| CUDA API / best-practices details | [CUDA reference](../appendix/cuda/README.md) |
+| Nsight Compute workflow or metrics | [Profiling](../labs/profiling/README.md) |
+| Triton, CUTLASS, FlashAttention, low-bit kernels | [Kernel case studies](../labs/kernels/README.md) |
 | Reduction, scan, histogram, convolution patterns | [Heterogeneous Systems](../heterogeneous-systems/README.md) |
 | NCCL, collectives, multi-GPU behavior | Distributed GPU systems (not yet tracked) |

@@ -4,8 +4,8 @@ The **primary spine** of this GPU track: the CUDA and parallel-programming
 foundation based on *Programming Massively Parallel Processors*. Everything else
 supports this course — pair it with
 [Heterogeneous Systems](../heterogeneous-systems/README.md) for a second pass,
-look up details in [`reference/`](../../reference/), and practice each concept in
-[`practice/`](../../practice/).
+look up details in [`appendix/`](../appendix/), and practice each concept in
+[`labs/`](../labs/).
 
 ## Primary Resource
 
