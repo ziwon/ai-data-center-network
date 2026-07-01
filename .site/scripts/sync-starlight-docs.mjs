@@ -276,6 +276,10 @@ function siteHomeBody() {
     <span>Efficient LLM Inference Systems</span>
     <small>KV cache, batching, quantization, GPU profiling, and serving trade-offs.</small>
   </a>
+  <a class="adcs-track-card" href="/gpu/">
+    <span>GPU Systems</span>
+    <small>GPU architecture, CUDA, PMPP, profiling, and kernel case studies.</small>
+  </a>
   <a class="adcs-track-card" href="/ai-system-performance-engineering/">
     <span>AI Systems Performance Engineering</span>
     <small>GPU hardware, OS and container tuning, CUDA, PyTorch, and distributed communication.</small>
