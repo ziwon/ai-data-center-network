@@ -91,6 +91,12 @@ export default defineConfig({
               items: [{ autogenerate: { directory: 'efficient-llm-inference-systems', collapsed: true } }],
             },
             {
+              label: 'GPU Systems',
+              link: '/gpu/',
+              icon: 'laptop',
+              items: [{ autogenerate: { directory: 'gpu', collapsed: true } }],
+            },
+            {
               label: 'Deep Learning for Network Engineers',
               link: '/deep-learning-for-network-engineers/',
               icon: 'open-book',
