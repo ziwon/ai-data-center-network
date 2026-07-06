@@ -146,6 +146,10 @@ export default defineConfig({
         },
         {
           tag: 'meta',
+          attrs: { property: 'og:type', content: 'website' },
+        },
+        {
+          tag: 'meta',
           attrs: { property: 'og:image:width', content: '1200' },
         },
         {
@@ -155,6 +159,10 @@ export default defineConfig({
         {
           tag: 'meta',
           attrs: { name: 'twitter:image', content: 'https://adcs.restack.tech/og.png' },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'twitter:card', content: 'summary_large_image' },
         },
       ],
       customCss: ['./src/styles/custom.css'],

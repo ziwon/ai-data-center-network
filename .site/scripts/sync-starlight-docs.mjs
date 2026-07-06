@@ -63,6 +63,37 @@ const generatedPublicRoots = [
 
 const pages = [];
 
+const defaultDescriptionsBySource = new Map([
+  [
+    'ai-data-center-network/README.md',
+    'AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations.',
+  ],
+  [
+    'efficient-llm-inference-systems/README.md',
+    'LLM inference systems notes covering KV cache, batching, quantization, GPU profiling, model serving, and practical performance trade-offs.',
+  ],
+  [
+    'deep-learning-for-network-engineers/README.md',
+    'Deep learning systems notes for network engineers covering training fundamentals, parallelism, collectives, RDMA, RoCE, and NCCL behavior.',
+  ],
+  [
+    'ai-system-performance-engineering/README.md',
+    'AI systems performance engineering notes covering GPU hardware, Linux and container tuning, CUDA, PyTorch, profiling, and distributed communication.',
+  ],
+  [
+    'cme295/README.md',
+    'CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations.',
+  ],
+  [
+    'training/README.md',
+    'Distributed training notes covering MLPerf Training workloads, LLM training, mixture-of-experts, LoRA, scaling behavior, and system bottlenecks.',
+  ],
+  [
+    'storage/README.md',
+    'AI workload storage notes covering checkpoint data paths, ZFS, MLPerf Storage, storage benchmarking, and data pipeline performance.',
+  ],
+]);
+
 const stopWords = new Set([
   'about',
   'after',
@@ -214,6 +245,9 @@ async function publishMarkdown(absolute, relative) {
   const isSiteHome = relative === 'README.md';
   const title = extractTitle(source, relative);
   const body = isSiteHome ? siteHomeBody() : rewriteMarkdown(stripLeadingTitle(source), relative);
+  const description = isSiteHome
+    ? 'A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering.'
+    : descriptionFrom(source, title, relative);
   const outRelative = markdownOutputPath(relative);
   const outAbsolute = path.join(docsOut, outRelative);
   const sourceStats = await stat(absolute);
@@ -225,11 +259,7 @@ async function publishMarkdown(absolute, relative) {
       '---',
       `title: ${JSON.stringify(title)}`,
       ...(isSiteHome ? [] : [`slug: ${JSON.stringify(slugFromRoute(routeFromOutput(outRelative)))}`]),
-      `description: ${JSON.stringify(
-        isSiteHome
-          ? 'A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering.'
-          : descriptionFrom(source, title),
-      )}`,
+      `description: ${JSON.stringify(description)}`,
       ...(isSiteHome ? ['template: splash'] : []),
       `lastUpdated: ${sourceStats.mtime.toISOString()}`,
       '---',
@@ -243,6 +273,7 @@ async function publishMarkdown(absolute, relative) {
     title,
     sourcePath: relative,
     route: routeFromOutput(outRelative),
+    description,
     body: body.trim(),
   });
 }
@@ -351,15 +382,112 @@ function extractTitle(markdown, relative) {
   return titleCase(basename);
 }
 
-function descriptionFrom(markdown, title) {
-  const plain = stripLeadingTitle(markdown)
-    .replace(/```[\s\S]*?```/g, ' ')
+function descriptionFrom(markdown, title, relative) {
+  const defaultDescription = defaultDescriptionsBySource.get(relative);
+  if (defaultDescription) return defaultDescription;
+
+  const frontmatterDescription = frontmatterField(markdown, 'description');
+  if (frontmatterDescription) return truncateDescription(frontmatterDescription);
+
+  const withoutTitle = stripLeadingTitle(stripFrontmatter(markdown));
+  const candidate = paragraphBlocks(withoutTitle)
+    .map(cleanDescriptionText)
+    .find((text) => isUsefulDescription(text, title));
+
+  return truncateDescription(candidate || `Study notes for ${title} in AI data center systems.`);
+}
+
+function frontmatterField(markdown, field) {
+  const match = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
+  if (!match) return '';
+
+  const line = match[1]
+    .split(/\r?\n/)
+    .find((entry) => entry.match(new RegExp(`^${field}:\\s*`, 'i')));
+  if (!line) return '';
+
+  return line
+    .replace(new RegExp(`^${field}:\\s*`, 'i'), '')
+    .replace(/^['"]|['"]$/g, '')
+    .trim();
+}
+
+function stripFrontmatter(markdown) {
+  return markdown.replace(/^---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/, '');
+}
+
+function paragraphBlocks(markdown) {
+  const blocks = [];
+  let current = [];
+  let inCodeBlock = false;
+
+  for (const line of markdown.split(/\r?\n/)) {
+    if (/^\s*```/.test(line)) {
+      inCodeBlock = !inCodeBlock;
+      continue;
+    }
+    if (inCodeBlock) continue;
+
+    if (!line.trim()) {
+      pushCurrentBlock(blocks, current);
+      current = [];
+      continue;
+    }
+
+    if (isStructuralMarkdownLine(line)) {
+      pushCurrentBlock(blocks, current);
+      current = [];
+      continue;
+    }
+
+    current.push(line.trim());
+  }
+
+  pushCurrentBlock(blocks, current);
+  return blocks;
+}
+
+function pushCurrentBlock(blocks, current) {
+  if (current.length > 0) {
+    blocks.push(current.join(' '));
+  }
+}
+
+function isStructuralMarkdownLine(line) {
+  const trimmed = line.trim();
+  return (
+    /^#{1,6}\s+/.test(trimmed) ||
+    /^[-*+]\s+/.test(trimmed) ||
+    /^\d+[.)]\s+/.test(trimmed) ||
+    /^\|/.test(trimmed) ||
+    /^>/.test(trimmed) ||
+    /^<img\b/i.test(trimmed) ||
+    /^<\/?[a-z][^>]*>$/i.test(trimmed)
+  );
+}
+
+function cleanDescriptionText(value) {
+  return value
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     .replace(/<[^>]+>/g, ' ')
-    .replace(/\[[^\]]+\]\([^)]+\)/g, ' ')
-    .replace(/[#>*_`|[\]-]/g, ' ')
+    .replace(/[#>*_`|[\]]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-  return plain.slice(0, 160) || title;
+}
+
+function isUsefulDescription(text, title) {
+  if (!text || text.length < 48) return false;
+  if (text.toLowerCase() === title.toLowerCase()) return false;
+  if (/^table of contents\b/i.test(text)) return false;
+  return /[.!?。]|[가-힣]/.test(text);
+}
+
+function truncateDescription(value) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (text.length <= 160) return text;
+  const shortened = text.slice(0, 157);
+  return `${shortened.replace(/\s+\S*$/, '')}...`;
 }
 
 function stripLeadingTitle(markdown) {
@@ -478,7 +606,7 @@ async function writeKnowledgeGraph() {
       route: page.route,
       group: groupFromRoute(page.route),
       keywords: keywords.map((keyword) => keyword.term),
-      excerpt: descriptionFrom(page.body, page.title),
+      excerpt: page.description,
     };
   });
 
@@ -858,7 +986,7 @@ function embeddingText(page) {
   return [
     page.title,
     ...headings,
-    descriptionFrom(page.body, page.title),
+    page.description,
   ]
     .join('\n')
     .slice(0, 6000);
