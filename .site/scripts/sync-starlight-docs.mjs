@@ -251,8 +251,10 @@ async function publishMarkdown(absolute, relative) {
     ? 'A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering.'
     : descriptionFrom(source, title, relative);
   const outRelative = markdownOutputPath(relative);
+  const route = routeFromOutput(outRelative);
   const outAbsolute = path.join(docsOut, outRelative);
   const sourceStats = await stat(absolute);
+  const head = pageHeadEntries(route, isSiteHome);
 
   await mkdir(path.dirname(outAbsolute), { recursive: true });
   await writeFile(
@@ -260,8 +262,9 @@ async function publishMarkdown(absolute, relative) {
     [
       '---',
       `title: ${JSON.stringify(title)}`,
-      ...(isSiteHome ? [] : [`slug: ${JSON.stringify(slugFromRoute(routeFromOutput(outRelative)))}`]),
+      ...(isSiteHome ? [] : [`slug: ${JSON.stringify(slugFromRoute(route))}`]),
       `description: ${JSON.stringify(description)}`,
+      ...frontmatterHeadLines(head),
       ...(isSiteHome ? ['template: splash'] : []),
       `lastUpdated: ${sourceStats.mtime.toISOString()}`,
       '---',
@@ -274,10 +277,31 @@ async function publishMarkdown(absolute, relative) {
   pages.push({
     title,
     sourcePath: relative,
-    route: routeFromOutput(outRelative),
+    route,
     description,
     body: body.trim(),
   });
+}
+
+function pageHeadEntries(route, isSiteHome) {
+  const image = `${siteUrl}/og/${ogImageSlugFromRoute(route)}.png`;
+  return [
+    { tag: 'meta', attrs: { property: 'og:type', content: isSiteHome ? 'website' : 'article' } },
+    { tag: 'meta', attrs: { property: 'og:image', content: image } },
+    { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
+    { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
+    { tag: 'meta', attrs: { name: 'twitter:image', content: image } },
+    { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
+  ];
+}
+
+function frontmatterHeadLines(head) {
+  return [`head: ${JSON.stringify(head)}`];
+}
+
+function ogImageSlugFromRoute(route) {
+  const slug = slugFromRoute(route);
+  return slug || 'index';
 }
 
 function siteHomeBody() {
