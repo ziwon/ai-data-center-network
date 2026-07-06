@@ -11,6 +11,13 @@ look up details in [`appendix/`](../appendix/), and practice each concept in
 
 - [PMPP 2021 lecture playlist](https://www.youtube.com/playlist?list=PLRRuQYjFhpmubuwx-w8X964ofVkW1T8O4)
 
+## Lecture Notes
+
+| Lecture | Topic | Notes |
+| ------- | ----- | ----- |
+| 2 | Data parallel programming and the CUDA programming model | [lec02](lec02/README.md) |
+| 3 | Multidimensional grids and data | [lec03](lec03/README.md) |
+
 ## Study Priority
 
 Focus first on:
@@ -35,4 +42,6 @@ For this repository, read PMPP with these questions in mind:
 
 ## Notes
 
-Add lecture notes here as the course progresses. Prefer short, measurement-oriented notes over long summaries.
+Add new lecture notes to the index above as the course progresses. Prefer
+measurement-oriented notes that connect CUDA programming patterns to GPU
+performance behavior.
