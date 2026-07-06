@@ -78,24 +78,7 @@ Task parallelism은 application 안에 독립적인 task가 몇 개나 있느냐
 
 Data parallelism은 데이터 크기가 커질수록 자연스럽게 커진다. 예를 들어 화면 해상도가 높아지면 pixel 수가 늘고, 같은 pixel shader나 연산을 적용할 독립 element가 많아진다. 코드를 새로 많이 작성하지 않아도 parallel work가 증가한다는 점이 GPU와 잘 맞는다.
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
-flowchart LR
-    A[Application work] --> B[Task parallelism<br/>different operations]
-    A --> C[Data parallelism<br/>same operation]
-    B --> D[Limited by number<br/>of independent tasks]
-    C --> E[Scales with<br/>data size]
-    E --> F[GPU fit<br/>many threads]
-
-    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    class A primary
-    class B,C secondary
-    class D note
-    class E,F accent
-```
+![Task parallelism and data parallelism](assets/parallelism-types.svg)
 
 ---
 
@@ -135,22 +118,7 @@ CUDA programming model에서는 CPU를 **host**, GPU를 **device**라고 부른�
 
 강의에서는 초반부 단순화를 위해 host memory와 device global memory가 분리되어 있고 서로 직접 접근할 수 없다고 가정한다. Unified virtual memory 같은 기능은 나중에 다룰 advanced topic이다.
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
-flowchart LR
-    A[Host<br/>CPU] --- B[Host memory<br/>DRAM]
-    A <--> C[Interconnect<br/>PCIe or NVLink]
-    C <--> D[Device<br/>GPU]
-    D --- E[Device global memory]
-
-    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    class A,D primary
-    class B,E secondary
-    class C accent
-```
+![Host and device memory organization](assets/host-device-memory.svg)
 
 이 분리 때문에 CPU에서 `malloc`한 `x`, `y`, `z` 배열을 GPU kernel이 바로 읽을 수 없다. GPU에서 계산하려면 device memory를 따로 할당하고, host에서 device로 입력을 복사해야 한다.
 
@@ -325,26 +293,7 @@ nvcc vec_add.cu -o vec_add
 
 `nvcc`는 한 파일 안에 섞여 있는 host code와 device code를 나누어 처리한다.
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
-flowchart LR
-    A[vec_add.cu] --> B[Host C/C++ code]
-    A --> C[Device CUDA code]
-    B --> D[Host compiler<br/>CPU binary]
-    C --> E[PTX<br/>virtual ISA]
-    E --> F[JIT compile<br/>device assembly]
-    D --> G[Executable]
-    F --> G
-
-    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    class A primary
-    class B,C secondary
-    class D,E,F note
-    class G accent
-```
+![nvcc compilation flow](assets/nvcc-compilation-flow.svg)
 
 강의의 요지는 사용자가 이 내부 과정을 매번 직접 관리할 필요는 없다는 것이다. `nvcc`가 host code가 GPU kernel을 launch할 수 있도록 필요한 glue를 만든다.
 
