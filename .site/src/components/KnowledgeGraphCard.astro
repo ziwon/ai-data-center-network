@@ -462,6 +462,10 @@
 
     seedGlobalPositions(nodes, width, height, groups);
 
+    const threeDHref = currentNode
+      ? `/knowledge-graph-3d/?focus=${encodeURIComponent(currentNode.route ?? currentNode.id)}`
+      : '/knowledge-graph-3d/';
+
     container.innerHTML = `
       <div class="kb-graph-global-shell">
         <div class="kb-graph-global-toolbar">
@@ -469,6 +473,11 @@
             <h3>Full document-concept graph</h3>
             <p>${graph.nodes.length} nodes · ${graph.edges.length} edges</p>
           </div>
+          <div class="kb-graph-dim-toggle" role="group" aria-label="Full graph view mode">
+            <button type="button" data-dim="2d" aria-pressed="true">2D</button>
+            <button type="button" data-dim="3d" aria-pressed="false">3D</button>
+          </div>
+          <a class="kb-graph-global-3d-link" data-open-full href="${escapeHtml(threeDHref)}" target="_blank" rel="noopener" hidden>Open full view ↗</a>
           <div class="kb-graph-global-legend">
             <span><i class="kb-graph-doc-key"></i>Document</span>
             <span><i class="kb-graph-concept-key"></i>Concept</span>
@@ -476,11 +485,37 @@
           </div>
         </div>
         <div class="kb-graph-global-canvas" data-global-canvas></div>
+        <div class="kb-graph-global-embed" data-global-embed hidden></div>
       </div>
     `;
 
     const canvas = container.querySelector<HTMLElement>('[data-global-canvas]');
     if (!canvas) return;
+
+    const embed = container.querySelector<HTMLElement>('[data-global-embed]');
+    const fullLink = container.querySelector<HTMLAnchorElement>('[data-open-full]');
+    const legend = container.querySelector<HTMLElement>('.kb-graph-global-legend');
+    const dimButtons = [...container.querySelectorAll<HTMLButtonElement>('[data-dim]')];
+    dimButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const is3d = button.dataset.dim === '3d';
+        dimButtons.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+        canvas.hidden = is3d;
+        if (embed) {
+          embed.hidden = !is3d;
+          if (is3d && !embed.dataset.loaded) {
+            embed.dataset.loaded = 'true';
+            const iframe = document.createElement('iframe');
+            iframe.src = threeDHref;
+            iframe.title = '3D knowledge graph';
+            iframe.allow = 'fullscreen';
+            embed.append(iframe);
+          }
+        }
+        if (fullLink) fullLink.hidden = !is3d;
+        if (legend) legend.hidden = is3d;
+      });
+    });
 
     const svg = d3.select(canvas)
       .append('svg')
@@ -1246,6 +1281,79 @@
     color: var(--sl-color-gray-3);
     font-size: var(--sl-text-xs);
     font-weight: 700;
+  }
+
+  .kb-graph-global-toolbar [hidden],
+  .kb-graph-global-canvas[hidden],
+  .kb-graph-global-embed[hidden] {
+    display: none !important;
+  }
+
+  .kb-graph-dim-toggle {
+    display: inline-flex;
+    overflow: hidden;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+  }
+
+  .kb-graph-dim-toggle button {
+    min-height: 2rem;
+    border: 0;
+    padding: 0.38rem 0.85rem;
+    color: var(--sl-color-gray-3);
+    background: transparent;
+    font-size: var(--sl-text-xs);
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .kb-graph-dim-toggle button + button {
+    border-left: 1px solid var(--sl-color-gray-5);
+  }
+
+  .kb-graph-dim-toggle button[aria-pressed='true'] {
+    color: var(--fabric-node-cyan);
+    background: color-mix(in srgb, var(--fabric-node-cyan), transparent 88%);
+  }
+
+  .kb-graph-dim-toggle button:hover,
+  .kb-graph-dim-toggle button:focus-visible {
+    color: var(--sl-color-white);
+  }
+
+  .kb-graph-global-embed {
+    overflow: hidden;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+    background: #020817;
+  }
+
+  .kb-graph-global-embed iframe {
+    display: block;
+    width: 100%;
+    height: 34rem;
+    border: 0;
+  }
+
+  .kb-graph-global-3d-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    border: 1px solid color-mix(in srgb, var(--fabric-node-cyan), transparent 42%);
+    border-radius: 6px;
+    padding: 0.38rem 0.65rem;
+    color: var(--fabric-node-cyan);
+    background: color-mix(in srgb, var(--fabric-node-cyan), transparent 90%);
+    font-size: var(--sl-text-xs);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .kb-graph-global-3d-link:hover,
+  .kb-graph-global-3d-link:focus-visible {
+    border-color: var(--fabric-node-cyan);
+    color: var(--sl-color-white);
   }
 
   .kb-graph-global-legend span {

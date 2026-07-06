@@ -365,6 +365,7 @@ function siteHomeBody() {
   <a href="/ai-data-center-network/clos-ebgp-lab/">Clos Fabric Lab Series</a>
   <a href="/ai-data-center-network/ib-packet-analysis/">InfiniBand Packet Analysis</a>
   <a href="/ai-data-center-network/rdma-examples/">RDMA Read/Write Examples</a>
+  <a href="/knowledge-graph-3d/">Full Knowledge Graph 3D</a>
   <a href="/talks/sr-iov-with-dgx-b200/making-dgx-b200-rdma-ready.pdf">Making DGX B200 RDMA-ready</a>
 </section>
 `;

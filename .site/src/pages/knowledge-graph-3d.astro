@@ -1,0 +1,1273 @@
+---
+// Standalone 3D knowledge graph page.
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3D Knowledge Graph - AI Data Center Systems</title>
+    <link rel="icon" href="/favicon.svg" />
+    <meta
+      name="description"
+      content="Interactive 3D knowledge graph for AI Data Center Systems."
+    />
+    <style is:global>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg: #020817;
+        --panel: rgba(5, 12, 24, 0.82);
+        --panel-strong: rgba(9, 18, 34, 0.94);
+        --line: rgba(216, 209, 199, 0.18);
+        --text: #f8f4ed;
+        --muted: #a49c92;
+        --soft: #d8d1c7;
+        --cyan: #25f4ff;
+        --blue: #1684ff;
+        --violet: #735cff;
+        --red: #d9392e;
+        --green: #34d399;
+        --amber: #fbbf24;
+        --radius: 8px;
+        --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font);
+        letter-spacing: 0;
+      }
+
+      body {
+        min-height: 100dvh;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .graph3d {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        background:
+          linear-gradient(115deg, transparent 0 48%, rgba(24, 132, 255, 0.08) 48.2% 48.7%, transparent 49%),
+          linear-gradient(24deg, transparent 0 53%, rgba(37, 244, 255, 0.07) 53.2% 53.5%, transparent 53.8%),
+          radial-gradient(circle at 18% 12%, rgba(24, 132, 255, 0.16), transparent 19rem),
+          radial-gradient(circle at 84% 18%, rgba(37, 244, 255, 0.12), transparent 20rem),
+          var(--bg);
+      }
+
+      #graph-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .topbar {
+        position: relative;
+        z-index: 5;
+        display: grid;
+        grid-template-columns: minmax(14rem, 1fr) minmax(16rem, 34rem) auto;
+        gap: 0.75rem;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        padding: 0.75rem max(1rem, env(safe-area-inset-right)) 0.75rem max(1rem, env(safe-area-inset-left));
+        background: linear-gradient(90deg, rgba(37, 244, 255, 0.08), transparent 30rem), var(--panel);
+        backdrop-filter: blur(14px);
+      }
+
+      .brand {
+        display: grid;
+        min-width: 0;
+        gap: 0.08rem;
+        text-decoration: none;
+      }
+
+      .brand span {
+        color: var(--cyan);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brand h1 {
+        margin: 0;
+        overflow: hidden;
+        color: var(--text);
+        font-size: 1.05rem;
+        line-height: 1.2;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .search {
+        display: flex;
+        min-width: 0;
+        border: 1px solid rgba(216, 209, 199, 0.24);
+        border-radius: var(--radius);
+        background: rgba(2, 8, 23, 0.78);
+      }
+
+      .search input {
+        width: 100%;
+        min-height: 2.35rem;
+        min-width: 0;
+        border: 0;
+        padding: 0 0.8rem;
+        color: var(--text);
+        background: transparent;
+        outline: none;
+      }
+
+      .search input::placeholder {
+        color: #7c746b;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 0.45rem;
+      }
+
+      .icon-button,
+      .select {
+        min-height: 2.35rem;
+        border: 1px solid rgba(216, 209, 199, 0.24);
+        border-radius: var(--radius);
+        color: var(--text);
+        background: rgba(2, 8, 23, 0.76);
+      }
+
+      .icon-button {
+        display: inline-grid;
+        place-items: center;
+        width: 2.35rem;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .icon-button svg {
+        width: 1rem;
+        height: 1rem;
+        stroke: currentColor;
+        stroke-width: 2;
+        fill: none;
+      }
+
+      .icon-button[data-active="true"] {
+        border-color: rgba(37, 244, 255, 0.78);
+        color: var(--cyan);
+        background: rgba(37, 244, 255, 0.1);
+      }
+
+      .select {
+        width: 8.5rem;
+        padding: 0 0.65rem;
+      }
+
+      .stage {
+        position: relative;
+        min-height: 0;
+      }
+
+      .hud {
+        position: absolute;
+        z-index: 4;
+        left: max(1rem, env(safe-area-inset-left));
+        bottom: max(1rem, env(safe-area-inset-bottom));
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        max-width: min(54rem, calc(100vw - 2rem));
+      }
+
+      .metric,
+      .legend {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        min-height: 2rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.35rem 0.65rem;
+        color: var(--soft);
+        background: var(--panel);
+        font-size: 0.76rem;
+        backdrop-filter: blur(12px);
+      }
+
+      .legend i {
+        width: 0.65rem;
+        height: 0.65rem;
+        border-radius: 999px;
+      }
+
+      .legend .doc {
+        background: var(--cyan);
+      }
+
+      .legend .concept {
+        border-radius: 2px;
+        background: var(--violet);
+      }
+
+      .legend .selected {
+        background: var(--red);
+      }
+
+      .details {
+        position: absolute;
+        z-index: 4;
+        top: 1rem;
+        right: max(1rem, env(safe-area-inset-right));
+        display: grid;
+        gap: 0.8rem;
+        width: min(24rem, calc(100vw - 2rem));
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 0.95rem;
+        background: var(--panel);
+        backdrop-filter: blur(14px);
+      }
+
+      .details h2 {
+        margin: 0;
+        color: var(--text);
+        font-size: 1.05rem;
+        line-height: 1.25;
+      }
+
+      .details p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.45;
+      }
+
+      .detail-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+
+      .detail-meta span,
+      .neighbor-list a {
+        border: 1px solid rgba(216, 209, 199, 0.18);
+        border-radius: 999px;
+        padding: 0.28rem 0.5rem;
+        color: var(--soft);
+        background: rgba(2, 8, 23, 0.54);
+        font-size: 0.72rem;
+        text-decoration: none;
+      }
+
+      .open-link {
+        display: none;
+        justify-content: center;
+        min-height: 2.35rem;
+        border: 1px solid rgba(37, 244, 255, 0.64);
+        border-radius: var(--radius);
+        padding: 0.55rem 0.75rem;
+        color: var(--cyan);
+        background: rgba(37, 244, 255, 0.08);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .open-link[data-visible="true"] {
+        display: inline-flex;
+      }
+
+      .neighbor-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .status {
+        position: absolute;
+        z-index: 6;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+        color: var(--soft);
+        background: rgba(2, 8, 23, 0.62);
+      }
+
+      .status[hidden] {
+        display: none;
+      }
+
+      .status-box {
+        display: grid;
+        gap: 0.35rem;
+        max-width: 24rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 1rem;
+        background: var(--panel-strong);
+        text-align: center;
+      }
+
+      .status-box strong {
+        color: var(--text);
+      }
+
+      @media (max-width: 56rem) {
+        .topbar {
+          grid-template-columns: 1fr;
+        }
+
+        .brand h1 {
+          white-space: normal;
+        }
+
+        .controls {
+          justify-content: start;
+          overflow-x: auto;
+          padding-bottom: 0.15rem;
+        }
+
+        .details {
+          top: auto;
+          right: 1rem;
+          bottom: 4.4rem;
+          width: calc(100vw - 2rem);
+          max-height: 38vh;
+          overflow: auto;
+        }
+
+        .hud {
+          max-width: calc(100vw - 2rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="graph3d">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Back to AI Data Center Systems">
+          <span>AI Data Center Systems</span>
+          <h1>Full Knowledge Graph 3D</h1>
+        </a>
+        <label class="search" aria-label="Search nodes">
+          <input id="search" type="search" placeholder="Search documents or concepts" autocomplete="off" />
+        </label>
+        <div class="controls" aria-label="Graph controls">
+          <select class="select" id="kind-filter" aria-label="Node kind filter">
+            <option value="all">All nodes</option>
+            <option value="doc">Documents</option>
+            <option value="concept">Concepts</option>
+          </select>
+          <select class="select" id="group-filter" aria-label="Track filter">
+            <option value="all">All tracks</option>
+          </select>
+          <button class="icon-button" id="rotate" type="button" data-active="true" aria-label="Toggle rotation">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12a9 9 0 0 1-15.4 6.4" />
+              <path d="M3 12A9 9 0 0 1 18.4 5.6" />
+              <path d="M18 2v4h4" />
+              <path d="M6 22v-4H2" />
+            </svg>
+          </button>
+          <button class="icon-button" id="labels" type="button" data-active="true" aria-label="Toggle labels">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16" />
+              <path d="M4 12h10" />
+              <path d="M4 18h7" />
+            </svg>
+          </button>
+          <button class="icon-button" id="reset" type="button" aria-label="Reset camera">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 3-6.7" />
+              <path d="M3 4v6h6" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="stage" aria-label="3D knowledge graph">
+        <canvas id="graph-canvas"></canvas>
+        <aside class="details" id="details" aria-live="polite">
+          <h2>Full Knowledge Graph</h2>
+          <p id="detail-copy">Select a node to inspect its strongest neighbors.</p>
+          <div class="detail-meta" id="detail-meta"></div>
+          <a class="open-link" id="open-link" href="/">Open document</a>
+          <div class="neighbor-list" id="neighbors"></div>
+        </aside>
+        <div class="hud" aria-label="Graph metrics">
+          <span class="metric" id="node-count">0 nodes</span>
+          <span class="metric" id="edge-count">0 edges</span>
+          <span class="legend"><i class="doc"></i>Document</span>
+          <span class="legend"><i class="concept"></i>Concept</span>
+          <span class="legend"><i class="selected"></i>Selected</span>
+          <span class="metric">Zoom in to reveal more labels</span>
+        </div>
+        <div class="status" id="status">
+          <div class="status-box">
+            <strong>Loading graph</strong>
+            <span>Preparing the 3D layout.</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      import * as THREE from 'three';
+      import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+      import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+      import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+      import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+
+      const canvas = document.querySelector('#graph-canvas');
+      const status = document.querySelector('#status');
+      const searchInput = document.querySelector('#search');
+      const kindFilter = document.querySelector('#kind-filter');
+      const groupFilter = document.querySelector('#group-filter');
+      const rotateButton = document.querySelector('#rotate');
+      const labelsButton = document.querySelector('#labels');
+      const resetButton = document.querySelector('#reset');
+      const nodeCount = document.querySelector('#node-count');
+      const edgeCount = document.querySelector('#edge-count');
+      const detailTitle = document.querySelector('#details h2');
+      const detailCopy = document.querySelector('#detail-copy');
+      const detailMeta = document.querySelector('#detail-meta');
+      const openLink = document.querySelector('#open-link');
+      const neighbors = document.querySelector('#neighbors');
+
+      // When embedded (graph modal iframe), document links must swap the whole
+      // page, not navigate inside the frame.
+      if (window.self !== window.top) {
+        const base = document.createElement('base');
+        base.target = '_top';
+        document.head.append(base);
+      }
+
+      let fatalShown = false;
+      window.addEventListener('error', (event) => {
+        if (!status.hidden && !fatalShown) showStatus('Viewer error', event.message || 'Unexpected error.');
+      });
+      window.addEventListener('unhandledrejection', (event) => {
+        if (!status.hidden && !fatalShown)
+          showStatus('Viewer error', String(event.reason?.message ?? event.reason ?? 'Unexpected error.'));
+      });
+
+      const palette = ['#25f4ff', '#1684ff', '#34d399', '#fbbf24', '#f472b6', '#c084fc', '#7dd3fc', '#fb7185'];
+      const conceptColor = '#735cff';
+      const selectedColor = '#d9392e';
+      const inactiveOpacity = 0.08;
+      const state = {
+        graph: null,
+        nodes: [],
+        edges: [],
+        groupColors: new Map(),
+        nodeObjects: new Map(),
+        labelObjects: new Map(),
+        labelOrder: [],
+        selected: null,
+        neighborIds: new Set(),
+        hovered: null,
+        focusPoint: null,
+        labelVisible: true,
+        query: '',
+        kind: 'all',
+        group: 'all',
+      };
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x020817);
+      scene.fog = new THREE.FogExp2(0x020817, 0.002);
+
+      const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 2800);
+      camera.position.set(0, 80, 500);
+
+      let renderer;
+      try {
+        renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      } catch (error) {
+        fatalShown = true;
+        showStatus(
+          'WebGL unavailable',
+          'The browser could not create a WebGL context, so the 3D view cannot start. Enable hardware acceleration in the browser settings (chrome://settings/system), check chrome://gpu, then fully restart the browser and reload this page.',
+        );
+        throw error;
+      }
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.06;
+
+      let composer = null;
+      try {
+        composer = new EffectComposer(renderer);
+        composer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        composer.setSize(window.innerWidth, window.innerHeight);
+        composer.addPass(new RenderPass(scene, camera));
+        composer.addPass(
+          new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.45, 0.4, 0.3),
+        );
+      } catch {
+        composer = null;
+      }
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.06;
+      controls.rotateSpeed = 0.48;
+      controls.zoomSpeed = 0.72;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.55;
+
+      const graphGroup = new THREE.Group();
+      scene.add(graphGroup);
+
+      const nodeGroup = new THREE.Group();
+      const labelGroup = new THREE.Group();
+      graphGroup.add(nodeGroup, labelGroup);
+
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      const pointerDown = new THREE.Vector2();
+      let pointerMoved = false;
+      let pointerDirty = false;
+
+      init();
+
+      async function init() {
+        bindEvents();
+        addAmbientScene();
+        resize();
+
+        try {
+          const response = await fetch('/kb/dcs-kb-graph.json', { headers: { accept: 'application/json' } });
+          if (!response.ok) throw new Error(`Graph request failed: ${response.status}`);
+          const graph = await response.json();
+          loadGraph(graph);
+          focusFromQuery();
+          status.hidden = true;
+          animate();
+        } catch (error) {
+          showStatus('Graph unavailable', error instanceof Error ? error.message : 'Could not load graph data.');
+        }
+      }
+
+      function bindEvents() {
+        window.addEventListener('resize', resize);
+        renderer.domElement.addEventListener('pointerdown', (event) => {
+          pointerMoved = false;
+          pointerDown.set(event.clientX, event.clientY);
+        });
+        renderer.domElement.addEventListener('pointermove', (event) => {
+          pointerMoved ||= pointerDown.distanceTo(new THREE.Vector2(event.clientX, event.clientY)) > 4;
+          const rect = renderer.domElement.getBoundingClientRect();
+          pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+          pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+          pointerDirty = true;
+        });
+        renderer.domElement.addEventListener('pointerleave', () => {
+          setHovered(null);
+        });
+        renderer.domElement.addEventListener('click', onCanvasClick);
+
+        searchInput.addEventListener('input', () => {
+          state.query = searchInput.value.trim().toLowerCase();
+          applyFilters();
+        });
+        kindFilter.addEventListener('change', () => {
+          state.kind = kindFilter.value;
+          applyFilters();
+        });
+        groupFilter.addEventListener('change', () => {
+          state.group = groupFilter.value;
+          applyFilters();
+        });
+        rotateButton.addEventListener('click', () => {
+          controls.autoRotate = !controls.autoRotate;
+          rotateButton.dataset.active = String(controls.autoRotate);
+        });
+        labelsButton.addEventListener('click', () => {
+          state.labelVisible = !state.labelVisible;
+          labelsButton.dataset.active = String(state.labelVisible);
+        });
+        resetButton.addEventListener('click', resetCamera);
+      }
+
+      function addAmbientScene() {
+        scene.add(new THREE.AmbientLight(0x9ccfff, 1.55));
+
+        const key = new THREE.DirectionalLight(0x25f4ff, 2.2);
+        key.position.set(180, 280, 220);
+        scene.add(key);
+
+        const fill = new THREE.DirectionalLight(0xd9392e, 0.88);
+        fill.position.set(-240, -120, -180);
+        scene.add(fill);
+
+        const grid = new THREE.GridHelper(620, 24, 0x174062, 0x0d2236);
+        grid.position.y = -170;
+        grid.material.transparent = true;
+        grid.material.opacity = 0.2;
+        scene.add(grid);
+
+        const starCount = 460;
+        const starPositions = new Float32Array(starCount * 3);
+        for (let i = 0; i < starCount; i += 1) {
+          const radius = 520 + Math.random() * 480;
+          const theta = Math.random() * Math.PI * 2;
+          const y = (Math.random() * 2 - 1) * 0.9;
+          const r = Math.sqrt(1 - y * y);
+          starPositions[i * 3] = Math.cos(theta) * r * radius;
+          starPositions[i * 3 + 1] = y * radius;
+          starPositions[i * 3 + 2] = Math.sin(theta) * r * radius;
+        }
+        const starGeometry = new THREE.BufferGeometry();
+        starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+        const stars = new THREE.Points(
+          starGeometry,
+          new THREE.PointsMaterial({
+            color: 0x8fc7ff,
+            size: 1.5,
+            sizeAttenuation: true,
+            transparent: true,
+            opacity: 0.38,
+            depthWrite: false,
+          }),
+        );
+        scene.add(stars);
+      }
+
+      function loadGraph(graph) {
+        state.graph = graph;
+        state.nodes = graph.nodes.map((node, index) => ({ ...node, index }));
+        const nodeByIndex = new Map(state.nodes.map((node, index) => [index, node]));
+        const nodeById = new Map(state.nodes.map((node) => [node.id, node]));
+        state.edges = graph.edges
+          .map((edge) => {
+            const source = typeof edge.s === 'number' ? nodeByIndex.get(edge.s) : nodeById.get(edge.source);
+            const target = typeof edge.t === 'number' ? nodeByIndex.get(edge.t) : nodeById.get(edge.target);
+            return {
+              ...edge,
+              source,
+              target,
+              type: edge.type ?? graph.edgeTypes?.[edge.k] ?? 'related',
+              weight: edge.weight ?? edge.w ?? 0.2,
+            };
+          })
+          .filter((edge) => edge.source && edge.target);
+
+        const groups = [...new Set(state.nodes.map((node) => node.group).filter(Boolean))].sort();
+        groups.forEach((group, index) => state.groupColors.set(group, palette[index % palette.length]));
+        for (const group of groups) {
+          const option = document.createElement('option');
+          option.value = group;
+          option.textContent = groupLabel(group);
+          groupFilter.append(option);
+        }
+
+        seedLayout(state.nodes, state.edges, groups);
+        renderEdges(state.edges);
+        renderNodes(state.nodes);
+        renderLabels(state.nodes);
+        nodeCount.textContent = `${state.nodes.length} nodes`;
+        edgeCount.textContent = `${state.edges.length} edges`;
+        applyFilters();
+      }
+
+      function seedLayout(nodes, edges, groups) {
+        const groupIndex = new Map(groups.map((group, index) => [group, index]));
+        const clusterCount = Math.max(groups.length, 1);
+        const clusterRadius = 240;
+
+        for (const node of nodes) {
+          const cluster = groupIndex.get(node.group) ?? 0;
+          const clusterAngle = (cluster / clusterCount) * Math.PI * 2;
+          const clusterY = ((cluster % 3) - 1) * 115;
+          const local = fibonacciPoint(node.index, nodes.length, node.kind === 'concept' ? 120 : 64);
+          node.x = Math.cos(clusterAngle) * clusterRadius + local.x;
+          node.y = clusterY + local.y;
+          node.z = Math.sin(clusterAngle) * clusterRadius + local.z;
+        }
+
+        const linked = edges.filter((edge) => edge.weight >= 0.28 || edge.type.includes('mentions'));
+        for (let step = 0; step < 170; step += 1) {
+          for (const node of nodes) {
+            node.vx = (node.vx || 0) * 0.72;
+            node.vy = (node.vy || 0) * 0.72;
+            node.vz = (node.vz || 0) * 0.72;
+          }
+
+          for (let i = 0; i < nodes.length; i += 1) {
+            for (let j = i + 1; j < nodes.length; j += 1) {
+              const a = nodes[i];
+              const b = nodes[j];
+              const dx = a.x - b.x;
+              const dy = a.y - b.y;
+              const dz = a.z - b.z;
+              const distSq = Math.max(dx * dx + dy * dy + dz * dz, 120);
+              const force = 1800 / distSq;
+              a.vx += dx * force;
+              a.vy += dy * force;
+              a.vz += dz * force;
+              b.vx -= dx * force;
+              b.vy -= dy * force;
+              b.vz -= dz * force;
+            }
+          }
+
+          for (const edge of linked) {
+            const a = edge.source;
+            const b = edge.target;
+            const dx = b.x - a.x;
+            const dy = b.y - a.y;
+            const dz = b.z - a.z;
+            const dist = Math.max(Math.sqrt(dx * dx + dy * dy + dz * dz), 1);
+            const preferred = edge.type.includes('mentions') ? 78 : 128 - edge.weight * 32;
+            const force = (dist - preferred) * (edge.type.includes('mentions') ? 0.0028 : 0.0014);
+            const fx = (dx / dist) * force;
+            const fy = (dy / dist) * force;
+            const fz = (dz / dist) * force;
+            a.vx += fx;
+            a.vy += fy;
+            a.vz += fz;
+            b.vx -= fx;
+            b.vy -= fy;
+            b.vz -= fz;
+          }
+
+          for (const node of nodes) {
+            const home = groupIndex.get(node.group) ?? 0;
+            const angle = (home / clusterCount) * Math.PI * 2;
+            const targetX = Math.cos(angle) * clusterRadius;
+            const targetZ = Math.sin(angle) * clusterRadius;
+            node.vx += (targetX - node.x) * 0.002;
+            node.vy += -node.y * 0.0012;
+            node.vz += (targetZ - node.z) * 0.002;
+            node.x += node.vx;
+            node.y += node.vy;
+            node.z += node.vz;
+          }
+        }
+
+        normalizeLayout(nodes, 235);
+      }
+
+      function normalizeLayout(nodes, targetRadius) {
+        const center = nodes.reduce(
+          (acc, node) => {
+            acc.x += node.x;
+            acc.y += node.y;
+            acc.z += node.z;
+            return acc;
+          },
+          { x: 0, y: 0, z: 0 },
+        );
+        center.x /= Math.max(nodes.length, 1);
+        center.y /= Math.max(nodes.length, 1);
+        center.z /= Math.max(nodes.length, 1);
+
+        let maxDistance = 1;
+        for (const node of nodes) {
+          node.x -= center.x;
+          node.y -= center.y;
+          node.z -= center.z;
+          maxDistance = Math.max(maxDistance, Math.hypot(node.x, node.y, node.z));
+        }
+
+        const scale = targetRadius / maxDistance;
+        for (const node of nodes) {
+          node.x *= scale;
+          node.y *= scale;
+          node.z *= scale;
+        }
+      }
+
+      function renderEdges(edges) {
+        const positions = new Float32Array(edges.length * 6);
+        const colors = new Float32Array(edges.length * 6);
+        const color = new THREE.Color();
+
+        edges.forEach((edge, index) => {
+          const offset = index * 6;
+          positions.set([edge.source.x, edge.source.y, edge.source.z, edge.target.x, edge.target.y, edge.target.z], offset);
+          color.set(edgeColor(edge.type));
+          const dim = 0.34 + Math.min(edge.weight, 1) * 0.42;
+          colors.set([color.r * dim, color.g * dim, color.b * dim, color.r * dim, color.g * dim, color.b * dim], offset);
+        });
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        const material = new THREE.LineBasicMaterial({
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.42,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending,
+        });
+        const lines = new THREE.LineSegments(geometry, material);
+        lines.name = 'edges';
+        graphGroup.add(lines);
+      }
+
+      function renderNodes(nodes) {
+        const sphere = new THREE.SphereGeometry(1, 24, 16);
+        const box = new THREE.BoxGeometry(1, 1, 1);
+
+        for (const node of nodes) {
+          const color = node.kind === 'concept' ? conceptColor : state.groupColors.get(node.group) || '#25f4ff';
+          const material = new THREE.MeshStandardMaterial({
+            color,
+            emissive: color,
+            emissiveIntensity: node.kind === 'concept' ? 0.5 : 0.34,
+            roughness: 0.42,
+            metalness: 0.14,
+            transparent: true,
+            opacity: 0.95,
+          });
+          const mesh = new THREE.Mesh(node.kind === 'concept' ? box : sphere, material);
+          const radius = nodeRadius(node);
+          mesh.scale.setScalar(radius);
+          if (node.kind === 'concept') mesh.scale.y *= 0.72;
+          mesh.position.set(node.x, node.y, node.z);
+          mesh.userData.node = node;
+          mesh.userData.baseColor = color;
+          mesh.userData.baseScale = mesh.scale.clone();
+          nodeGroup.add(mesh);
+          state.nodeObjects.set(node.id, mesh);
+        }
+      }
+
+      // Labels reveal by camera distance, like map zoom levels: hub nodes are
+      // always titled, mid nodes appear on approach, leaf nodes only up close.
+      const labelTierDistance = [Infinity, 480, 300];
+      const labelFadeRange = 70;
+      const labelScreenHeight = 13;
+
+      function renderLabels(nodes) {
+        const ranked = [...nodes].sort(
+          (a, b) => (b.weightedDegree || b.degree || 0) - (a.weightedDegree || a.degree || 0),
+        );
+        ranked.forEach((node, rank) => {
+          node.labelTier = rank < 18 ? 0 : rank < 52 ? 1 : 2;
+        });
+        state.labelOrder = ranked.map((node) => node.id);
+
+        for (const node of nodes) {
+          const label = makeLabel(shortTitle(node.title), node.kind === 'concept' ? '#c9bcff' : '#ece5da');
+          label.position.set(node.x, node.y + nodeRadius(node) + 7, node.z);
+          label.userData.node = node;
+          label.material.opacity = 0;
+          label.visible = false;
+          labelGroup.add(label);
+          state.labelObjects.set(node.id, label);
+        }
+      }
+
+      function makeLabel(text, color) {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const fontSize = 30;
+        const pad = 12;
+        const font = `600 ${fontSize}px Inter, system-ui, sans-serif`;
+        context.font = font;
+        const width = Math.ceil(context.measureText(text).width) + pad * 2;
+        const height = fontSize + pad * 2;
+        canvas.width = width * 2;
+        canvas.height = height * 2;
+        context.scale(2, 2);
+        context.font = font;
+        context.textBaseline = 'middle';
+        context.lineJoin = 'round';
+        context.strokeStyle = 'rgba(2, 8, 23, 0.92)';
+        context.lineWidth = 7;
+        context.strokeText(text, pad, height / 2);
+        context.fillStyle = color;
+        context.fillText(text, pad, height / 2);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        const material = new THREE.SpriteMaterial({
+          map: texture,
+          transparent: true,
+          depthWrite: false,
+          depthTest: false,
+          toneMapped: false,
+        });
+        const sprite = new THREE.Sprite(material);
+        sprite.userData.aspect = width / height;
+        sprite.renderOrder = 2;
+        return sprite;
+      }
+
+      const labelProjection = new THREE.Vector3();
+
+      function updateLabels() {
+        const viewHeight = Math.max(renderer.domElement.clientHeight, 1);
+        const viewWidth = Math.max(renderer.domElement.clientWidth, 1);
+        const screenFactor = (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))) / viewHeight;
+
+        // Highest-priority labels claim screen space first; overlapping lower
+        // ones stay hidden until zooming makes room, like map label placement.
+        const order = [state.selected?.id, state.hovered?.id, ...(state.labelOrder || [])];
+        const seen = new Set();
+        const placed = [];
+
+        for (const id of order) {
+          if (id == null || seen.has(id)) continue;
+          seen.add(id);
+          const label = state.labelObjects.get(id);
+          if (!label) continue;
+          const node = label.userData.node;
+          const mesh = state.nodeObjects.get(id);
+          const hovered = state.hovered?.id === id;
+          const selected = state.selected?.id === id;
+          const neighbor = state.selected ? state.neighborIds.has(id) : true;
+          const dist = camera.position.distanceTo(label.position);
+
+          let target = 0;
+          if (mesh?.visible && (state.labelVisible || hovered || selected)) {
+            if (hovered || selected) {
+              target = 1;
+            } else if (!state.selected || neighbor) {
+              const limit = labelTierDistance[node.labelTier ?? 2];
+              target = Math.min(1, (limit - dist) / labelFadeRange);
+              target = Math.min(target, Math.max(0, (900 - dist) / 150));
+              target = Math.max(target, 0);
+            }
+          }
+
+          if (target > 0) {
+            labelProjection.copy(label.position).project(camera);
+            if (labelProjection.z > 1) {
+              target = 0;
+            } else {
+              const x = ((labelProjection.x + 1) / 2) * viewWidth;
+              const y = ((1 - labelProjection.y) / 2) * viewHeight;
+              const halfWidth = (labelScreenHeight * label.userData.aspect) / 2;
+              const halfHeight = labelScreenHeight / 2 + 3;
+              const rect = { x1: x - halfWidth, x2: x + halfWidth, y1: y - halfHeight, y2: y + halfHeight };
+              const collides = placed.some(
+                (other) => rect.x1 < other.x2 && rect.x2 > other.x1 && rect.y1 < other.y2 && rect.y2 > other.y1,
+              );
+              if (collides && !hovered && !selected) target = 0;
+              else placed.push(rect);
+            }
+          }
+
+          const opacity = label.material.opacity + (target - label.material.opacity) * 0.18;
+          label.material.opacity = opacity;
+          label.visible = opacity > 0.03;
+          if (label.visible) {
+            const worldHeight =
+              dist * screenFactor * labelScreenHeight * (hovered || selected ? 1.3 : node.labelTier === 0 ? 1.08 : 1);
+            label.scale.set(worldHeight * label.userData.aspect, worldHeight, 1);
+          }
+        }
+      }
+
+      function applyFilters() {
+        const matchingIds = new Set();
+        for (const node of state.nodes) {
+          const text = `${node.title} ${node.group || ''} ${node.description || ''}`.toLowerCase();
+          const visible =
+            (state.kind === 'all' || node.kind === state.kind) &&
+            (state.group === 'all' || node.group === state.group) &&
+            (!state.query || text.includes(state.query));
+          const mesh = state.nodeObjects.get(node.id);
+          if (mesh) {
+            mesh.visible = visible;
+            const emphasized =
+              !state.selected || node.id === state.selected.id || state.neighborIds.has(node.id);
+            mesh.material.opacity = visible ? (emphasized ? 0.95 : 0.12) : inactiveOpacity;
+          }
+          if (visible) matchingIds.add(node.id);
+        }
+
+        const edges = graphGroup.getObjectByName('edges');
+        if (edges) {
+          const filtered = state.query || state.kind !== 'all' || state.group !== 'all';
+          edges.material.opacity = state.selected ? 0.08 : filtered ? 0.2 : 0.42;
+        }
+
+        if (state.selected && !matchingIds.has(state.selected.id)) selectNode(null);
+      }
+
+      function selectNode(node) {
+        if (state.selected) {
+          const previous = state.nodeObjects.get(state.selected.id);
+          if (previous) {
+            previous.material.color.set(previous.userData.baseColor);
+            previous.material.emissive.set(previous.userData.baseColor);
+          }
+        }
+
+        const previousHighlight = graphGroup.getObjectByName('edges-highlight');
+        if (previousHighlight) {
+          graphGroup.remove(previousHighlight);
+          previousHighlight.geometry.dispose();
+          previousHighlight.material.dispose();
+        }
+
+        state.selected = node;
+        state.neighborIds = new Set();
+
+        if (!node) {
+          state.focusPoint = null;
+          applyFilters();
+          detailTitle.textContent = 'Full Knowledge Graph';
+          detailCopy.textContent = 'Select a node to inspect its strongest neighbors.';
+          detailMeta.innerHTML = '';
+          neighbors.innerHTML = '';
+          openLink.dataset.visible = 'false';
+          return;
+        }
+
+        for (const edge of state.edges) {
+          if (edge.source.id === node.id) state.neighborIds.add(edge.target.id);
+          else if (edge.target.id === node.id) state.neighborIds.add(edge.source.id);
+        }
+
+        const mesh = state.nodeObjects.get(node.id);
+        if (mesh) {
+          mesh.material.color.set(selectedColor);
+          mesh.material.emissive.set(selectedColor);
+        }
+        renderHighlightEdges(node);
+        applyFilters();
+        state.focusPoint = new THREE.Vector3(node.x, node.y, node.z);
+
+        const related = state.edges
+          .filter((edge) => edge.source.id === node.id || edge.target.id === node.id)
+          .sort((a, b) => b.weight - a.weight)
+          .slice(0, 8)
+          .map((edge) => (edge.source.id === node.id ? edge.target : edge.source));
+
+        detailTitle.textContent = node.title;
+        detailCopy.textContent = node.description || groupLabel(node.group || node.kind);
+        detailMeta.innerHTML = [
+          node.kind,
+          node.group ? groupLabel(node.group) : '',
+          `${node.degree || 0} links`,
+        ]
+          .filter(Boolean)
+          .map((item) => `<span>${escapeHtml(item)}</span>`)
+          .join('');
+        if (node.kind === 'doc' && node.route) {
+          openLink.href = node.route;
+          openLink.dataset.visible = 'true';
+        } else {
+          openLink.dataset.visible = 'false';
+        }
+        neighbors.innerHTML = related
+          .map((neighbor) => {
+            const href = neighbor.route || '#';
+            return `<a href="${escapeHtml(href)}">${escapeHtml(shortTitle(neighbor.title))}</a>`;
+          })
+          .join('');
+      }
+
+      function renderHighlightEdges(node) {
+        const touching = state.edges.filter(
+          (edge) => edge.source.id === node.id || edge.target.id === node.id,
+        );
+        if (!touching.length) return;
+
+        const positions = new Float32Array(touching.length * 6);
+        const colors = new Float32Array(touching.length * 6);
+        const color = new THREE.Color();
+        touching.forEach((edge, index) => {
+          const offset = index * 6;
+          positions.set(
+            [edge.source.x, edge.source.y, edge.source.z, edge.target.x, edge.target.y, edge.target.z],
+            offset,
+          );
+          color.set(edgeColor(edge.type)).multiplyScalar(1.3);
+          colors.set([color.r, color.g, color.b, color.r, color.g, color.b], offset);
+        });
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        const lines = new THREE.LineSegments(
+          geometry,
+          new THREE.LineBasicMaterial({
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.85,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending,
+          }),
+        );
+        lines.name = 'edges-highlight';
+        graphGroup.add(lines);
+      }
+
+      function setHovered(node) {
+        if (node?.id === state.hovered?.id) return;
+        if (state.hovered) {
+          const previous = state.nodeObjects.get(state.hovered.id);
+          if (previous) previous.scale.copy(previous.userData.baseScale);
+        }
+        state.hovered = node;
+        if (node) {
+          const mesh = state.nodeObjects.get(node.id);
+          if (mesh) mesh.scale.copy(mesh.userData.baseScale).multiplyScalar(1.22);
+        }
+        renderer.domElement.style.cursor = node ? 'pointer' : 'grab';
+      }
+
+      function updateHover() {
+        if (!pointerDirty) return;
+        pointerDirty = false;
+        raycaster.setFromCamera(pointer, camera);
+        const hits = raycaster.intersectObjects(
+          nodeGroup.children.filter((mesh) => mesh.visible),
+          false,
+        );
+        setHovered(hits[0]?.object?.userData?.node || null);
+      }
+
+      function onCanvasClick(event) {
+        if (pointerMoved) return;
+        const rect = renderer.domElement.getBoundingClientRect();
+        pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hits = raycaster.intersectObjects([...state.nodeObjects.values()].filter((mesh) => mesh.visible), false);
+        selectNode(hits[0]?.object?.userData?.node || null);
+      }
+
+      function resize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        camera.aspect = width / Math.max(height, 1);
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height, false);
+        composer?.setSize(width, height);
+      }
+
+      function focusFromQuery() {
+        const focus = new URLSearchParams(window.location.search).get('focus');
+        if (!focus) return;
+        const target =
+          state.nodes.find((node) => node.route === focus) ||
+          state.nodes.find((node) => node.id === focus);
+        if (!target) return;
+        selectNode(target);
+        controls.autoRotate = false;
+        rotateButton.dataset.active = 'false';
+      }
+
+      function resetCamera() {
+        state.focusPoint = null;
+        controls.target.set(0, 0, 0);
+        camera.position.set(0, 80, 500);
+        controls.update();
+      }
+
+      function animate() {
+        if (state.focusPoint) {
+          controls.target.lerp(state.focusPoint, 0.08);
+          if (controls.target.distanceTo(state.focusPoint) < 0.5) state.focusPoint = null;
+        }
+        controls.update();
+        updateHover();
+        updateLabels();
+        if (composer) composer.render();
+        else renderer.render(scene, camera);
+        window.requestAnimationFrame(animate);
+      }
+
+      function fibonacciPoint(index, total, radius) {
+        const offset = 2 / Math.max(total, 1);
+        const increment = Math.PI * (3 - Math.sqrt(5));
+        const y = index * offset - 1 + offset / 2;
+        const r = Math.sqrt(1 - y * y);
+        const phi = index * increment;
+        return {
+          x: Math.cos(phi) * r * radius,
+          y: y * radius,
+          z: Math.sin(phi) * r * radius,
+        };
+      }
+
+      function nodeRadius(node) {
+        const base = node.kind === 'concept' ? 5.5 : 3.2;
+        return Math.min(node.kind === 'concept' ? 13 : 9, base + Math.sqrt(node.weightedDegree || node.degree || 1) * 1.0);
+      }
+
+      function edgeColor(type) {
+        if (type.includes('mentions')) return '#735cff';
+        if (type.includes('link')) return '#25f4ff';
+        if (type.includes('semantic')) return '#34d399';
+        if (type.includes('section')) return '#fbbf24';
+        return '#d8d1c7';
+      }
+
+      function shortTitle(title) {
+        const cleaned = String(title)
+          .replace(/^chapter\s+\d+:\s*/i, '')
+          .replace(/^week\s+\d+:\s*/i, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        const words = cleaned.split(/\s+/).filter(Boolean);
+        return words.slice(0, 5).join(' ').slice(0, 42);
+      }
+
+      function groupLabel(group) {
+        return String(group || '')
+          .split('-')
+          .filter(Boolean)
+          .map((part) => {
+            const upper = part.toUpperCase();
+            if (['AI', 'GPU', 'LLM', 'CME'].includes(upper)) return upper;
+            return part.charAt(0).toUpperCase() + part.slice(1);
+          })
+          .join(' ');
+      }
+
+      function showStatus(title, message) {
+        status.hidden = false;
+        status.innerHTML = `<div class="status-box"><strong>${escapeHtml(title)}</strong><span>${escapeHtml(message)}</span></div>`;
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (char) => {
+          const entities = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          };
+          return entities[char];
+        });
+      }
+    </script>
+  </body>
+</html>
