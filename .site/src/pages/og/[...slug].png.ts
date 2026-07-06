@@ -42,11 +42,6 @@ export async function GET({ props }) {
       fit: 'cover',
       position: 'center',
     },
-    border: {
-      color: [217, 57, 46],
-      width: 14,
-      side: 'inline-start',
-    },
     padding: 72,
     font: {
       title: {
@@ -160,5 +155,6 @@ function homeCrossBackgroundSvg() {
   <line x1="-150" y1="185" x2="1350" y2="520" stroke="#1884ff" stroke-opacity="0.08" stroke-width="40" stroke-linecap="round" filter="url(#softBlur)"/>
   <rect width="1200" height="630" fill="#020817" opacity="0.38"/>
   <rect width="1200" height="630" fill="url(#textShade)"/>
+  <rect x="0" y="0" width="14" height="630" fill="#D9392E"/>
 </svg>`;
 }
