@@ -271,8 +271,8 @@ flowchart LR
     A[blockIdx.x] --> D[Global index i]
     B[blockDim.x] --> D
     C[threadIdx.x] --> D
-    D --> E[Read x[i] and y[i]]
-    E --> F[Write z[i]]
+    D --> E[Read x_i and y_i]
+    E --> F[Write z_i]
 
     classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
     classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
