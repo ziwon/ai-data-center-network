@@ -1,9 +1,13 @@
 import { getCollection } from 'astro:content';
 import { generateOpenGraphImage } from 'astro-og-canvas';
+import { mkdir } from 'node:fs/promises';
+import path from 'node:path';
+import sharp from 'sharp';
 
 export const prerender = true;
 
 const siteTitle = 'AI Data Center Systems';
+let ogBackgroundPathPromise;
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -23,6 +27,8 @@ export async function getStaticPaths() {
 }
 
 export async function GET({ props }) {
+  const ogBackgroundPath = await getOgBackgroundPath();
+
   const image = await generateOpenGraphImage({
     title: props.title,
     description: props.description,
@@ -31,6 +37,11 @@ export async function GET({ props }) {
       [35, 35, 35],
       [5, 5, 5],
     ],
+    bgImage: {
+      path: ogBackgroundPath,
+      fit: 'cover',
+      position: 'center',
+    },
     border: {
       color: [217, 57, 46],
       width: 14,
@@ -91,4 +102,20 @@ function formatTitlePart(part) {
   const upper = part.toUpperCase();
   if (['AI', 'GPU', 'LLM', 'CME'].includes(upper)) return upper;
   return part.charAt(0).toUpperCase() + part.slice(1);
+}
+
+function getOgBackgroundPath() {
+  ogBackgroundPathPromise ||= createOgBackground();
+  return ogBackgroundPathPromise;
+}
+
+async function createOgBackground() {
+  const outPath = path.join(process.cwd(), 'node_modules', '.astro-og-canvas', 'adcs-og-fabric.png');
+  await mkdir(path.dirname(outPath), { recursive: true });
+  await sharp(path.join(process.cwd(), 'public', 'fabric.svg'))
+    .resize(1200, 630, { fit: 'cover', position: 'center' })
+    .modulate({ brightness: 0.42, saturation: 0.85 })
+    .png()
+    .toFile(outPath);
+  return outPath;
 }
