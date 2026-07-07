@@ -442,7 +442,7 @@ enforcement, SKU 설계, migration plan이 실제 운영 품질을 좌우한다.
 | 주제 | 다룰 내용 |
 | --- | --- |
 | HAMi scheduler deep dive | `fitInDevices`, binpack/spread scoring, Node annotation protocol |
-| HAMi-core deep dive | `libvgpu.so`, CUDA/NVML hook, memory accounting, lock contention |
+| [HAMi-core deep dive](hami-core-deep-dive.ko.md) | `libvgpu.so`, CUDA/NVML hook, memory accounting, lock contention |
 | HAMi vs MIG benchmark | 같은 workload를 non-MIG HAMi, MIG, time-slicing으로 비교 |
 | GPU SKU 설계 노트 | 4GB/8GB/16GB SKU, quota, billing, admission policy 설계 |
 | DRA migration plan | HAMi resource model을 DRA `DeviceClass`/`ResourceClaim`으로 옮기는 방법 |
