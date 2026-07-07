@@ -433,12 +433,13 @@ HAMi를 도입하거나 평가할 때는 최소한 다음 항목을 확인해야
 | observability | Pod별 GPU memory/utilization metric을 과금/운영 지표로 쓸 수 있는가 |
 | migration | DRA, HAMi-DRA, MIG, GPU Operator와의 장기 호환 계획이 있는가 |
 
-## 더 깊게 파려면 분리할 글
+## 후속으로 확장할 수 있는 주제
 
-이 글은 DRA와 HAMi의 위치를 비교하는 아티클이다. 원래 분석 메모에 있던 코드 수준
-내용을 모두 넣으면 글의 초점이 흐려진다. 대신 다음 글로 분리하면 좋다.
+DRA와 HAMi의 관계를 이해한 뒤에는 구현, 성능, 운영 모델을 각각 더 깊게 볼 수
+있다. 특히 production GPU platform에서는 API 선택보다 scheduler 동작, runtime
+enforcement, SKU 설계, migration plan이 실제 운영 품질을 좌우한다.
 
-| 후속 글 | 다룰 내용 |
+| 주제 | 다룰 내용 |
 | --- | --- |
 | HAMi scheduler deep dive | `fitInDevices`, binpack/spread scoring, Node annotation protocol |
 | HAMi-core deep dive | `libvgpu.so`, CUDA/NVML hook, memory accounting, lock contention |
