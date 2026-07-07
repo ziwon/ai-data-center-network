@@ -15,6 +15,7 @@ and lab material that supports them. Each folder plays one role — you either
 | [`pmpp/`](pmpp/README.md) | Course — **primary spine** | Programming Massively Parallel Processors |
 | [`heterogeneous-systems/`](heterogeneous-systems/README.md) | Course — complement | Onur Mutlu parallel-pattern course |
 | [`gpu-mode/`](gpu-mode/README.md) | Course — advanced feed | GPU MODE modern ML kernels |
+| [`articles/`](articles/) | Articles | Kubernetes GPU sharing and platform notes |
 | [`appendix/`](appendix/) | Reference | [architecture](appendix/architecture/README.md), [CUDA](appendix/cuda/README.md) docs |
 | [`labs/`](labs/) | Practice | [profiling](labs/profiling/README.md), [kernels](labs/kernels/README.md) |
 
