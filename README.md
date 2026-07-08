@@ -48,3 +48,4 @@ AI data center networking, LLM inference, training, storage, and AI systems perf
   <img width="422" height="320" alt="adcs-ask-docs" src="https://github.com/user-attachments/assets/0bf83a9d-ef55-40f1-8016-3b178fb15def" />
 
 - [Knowledge graph](https://adcs.restack.tech/): per-page and global document-concept graphs with multilingual (KO/EN) semantic links (Cloudflare Workers AI `@cf/baai/bge-m3`), rendered with d3-force ([3D view](https://adcs.restack.tech/knowledge-graph-3d/))
+  <img width="640" height="373" alt="adcs-3d-graph" src="https://github.com/user-attachments/assets/20c7850e-b013-473f-b87a-ab049fb959c7" />
