@@ -13,6 +13,7 @@ and lab material that supports them. Each folder plays one role — you either
 | Folder | Role | Contents |
 |---|---|---|
 | [`pmpp/`](pmpp/README.md) | Course — **primary spine** | Programming Massively Parallel Processors |
+| [`cs149/`](cs149/README.md) | Course — systems foundation | Stanford CS149 Parallel Computing |
 | [`heterogeneous-systems/`](heterogeneous-systems/README.md) | Course — complement | Onur Mutlu parallel-pattern course |
 | [`gpu-mode/`](gpu-mode/README.md) | Course — advanced feed | GPU MODE modern ML kernels |
 | [`articles/`](articles/) | Articles | Kubernetes GPU sharing and platform notes |
@@ -27,12 +28,15 @@ This split also resolves the CUDA overlap: CUDA-the-course lives in
 ## Suggested path
 
 1. **Spine:** work through [PMPP](pmpp/README.md) as the primary course.
-2. **Complement:** use [Heterogeneous Systems (Onur Mutlu)](heterogeneous-systems/README.md)
+2. **Systems foundation:** use [Stanford CS149](cs149/README.md) to connect
+   CUDA kernels with CPU parallelism, scheduling, locality, synchronization,
+   memory models, and DNN execution.
+3. **Complement:** use [Heterogeneous Systems (Onur Mutlu)](heterogeneous-systems/README.md)
    in parallel for a second pass over the classic parallel patterns.
-3. **Practice as you go:** for each concept, implement and profile a real kernel
+4. **Practice as you go:** for each concept, implement and profile a real kernel
    in [`labs/`](labs/) and confirm the behavior with
    [Nsight Compute](labs/profiling/README.md).
-4. **Reference on demand:** consult [`appendix/`](appendix/) for the exact NVIDIA
+5. **Reference on demand:** consult [`appendix/`](appendix/) for the exact NVIDIA
    architecture and CUDA API details.
-5. **Later / advanced:** track [GPU MODE](gpu-mode/README.md) as an ongoing feed
+6. **Later / advanced:** track [GPU MODE](gpu-mode/README.md) as an ongoing feed
    for modern ML kernels.
