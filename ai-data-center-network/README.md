@@ -48,6 +48,10 @@
 - [How to Choose Between InfiniBand and RoCEv2](https://www.fibermall.com/blog/how-to-choose-between-infiniband-and-roce.htm) (2024.07)
 - [Managing the Elephant in the Room for AI Data Centers](https://blogs.juniper.net/en-us/industry-solutions-and-trends/managing-the-elephant-in-the-room-for-ai-data-centers) (2024.03)
 
+### Tutorials and Labs
+
+- [RDMA and InfiniBand Network Tutorial](https://github.com/linlinw5/rdma_ib_tutorial): RDMA, InfiniBand, RoCE, Soft-RoCE, perftest, pingpong, RDMA CM, IB fabric, NCCL RDMA packet analysis를 원리와 실험 중심으로 정리한 실습형 자료
+
 ### Talks
 
 - [AI 네트워크 아키텍처 완벽 정리: InfiniBand vs Ultra Ethernet 기술 비교](https://www.youtube.com/watch?v=PPdY5q8osSA) (2026.01)

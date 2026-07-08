@@ -1023,5 +1023,6 @@ OpenAI는 2026년에 **MRC(Multipath Reliable Connection)** 라는 네트워크 
 
 ## References
 - *[RDMA Aware Networks Programming User Manual](https://docs.nvidia.com/rdma-aware-networks-programming-user-manual-1-7.pdf)* (NVIDIA/Mellanox 공식 PDF)
+- *[RDMA and InfiniBand Network Tutorial](https://github.com/linlinw5/rdma_ib_tutorial)*: RDMA, InfiniBand, Soft-RoCE, perftest, pingpong, RDMA CM, IB fabric, NCCL RDMA packet analysis를 다루는 실습형 자료
 - *[Supercomputer networking to accelerate large scale AI training](https://openai.com/index/mrc-supercomputer-networking/)* (OpenAI, 2026)
 - *[10만 GPU 시대의 네트워크, OpenAI가 직접 만든 MRC 프로토콜](https://wikidocs.net/blog/@jaehong/12991/)* (박재홍의 실리콘밸리, 2026)
