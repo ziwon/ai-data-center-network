@@ -183,6 +183,11 @@
         background: rgba(37, 244, 255, 0.1);
       }
 
+      .icon-button:disabled {
+        cursor: default;
+        opacity: 0.42;
+      }
+
       .select {
         width: 8.5rem;
         padding: 0 0.65rem;
@@ -408,6 +413,13 @@
               <path d="M3 4v6h6" />
             </svg>
           </button>
+          <button class="icon-button" id="bgm" type="button" data-active="false" aria-label="Loading background music" disabled>
+            <svg id="bgm-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <line x1="17" y1="9" x2="23" y2="15" />
+              <line x1="23" y1="9" x2="17" y2="15" />
+            </svg>
+          </button>
         </div>
       </header>
 
@@ -436,6 +448,7 @@
         </div>
       </section>
     </main>
+    <div id="yt-bgm-player" aria-hidden="true"></div>
 
     <script>
       import * as THREE from 'three';
@@ -459,6 +472,8 @@
       const detailMeta = document.querySelector('#detail-meta');
       const openLink = document.querySelector('#open-link');
       const neighbors = document.querySelector('#neighbors');
+      const bgmButton = document.querySelector('#bgm');
+      const bgmIcon = document.querySelector('#bgm-icon');
 
       // When embedded (graph modal iframe), document links must swap the whole
       // page, not navigate inside the frame.
@@ -469,6 +484,8 @@
       }
 
       let fatalShown = false;
+      let bgmPlayer = null;
+      let userHasInteracted = false;
       window.addEventListener('error', (event) => {
         if (!status.hidden && !fatalShown) showStatus('Viewer error', event.message || 'Unexpected error.');
       });
@@ -481,6 +498,11 @@
       const conceptColor = '#735cff';
       const selectedColor = '#d9392e';
       const inactiveOpacity = 0.08;
+      const bgmVideoId = 'eo1gKGt6h9M';
+      const bgmIconOn =
+        '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14" />';
+      const bgmIconOff =
+        '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" /><line x1="17" y1="9" x2="23" y2="15" /><line x1="23" y1="9" x2="17" y2="15" />';
       const state = {
         graph: null,
         nodes: [],
@@ -561,6 +583,7 @@
       async function init() {
         bindEvents();
         addAmbientScene();
+        setupBgm();
         resize();
 
         try {
@@ -615,6 +638,18 @@
           labelsButton.dataset.active = String(state.labelVisible);
         });
         resetButton.addEventListener('click', resetCamera);
+        bgmButton.addEventListener('click', () => {
+          markInteracted();
+          if (!bgmPlayer) return;
+          if (bgmButton.dataset.active === 'true') {
+            bgmPlayer.pauseVideo();
+            setBgmUiState(false);
+          } else {
+            playBgmAudible();
+          }
+        });
+        window.addEventListener('pointerdown', handleFirstInteraction);
+        window.addEventListener('keydown', handleFirstInteraction);
       }
 
       function addAmbientScene() {
@@ -659,6 +694,84 @@
           }),
         );
         scene.add(stars);
+      }
+
+      // Browsers block unmuted autoplay, so the player starts muted and only
+      // unmutes once the visitor interacts with the page in any way (click,
+      // tap, key press) or with the speaker button directly.
+      function setBgmUiState(audible) {
+        bgmButton.dataset.active = String(audible);
+        bgmButton.setAttribute('aria-label', audible ? 'Pause background music' : 'Play background music');
+        bgmIcon.innerHTML = audible ? bgmIconOn : bgmIconOff;
+      }
+
+      function playBgmAudible() {
+        if (!bgmPlayer) return;
+        bgmPlayer.unMute();
+        bgmPlayer.setVolume(40);
+        bgmPlayer.playVideo();
+        setBgmUiState(true);
+      }
+
+      function markInteracted() {
+        if (userHasInteracted) return;
+        userHasInteracted = true;
+        window.removeEventListener('pointerdown', handleFirstInteraction);
+        window.removeEventListener('keydown', handleFirstInteraction);
+      }
+
+      function handleFirstInteraction(event) {
+        if (bgmButton.contains(event.target)) return;
+        markInteracted();
+        playBgmAudible();
+      }
+
+      function setupBgm() {
+        const script = document.createElement('script');
+        script.src = 'https://www.youtube.com/iframe_api';
+        document.head.append(script);
+
+        window.onYouTubeIframeAPIReady = () => {
+          bgmPlayer = new window.YT.Player('yt-bgm-player', {
+            width: '0',
+            height: '0',
+            videoId: bgmVideoId,
+            // Looping a single video via the IFrame API requires pointing
+            // `playlist` at its own id; `loop` alone is ignored otherwise.
+            playerVars: {
+              autoplay: 1,
+              mute: 1,
+              loop: 1,
+              playlist: bgmVideoId,
+              controls: 0,
+              disablekb: 1,
+              modestbranding: 1,
+              playsinline: 1,
+            },
+            events: {
+              onReady: (event) => {
+                event.target.setVolume(40);
+                bgmButton.disabled = false;
+                if (userHasInteracted) playBgmAudible();
+                else setBgmUiState(false);
+              },
+              onStateChange: (event) => {
+                const State = window.YT.PlayerState;
+                if (event.data === State.PLAYING || event.data === State.PAUSED) {
+                  setBgmUiState(event.data === State.PLAYING && !bgmPlayer.isMuted());
+                }
+              },
+              onError: () => {
+                bgmButton.disabled = true;
+                bgmButton.setAttribute('aria-label', 'Background music unavailable');
+              },
+            },
+          });
+        };
+
+        window.setTimeout(() => {
+          if (bgmButton.disabled) bgmButton.setAttribute('aria-label', 'Background music unavailable');
+        }, 12000);
       }
 
       function loadGraph(graph) {
