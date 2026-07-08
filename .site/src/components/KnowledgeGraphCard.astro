@@ -80,7 +80,10 @@
         if (pointerStartedOnDialog && event.target === dialog) closeDialog(dialog);
         pointerStartedOnDialog = false;
       });
-      dialog.addEventListener('close', () => this.stopSimulation());
+      dialog.addEventListener('close', () => {
+        this.stopSimulation();
+        this.teardownGlobalEmbed();
+      });
       window.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && dialog.open) closeDialog(dialog);
       });
@@ -203,6 +206,30 @@
         this.simulation.stop();
         this.simulation = null;
       }
+    }
+
+    teardownGlobalEmbed() {
+      // The 3D tab lazily embeds /knowledge-graph-3d/ (BGM and all) in an
+      // iframe. Closing the dialog only hides it unless we blow the iframe
+      // away here, so leftover audio would otherwise keep playing.
+      const embed = this.querySelector<HTMLElement>('[data-global-embed]');
+      if (!embed || !embed.dataset.loaded) return;
+      embed.innerHTML = '';
+      delete embed.dataset.loaded;
+      embed.hidden = true;
+
+      const canvas = this.querySelector<HTMLElement>('[data-global-canvas]');
+      if (canvas) canvas.hidden = false;
+
+      this.querySelectorAll<HTMLButtonElement>('[data-dim]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.dim === '2d'));
+      });
+
+      const fullLink = this.querySelector<HTMLElement>('[data-open-full]');
+      if (fullLink) fullLink.hidden = true;
+
+      const legend = this.querySelector<HTMLElement>('.kb-graph-global-legend');
+      if (legend) legend.hidden = false;
     }
   }
 
