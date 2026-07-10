@@ -39,6 +39,6 @@ For this repository, read CS149 with these questions in mind:
 
 ## Lecture Notes
 
-Add lecture notes here as the course progresses. Prefer notes that connect
-parallel-computing concepts to GPU performance, CUDA kernels, DNN execution, and
-AI systems behavior.
+| Lecture | Topic | Notes |
+| ------- | ----- | ----- |
+| 1 | Why Parallelism? Why Efficiency? | [lec01](lec01/README.md) |
