@@ -17,6 +17,7 @@ look up details in [`appendix/`](../appendix/), and practice each concept in
 | ------- | ----- | ----- |
 | 2 | Data parallel programming and the CUDA programming model | [lec02](lec02/README.md) |
 | 3 | Multidimensional grids and data | [lec03](lec03/README.md) |
+| 4 | GPU architecture | [lec04](lec04/README.md) |
 
 ## Study Priority
 
