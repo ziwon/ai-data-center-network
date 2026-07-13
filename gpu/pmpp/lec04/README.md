@@ -6,6 +6,7 @@ Source: [PMPP 2021 Lecture 4](https://www.youtube.com/watch?v=pBQJAwogMoE&list=P
 
 * [Goal](#goal)
 * [Lecture Overview](#lecture-overview)
+* [Execution Architecture Map](#execution-architecture-map)
 * [GPU as a Collection of SMs](#gpu-as-a-collection-of-sms)
 * [Thread Blocks Are Assigned to SMs](#thread-blocks-are-assigned-to-sms)
 * [Why a Block Must Fit on One SM](#why-a-block-must-fit-on-one-sm)
@@ -62,6 +63,14 @@ Source: [PMPP 2021 Lecture 4](https://www.youtube.com/watch?v=pBQJAwogMoE&list=P
 그 다음에는 SM 내부로 zoom-in한다. SM에 올라온 thread는 warp라는 scheduling unit으로 묶인다. Warp size는 device-specific이지만 현재까지 CUDA GPU에서는 보통 32 threads다. 같은 warp의 thread는 SIMD 방식으로 같은 instruction을 실행한다. 이 방식은 instruction fetch/decode/control logic의 비용을 여러 core에 나눠 쓰게 해 GPU가 많은 arithmetic unit을 넣을 수 있게 한다. 대신 warp 안의 thread가 서로 다른 branch를 타면 control divergence가 생기고, 일부 lane은 inactive 상태로 낭비된다.
 
 마지막으로 GPU가 latency를 다루는 방식을 설명한다. CPU는 out-of-order execution, 큰 cache, wide issue 등으로 single-thread latency를 줄이는 방향에 가깝다. GPU는 반대로 많은 thread와 warp를 resident 상태로 두고, 한 warp가 memory access나 multi-cycle arithmetic 때문에 stall되면 다른 ready warp를 실행한다. 이 능력을 높이는 중요한 지표가 occupancy다.
+
+---
+
+## Execution Architecture Map
+
+![CUDA execution architecture map](assets/execution-architecture-map.svg)
+
+이 그림에서 중요한 경계는 block과 warp다. Block은 SM에 배치되는 resource allocation 단위이자 shared memory와 `__syncthreads()`의 collaboration scope다. Warp는 SM 내부에서 instruction을 issue하고 latency를 숨기는 scheduling 단위다.
 
 ---
 
