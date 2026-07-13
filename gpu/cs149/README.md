@@ -42,3 +42,4 @@ For this repository, read CS149 with these questions in mind:
 | Lecture | Topic | Notes |
 | ------- | ----- | ----- |
 | 1 | Why Parallelism? Why Efficiency? | [lec01](lec01/README.md) |
+| 2 | A Modern Multi-Core Processor | [lec02](lec02/README.md) |
