@@ -11,6 +11,7 @@ Course materials:
 
 * [Goal](#goal)
 * [Lecture Overview](#lecture-overview)
+* [Visual Map](#visual-map)
 * [Processor Review](#processor-review)
 * [Caches and Locality](#caches-and-locality)
 * [Three Ways to Improve Processor Utilization](#three-ways-to-improve-processor-utilization)
@@ -64,6 +65,39 @@ Course materials:
 
 ---
 
+## Visual Map
+
+2강의 hardware model은 세 가지 parallelism이 서로 겹쳐서 utilization을 높이는 구조로 볼 수 있다.
+
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+flowchart LR
+    P[Program work] --> C[Multi-core<br/>many instruction streams]
+    P --> S[SIMD<br/>one instruction, many data]
+    P --> T[Hardware multi-threading<br/>many runnable contexts]
+
+    C --> U[Higher utilization]
+    S --> U
+    T --> U
+
+    U --> G[GPU throughput model<br/>SMs, warps, latency hiding]
+
+    S --> D[Divergence risk<br/>masked lanes]
+    T --> M[Memory latency<br/>hidden, not removed]
+    C --> W[Work distribution<br/>enough independent tasks]
+
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    class P primary
+    class C,S,T secondary
+    class W,D,M note
+    class U,G accent
+```
+
+---
+
 ## Processor Review
 
 Processor는 instruction stream을 실행한다. 아주 단순화하면 processor에는 다음 요소가 있다.
@@ -90,6 +124,8 @@ instruction stream
 Memory는 byte-addressable address space처럼 보이지만, DRAM은 processor execution unit에 비해 느리다. Cache는 이 latency를 줄이기 위해 memory value의 subset을 on-chip에 보관한다.
 
 Cache는 보통 cache line 단위로 동작한다. 예를 들어 line size가 4 bytes인 단순 cache에서 address `0x0`을 읽으면, cache는 `0x0`부터 `0x3`까지 한 line을 가져올 수 있다. 이후 `0x1`, `0x2`, `0x3` 접근은 hit이 된다.
+
+![Cache line locality](assets/cache-line-locality.svg)
 
 | Locality | Meaning | Cache effect |
 | -------- | ------- | ------------ |
@@ -232,6 +268,8 @@ load latency:
 ```
 
 Thread 하나만 있으면 load 이후 core가 오래 기다린다. 하지만 여러 hardware thread가 있으면 thread 0이 load를 기다리는 동안 thread 1, 2, 3의 arithmetic instruction을 실행할 수 있다. 강의 예시에서는 세 arithmetic instruction 뒤 12-cycle load가 있는 경우, 다섯 thread가 있으면 100% utilization을 만들 수 있다.
+
+![Latency hiding timeline](assets/latency-hiding-timeline.svg)
 
 Arithmetic per memory access가 늘어나면 필요한 thread 수는 줄어든다. 예를 들어 six arithmetic instructions 뒤 12-cycle load가 있다면 더 적은 thread로 같은 latency를 숨길 수 있다.
 
