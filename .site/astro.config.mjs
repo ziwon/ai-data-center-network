@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
 import remarkMath from 'remark-math';
@@ -72,6 +73,9 @@ export default defineConfig({
   },
   integrations: [
     mermaid(),
+    sitemap({
+      filter: (page) => !new URL(page).pathname.startsWith('/admin/'),
+    }),
     starlight({
       plugins: [
         starlightGitHubAlerts(),
