@@ -1,0 +1,589 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+    "title": "Lab: Symmetric Memory and NVSHMEM Patterns",
+    "route": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+    "group": "systems-performance",
+    "keywords": [
+      "symmetric",
+      "allocates",
+      "nvshmem",
+      "optimized",
+      "patterns",
+      "lab",
+      "baseline",
+      "gpu-driven",
+      "reuses",
+      "offsets"
+    ],
+    "excerpt": "Show why persistent symmetric buffers matter for GPU-driven communication patterns."
+  },
+  "nodes": [
+    {
+      "id": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "title": "Lab: Symmetric Memory and NVSHMEM Patterns",
+      "route": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "group": "systems-performance",
+      "keywords": [
+        "symmetric",
+        "allocates",
+        "nvshmem",
+        "optimized",
+        "patterns",
+        "lab",
+        "baseline",
+        "gpu-driven",
+        "reuses",
+        "offsets"
+      ],
+      "excerpt": "Show why persistent symmetric buffers matter for GPU-driven communication patterns."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "title": "Lab: Communicator Lifecycle",
+      "route": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "group": "systems-performance",
+      "keywords": [
+        "communicator",
+        "optimized",
+        "lifecycle",
+        "once",
+        "recreates",
+        "lab",
+        "baseline",
+        "communicators",
+        "reuses",
+        "per-step"
+      ],
+      "excerpt": "Show why communicators and registered buffers should be created once and reused."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "title": "Lab: Pipeline and Tensor Parallel Scheduling",
+      "route": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "group": "systems-performance",
+      "keywords": [
+        "tensor-parallel",
+        "pipeline",
+        "optimized",
+        "scheduling",
+        "tensor",
+        "stage",
+        "lab",
+        "execution",
+        "baseline",
+        "fill-drain"
+      ],
+      "excerpt": "Show how pipeline bubbles and tensor-parallel synchronization affect distributed model execution."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/communication-overlap/",
+      "title": "Lab: Communication and Computation Overlap",
+      "route": "/systems-performance/labs/ch04/communication-overlap/",
+      "group": "systems-performance",
+      "keywords": [
+        "communication",
+        "bucket",
+        "overlap",
+        "optimized",
+        "exposed",
+        "lab",
+        "step",
+        "computation",
+        "compute",
+        "paths"
+      ],
+      "excerpt": "Show why Chapter 4 focuses on exposed communication time . The total communication volume may be the same, but the optimized path starts each bucket..."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "title": "Lab: Gradient Bucketing, Fusion, and Compression",
+      "route": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "group": "systems-performance",
+      "keywords": [
+        "gradient",
+        "compression",
+        "fusion",
+        "bucketing",
+        "optimized",
+        "buckets",
+        "checksum",
+        "tolerance",
+        "lab",
+        "fewer"
+      ],
+      "excerpt": "Show why Chapter 4 treats gradient synchronization as both a bandwidth problem and a launch-latency problem."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "title": "Lab: NIXL-Style Tier Handoff",
+      "route": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "group": "systems-performance",
+      "keywords": [
+        "handoff",
+        "nixl-style",
+        "tier",
+        "optimized",
+        "movement",
+        "selected",
+        "transfer",
+        "lab",
+        "baseline",
+        "disaggregated"
+      ],
+      "excerpt": "Show why Chapter 4 separates training collectives from disaggregated inference data movement. NCCL is the right lens for all-reduce, but KV cache handoff is..."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "title": "Lab: Topology-Aware Bandwidth",
+      "route": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "group": "systems-performance",
+      "keywords": [
+        "topology-aware",
+        "links",
+        "ranks",
+        "path",
+        "optimized",
+        "slow",
+        "topology-agnostic",
+        "lab",
+        "baseline",
+        "fast"
+      ],
+      "excerpt": "Show why NCCL path quality depends on placement. A job can use GPUs successfully and still run over a slow PCIe or cross-socket path."
+    },
+    {
+      "id": "/systems-performance/",
+      "title": "AI Systems Performance Engineering",
+      "route": "/systems-performance/",
+      "group": "systems-performance",
+      "keywords": [
+        "engineering",
+        "2025.12",
+        "2026.04",
+        "2025.08",
+        "numa-aware",
+        "systems",
+        "books",
+        "uncore",
+        "talks",
+        "topology"
+      ],
+      "excerpt": "AI systems performance engineering notes covering GPU hardware, Linux and container tuning, CUDA, PyTorch, profiling, and distributed communication."
+    },
+    {
+      "id": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "title": "Keeping GPU Workloads NUMA-Local in Kubernetes",
+      "route": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "group": "systems-performance",
+      "keywords": [
+        "numa",
+        "cpu",
+        "pod",
+        "node",
+        "container",
+        "kubelet",
+        "memory",
+        "request",
+        "manager",
+        "admission"
+      ],
+      "excerpt": "GPU workload에서 CPU가 request preparation, batching, dataloader, pinned memory staging처럼 GPU로 가는 data path에 있다면, Kubernetes의 기본 resource scheduling만으로는 부족하다...."
+    },
+    {
+      "id": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "title": "Never Underestimate Memory Architecture",
+      "route": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "group": "systems-performance",
+      "keywords": [
+        "cpu",
+        "numa",
+        "memory",
+        "instance",
+        "manager",
+        "node",
+        "gpu",
+        "zone",
+        "cloud",
+        "uncore"
+      ],
+      "excerpt": "대형 서버와 cloud VM에서는 CPU, memory, cache, PCIe device가 균일하게 연결되어 있지 않다. Workload가 NUMA boundary와 shared uncore resource를 넘나들면 같은 일을 하면서도 CPU 사용량, step time,..."
+    }
+  ],
+  "edges": [
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "keyword+section",
+      "weight": 0.512,
+      "terms": [
+        "cpu",
+        "numa",
+        "memory",
+        "manager"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.363,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline",
+        "reuses"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.27,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "keyword",
+      "weight": 0.268,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.265,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "type": "keyword",
+      "weight": 0.256,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.254,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.242,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.241,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.232,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "keyword",
+      "weight": 0.232,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.221,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

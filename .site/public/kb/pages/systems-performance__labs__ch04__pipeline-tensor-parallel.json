@@ -1,0 +1,842 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+    "title": "Lab: Pipeline and Tensor Parallel Scheduling",
+    "route": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+    "group": "systems-performance",
+    "keywords": [
+      "tensor-parallel",
+      "pipeline",
+      "optimized",
+      "scheduling",
+      "tensor",
+      "stage",
+      "lab",
+      "execution",
+      "baseline",
+      "fill-drain"
+    ],
+    "excerpt": "Show how pipeline bubbles and tensor-parallel synchronization affect distributed model execution."
+  },
+  "nodes": [
+    {
+      "id": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "title": "Lab: Pipeline and Tensor Parallel Scheduling",
+      "route": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "group": "systems-performance",
+      "keywords": [
+        "tensor-parallel",
+        "pipeline",
+        "optimized",
+        "scheduling",
+        "tensor",
+        "stage",
+        "lab",
+        "execution",
+        "baseline",
+        "fill-drain"
+      ],
+      "excerpt": "Show how pipeline bubbles and tensor-parallel synchronization affect distributed model execution."
+    },
+    {
+      "id": "concept:nccl",
+      "kind": "concept",
+      "title": "NCCL",
+      "label": "NCCL",
+      "group": "distributed-training",
+      "description": "NVIDIA collective communication library used by distributed GPU training.",
+      "keywords": [
+        "NCCL",
+        "collectives",
+        "all-reduce",
+        "allreduce",
+        "reduce-scatter",
+        "all-gather"
+      ]
+    },
+    {
+      "id": "concept:parallelism",
+      "kind": "concept",
+      "title": "Parallelism",
+      "label": "Parallelism",
+      "group": "distributed-training",
+      "description": "Data, tensor, pipeline, and expert parallel strategies for training or serving models.",
+      "keywords": [
+        "Parallelism",
+        "data parallel",
+        "tensor parallel",
+        "pipeline parallel",
+        "expert parallel",
+        "3D parallelism"
+      ]
+    },
+    {
+      "id": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "title": "Lab: Communicator Lifecycle",
+      "route": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "group": "systems-performance",
+      "keywords": [
+        "communicator",
+        "optimized",
+        "lifecycle",
+        "once",
+        "recreates",
+        "lab",
+        "baseline",
+        "communicators",
+        "reuses",
+        "per-step"
+      ],
+      "excerpt": "Show why communicators and registered buffers should be created once and reused."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/communication-overlap/",
+      "title": "Lab: Communication and Computation Overlap",
+      "route": "/systems-performance/labs/ch04/communication-overlap/",
+      "group": "systems-performance",
+      "keywords": [
+        "communication",
+        "bucket",
+        "overlap",
+        "optimized",
+        "exposed",
+        "lab",
+        "step",
+        "computation",
+        "compute",
+        "paths"
+      ],
+      "excerpt": "Show why Chapter 4 focuses on exposed communication time . The total communication volume may be the same, but the optimized path starts each bucket..."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "title": "Lab: Symmetric Memory and NVSHMEM Patterns",
+      "route": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "group": "systems-performance",
+      "keywords": [
+        "symmetric",
+        "allocates",
+        "nvshmem",
+        "optimized",
+        "patterns",
+        "lab",
+        "baseline",
+        "gpu-driven",
+        "reuses",
+        "offsets"
+      ],
+      "excerpt": "Show why persistent symmetric buffers matter for GPU-driven communication patterns."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "title": "Lab: DataParallel vs DDP",
+      "route": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "group": "systems-performance",
+      "keywords": [
+        "dataparallel",
+        "ddp",
+        "one",
+        "optimized",
+        "scatters",
+        "replicas",
+        "gathers",
+        "ddp-shaped",
+        "lab",
+        "process"
+      ],
+      "excerpt": "Show why Chapter 4 treats PyTorch DataParallel as an anti-pattern for serious multi-GPU training."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "title": "Lab: Gradient Bucketing, Fusion, and Compression",
+      "route": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "group": "systems-performance",
+      "keywords": [
+        "gradient",
+        "compression",
+        "fusion",
+        "bucketing",
+        "optimized",
+        "buckets",
+        "checksum",
+        "tolerance",
+        "lab",
+        "fewer"
+      ],
+      "excerpt": "Show why Chapter 4 treats gradient synchronization as both a bandwidth problem and a launch-latency problem."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/",
+      "title": "Chapter 4 Labs",
+      "route": "/systems-performance/labs/ch04/",
+      "group": "systems-performance",
+      "keywords": [
+        "labs",
+        "communication",
+        "gpu-communication-reference",
+        "directory",
+        "exposed",
+        "transfers",
+        "multi-gpu",
+        "buffers",
+        "repeated",
+        "overlap"
+      ],
+      "excerpt": "This directory contains executable labs that support Chapter 4 notes on distributed networking communication."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "title": "Lab: GPU Communication Reference",
+      "route": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "group": "systems-performance",
+      "keywords": [
+        "overlap.py",
+        "ddp",
+        "sweep.py",
+        "backward",
+        "bucket",
+        "communication",
+        "process-group",
+        "gradient",
+        "nccl",
+        "buckets"
+      ],
+      "excerpt": "Provide real GPU/NCCL entrypoints for the Chapter 4 communication labs."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "title": "Lab: Topology-Aware Bandwidth",
+      "route": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "group": "systems-performance",
+      "keywords": [
+        "topology-aware",
+        "links",
+        "ranks",
+        "path",
+        "optimized",
+        "slow",
+        "topology-agnostic",
+        "lab",
+        "baseline",
+        "fast"
+      ],
+      "excerpt": "Show why NCCL path quality depends on placement. A job can use GPUs successfully and still run over a slow PCIe or cross-socket path."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week03/",
+      "title": "Week 3: Parallelism Strategies in Deep Learning",
+      "route": "/courses/deep-learning-for-network-engineers/week03/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "parallelism",
+        "gpu",
+        "gradient",
+        "pipeline",
+        "stage",
+        "expert",
+        "tensor",
+        "training",
+        "layer",
+        "communication"
+      ],
+      "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week04/",
+      "title": "Week 4: RDMA and GPU Cluster Communication",
+      "route": "/courses/deep-learning-for-network-engineers/week04/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "rank",
+        "rdma",
+        "nccl",
+        "queue",
+        "host",
+        "memory",
+        "gpu",
+        "transport",
+        "chunk",
+        "key"
+      ],
+      "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
+    },
+    {
+      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "title": "Domain-Specific Architectures for AI Inference",
+      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "group": "inference",
+      "keywords": [
+        "dsa",
+        "cache",
+        "compute",
+        "week",
+        "tensor",
+        "hardware",
+        "decode",
+        "token",
+        "sram",
+        "accelerator"
+      ],
+      "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
+    },
+    {
+      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "title": "How to Think About GPUs",
+      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "group": "inference",
+      "keywords": [
+        "tensor",
+        "gpu",
+        "core",
+        "b300",
+        "blackwell",
+        "nvlink",
+        "dgx",
+        "memory",
+        "parallelism",
+        "decode"
+      ],
+      "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
+    },
+    {
+      "id": "/courses/cme295/lec-04/",
+      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
+      "route": "/courses/cme295/lec-04/",
+      "group": "courses/cme295",
+      "keywords": [
+        "pre-training",
+        "model",
+        "sft",
+        "training",
+        "parallelism",
+        "optimizer",
+        "lora",
+        "fine-tuning",
+        "precision",
+        "states"
+      ],
+      "excerpt": "이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre-training 이후 fine-tuning과 alignment 단계가 필요한지 이해하는 것이다."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week02/",
+      "title": "Week 2: Large Language Model, LLM",
+      "route": "/courses/deep-learning-for-network-engineers/week02/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "token",
+        "vector",
+        "embedding",
+        "attention",
+        "word",
+        "decoder",
+        "layer",
+        "ffnn",
+        "parameter",
+        "책에서"
+      ],
+      "excerpt": "이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다."
+    },
+    {
+      "id": "/gpu/cs149/lec01/",
+      "title": "Lecture 1: Why Parallelism? Why Efficiency?",
+      "route": "/gpu/cs149/lec01/",
+      "group": "gpu",
+      "keywords": [
+        "processor",
+        "locality",
+        "speedup",
+        "instruction",
+        "work",
+        "parallelism",
+        "efficiency",
+        "parallel",
+        "memory",
+        "cache"
+      ],
+      "excerpt": "이번 강의의 목표는 왜 현대 시스템에서 parallelism이 선택 사항이 아니라 기본 조건이 되었는지, 그리고 단순히 \"병렬로 돌렸다\"는 사실만으로는 충분하지 않은 이유를 이해하는 것이다."
+    }
+  ],
+  "edges": [
+    {
+      "source": "/courses/cme295/lec-04/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "data parallel",
+        "tensor parallel"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "allreduce",
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "data parallel",
+        "tensor parallel",
+        "pipeline parallel"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "allreduce"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec01/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "allreduce",
+        "NCCL",
+        "collectives"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "allreduce",
+        "collectives",
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "tensor parallel"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "all-reduce",
+        "allreduce"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec01/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "all-reduce",
+        "collectives"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "NCCL",
+        "all-reduce"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "data parallel"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "all-gather"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "tensor parallel"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "keyword+section",
+      "weight": 0.493,
+      "terms": [
+        "layer"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.363,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline",
+        "reuses"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "type": "keyword",
+      "weight": 0.281,
+      "terms": [
+        "tensor",
+        "decode"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.27,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.265,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "type": "keyword",
+      "weight": 0.256,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.254,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/courses/deep-learning-for-network-engineers/week04/",
+      "type": "keyword",
+      "weight": 0.25,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.242,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.241,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.237,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.235,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.232,
+      "terms": [
+        "communication"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.232,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
+      "target": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "type": "keyword",
+      "weight": 0.227,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-04/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "keyword",
+      "weight": 0.221,
+      "terms": [
+        "parallelism",
+        "training"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.221,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec01/",
+      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "cache"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/communication-overlap/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "communication",
+        "overlap",
+        "exposed"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "communication",
+        "bucket"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "ddp"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "target": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gradient",
+        "buckets"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gradient-bucketing/",
+      "target": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/symmetric-memory-nvshmem/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab",
+        "baseline"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/courses/deep-learning-for-network-engineers/week04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

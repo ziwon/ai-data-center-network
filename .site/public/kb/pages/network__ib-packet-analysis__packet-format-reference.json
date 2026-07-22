@@ -1,0 +1,916 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/network/ib-packet-analysis/packet-format-reference/",
+    "title": "InfiniBand Packet Format Reference",
+    "route": "/network/ib-packet-analysis/packet-format-reference/",
+    "group": "network",
+    "keywords": [
+      "send",
+      "header",
+      "rdma",
+      "reserved",
+      "field",
+      "bits",
+      "bth",
+      "width",
+      "immediate",
+      "extended"
+    ],
+    "excerpt": "This document is a bit-level reference for InfiniBand packet headers, intended as a companion to the main analysis report. The report focuses on what was..."
+  },
+  "nodes": [
+    {
+      "id": "/network/ib-packet-analysis/packet-format-reference/",
+      "title": "InfiniBand Packet Format Reference",
+      "route": "/network/ib-packet-analysis/packet-format-reference/",
+      "group": "network",
+      "keywords": [
+        "send",
+        "header",
+        "rdma",
+        "reserved",
+        "field",
+        "bits",
+        "bth",
+        "width",
+        "immediate",
+        "extended"
+      ],
+      "excerpt": "This document is a bit-level reference for InfiniBand packet headers, intended as a companion to the main analysis report. The report focuses on what was..."
+    },
+    {
+      "id": "/network/ib-packet-analysis/",
+      "title": "InfiniBand Packet Analysis: A Practical RDMA Transport Primer",
+      "route": "/network/ib-packet-analysis/",
+      "group": "network",
+      "keywords": [
+        "rdma",
+        "captures",
+        "infiniband",
+        "packet",
+        "ipoib",
+        "capture",
+        "packets",
+        "bth",
+        "reth",
+        "read"
+      ],
+      "excerpt": "This report analyzes the packet captures in the ib-packets directory using tshark . The goal is to connect the captured packets back to the Chapter 1 RDMA..."
+    },
+    {
+      "id": "concept:infiniband",
+      "kind": "concept",
+      "title": "InfiniBand",
+      "label": "InfiniBand",
+      "group": "network",
+      "description": "High-performance network fabric commonly used for GPU clusters and HPC systems.",
+      "keywords": [
+        "InfiniBand",
+        "IB fabric",
+        "IB packet",
+        "Subnet Manager"
+      ]
+    },
+    {
+      "id": "concept:rdma",
+      "kind": "concept",
+      "title": "RDMA",
+      "label": "RDMA",
+      "group": "network",
+      "description": "Remote direct memory access data path for low-latency GPU and storage communication.",
+      "keywords": [
+        "RDMA",
+        "Remote Direct Memory Access",
+        "InfiniBand verbs"
+      ]
+    },
+    {
+      "id": "concept:roce",
+      "kind": "concept",
+      "title": "RoCE",
+      "label": "RoCE",
+      "group": "network",
+      "description": "RDMA over Converged Ethernet, usually discussed with lossless Ethernet and congestion control.",
+      "keywords": [
+        "RoCE",
+        "RDMA over Converged Ethernet",
+        "RoCEv2"
+      ]
+    },
+    {
+      "id": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "title": "InfiniBand 패킷 형식 참조 문서",
+      "route": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "group": "network",
+      "keywords": [
+        "send",
+        "rdma",
+        "reserved",
+        "bth",
+        "immediate",
+        "byte",
+        "다음에",
+        "mad",
+        "smp",
+        "header"
+      ],
+      "excerpt": "이 문서는 InfiniBand 패킷 헤더를 비트 단위로 정리한 참조 문서이며, 메인 분석 보고서를 보완하도록 작성되었습니다. 보고서가 ib-packets 데이터셋에서 무엇이 관측되었는지에 초점을 둔다면, 이 문서는 IB 패킷 헤더가 실제 전송 형식에서 어떻게 배치되는지에 초점을..."
+    },
+    {
+      "id": "/network/chap01/",
+      "title": "Chapter 1: Wonders in the Workload",
+      "route": "/network/chap01/",
+      "group": "network",
+      "keywords": [
+        "rdma",
+        "nic",
+        "memory",
+        "infiniband",
+        "queue",
+        "remote",
+        "kernel",
+        "send",
+        "training",
+        "rnic"
+      ],
+      "excerpt": "The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining."
+    },
+    {
+      "id": "/network/chap12/",
+      "title": "Chapter 12: Ultra Ethernet Consortium, UEC",
+      "route": "/network/chap12/",
+      "group": "network",
+      "keywords": [
+        "uet",
+        "uec",
+        "delivery",
+        "packet",
+        "congestion",
+        "inc",
+        "cbfc",
+        "pdc",
+        "llr",
+        "unordered"
+      ],
+      "excerpt": "This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet-based AI/HPC fabrics."
+    },
+    {
+      "id": "/network/ib-packet-analysis/readme_ko/",
+      "title": "InfiniBand 패킷 분석: 실전 RDMA 전송 입문서",
+      "route": "/network/ib-packet-analysis/readme_ko/",
+      "group": "network",
+      "keywords": [
+        "rdma",
+        "트래픽",
+        "infiniband",
+        "ipoib",
+        "bth",
+        "보여줍니다",
+        "reth",
+        "aeth",
+        "페이로드",
+        "데이터"
+      ],
+      "excerpt": "이 보고서는 ib-packets 디렉터리의 패킷 캡처를 tshark 로 분석합니다. 목표는 캡처된 패킷을 1장의 RDMA 및 InfiniBand 노트와 다시 연결하는 것입니다. 즉, 데이터 경로 vs 제어 경로, InfiniBand 패킷 구조, 관리 트래픽, IP over..."
+    },
+    {
+      "id": "/network/",
+      "title": "AI Data Center Network",
+      "route": "/network/",
+      "group": "network",
+      "keywords": [
+        "2026.04",
+        "2026.01",
+        "rdma",
+        "fabric",
+        "2026.02",
+        "2026.05",
+        "2026.03",
+        "2025.11",
+        "2025.10",
+        "2024.08"
+      ],
+      "excerpt": "AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations."
+    },
+    {
+      "id": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "title": "Cloud Data Center Network의 지금과 앞으로",
+      "route": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "group": "network",
+      "keywords": [
+        "network",
+        "ethernet",
+        "fabric",
+        "ai/ml",
+        "rdma",
+        "routing",
+        "traffic",
+        "adaptive",
+        "frontend",
+        "rack"
+      ],
+      "excerpt": "Cloud-native web-scale network는 많은 작은 TCP flow를 commodity Ethernet/Clos/ECMP로 처리하는 데 최적화되어 왔다. 그러나 AI/ML workload는 GPU 간 동기화, RDMA, collective..."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week04/",
+      "title": "Week 4: RDMA and GPU Cluster Communication",
+      "route": "/courses/deep-learning-for-network-engineers/week04/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "rank",
+        "rdma",
+        "nccl",
+        "queue",
+        "host",
+        "memory",
+        "gpu",
+        "transport",
+        "chunk",
+        "key"
+      ],
+      "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
+    },
+    {
+      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "title": "How to Think About GPUs",
+      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "group": "inference",
+      "keywords": [
+        "tensor",
+        "gpu",
+        "core",
+        "b300",
+        "blackwell",
+        "nvlink",
+        "dgx",
+        "memory",
+        "parallelism",
+        "decode"
+      ],
+      "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week03/",
+      "title": "Week 3: Parallelism Strategies in Deep Learning",
+      "route": "/courses/deep-learning-for-network-engineers/week03/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "parallelism",
+        "gpu",
+        "gradient",
+        "pipeline",
+        "stage",
+        "expert",
+        "tensor",
+        "training",
+        "layer",
+        "communication"
+      ],
+      "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
+    },
+    {
+      "id": "/network/chap02/",
+      "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
+      "route": "/network/chap02/",
+      "group": "network",
+      "keywords": [
+        "congestion",
+        "flows",
+        "traffic",
+        "balancing",
+        "training",
+        "ethernet",
+        "flow",
+        "rocev2",
+        "pfc",
+        "centers"
+      ],
+      "excerpt": "This chapter explains why AI/ML data center fabrics are different from traditional data center networks ."
+    }
+  ],
+  "edges": [
+    {
+      "source": "/network/",
+      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "fabric",
+        "rdma"
+      ]
+    },
+    {
+      "source": "/network/",
+      "target": "/network/chap01/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/chap02/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/chap12/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/ib-packet-analysis/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/ib-packet-analysis/",
+      "target": "/network/ib-packet-analysis/packet-format-reference/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "rdma",
+        "bth"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/",
+      "target": "/network/ib-packet-analysis/readme_ko/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "rdma",
+        "infiniband",
+        "ipoib",
+        "bth"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand",
+        "Subnet Manager"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA",
+        "Remote Direct Memory Access"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE",
+        "RDMA over Converged Ethernet"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand",
+        "IB fabric"
+      ]
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA",
+        "InfiniBand verbs"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/chap02/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/network/chap02/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA",
+        "Remote Direct Memory Access"
+      ]
+    },
+    {
+      "source": "/network/chap02/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RDMA over Converged Ethernet"
+      ]
+    },
+    {
+      "source": "/network/chap12/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/network/chap12/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/network/chap12/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand",
+        "Subnet Manager"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand",
+        "IB packet"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/readme_ko/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand",
+        "Subnet Manager"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/readme_ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "RoCE",
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/network/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "IB fabric",
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/network/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "/network/chap02/",
+      "type": "keyword+section",
+      "weight": 0.563,
+      "terms": [
+        "training"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "target": "/network/ib-packet-analysis/packet-format-reference/",
+      "type": "keyword",
+      "weight": 0.559,
+      "terms": [
+        "send",
+        "header",
+        "rdma",
+        "reserved"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "/network/ib-packet-analysis/",
+      "type": "keyword+section",
+      "weight": 0.398,
+      "terms": [
+        "rdma",
+        "infiniband"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "/network/chap12/",
+      "type": "keyword+section",
+      "weight": 0.392,
+      "terms": []
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "/network/ib-packet-analysis/packet-format-reference/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": [
+        "rdma",
+        "send"
+      ]
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/chap01/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/chap02/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/network/chap02/",
+      "target": "/network/chap12/",
+      "type": "keyword",
+      "weight": 0.293,
+      "terms": [
+        "congestion"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "target": "/network/ib-packet-analysis/readme_ko/",
+      "type": "keyword",
+      "weight": 0.285,
+      "terms": [
+        "rdma",
+        "bth"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/courses/deep-learning-for-network-engineers/week04/",
+      "type": "keyword",
+      "weight": 0.25,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/network/chap12/",
+      "target": "/network/ib-packet-analysis/",
+      "type": "keyword",
+      "weight": 0.223,
+      "terms": [
+        "packet"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "/network/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma",
+        "memory",
+        "queue"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "/network/ib-packet-analysis/readme_ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma"
+      ]
+    },
+    {
+      "source": "/network/chap12/",
+      "target": "/network/ib-packet-analysis/packet-format-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/network/ib-packet-analysis/",
+      "target": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma",
+        "bth"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference/",
+      "target": "/network/ib-packet-analysis/readme_ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma",
+        "bth"
+      ]
+    },
+    {
+      "source": "/network/",
+      "target": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/ib-packet-analysis/packet-format-reference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/ib-packet-analysis/readme_ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/chap12/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/ib-packet-analysis/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/ib-packet-analysis/packet-format-reference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/ib-packet-analysis/readme_ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "/network/ib-packet-analysis/readme_ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

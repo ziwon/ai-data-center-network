@@ -8,7 +8,8 @@
     "dev": "npm run sync:docs && astro dev",
     "build": "npm run sync:docs && astro build",
     "postbuild": "node scripts/postprocess-pages.mjs",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "validate:build": "node scripts/validate-build.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
