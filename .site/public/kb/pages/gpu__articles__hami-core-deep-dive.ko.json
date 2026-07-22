@@ -1,0 +1,436 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/gpu/articles/hami-core-deep-dive.ko/",
+    "title": "HAMi-core 심층 분석: `libvgpu.so`는 GPU를 어떻게 나누는가",
+    "route": "/gpu/articles/hami-core-deep-dive.ko/",
+    "group": "gpu",
+    "keywords": [
+      "hami-core",
+      "메모리",
+      "quota",
+      "프로세스",
+      "nvml",
+      "cuda",
+      "컨테이너",
+      "사용량",
+      "gpu",
+      "프레임워크"
+    ],
+    "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
+  },
+  "nodes": [
+    {
+      "id": "/gpu/articles/hami-core-deep-dive.ko/",
+      "title": "HAMi-core 심층 분석: `libvgpu.so`는 GPU를 어떻게 나누는가",
+      "route": "/gpu/articles/hami-core-deep-dive.ko/",
+      "group": "gpu",
+      "keywords": [
+        "hami-core",
+        "메모리",
+        "quota",
+        "프로세스",
+        "nvml",
+        "cuda",
+        "컨테이너",
+        "사용량",
+        "gpu",
+        "프레임워크"
+      ],
+      "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
+    },
+    {
+      "id": "/gpu/articles/",
+      "title": "GPU Articles",
+      "route": "/gpu/articles/",
+      "group": "gpu",
+      "keywords": [
+        "articles",
+        "essays",
+        "gpu",
+        "platform",
+        "kubernetes",
+        "connect",
+        "operational",
+        "design",
+        "cuda",
+        "behavior"
+      ],
+      "excerpt": "Operational notes and essays that connect GPU architecture, CUDA behavior, and Kubernetes platform design."
+    },
+    {
+      "id": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "title": "DRA와 HAMi로 보는 Kubernetes GPU 분할",
+      "route": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "group": "gpu",
+      "keywords": [
+        "hami",
+        "dra",
+        "quota",
+        "mig",
+        "스케줄러",
+        "메모리",
+        "gpu",
+        "pod",
+        "annotation",
+        "워크로드"
+      ],
+      "excerpt": "첫째, “어떤 GPU를 어떤 Pod에 할당할 것인가?” 둘째, “하나의 GPU 안에서 메모리와 연산 사용량을 실제로 어떻게 제한할 것인가?” Dynamic Resource Allocation(DRA)은 첫 번째 문제를 Kubernetes 표준 API로 해결하려는 체계다...."
+    },
+    {
+      "id": "/network/gpu-cluster-failure-analysis/",
+      "title": "GPU 클러스터 장애 분석: ECC, Xid, RDMA, NCCL Hang은 어떻게 연결되는가",
+      "route": "/network/gpu-cluster-failure-analysis/",
+      "group": "network",
+      "keywords": [
+        "xid",
+        "ecc",
+        "gpu",
+        "row",
+        "drain",
+        "counter",
+        "reset",
+        "error",
+        "dcgm",
+        "remap"
+      ],
+      "excerpt": "대규모 GPU 클러스터를 운영하다 보면 겉으로는 네트워크 장애처럼 보이지만 실제 원인은 GPU RAS, ECC, PCIe, NVLink 쪽에서 시작되는 경우가 있다."
+    },
+    {
+      "id": "/storage/zfs/",
+      "title": "AI 학습 워크로드를 위한 ZFS 튜닝 가이드",
+      "route": "/storage/zfs/",
+      "group": "storage",
+      "keywords": [
+        "zfs",
+        "hdd",
+        "nvme",
+        "special",
+        "vdev",
+        "metadata",
+        "nas",
+        "tip",
+        "juicefs",
+        "스토리지"
+      ],
+      "excerpt": "이 분류가 중요한 이유는, AI 학습 워크로드에서는 단순히 “200TB 저장 가능”보다 다음 요소가 더 중요하기 때문이다."
+    },
+    {
+      "id": "/systems-performance/chap03/",
+      "title": "Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments",
+      "route": "/systems-performance/chap03/",
+      "group": "systems-performance",
+      "keywords": [
+        "gpu",
+        "cpu",
+        "kubernetes",
+        "memory",
+        "container",
+        "mig",
+        "cuda",
+        "numa",
+        "image",
+        "mps"
+      ],
+      "excerpt": "이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다."
+    },
+    {
+      "id": "/systems-performance/chap04/",
+      "title": "Chapter 4: Tuning Distributed Networking Communication",
+      "route": "/systems-performance/chap04/",
+      "group": "systems-performance",
+      "keywords": [
+        "nccl",
+        "gpu",
+        "nixl",
+        "rdma",
+        "sharp",
+        "communication",
+        "overlap",
+        "all-reduce",
+        "bucket",
+        "rank"
+      ],
+      "excerpt": "이번 장의 목표는 distributed training과 distributed inference에서 네트워크 통신을 단순한 “속도 문제”가 아니라 GPU goodput을 결정하는 핵심 병목으로 이해하는 것이다."
+    },
+    {
+      "id": "/gpu/",
+      "title": "GPU Systems",
+      "route": "/gpu/",
+      "group": "gpu",
+      "keywords": [
+        "course",
+        "lives",
+        "kernels",
+        "folder",
+        "track",
+        "practice",
+        "complement",
+        "parallel",
+        "systems",
+        "advanced"
+      ],
+      "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
+    },
+    {
+      "id": "/gpu/appendix/architecture/",
+      "title": "GPU Architecture (reference)",
+      "route": "/gpu/appendix/architecture/",
+      "group": "gpu",
+      "keywords": [
+        "memory",
+        "execution",
+        "architecture",
+        "warp",
+        "shared",
+        "registers",
+        "model",
+        "cuda",
+        "hardware",
+        "occupancy"
+      ],
+      "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
+    },
+    {
+      "id": "/gpu/appendix/cuda/",
+      "title": "CUDA (reference)",
+      "route": "/gpu/appendix/cuda/",
+      "group": "gpu",
+      "keywords": [
+        "cuda",
+        "lookup",
+        "language",
+        "guidelines",
+        "compilation",
+        "ptx/sass",
+        "api",
+        "reference",
+        "spaces",
+        "analyze"
+      ],
+      "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
+    }
+  ],
+  "edges": [
+    {
+      "source": "/gpu/",
+      "target": "/gpu/appendix/architecture/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/appendix/cuda/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/appendix/cuda/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/articles/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "keyword",
+      "weight": 0.344,
+      "terms": [
+        "quota",
+        "메모리",
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/chap03/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.272,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/network/gpu-cluster-failure-analysis/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/storage/zfs/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gpu",
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/storage/zfs/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gpu",
+        "mig"
+      ]
+    },
+    {
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/network/gpu-cluster-failure-analysis/",
+      "target": "/storage/zfs/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/network/gpu-cluster-failure-analysis/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/network/gpu-cluster-failure-analysis/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/storage/zfs/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/zfs/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

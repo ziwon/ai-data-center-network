@@ -8,16 +8,16 @@
     "keywords": [
       "zfs",
       "hdd",
+      "nvme",
       "special",
       "vdev",
-      "nvme",
-      "tip",
       "metadata",
       "nas",
+      "tip",
       "juicefs",
       "스토리지"
     ],
-    "excerpt": "HDD + NVMe 기반 중소형 AI 스토리지 설계 기준 이 문서는 AI 연구실, 대학 FTP/미러 운영팀, 중소형 AI 기업, MLOps/Infra 엔지니어가 엔터프라이즈 스토리지를 바로 도입하기 어려운 상황에서 HDD + NVMe + OpenZFS로 AI 학습 워크로드를 어디까지 감"
+    "excerpt": "이 분류가 중요한 이유는, AI 학습 워크로드에서는 단순히 “200TB 저장 가능”보다 다음 요소가 더 중요하기 때문이다."
   },
   "nodes": [
     {
@@ -28,16 +28,16 @@
       "keywords": [
         "zfs",
         "hdd",
+        "nvme",
         "special",
         "vdev",
-        "nvme",
-        "tip",
         "metadata",
         "nas",
+        "tip",
         "juicefs",
         "스토리지"
       ],
-      "excerpt": "HDD + NVMe 기반 중소형 AI 스토리지 설계 기준 이 문서는 AI 연구실, 대학 FTP/미러 운영팀, 중소형 AI 기업, MLOps/Infra 엔지니어가 엔터프라이즈 스토리지를 바로 도입하기 어려운 상황에서 HDD + NVMe + OpenZFS로 AI 학습 워크로드를 어디까지 감"
+      "excerpt": "이 분류가 중요한 이유는, AI 학습 워크로드에서는 단순히 “200TB 저장 가능”보다 다음 요소가 더 중요하기 때문이다."
     },
     {
       "id": "/storage/",
@@ -47,7 +47,7 @@
       "keywords": [
         "storage"
       ],
-      "excerpt": "! !"
+      "excerpt": "AI workload storage notes covering checkpoint data paths, ZFS, MLPerf Storage, storage benchmarking, and data pipeline performance."
     },
     {
       "id": "concept:checkpointing",
@@ -72,97 +72,78 @@
         "storage",
         "object",
         "vectordb",
-        "benchmark",
         "인덱스",
+        "benchmark",
         "cache",
         "i/o",
         "체크포인트",
         "s3-compatible",
         "비교합니다"
       ],
-      "excerpt": "는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload, VectorDB 검색처럼 ML 시스템에서"
+      "excerpt": "MLCommons Storage는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload,..."
     },
     {
-      "id": "/ai-data-center-network/chap09/",
-      "title": "Chapter 9: Storage Network Design and Technologies for AI Data Centers",
-      "route": "/ai-data-center-network/chap09/",
-      "group": "ai-data-center-network",
+      "id": "/courses/deep-learning-for-network-engineers/week03/",
+      "title": "Week 3: Parallelism Strategies in Deep Learning",
+      "route": "/courses/deep-learning-for-network-engineers/week03/",
+      "group": "courses/deep-learning-for-network-engineers",
       "keywords": [
-        "storage",
-        "file",
-        "nvme-o-tcp",
-        "fabric",
-        "a/b",
-        "nvme-o-rdma",
-        "checkpoint",
-        "infiniband",
-        "network",
-        "training"
-      ],
-      "excerpt": "Table of Contents Goal This chapter explains why storage networking is a separate design topic in AI data centers. The core idea is: An AI storage network is no"
-    },
-    {
-      "id": "/ai-data-center-network/chap02/",
-      "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
-      "route": "/ai-data-center-network/chap02/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "congestion",
-        "flows",
-        "traffic",
-        "balancing",
-        "training",
-        "flow",
-        "ethernet",
-        "load",
-        "rocev2",
-        "techniques"
-      ],
-      "excerpt": "Table of Contents Goal ! (https://engineering.fb.com/wp content/uploads/2024/03/Meta 24K GenAi Clusters hero.png) Source: This chapter explains why AI/ML data c"
-    },
-    {
-      "id": "/ai-system-performance-engineering/chap02/",
-      "title": "Chapter 2: AI System Hardware Overview",
-      "route": "/ai-system-performance-engineering/chap02/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
+        "parallelism",
         "gpu",
-        "rack",
-        "blackwell",
-        "memory",
-        "grace",
-        "nvl72",
-        "cpu",
-        "hbm",
-        "nvlink",
-        "power"
+        "gradient",
+        "pipeline",
+        "stage",
+        "expert",
+        "tensor",
+        "training",
+        "layer",
+        "communication"
       ],
-      "excerpt": "Table of Contents Goal 이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다. 핵심 아이디어는 다음과 같다. AI 하드웨어 설계는 FLOPS만 높이는 문제가 아니라, GPU compute, HBM bandwidth, CPU"
+      "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
     },
     {
-      "id": "/ai-data-center-network/chap03/",
-      "title": "Chapter 3: Network Design Considerations",
-      "route": "/ai-data-center-network/chap03/",
-      "group": "ai-data-center-network",
+      "id": "/gpu/articles/hami-core-deep-dive.ko/",
+      "title": "HAMi-core 심층 분석: `libvgpu.so`는 GPU를 어떻게 나누는가",
+      "route": "/gpu/articles/hami-core-deep-dive.ko/",
+      "group": "gpu",
       "keywords": [
-        "leaf",
-        "design",
-        "clos",
-        "fabric",
-        "rail",
-        "spine",
-        "cabling",
-        "server",
-        "traffic",
-        "congestion"
+        "hami-core",
+        "메모리",
+        "quota",
+        "프로세스",
+        "nvml",
+        "cuda",
+        "컨테이너",
+        "사용량",
+        "gpu",
+        "프레임워크"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
+      "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
     },
     {
-      "id": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "id": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "title": "DRA와 HAMi로 보는 Kubernetes GPU 분할",
+      "route": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "group": "gpu",
+      "keywords": [
+        "hami",
+        "dra",
+        "quota",
+        "mig",
+        "스케줄러",
+        "메모리",
+        "gpu",
+        "pod",
+        "annotation",
+        "워크로드"
+      ],
+      "excerpt": "첫째, “어떤 GPU를 어떤 Pod에 할당할 것인가?” 둘째, “하나의 GPU 안에서 메모리와 연산 사용량을 실제로 어떻게 제한할 것인가?” Dynamic Resource Allocation(DRA)은 첫 번째 문제를 Kubernetes 표준 API로 해결하려는 체계다...."
+    },
+    {
+      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "title": "Domain-Specific Architectures for AI Inference",
-      "route": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "group": "efficient-llm-inference-systems",
+      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "group": "inference",
       "keywords": [
         "dsa",
         "cache",
@@ -171,17 +152,93 @@
         "tensor",
         "hardware",
         "decode",
+        "token",
         "sram",
-        "accelerator",
-        "token"
+        "accelerator"
       ],
-      "excerpt": "Source: , published 2025 08 03. This is a Korean lecture note adaptation, not a line by line full translation. The goal is to preserve the article's main argume"
+      "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
     },
     {
-      "id": "/ai-data-center-network/chap10/",
+      "id": "/network/gpu-cluster-failure-analysis/",
+      "title": "GPU 클러스터 장애 분석: ECC, Xid, RDMA, NCCL Hang은 어떻게 연결되는가",
+      "route": "/network/gpu-cluster-failure-analysis/",
+      "group": "network",
+      "keywords": [
+        "xid",
+        "ecc",
+        "gpu",
+        "row",
+        "drain",
+        "counter",
+        "reset",
+        "error",
+        "dcgm",
+        "remap"
+      ],
+      "excerpt": "대규모 GPU 클러스터를 운영하다 보면 겉으로는 네트워크 장애처럼 보이지만 실제 원인은 GPU RAS, ECC, PCIe, NVLink 쪽에서 시작되는 경우가 있다."
+    },
+    {
+      "id": "/systems-performance/chap02/",
+      "title": "Chapter 2: AI System Hardware Overview",
+      "route": "/systems-performance/chap02/",
+      "group": "systems-performance",
+      "keywords": [
+        "gpu",
+        "rack",
+        "blackwell",
+        "grace",
+        "memory",
+        "nvl72",
+        "cpu",
+        "nvlink",
+        "hbm",
+        "power"
+      ],
+      "excerpt": "이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다."
+    },
+    {
+      "id": "/systems-performance/chap03/",
+      "title": "Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments",
+      "route": "/systems-performance/chap03/",
+      "group": "systems-performance",
+      "keywords": [
+        "gpu",
+        "cpu",
+        "kubernetes",
+        "memory",
+        "container",
+        "mig",
+        "cuda",
+        "numa",
+        "image",
+        "mps"
+      ],
+      "excerpt": "이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다."
+    },
+    {
+      "id": "/network/chap09/",
+      "title": "Chapter 9: Storage Network Design and Technologies for AI Data Centers",
+      "route": "/network/chap09/",
+      "group": "network",
+      "keywords": [
+        "storage",
+        "file",
+        "fabric",
+        "nvme-o-tcp",
+        "nvme-o-rdma",
+        "a/b",
+        "checkpoint",
+        "infiniband",
+        "network",
+        "training"
+      ],
+      "excerpt": "This chapter explains why storage networking is a separate design topic in AI data centers."
+    },
+    {
+      "id": "/network/chap10/",
       "title": "Chapter 10: AI Network Performance KPIs",
-      "route": "/ai-data-center-network/chap10/",
-      "group": "ai-data-center-network",
+      "route": "/network/chap10/",
+      "group": "network",
       "keywords": [
         "kpis",
         "mlperf",
@@ -189,40 +246,23 @@
         "time",
         "benchmark",
         "accuracy",
-        "latency",
         "quality",
-        "division",
-        "training"
+        "latency",
+        "training",
+        "jct"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
-    },
-    {
-      "id": "/ai-system-performance-engineering/chap01/",
-      "title": "Chapter 1: Introduction and AI System Overview",
-      "route": "/ai-system-performance-engineering/chap01/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "gpu",
-        "goodput",
-        "performance",
-        "time",
-        "nsight",
-        "systems",
-        "mechanical",
-        "sympathy",
-        "bottleneck",
-        "memory"
-      ],
-      "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
+      "excerpt": "This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks."
     }
   ],
   "edges": [
     {
       "source": "/storage/",
       "target": "/storage/mlperf-storage/",
-      "type": "link+section",
+      "type": "link+keyword+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "storage"
+      ]
     },
     {
       "source": "/storage/",
@@ -232,7 +272,7 @@
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap09/",
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "concept:checkpointing",
       "type": "mentions",
       "weight": 0.93,
@@ -243,7 +283,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/network/chap09/",
       "target": "concept:checkpointing",
       "type": "mentions",
       "weight": 0.93,
@@ -254,21 +294,14 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/",
+      "source": "/network/chap10/",
       "target": "concept:checkpointing",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
-        "checkpoint"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "concept:checkpointing",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "checkpoint"
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
       ]
     },
     {
@@ -292,23 +325,22 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
+      "source": "/systems-performance/chap02/",
       "target": "concept:checkpointing",
       "type": "mentions",
-      "weight": 0.88,
+      "weight": 0.93,
       "terms": [
-        "checkpoint",
-        "checkpointing",
-        "Checkpointing"
+        "checkpoint"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
+      "source": "/systems-performance/chap03/",
       "target": "concept:checkpointing",
       "type": "mentions",
-      "weight": 0.855,
+      "weight": 0.93,
       "terms": [
         "checkpoint",
+        "model checkpoint",
         "checkpointing",
         "Checkpointing"
       ]
@@ -316,158 +348,166 @@
     {
       "source": "/storage/mlperf-storage/",
       "target": "/storage/zfs/",
-      "type": "semantic+section",
-      "weight": 0.847,
+      "type": "keyword+section",
+      "weight": 0.454,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap09/",
-      "type": "semantic",
-      "weight": 0.79,
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "keyword",
+      "weight": 0.344,
       "terms": [
-        "fabric"
+        "quota",
+        "메모리",
+        "gpu"
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.777,
+      "source": "/systems-performance/chap02/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.285,
       "terms": [
         "gpu",
+        "cpu",
         "memory"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "semantic",
-      "weight": 0.775,
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/systems-performance/chap02/",
+      "type": "keyword",
+      "weight": 0.233,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/systems-performance/chap02/",
+      "type": "keyword",
+      "weight": 0.226,
       "terms": [
-        "traffic",
-        "congestion"
+        "gpu"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap09/",
-      "type": "semantic",
-      "weight": 0.721,
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/storage/zfs/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/network/gpu-cluster-failure-analysis/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": [
-        "training"
+        "gpu"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap09/",
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
       "target": "/storage/zfs/",
-      "type": "semantic",
-      "weight": 0.715,
+      "type": "keyword",
+      "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.714,
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": [
-        "time"
+        "gpu",
+        "cuda"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "semantic",
-      "weight": 0.707,
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/storage/zfs/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.703,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.698,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.677,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "semantic",
-      "weight": 0.675,
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/systems-performance/chap02/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": [
-        "training"
+        "gpu"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.674,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.663,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "semantic",
-      "weight": 0.655,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/storage/zfs/",
-      "type": "semantic",
-      "weight": 0.65,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/storage/zfs/",
-      "type": "semantic",
-      "weight": 0.645,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/storage/zfs/",
-      "type": "semantic",
-      "weight": 0.642,
-      "terms": []
-    },
-    {
-      "source": "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/storage/zfs/",
-      "type": "semantic",
-      "weight": 0.629,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "/storage/mlperf-storage/",
-      "type": "semantic",
-      "weight": 0.575,
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": [
-        "storage"
+        "gpu",
+        "mig"
       ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/storage/zfs/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/network/gpu-cluster-failure-analysis/",
+      "target": "/storage/zfs/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/network/gpu-cluster-failure-analysis/",
+      "target": "/systems-performance/chap02/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/network/gpu-cluster-failure-analysis/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/storage/mlperf-storage/",
+      "target": "/systems-performance/chap02/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/mlperf-storage/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/zfs/",
+      "target": "/systems-performance/chap02/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/zfs/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
     }
   ]
 }

@@ -7,17 +7,17 @@
     "group": "home",
     "keywords": [
       "systems",
+      "organized",
+      "courses",
       "storage",
+      "tracks",
       "mlperf",
-      "training",
+      "profiling",
+      "clos",
       "study",
-      "center",
-      "notes",
-      "lecture",
-      "rdma",
-      "roce"
+      "training"
     ],
-    "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
+    "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering."
   },
   "nodes": [
     {
@@ -27,61 +27,118 @@
       "group": "home",
       "keywords": [
         "systems",
+        "organized",
+        "courses",
         "storage",
+        "tracks",
         "mlperf",
-        "training",
+        "profiling",
+        "clos",
         "study",
-        "center",
-        "notes",
-        "lecture",
-        "rdma",
-        "roce"
+        "training"
       ],
-      "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
+      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering."
     },
     {
-      "id": "/ai-data-center-network/",
+      "id": "/courses/",
+      "title": "Courses",
+      "route": "/courses/",
+      "group": "courses",
+      "keywords": [
+        "courses",
+        "foundations",
+        "lecture-oriented",
+        "systems-performance",
+        "training",
+        "tracks",
+        "cross",
+        "preference",
+        "material",
+        "domain-specific"
+      ],
+      "excerpt": "Course- and lecture-oriented learning tracks that cross multiple AI systems domains."
+    },
+    {
+      "id": "/gpu/",
+      "title": "GPU Systems",
+      "route": "/gpu/",
+      "group": "gpu",
+      "keywords": [
+        "course",
+        "lives",
+        "kernels",
+        "folder",
+        "track",
+        "practice",
+        "complement",
+        "parallel",
+        "systems",
+        "advanced"
+      ],
+      "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
+    },
+    {
+      "id": "/inference/",
+      "title": "Efficient LLM Inference Systems",
+      "route": "/inference/",
+      "group": "inference",
+      "keywords": [
+        "2022.11",
+        "2024.01",
+        "systems",
+        "llm",
+        "efficient",
+        "inference",
+        "2023.11",
+        "2019.11",
+        "2021.04",
+        "2023.05"
+      ],
+      "excerpt": "LLM inference systems notes covering KV cache, batching, quantization, GPU profiling, model serving, and practical performance trade-offs."
+    },
+    {
+      "id": "/network/",
       "title": "AI Data Center Network",
-      "route": "/ai-data-center-network/",
-      "group": "ai-data-center-network",
+      "route": "/network/",
+      "group": "network",
       "keywords": [
         "2026.04",
         "2026.01",
+        "rdma",
+        "fabric",
         "2026.02",
         "2026.05",
         "2026.03",
         "2025.11",
         "2025.10",
-        "2024.08",
-        "2024.07",
-        "2024.03"
+        "2024.08"
       ],
-      "excerpt": "Table of Contents Appendix Resources Books (2026.02) (2026.05) (2022.10) Articles : web scale fabric과 AI/ML scheduled fabric의 차이, RDMA, frontend/backend 분리, ada"
+      "excerpt": "AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations."
     },
     {
-      "id": "/ai-data-center-network/clos-ebgp-lab/",
+      "id": "/network/clos-ebgp-lab/",
       "title": "Clos Fabric Lab Series",
-      "route": "/ai-data-center-network/clos-ebgp-lab/",
-      "group": "ai-data-center-network",
+      "route": "/network/clos-ebgp-lab/",
+      "group": "network",
       "keywords": [
         "leaf",
-        "leaf1",
         "bgp",
+        "leaf1",
         "spine1",
         "spine",
         "spine2",
         "ecmp",
-        "bfd",
         "lab",
+        "bfd",
         "loopbacks"
       ],
-      "excerpt": "This README starts with the implemented Lab 1 and records the planned direction for the next labs. The sequence is meant to move from a pure routed underlay to "
+      "excerpt": "This README starts with the implemented Lab 1 and records the planned direction for the next labs. The sequence is meant to move from a pure routed underlay..."
     },
     {
-      "id": "/ai-data-center-network/ib-packet-analysis/",
+      "id": "/network/ib-packet-analysis/",
       "title": "InfiniBand Packet Analysis: A Practical RDMA Transport Primer",
-      "route": "/ai-data-center-network/ib-packet-analysis/",
-      "group": "ai-data-center-network",
+      "route": "/network/ib-packet-analysis/",
+      "group": "network",
       "keywords": [
         "rdma",
         "captures",
@@ -94,13 +151,13 @@
         "reth",
         "read"
       ],
-      "excerpt": "English (https://www.nvidia.com/en us/networking/) (https://docs.nvidia.com/networking/display/rdmaawareprogrammingv17) (https://www.wireshark.org/docs/man page"
+      "excerpt": "This report analyzes the packet captures in the ib-packets directory using tshark . The goal is to connect the captured packets back to the Chapter 1 RDMA..."
     },
     {
-      "id": "/ai-data-center-network/rdma-examples/",
+      "id": "/network/rdma-examples/",
       "title": "RDMA Read/Write 실전 입문",
-      "route": "/ai-data-center-network/rdma-examples/",
-      "group": "ai-data-center-network",
+      "route": "/network/rdma-examples/",
+      "group": "network",
       "keywords": [
         "rdma",
         "rocev2",
@@ -108,88 +165,12 @@
         "ibv",
         "필요함",
         "gid",
-        "wqe",
-        "메모리",
         "네트워크",
-        "이더넷"
+        "wqe",
+        "이더넷",
+        "메모리"
       ],
-      "excerpt": "목표: 이 글 하나로 RDMA Read와 Write를 직접 작성하고 실행할 수 있는 기준을 정리함. 0. 왜 또 RDMA인가 LLM 추론과 학습이 GPU 클러스터의 일이 되면서 RDMA는 더 이상 HPC 영역만의 전유물이 아님. NCCL의 IB plugin, NIXL, Mooncake의"
-    },
-    {
-      "id": "/ai-system-performance-engineering/",
-      "title": "AI Systems Performance Engineering",
-      "route": "/ai-system-performance-engineering/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "engineering",
-        "2025.12",
-        "2026.04",
-        "2025.08",
-        "systems",
-        "books",
-        "numa-aware",
-        "talks",
-        "uncore",
-        "kubelet"
-      ],
-      "excerpt": "Resources Books (2025.12) Articles : NUMA, cloud VM topology, Kubernetes CPU Manager, uncore bottlenecks : GPU local CPU placement, kubelet topology policies, N"
-    },
-    {
-      "id": "/cme295/",
-      "title": "CME295 Lecture Notes",
-      "route": "/cme295/",
-      "group": "cme295",
-      "keywords": [
-        "lecture",
-        "reasoning",
-        "다이어그램",
-        "preference",
-        "grpo",
-        "sft",
-        "llm",
-        "transformer",
-        "tuning",
-        "human"
-      ],
-      "excerpt": "이 폴더는 CME295 강의 영상을 기반으로 정리한 한국어 lecture notes 모음이다. 각 강의 README는 강의 요약, 핵심 개념, 실무 관점의 메모, 복습 질문과 답변, 그리고 Mermaid/SVG 다이어그램을 포함한다. Lectures Lecture Topic Notes "
-    },
-    {
-      "id": "/deep-learning-for-network-engineers/",
-      "title": "Deep Learning for Network Engineers",
-      "route": "/deep-learning-for-network-engineers/",
-      "group": "deep-learning-for-network-engineers",
-      "keywords": [
-        "study",
-        "backend",
-        "focus",
-        "networks",
-        "training",
-        "deep",
-        "distributed",
-        "engineers",
-        "understand",
-        "congestion"
-      ],
-      "excerpt": "A six week engineering study of how deep learning workloads shape GPU communication, distributed training, and AI data center backend networks. Revisit artifici"
-    },
-    {
-      "id": "/efficient-llm-inference-systems/",
-      "title": "Efficient LLM Inference Systems",
-      "route": "/efficient-llm-inference-systems/",
-      "group": "efficient-llm-inference-systems",
-      "keywords": [
-        "2022.11",
-        "llm",
-        "efficient",
-        "2023.11",
-        "2022.08",
-        "2023.06",
-        "2020.01",
-        "2022.10",
-        "systems",
-        "books"
-      ],
-      "excerpt": "Appendix Resources Books (2026) Papers (2023.11) (2022.11) (2022.08) (2022.10) (2022.11) (2023.06) (2020.01) LLM Architecture"
+      "excerpt": "LLM 추론과 학습이 GPU 클러스터의 일이 되면서 RDMA는 더 이상 HPC 영역만의 전유물이 아님."
     },
     {
       "id": "/storage/",
@@ -199,7 +180,26 @@
       "keywords": [
         "storage"
       ],
-      "excerpt": "! !"
+      "excerpt": "AI workload storage notes covering checkpoint data paths, ZFS, MLPerf Storage, storage benchmarking, and data pipeline performance."
+    },
+    {
+      "id": "/systems-performance/",
+      "title": "AI Systems Performance Engineering",
+      "route": "/systems-performance/",
+      "group": "systems-performance",
+      "keywords": [
+        "engineering",
+        "2025.12",
+        "2026.04",
+        "2025.08",
+        "numa-aware",
+        "systems",
+        "books",
+        "uncore",
+        "talks",
+        "topology"
+      ],
+      "excerpt": "AI systems performance engineering notes covering GPU hardware, Linux and container tuning, CUDA, PyTorch, profiling, and distributed communication."
     },
     {
       "id": "/training/",
@@ -207,8 +207,8 @@
       "route": "/training/",
       "group": "training",
       "keywords": [
-        "pretraining",
         "moe",
+        "pretraining",
         "embedding",
         "slurm",
         "checkpoint",
@@ -218,7 +218,7 @@
         "llama",
         "3.1"
       ],
-      "excerpt": "은 MLPerf Training 벤치마크의 reference implementation 모음입니다. 실제 제출용 최적화 코드라기보다, AI 데이터센터에서 대규모 학습 워크로드가 어떤 compute, network, storage, orchestration 요구사항을 만드는지 읽고 실험하"
+      "excerpt": "Distributed training notes covering MLPerf Training workloads, LLM training, mixture-of-experts, LoRA, scaling behavior, and system bottlenecks."
     },
     {
       "id": "concept:clos",
@@ -309,22 +309,6 @@
       ]
     },
     {
-      "id": "concept:nccl",
-      "kind": "concept",
-      "title": "NCCL",
-      "label": "NCCL",
-      "group": "distributed-training",
-      "description": "NVIDIA collective communication library used by distributed GPU training.",
-      "keywords": [
-        "NCCL",
-        "collectives",
-        "all-reduce",
-        "allreduce",
-        "reduce-scatter",
-        "all-gather"
-      ]
-    },
-    {
       "id": "concept:quantization",
       "kind": "concept",
       "title": "Quantization",
@@ -342,67 +326,80 @@
       ]
     },
     {
-      "id": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "id": "concept:roce",
+      "kind": "concept",
+      "title": "RoCE",
+      "label": "RoCE",
+      "group": "network",
+      "description": "RDMA over Converged Ethernet, usually discussed with lossless Ethernet and congestion control.",
+      "keywords": [
+        "RoCE",
+        "RDMA over Converged Ethernet",
+        "RoCEv2"
+      ]
+    },
+    {
+      "id": "/network/articles/cloud-data-center-network-now-and-next.ko/",
       "title": "Cloud Data Center Network의 지금과 앞으로",
-      "route": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "group": "ai-data-center-network",
+      "route": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "group": "network",
       "keywords": [
         "network",
         "ethernet",
         "fabric",
         "ai/ml",
         "rdma",
-        "traffic",
         "routing",
+        "traffic",
         "adaptive",
         "frontend",
         "rack"
       ],
-      "excerpt": "Source: Masayuki Kobayashi, \"クラウドデータセンターネットワークの 'いま' と 'これから'\", AI/ML/HPCネットワーク分科会, 2023 06 12. 원본 PDF는 비출판 로컬 참조 자료이며, 이 문서는 공개 사이트용 요약과 최신 맥락 보강이다. 한 줄 요지 Clo"
+      "excerpt": "Cloud-native web-scale network는 많은 작은 TCP flow를 commodity Ethernet/Clos/ECMP로 처리하는 데 최적화되어 왔다. 그러나 AI/ML workload는 GPU 간 동기화, RDMA, collective..."
     },
     {
-      "id": "/ai-data-center-network/chap03/",
+      "id": "/network/chap03/",
       "title": "Chapter 3: Network Design Considerations",
-      "route": "/ai-data-center-network/chap03/",
-      "group": "ai-data-center-network",
+      "route": "/network/chap03/",
+      "group": "network",
       "keywords": [
         "leaf",
         "design",
-        "clos",
         "fabric",
+        "clos",
         "rail",
-        "spine",
-        "cabling",
         "server",
-        "traffic",
-        "congestion"
+        "cabling",
+        "spine",
+        "congestion",
+        "rack"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains the major physical and logical design choices for AI data center networks. The core idea is: AI data center design "
+      "excerpt": "This chapter explains the major physical and logical design choices for AI data center networks."
     },
     {
-      "id": "/ai-data-center-network/chap06/",
+      "id": "/network/chap06/",
       "title": "Chapter 6: Efficient Load Balancing",
-      "route": "/ai-data-center-network/chap06/",
-      "group": "ai-data-center-network",
+      "route": "/network/chap06/",
+      "group": "network",
       "keywords": [
         "glb",
         "leaf",
-        "spine",
         "dlb",
+        "spine",
         "flow",
         "ecmp",
-        "telb",
         "path",
+        "telb",
         "packet",
         "link"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv"
+      "excerpt": "This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv2 training clusters."
     },
     {
-      "id": "/ai-data-center-network/chap07/",
+      "id": "/network/chap07/",
       "title": "Chapter 7: RoCEv2 Transport and Congestion Management",
-      "route": "/ai-data-center-network/chap07/",
-      "group": "ai-data-center-network",
+      "route": "/network/chap07/",
+      "group": "network",
       "keywords": [
         "pfc",
         "congestion",
@@ -410,18 +407,18 @@
         "csig",
         "rocev2",
         "cnp",
-        "sfc",
         "pause",
+        "sfc",
         "sender",
         "threshold"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains how RoCEv2 traffic is transported across Ethernet AI fabrics and how congestion is detected, signaled, and mitigate"
+      "excerpt": "This chapter explains how RoCEv2 traffic is transported across Ethernet AI fabrics and how congestion is detected, signaled, and mitigated."
     },
     {
-      "id": "/ai-data-center-network/chap10/",
+      "id": "/network/chap10/",
       "title": "Chapter 10: AI Network Performance KPIs",
-      "route": "/ai-data-center-network/chap10/",
-      "group": "ai-data-center-network",
+      "route": "/network/chap10/",
+      "group": "network",
       "keywords": [
         "kpis",
         "mlperf",
@@ -429,12 +426,12 @@
         "time",
         "benchmark",
         "accuracy",
-        "latency",
         "quality",
-        "division",
-        "training"
+        "latency",
+        "training",
+        "jct"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
+      "excerpt": "This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks."
     },
     {
       "id": "/storage/mlperf-storage/",
@@ -445,154 +442,192 @@
         "storage",
         "object",
         "vectordb",
-        "benchmark",
         "인덱스",
+        "benchmark",
         "cache",
         "i/o",
         "체크포인트",
         "s3-compatible",
         "비교합니다"
       ],
-      "excerpt": "는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload, VectorDB 검색처럼 ML 시스템에서"
+      "excerpt": "MLCommons Storage는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload,..."
     },
     {
-      "id": "/ai-data-center-network/chap01/",
+      "id": "/courses/deep-learning-for-network-engineers/week03/",
+      "title": "Week 3: Parallelism Strategies in Deep Learning",
+      "route": "/courses/deep-learning-for-network-engineers/week03/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "parallelism",
+        "gpu",
+        "gradient",
+        "pipeline",
+        "stage",
+        "expert",
+        "tensor",
+        "training",
+        "layer",
+        "communication"
+      ],
+      "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week04/",
+      "title": "Week 4: RDMA and GPU Cluster Communication",
+      "route": "/courses/deep-learning-for-network-engineers/week04/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "rank",
+        "rdma",
+        "nccl",
+        "queue",
+        "host",
+        "memory",
+        "gpu",
+        "transport",
+        "chunk",
+        "key"
+      ],
+      "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
+    },
+    {
+      "id": "/network/chap01/",
       "title": "Chapter 1: Wonders in the Workload",
-      "route": "/ai-data-center-network/chap01/",
-      "group": "ai-data-center-network",
+      "route": "/network/chap01/",
+      "group": "network",
       "keywords": [
         "rdma",
         "nic",
         "memory",
-        "kernel",
         "infiniband",
         "queue",
         "remote",
+        "kernel",
         "send",
-        "model",
+        "training",
         "rnic"
       ],
-      "excerpt": "Table of Contents AI Model Lifecycle The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and ret"
+      "excerpt": "The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining."
     },
     {
-      "id": "/ai-data-center-network/chap02/",
-      "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
-      "route": "/ai-data-center-network/chap02/",
-      "group": "ai-data-center-network",
+      "id": "/courses/deep-learning-for-network-engineers/",
+      "title": "Deep Learning for Network Engineers",
+      "route": "/courses/deep-learning-for-network-engineers/",
+      "group": "courses/deep-learning-for-network-engineers",
       "keywords": [
-        "congestion",
-        "flows",
-        "traffic",
-        "balancing",
+        "study",
+        "backend",
+        "networks",
+        "focus",
         "training",
-        "flow",
-        "ethernet",
-        "load",
-        "rocev2",
-        "techniques"
+        "deep",
+        "distributed",
+        "engineers",
+        "congestion",
+        "understand"
       ],
-      "excerpt": "Table of Contents Goal ! (https://engineering.fb.com/wp content/uploads/2024/03/Meta 24K GenAi Clusters hero.png) Source: This chapter explains why AI/ML data c"
+      "excerpt": "Deep learning systems notes for network engineers covering training fundamentals, parallelism, collectives, RDMA, RoCE, and NCCL behavior."
     },
     {
-      "id": "/ai-system-performance-engineering/chap01/",
-      "title": "Chapter 1: Introduction and AI System Overview",
-      "route": "/ai-system-performance-engineering/chap01/",
-      "group": "ai-system-performance-engineering",
+      "id": "/courses/deep-learning-for-network-engineers/week01/",
+      "title": "Week 1: From Artificial Neuron to AI Training Fabric",
+      "route": "/courses/deep-learning-for-network-engineers/week01/",
+      "group": "courses/deep-learning-for-network-engineers",
       "keywords": [
+        "gradient",
+        "weight",
+        "pass",
         "gpu",
-        "goodput",
-        "performance",
-        "time",
-        "nsight",
-        "systems",
-        "mechanical",
-        "sympathy",
-        "bottleneck",
-        "memory"
+        "training",
+        "synchronization",
+        "neuron",
+        "network",
+        "책에서",
+        "bias"
       ],
-      "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
+      "excerpt": "이번 주 목표는 기본적인 Deep Learning 학습 과정이 어떻게 network design 문제로 이어지는지 이해하는 것이다."
     },
     {
-      "id": "/ai-system-performance-engineering/chap02/",
-      "title": "Chapter 2: AI System Hardware Overview",
-      "route": "/ai-system-performance-engineering/chap02/",
-      "group": "ai-system-performance-engineering",
+      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "title": "How to Think About GPUs",
+      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "group": "inference",
       "keywords": [
+        "tensor",
         "gpu",
-        "rack",
+        "core",
+        "b300",
         "blackwell",
-        "memory",
-        "grace",
-        "nvl72",
-        "cpu",
-        "hbm",
         "nvlink",
-        "power"
-      ],
-      "excerpt": "Table of Contents Goal 이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다. 핵심 아이디어는 다음과 같다. AI 하드웨어 설계는 FLOPS만 높이는 문제가 아니라, GPU compute, HBM bandwidth, CPU"
-    },
-    {
-      "id": "/ai-system-performance-engineering/chap03/",
-      "title": "Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments",
-      "route": "/ai-system-performance-engineering/chap03/",
-      "group": "ai-system-performance-engineering",
-      "keywords": [
-        "gpu",
-        "cpu",
-        "kubernetes",
+        "dgx",
         "memory",
-        "cuda",
-        "container",
-        "mig",
-        "numa",
-        "image",
-        "kernel"
-      ],
-      "excerpt": "Table of Contents Goal 이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다. 핵심 아이디어는 다음과 같다. GPU 성능은 CUDA kernel만으로 "
-    },
-    {
-      "id": "/ai-data-center-network/chap12/",
-      "title": "Chapter 12: Ultra Ethernet Consortium, UEC",
-      "route": "/ai-data-center-network/chap12/",
-      "group": "ai-data-center-network",
-      "keywords": [
-        "uet",
-        "uec",
-        "delivery",
-        "packet",
-        "congestion",
-        "inc",
-        "cbfc",
-        "pdc",
-        "llr",
-        "unordered"
-      ],
-      "excerpt": "Table of Contents Goal This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet based AI/HPC"
-    },
-    {
-      "id": "/cme295/lec-04/",
-      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
-      "route": "/cme295/lec-04/",
-      "group": "cme295",
-      "keywords": [
-        "model",
-        "pre-training",
-        "sft",
-        "training",
         "parallelism",
-        "optimizer",
-        "lora",
-        "fine-tuning",
-        "memory",
-        "precision"
+        "decode"
       ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre training 이후 fine tuning과 alignment 단계가 필요한지 이해하는 것이다. 핵심 메시지는 다음과 같다. LLM training은 하나의 거대한 "
+      "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
     },
     {
-      "id": "/deep-learning-for-network-engineers/week02/",
+      "id": "/courses/cme295/",
+      "title": "CME295 Lecture Notes",
+      "route": "/courses/cme295/",
+      "group": "courses/cme295",
+      "keywords": [
+        "lecture",
+        "reasoning",
+        "다이어그램",
+        "preference",
+        "grpo",
+        "sft",
+        "llm",
+        "transformer",
+        "tuning",
+        "human"
+      ],
+      "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
+    },
+    {
+      "id": "/courses/cme295/lec-02/",
+      "title": "Lecture 2: Transformer-Based Models & Tricks",
+      "route": "/courses/cme295/lec-02/",
+      "group": "courses/cme295",
+      "keywords": [
+        "token",
+        "position",
+        "attention",
+        "bert",
+        "embedding",
+        "positional",
+        "transformer",
+        "encoder",
+        "nsp",
+        "head"
+      ],
+      "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
+    },
+    {
+      "id": "/courses/cme295/lec-03/",
+      "title": "Lecture 3: Large Language Models, Decoding, Prompting, and Inference",
+      "route": "/courses/cme295/lec-03/",
+      "group": "courses/cme295",
+      "keywords": [
+        "token",
+        "model",
+        "decoding",
+        "probability",
+        "context",
+        "expert",
+        "decoder-only",
+        "sampling",
+        "llm",
+        "top-k"
+      ],
+      "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week02/",
       "title": "Week 2: Large Language Model, LLM",
-      "route": "/deep-learning-for-network-engineers/week02/",
-      "group": "deep-learning-for-network-engineers",
+      "route": "/courses/deep-learning-for-network-engineers/week02/",
+      "group": "courses/deep-learning-for-network-engineers",
       "keywords": [
         "token",
         "vector",
@@ -605,65 +640,118 @@
         "parameter",
         "책에서"
       ],
-      "excerpt": "Table of Contents Goal 이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다. 핵심 흐름은 다음과 같다. 이 장의 목적은 특정 GPT 모델을 구현하는 것이 아니라, Transformer 기반 LLM의 기본 연산 구조를"
+      "excerpt": "이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다."
+    },
+    {
+      "id": "/courses/cme295/lec-04/",
+      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
+      "route": "/courses/cme295/lec-04/",
+      "group": "courses/cme295",
+      "keywords": [
+        "pre-training",
+        "model",
+        "sft",
+        "training",
+        "parallelism",
+        "optimizer",
+        "lora",
+        "fine-tuning",
+        "precision",
+        "states"
+      ],
+      "excerpt": "이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre-training 이후 fine-tuning과 alignment 단계가 필요한지 이해하는 것이다."
+    },
+    {
+      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "title": "Domain-Specific Architectures for AI Inference",
+      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "group": "inference",
+      "keywords": [
+        "dsa",
+        "cache",
+        "compute",
+        "week",
+        "tensor",
+        "hardware",
+        "decode",
+        "token",
+        "sram",
+        "accelerator"
+      ],
+      "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
+    },
+    {
+      "id": "/network/chap02/",
+      "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
+      "route": "/network/chap02/",
+      "group": "network",
+      "keywords": [
+        "congestion",
+        "flows",
+        "traffic",
+        "balancing",
+        "training",
+        "ethernet",
+        "flow",
+        "rocev2",
+        "pfc",
+        "centers"
+      ],
+      "excerpt": "This chapter explains why AI/ML data center fabrics are different from traditional data center networks ."
     }
   ],
   "edges": [
     {
       "source": "/",
-      "target": "/ai-data-center-network/",
-      "type": "link",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/",
-      "target": "/ai-data-center-network/clos-ebgp-lab/",
-      "type": "link",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/",
-      "target": "/ai-data-center-network/ib-packet-analysis/",
-      "type": "link",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/",
-      "target": "/ai-data-center-network/rdma-examples/",
-      "type": "link",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/",
-      "target": "/ai-system-performance-engineering/",
-      "type": "link",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/",
-      "target": "/cme295/",
-      "type": "link",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/",
-      "target": "/deep-learning-for-network-engineers/",
-      "type": "link+semantic",
+      "target": "/courses/",
+      "type": "link+keyword",
       "weight": 1,
       "terms": [
+        "courses",
         "training",
-        "study"
+        "tracks"
       ]
     },
     {
       "source": "/",
-      "target": "/efficient-llm-inference-systems/",
+      "target": "/gpu/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/inference/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "systems"
+      ]
+    },
+    {
+      "source": "/",
+      "target": "/network/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/network/clos-ebgp-lab/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/network/ib-packet-analysis/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/",
+      "target": "/network/rdma-examples/",
       "type": "link",
       "weight": 1,
       "terms": []
@@ -671,9 +759,20 @@
     {
       "source": "/",
       "target": "/storage/",
-      "type": "link",
+      "type": "link+keyword",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "storage"
+      ]
+    },
+    {
+      "source": "/",
+      "target": "/systems-performance/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "systems"
+      ]
     },
     {
       "source": "/",
@@ -683,147 +782,366 @@
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "type": "link+semantic+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/chap01/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/chap02/",
-      "type": "link+semantic+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "link+semantic+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/chap07/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/clos-ebgp-lab/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/ib-packet-analysis/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/ai-data-center-network/rdma-examples/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "link+semantic+section",
-      "weight": 1,
-      "terms": [
-        "systems"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "link+semantic+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "link+semantic+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap03/",
-      "target": "/training/",
+      "source": "/courses/",
+      "target": "/courses/cme295/",
       "type": "link",
       "weight": 1,
       "terms": []
     },
     {
-      "source": "/cme295/",
-      "target": "/cme295/lec-04/",
-      "type": "link+semantic+section",
+      "source": "/courses/",
+      "target": "/courses/deep-learning-for-network-engineers/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "training"
+      ]
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "/courses/cme295/lec-02/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "transformer"
+      ]
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "/courses/cme295/lec-03/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "llm"
+      ]
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "/courses/cme295/lec-04/",
+      "type": "link+keyword+section",
       "weight": 1,
       "terms": [
         "sft"
       ]
     },
     {
-      "source": "/deep-learning-for-network-engineers/",
-      "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "link+semantic+section",
+      "source": "/courses/deep-learning-for-network-engineers/",
+      "target": "/courses/deep-learning-for-network-engineers/week01/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "training"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/",
+      "target": "/courses/deep-learning-for-network-engineers/week02/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "training"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/",
+      "target": "/courses/deep-learning-for-network-engineers/week04/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "fabric",
+        "rdma"
+      ]
+    },
+    {
+      "source": "/network/",
+      "target": "/network/chap01/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/chap02/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/chap03/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/chap06/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/chap07/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/chap10/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/clos-ebgp-lab/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/ib-packet-analysis/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/network/rdma-examples/",
+      "type": "link+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/storage/",
       "target": "/storage/mlperf-storage/",
-      "type": "link+section",
+      "type": "link+keyword+section",
       "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap02/",
-      "type": "semantic+section",
-      "weight": 0.947,
       "terms": [
-        "traffic",
-        "ethernet"
+        "storage"
       ]
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "source": "/courses/cme295/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-03/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-04/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "quantization",
+        "Quantization"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "congestion control",
+        "Congestion Control",
+        "DCQCN",
+        "ECN"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "tail latency",
+        "ECN",
+        "PFC",
+        "congestion control"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "quantization",
+        "Quantization",
+        "FP8",
+        "int8"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "congestion control",
+        "Congestion Control",
+        "DCQCN",
+        "ECN"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "PFC",
+        "ECN",
+        "tail latency"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand",
+        "Subnet Manager"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RDMA",
+        "Remote Direct Memory Access"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE",
+        "RDMA over Converged Ethernet"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "quantization",
+        "Quantization",
+        "int4",
+        "FP8"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "quantization",
+        "Quantization",
+        "FP8",
+        "int4"
+      ]
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
       "target": "concept:clos",
       "type": "mentions",
       "weight": 0.93,
@@ -833,7 +1151,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.93,
@@ -845,7 +1163,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.93,
@@ -855,7 +1173,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.93,
@@ -864,7 +1182,17 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.93,
@@ -876,7 +1204,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
+      "source": "/network/chap01/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.93,
@@ -885,18 +1213,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "NCCL",
-        "allreduce",
-        "collectives"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
+      "source": "/network/chap01/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.93,
@@ -906,7 +1223,17 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
+      "source": "/network/chap01/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/chap02/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.93,
@@ -918,7 +1245,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
+      "source": "/network/chap02/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.93,
@@ -927,7 +1254,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
+      "source": "/network/chap02/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.93,
@@ -937,7 +1264,17 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
+      "source": "/network/chap02/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RDMA over Converged Ethernet"
+      ]
+    },
+    {
+      "source": "/network/chap03/",
       "target": "concept:clos",
       "type": "mentions",
       "weight": 0.93,
@@ -949,7 +1286,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
+      "source": "/network/chap03/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.93,
@@ -961,18 +1298,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "collectives",
-        "NCCL",
-        "allreduce"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
+      "source": "/network/chap03/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.93,
@@ -981,7 +1307,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap06/",
+      "source": "/network/chap06/",
       "target": "concept:clos",
       "type": "mentions",
       "weight": 0.93,
@@ -993,7 +1319,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap06/",
+      "source": "/network/chap06/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.93,
@@ -1005,7 +1331,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap06/",
+      "source": "/network/chap06/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.93,
@@ -1015,7 +1341,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap06/",
+      "source": "/network/chap06/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.93,
@@ -1024,7 +1350,18 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap07/",
+      "source": "/network/chap06/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RoCE",
+        "RDMA over Converged Ethernet"
+      ]
+    },
+    {
+      "source": "/network/chap07/",
       "target": "concept:clos",
       "type": "mentions",
       "weight": 0.93,
@@ -1036,7 +1373,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap07/",
+      "source": "/network/chap07/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.93,
@@ -1048,7 +1385,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap07/",
+      "source": "/network/chap07/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.93,
@@ -1058,7 +1395,18 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/network/chap07/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "RoCEv2",
+        "RDMA over Converged Ethernet",
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/chap10/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.93,
@@ -1070,7 +1418,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/network/chap10/",
       "target": "concept:mlperf",
       "type": "mentions",
       "weight": 0.93,
@@ -1081,17 +1429,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "allreduce",
-        "collectives"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/network/chap10/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.93,
@@ -1100,48 +1438,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "PFC",
-        "congestion control",
-        "Congestion Control",
-        "ECN"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "concept:infiniband",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "InfiniBand"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "collectives",
-        "NCCL",
-        "allreduce"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/clos-ebgp-lab/",
+      "source": "/network/clos-ebgp-lab/",
       "target": "concept:clos",
       "type": "mentions",
       "weight": 0.93,
@@ -1152,7 +1449,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/ib-packet-analysis/",
+      "source": "/network/ib-packet-analysis/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.93,
@@ -1162,18 +1459,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/ib-packet-analysis/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "NCCL",
-        "allreduce",
-        "collectives"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/ib-packet-analysis/",
+      "source": "/network/ib-packet-analysis/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.93,
@@ -1182,7 +1468,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/rdma-examples/",
+      "source": "/network/rdma-examples/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.93,
@@ -1194,17 +1480,18 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/rdma-examples/",
+      "source": "/network/rdma-examples/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
         "InfiniBand",
-        "Subnet Manager"
+        "Subnet Manager",
+        "IB fabric"
       ]
     },
     {
-      "source": "/ai-data-center-network/rdma-examples/",
+      "source": "/network/rdma-examples/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -1214,17 +1501,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/rdma-examples/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "NCCL",
-        "allreduce"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/rdma-examples/",
+      "source": "/network/rdma-examples/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.93,
@@ -1233,167 +1510,13 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "concept:kv-cache",
+      "source": "/network/rdma-examples/",
+      "target": "concept:roce",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "NCCL",
-        "all-reduce",
-        "collectives"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "FP8",
-        "quantization",
-        "Quantization"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "concept:infiniband",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "InfiniBand"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "NCCL",
-        "all-reduce",
-        "all-gather"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "FP8"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap03/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap03/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "NCCL",
-        "all-gather",
-        "all-reduce"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap03/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/cme295/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/cme295/lec-04/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "quantization",
-        "Quantization"
-      ]
-    },
-    {
-      "source": "/deep-learning-for-network-engineers/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "congestion control",
-        "Congestion Control",
-        "DCQCN",
-        "ECN"
-      ]
-    },
-    {
-      "source": "/deep-learning-for-network-engineers/week02/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/deep-learning-for-network-engineers/week02/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "quantization",
-        "Quantization",
-        "FP8",
-        "int8"
+        "RoCEv2",
+        "RoCE"
       ]
     },
     {
@@ -1428,14 +1551,22 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "concept:congestion-control",
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:roce",
       "type": "mentions",
       "weight": 0.905,
       "terms": [
-        "congestion control",
-        "Congestion Control",
-        "tail latency"
+        "RoCE",
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/network/chap03/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "RoCEv2"
       ]
     },
     {
@@ -1450,7 +1581,7 @@
       ]
     },
     {
-      "source": "/",
+      "source": "/network/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.88,
@@ -1459,7 +1590,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
+      "source": "/network/chap01/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.88,
@@ -1467,36 +1598,6 @@
         "KV-cache",
         "KV cache",
         "KV Cache"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.88,
-      "terms": [
-        "NCCL",
-        "allreduce",
-        "collectives"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap12/",
-      "target": "concept:clos",
-      "type": "mentions",
-      "weight": 0.88,
-      "terms": [
-        "Clos",
-        "CLOS"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.88,
-      "terms": [
-        "RDMA"
       ]
     },
     {
@@ -1510,38 +1611,57 @@
       ]
     },
     {
-      "source": "/training/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.88,
-      "terms": [
-        "NCCL"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap02/",
-      "type": "semantic+section",
-      "weight": 0.873,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "concept:nccl",
+      "source": "/",
+      "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.855,
       "terms": [
-        "NCCL"
+        "RDMA"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap07/",
-      "target": "concept:nccl",
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.855,
       "terms": [
-        "NCCL",
-        "collectives"
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "tail latency"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/chap10/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "RoCEv2"
       ]
     },
     {
@@ -1575,16 +1695,6 @@
     },
     {
       "source": "/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "collectives",
-        "NCCL"
-      ]
-    },
-    {
-      "source": "/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.83,
@@ -1594,7 +1704,101 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
+      "source": "/courses/cme295/lec-04/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "RoCEv2"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "tail latency"
+      ]
+    },
+    {
+      "source": "/inference/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/inference/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "quantization",
+        "Quantization"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/network/",
+      "target": "concept:infiniband",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "IB fabric",
+        "InfiniBand"
+      ]
+    },
+    {
+      "source": "/network/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/chap02/",
       "target": "concept:clos",
       "type": "mentions",
       "weight": 0.83,
@@ -1604,7 +1808,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
+      "source": "/network/chap03/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.83,
@@ -1613,7 +1817,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/network/chap10/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.83,
@@ -1623,36 +1827,16 @@
       ]
     },
     {
-      "source": "/cme295/lec-04/",
-      "target": "concept:kv-cache",
+      "source": "/",
+      "target": "concept:roce",
       "type": "mentions",
-      "weight": 0.83,
+      "weight": 0.805,
       "terms": [
-        "KV cache",
-        "KV Cache"
+        "RoCE"
       ]
     },
     {
-      "source": "/deep-learning-for-network-engineers/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "allreduce",
-        "NCCL"
-      ]
-    },
-    {
-      "source": "/deep-learning-for-network-engineers/week02/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "tail latency"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/",
+      "source": "/courses/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.805,
@@ -1661,25 +1845,25 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "concept:clos",
+      "source": "/courses/",
+      "target": "concept:roce",
       "type": "mentions",
       "weight": 0.805,
       "terms": [
-        "leaf-spine"
+        "RoCE"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "concept:nccl",
+      "source": "/courses/deep-learning-for-network-engineers/",
+      "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.805,
       "terms": [
-        "NCCL"
+        "RDMA"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/courses/deep-learning-for-network-engineers/week01/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.805,
@@ -1688,16 +1872,7 @@
       ]
     },
     {
-      "source": "/deep-learning-for-network-engineers/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.805,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/deep-learning-for-network-engineers/week02/",
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.805,
@@ -1706,429 +1881,552 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "semantic+section",
-      "weight": 0.789,
+      "source": "/network/chap01/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.805,
       "terms": [
-        "fabric",
-        "traffic"
+        "leaf-spine"
       ]
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap07/",
-      "type": "semantic+section",
-      "weight": 0.779,
-      "terms": []
+      "source": "/network/chap10/",
+      "target": "concept:quantization",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "FP8"
+      ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.777,
+      "source": "/training/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "RoCE"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "/network/chap02/",
+      "type": "keyword+section",
+      "weight": 0.563,
+      "terms": [
+        "training"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "keyword+section",
+      "weight": 0.536,
       "terms": [
         "gpu",
-        "memory"
+        "gradient",
+        "training"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "semantic",
-      "weight": 0.775,
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "keyword+section",
+      "weight": 0.493,
       "terms": [
-        "traffic",
-        "congestion"
+        "layer"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "semantic+section",
-      "weight": 0.763,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "/ai-data-center-network/chap07/",
-      "type": "semantic",
-      "weight": 0.75,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap07/",
-      "type": "semantic",
-      "weight": 0.727,
+      "source": "/courses/cme295/lec-02/",
+      "target": "/courses/cme295/lec-03/",
+      "type": "keyword+section",
+      "weight": 0.486,
       "terms": [
-        "congestion",
-        "rocev2"
+        "token"
       ]
     },
     {
-      "source": "/storage/mlperf-storage/",
-      "target": "/training/",
-      "type": "semantic",
-      "weight": 0.727,
+      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "target": "/courses/deep-learning-for-network-engineers/week02/",
+      "type": "keyword+section",
+      "weight": 0.476,
+      "terms": [
+        "책에서"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "/network/chap03/",
+      "type": "keyword+section",
+      "weight": 0.417,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap06/",
-      "type": "semantic",
-      "weight": 0.723,
+      "source": "/network/chap02/",
+      "target": "/network/chap06/",
+      "type": "keyword",
+      "weight": 0.404,
       "terms": [
         "flow"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap07/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "semantic",
-      "weight": 0.717,
-      "terms": [
-        "congestion"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.714,
-      "terms": [
-        "time"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/ib-packet-analysis/",
-      "type": "semantic+section",
-      "weight": 0.711,
+      "source": "/network/chap01/",
+      "target": "/network/ib-packet-analysis/",
+      "type": "keyword+section",
+      "weight": 0.398,
       "terms": [
         "rdma",
         "infiniband"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "semantic",
-      "weight": 0.707,
+      "source": "/network/chap01/",
+      "target": "/network/chap06/",
+      "type": "keyword+section",
+      "weight": 0.393,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.703,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.698,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap07/",
-      "type": "semantic",
-      "weight": 0.682,
-      "terms": [
-        "congestion"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.677,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "semantic",
-      "weight": 0.675,
+      "source": "/network/chap01/",
+      "target": "/network/chap10/",
+      "type": "keyword+section",
+      "weight": 0.377,
       "terms": [
         "training"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.674,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/",
-      "target": "/efficient-llm-inference-systems/",
-      "type": "semantic",
-      "weight": 0.667,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "semantic",
-      "weight": 0.666,
+      "source": "/network/chap02/",
+      "target": "/network/chap03/",
+      "type": "keyword",
+      "weight": 0.369,
       "terms": [
         "congestion"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap02/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.663,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "semantic",
-      "weight": 0.659,
+      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "target": "/courses/deep-learning-for-network-engineers/week04/",
+      "type": "keyword+section",
+      "weight": 0.344,
       "terms": [
-        "gpu",
-        "memory",
-        "cpu"
+        "gpu"
       ]
     },
     {
-      "source": "/",
-      "target": "/ai-data-center-network/chap01/",
-      "type": "semantic",
-      "weight": 0.649,
+      "source": "/network/chap03/",
+      "target": "/network/chap06/",
+      "type": "keyword",
+      "weight": 0.34,
+      "terms": [
+        "leaf",
+        "spine"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-02/",
+      "target": "/courses/cme295/lec-04/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/rdma-examples/",
+      "type": "keyword+section",
+      "weight": 0.337,
       "terms": [
         "rdma"
       ]
     },
     {
-      "source": "/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "semantic",
-      "weight": 0.648,
+      "source": "/network/chap02/",
+      "target": "/network/chap07/",
+      "type": "keyword",
+      "weight": 0.327,
       "terms": [
-        "mlperf",
-        "storage",
-        "training"
+        "pfc",
+        "congestion",
+        "rocev2"
       ]
     },
     {
-      "source": "/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.645,
-      "terms": [
-        "systems"
-      ]
-    },
-    {
-      "source": "/",
-      "target": "/ai-data-center-network/chap03/",
-      "type": "semantic",
-      "weight": 0.644,
+      "source": "/network/chap06/",
+      "target": "/network/chap07/",
+      "type": "keyword",
+      "weight": 0.31,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/ib-packet-analysis/",
-      "target": "/ai-data-center-network/rdma-examples/",
-      "type": "semantic",
-      "weight": 0.642,
-      "terms": [
-        "rdma"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "semantic",
-      "weight": 0.641,
-      "terms": [
-        "gpu",
-        "memory"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.638,
-      "terms": [
-        "memory"
-      ]
-    },
-    {
-      "source": "/cme295/",
-      "target": "/deep-learning-for-network-engineers/week02/",
-      "type": "semantic",
-      "weight": 0.638,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap03/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "semantic",
-      "weight": 0.633,
-      "terms": [
-        "congestion"
-      ]
-    },
-    {
-      "source": "/",
-      "target": "/ai-data-center-network/chap02/",
-      "type": "semantic",
-      "weight": 0.631,
-      "terms": [
-        "training"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/deep-learning-for-network-engineers/",
-      "type": "semantic",
-      "weight": 0.626,
-      "terms": []
-    },
-    {
-      "source": "/cme295/lec-04/",
-      "target": "/training/",
-      "type": "semantic",
-      "weight": 0.613,
-      "terms": []
-    },
-    {
-      "source": "/cme295/",
-      "target": "/training/",
-      "type": "semantic",
-      "weight": 0.605,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap06/",
-      "target": "/ai-data-center-network/chap12/",
-      "type": "semantic",
-      "weight": 0.604,
-      "terms": [
-        "packet"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/clos-ebgp-lab/",
-      "target": "/training/",
-      "type": "semantic",
-      "weight": 0.589,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/",
-      "target": "/efficient-llm-inference-systems/",
-      "type": "semantic",
-      "weight": 0.579,
-      "terms": [
-        "systems",
-        "books"
-      ]
-    },
-    {
-      "source": "/cme295/",
-      "target": "/efficient-llm-inference-systems/",
-      "type": "semantic",
-      "weight": 0.572,
-      "terms": [
-        "llm"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap01/",
+      "source": "/inference/",
+      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "type": "section",
       "weight": 0.297,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap06/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/chap01/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/chap02/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/courses/cme295/lec-02/",
+      "target": "/courses/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.285,
+      "terms": [
+        "token",
+        "embedding",
+        "attention"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "type": "keyword",
+      "weight": 0.281,
+      "terms": [
+        "tensor",
+        "decode"
+      ]
+    },
+    {
+      "source": "/network/chap03/",
+      "target": "/network/chap07/",
+      "type": "keyword",
+      "weight": 0.278,
+      "terms": [
+        "congestion"
+      ]
+    },
+    {
+      "source": "/network/chap02/",
+      "target": "/network/chap10/",
+      "type": "keyword",
+      "weight": 0.269,
+      "terms": [
+        "training"
+      ]
+    },
+    {
+      "source": "/network/chap03/",
+      "target": "/network/chap10/",
+      "type": "keyword",
+      "weight": 0.264,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/courses/deep-learning-for-network-engineers/week04/",
+      "type": "keyword",
+      "weight": 0.25,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-03/",
+      "target": "/courses/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.241,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-03/",
+      "target": "/courses/cme295/lec-04/",
+      "type": "keyword",
+      "weight": 0.239,
+      "terms": [
+        "model"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-04/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "keyword",
+      "weight": 0.221,
+      "terms": [
+        "parallelism",
+        "training"
+      ]
+    },
+    {
+      "source": "/",
+      "target": "/courses/deep-learning-for-network-engineers/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "study",
+        "training"
+      ]
+    },
+    {
+      "source": "/courses/",
+      "target": "/gpu/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/courses/",
+      "target": "/network/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/courses/",
+      "target": "/storage/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/",
+      "target": "/network/chap02/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "congestion",
+        "training"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/",
+      "target": "/network/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "congestion"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "network"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/training/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "/network/chap01/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma",
+        "memory",
+        "queue"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "/network/rdma-examples/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "rdma"
+      ]
+    },
+    {
+      "source": "/inference/",
+      "target": "/network/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/inference/",
+      "target": "/systems-performance/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "systems"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/training/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/network/",
+      "target": "/systems-performance/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "2026.04"
+      ]
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/storage/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/network/chap03/",
+      "target": "/network/clos-ebgp-lab/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "leaf",
+        "spine"
+      ]
+    },
+    {
+      "source": "/network/chap06/",
+      "target": "/network/clos-ebgp-lab/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "leaf",
+        "spine",
+        "ecmp"
+      ]
+    },
+    {
+      "source": "/network/chap06/",
+      "target": "/network/ib-packet-analysis/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "packet"
+      ]
+    },
+    {
+      "source": "/network/clos-ebgp-lab/",
+      "target": "/network/ib-packet-analysis/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/",
+      "target": "/training/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/mlperf-storage/",
+      "target": "/training/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap10/",
+      "source": "/inference/",
+      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/chap12/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/chap03/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/clos-ebgp-lab/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/chap06/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/ib-packet-analysis/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/chap07/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/ai-data-center-network/rdma-examples/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/chap10/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap06/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/clos-ebgp-lab/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap07/",
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/network/ib-packet-analysis/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap10/",
+      "source": "/network/chap01/",
+      "target": "/network/chap07/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/chap12/",
+      "source": "/network/chap01/",
+      "target": "/network/clos-ebgp-lab/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/clos-ebgp-lab/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap01/",
-      "target": "/ai-data-center-network/rdma-examples/",
+      "source": "/network/chap01/",
+      "target": "/network/rdma-examples/",
       "type": "section",
       "weight": 0.18,
       "terms": []

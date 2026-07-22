@@ -9,15 +9,15 @@
       "storage",
       "object",
       "vectordb",
-      "benchmark",
       "인덱스",
+      "benchmark",
       "cache",
       "i/o",
       "체크포인트",
       "s3-compatible",
       "비교합니다"
     ],
-    "excerpt": "는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload, VectorDB 검색처럼 ML 시스템에서"
+    "excerpt": "MLCommons Storage는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload,..."
   },
   "nodes": [
     {
@@ -29,15 +29,15 @@
         "storage",
         "object",
         "vectordb",
-        "benchmark",
         "인덱스",
+        "benchmark",
         "cache",
         "i/o",
         "체크포인트",
         "s3-compatible",
         "비교합니다"
       ],
-      "excerpt": "는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload, VectorDB 검색처럼 ML 시스템에서"
+      "excerpt": "MLCommons Storage는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload,..."
     },
     {
       "id": "/storage/",
@@ -47,7 +47,7 @@
       "keywords": [
         "storage"
       ],
-      "excerpt": "! !"
+      "excerpt": "AI workload storage notes covering checkpoint data paths, ZFS, MLPerf Storage, storage benchmarking, and data pipeline performance."
     },
     {
       "id": "concept:checkpointing",
@@ -99,16 +99,73 @@
       "keywords": [
         "zfs",
         "hdd",
+        "nvme",
         "special",
         "vdev",
-        "nvme",
-        "tip",
         "metadata",
         "nas",
+        "tip",
         "juicefs",
         "스토리지"
       ],
-      "excerpt": "HDD + NVMe 기반 중소형 AI 스토리지 설계 기준 이 문서는 AI 연구실, 대학 FTP/미러 운영팀, 중소형 AI 기업, MLOps/Infra 엔지니어가 엔터프라이즈 스토리지를 바로 도입하기 어려운 상황에서 HDD + NVMe + OpenZFS로 AI 학습 워크로드를 어디까지 감"
+      "excerpt": "이 분류가 중요한 이유는, AI 학습 워크로드에서는 단순히 “200TB 저장 가능”보다 다음 요소가 더 중요하기 때문이다."
+    },
+    {
+      "id": "/systems-performance/chap02/",
+      "title": "Chapter 2: AI System Hardware Overview",
+      "route": "/systems-performance/chap02/",
+      "group": "systems-performance",
+      "keywords": [
+        "gpu",
+        "rack",
+        "blackwell",
+        "grace",
+        "memory",
+        "nvl72",
+        "cpu",
+        "nvlink",
+        "hbm",
+        "power"
+      ],
+      "excerpt": "이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다."
+    },
+    {
+      "id": "/systems-performance/chap03/",
+      "title": "Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments",
+      "route": "/systems-performance/chap03/",
+      "group": "systems-performance",
+      "keywords": [
+        "gpu",
+        "cpu",
+        "kubernetes",
+        "memory",
+        "container",
+        "mig",
+        "cuda",
+        "numa",
+        "image",
+        "mps"
+      ],
+      "excerpt": "이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다."
+    },
+    {
+      "id": "/systems-performance/chap04/",
+      "title": "Chapter 4: Tuning Distributed Networking Communication",
+      "route": "/systems-performance/chap04/",
+      "group": "systems-performance",
+      "keywords": [
+        "nccl",
+        "gpu",
+        "nixl",
+        "rdma",
+        "sharp",
+        "communication",
+        "overlap",
+        "all-reduce",
+        "bucket",
+        "rank"
+      ],
+      "excerpt": "이번 장의 목표는 distributed training과 distributed inference에서 네트워크 통신을 단순한 “속도 문제”가 아니라 GPU goodput을 결정하는 핵심 병목으로 이해하는 것이다."
     },
     {
       "id": "/training/",
@@ -116,8 +173,8 @@
       "route": "/training/",
       "group": "training",
       "keywords": [
-        "pretraining",
         "moe",
+        "pretraining",
         "embedding",
         "slurm",
         "checkpoint",
@@ -127,89 +184,51 @@
         "llama",
         "3.1"
       ],
-      "excerpt": "은 MLPerf Training 벤치마크의 reference implementation 모음입니다. 실제 제출용 최적화 코드라기보다, AI 데이터센터에서 대규모 학습 워크로드가 어떤 compute, network, storage, orchestration 요구사항을 만드는지 읽고 실험하"
+      "excerpt": "Distributed training notes covering MLPerf Training workloads, LLM training, mixture-of-experts, LoRA, scaling behavior, and system bottlenecks."
     },
     {
-      "id": "/cme295/lec-06/",
-      "title": "Lecture 6: LLM Reasoning and GRPO",
-      "route": "/cme295/lec-06/",
-      "group": "cme295",
+      "id": "/courses/deep-learning-for-network-engineers/week03/",
+      "title": "Week 3: Parallelism Strategies in Deep Learning",
+      "route": "/courses/deep-learning-for-network-engineers/week03/",
+      "group": "courses/deep-learning-for-network-engineers",
       "keywords": [
-        "reasoning",
-        "reward",
-        "sft",
-        "model",
-        "chain",
-        "grpo",
-        "answer",
-        "advantage",
-        "pass",
-        "final"
+        "parallelism",
+        "gpu",
+        "gradient",
+        "pipeline",
+        "stage",
+        "expert",
+        "tensor",
+        "training",
+        "layer",
+        "communication"
       ],
-      "excerpt": "Source: Table of Contents Goal 이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다. 핵심 "
+      "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
     },
     {
-      "id": "/efficient-llm-inference-systems/week03/",
-      "title": "Week 3 — Transformer Inference and the KV Cache",
-      "route": "/efficient-llm-inference-systems/week03/",
-      "group": "efficient-llm-inference-systems",
-      "keywords": [
-        "gqa",
-        "kib",
-        "mib",
-        "cache",
-        "mha",
-        "gib",
-        "week",
-        "batch",
-        "128",
-        "decode"
-      ],
-      "excerpt": "3.1 Learning Goals By the end of this week, you should be able to: 1. Memorize the KV cache memory formula and estimate memory for an arbitrary model, sequence "
-    },
-    {
-      "id": "/efficient-llm-inference-systems/week04/results/results/",
-      "title": "Week 4 Lab Results",
-      "route": "/efficient-llm-inference-systems/week04/results/results/",
-      "group": "efficient-llm-inference-systems",
-      "keywords": [
-        "bf16",
-        "readme",
-        "bnb",
-        "lab",
-        "int4",
-        "speedup",
-        "bitsandbytes",
-        "int8",
-        "awq",
-        "fused"
-      ],
-      "excerpt": "Hardware: RTX 5080 16GB (Blackwell, sm 120) · cu128 PyTorch 2.11 · bitsandbytes 0.49.2 · transformers 5.12.1 Model: Qwen/Qwen2.5 3B Instruct The README sketches"
-    },
-    {
-      "id": "/ai-data-center-network/chap09/",
+      "id": "/network/chap09/",
       "title": "Chapter 9: Storage Network Design and Technologies for AI Data Centers",
-      "route": "/ai-data-center-network/chap09/",
-      "group": "ai-data-center-network",
+      "route": "/network/chap09/",
+      "group": "network",
       "keywords": [
         "storage",
         "file",
-        "nvme-o-tcp",
         "fabric",
-        "a/b",
+        "nvme-o-tcp",
         "nvme-o-rdma",
+        "a/b",
         "checkpoint",
         "infiniband",
         "network",
         "training"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains why storage networking is a separate design topic in AI data centers. The core idea is: An AI storage network is no"
+      "excerpt": "This chapter explains why storage networking is a separate design topic in AI data centers."
     },
     {
-      "id": "/ai-data-center-network/chap10/",
+      "id": "/network/chap10/",
       "title": "Chapter 10: AI Network Performance KPIs",
-      "route": "/ai-data-center-network/chap10/",
-      "group": "ai-data-center-network",
+      "route": "/network/chap10/",
+      "group": "network",
       "keywords": [
         "kpis",
         "mlperf",
@@ -217,88 +236,88 @@
         "time",
         "benchmark",
         "accuracy",
-        "latency",
         "quality",
-        "division",
-        "training"
+        "latency",
+        "training",
+        "jct"
       ],
-      "excerpt": "Table of Contents Goal This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks. The core idea is: In an AI data c"
+      "excerpt": "This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks."
     },
     {
-      "id": "/ai-system-performance-engineering/chap01/",
-      "title": "Chapter 1: Introduction and AI System Overview",
-      "route": "/ai-system-performance-engineering/chap01/",
-      "group": "ai-system-performance-engineering",
+      "id": "/courses/cme295/",
+      "title": "CME295 Lecture Notes",
+      "route": "/courses/cme295/",
+      "group": "courses/cme295",
       "keywords": [
-        "gpu",
-        "goodput",
-        "performance",
-        "time",
-        "nsight",
-        "systems",
-        "mechanical",
-        "sympathy",
-        "bottleneck",
-        "memory"
+        "lecture",
+        "reasoning",
+        "다이어그램",
+        "preference",
+        "grpo",
+        "sft",
+        "llm",
+        "transformer",
+        "tuning",
+        "human"
       ],
-      "excerpt": "Table of Contents Goal This chapter introduces the mental model of AI Systems Performance Engineering . The core idea is: AI performance engineering is not abou"
+      "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
     },
     {
-      "id": "/ai-system-performance-engineering/chap02/",
-      "title": "Chapter 2: AI System Hardware Overview",
-      "route": "/ai-system-performance-engineering/chap02/",
-      "group": "ai-system-performance-engineering",
+      "id": "/courses/cme295/lec-02/",
+      "title": "Lecture 2: Transformer-Based Models & Tricks",
+      "route": "/courses/cme295/lec-02/",
+      "group": "courses/cme295",
       "keywords": [
-        "gpu",
-        "rack",
-        "blackwell",
-        "memory",
-        "grace",
-        "nvl72",
-        "cpu",
-        "hbm",
-        "nvlink",
-        "power"
+        "token",
+        "position",
+        "attention",
+        "bert",
+        "embedding",
+        "positional",
+        "transformer",
+        "encoder",
+        "nsp",
+        "head"
       ],
-      "excerpt": "Table of Contents Goal 이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다. 핵심 아이디어는 다음과 같다. AI 하드웨어 설계는 FLOPS만 높이는 문제가 아니라, GPU compute, HBM bandwidth, CPU"
+      "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
     },
     {
-      "id": "/ai-data-center-network/rdma-examples/",
-      "title": "RDMA Read/Write 실전 입문",
-      "route": "/ai-data-center-network/rdma-examples/",
-      "group": "ai-data-center-network",
+      "id": "/courses/cme295/lec-03/",
+      "title": "Lecture 3: Large Language Models, Decoding, Prompting, and Inference",
+      "route": "/courses/cme295/lec-03/",
+      "group": "courses/cme295",
       "keywords": [
-        "rdma",
-        "rocev2",
-        "가능함",
-        "ibv",
-        "필요함",
-        "gid",
-        "wqe",
-        "메모리",
-        "네트워크",
-        "이더넷"
+        "token",
+        "model",
+        "decoding",
+        "probability",
+        "context",
+        "expert",
+        "decoder-only",
+        "sampling",
+        "llm",
+        "top-k"
       ],
-      "excerpt": "목표: 이 글 하나로 RDMA Read와 Write를 직접 작성하고 실행할 수 있는 기준을 정리함. 0. 왜 또 RDMA인가 LLM 추론과 학습이 GPU 클러스터의 일이 되면서 RDMA는 더 이상 HPC 영역만의 전유물이 아님. NCCL의 IB plugin, NIXL, Mooncake의"
+      "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
     },
     {
-      "id": "/ai-system-performance-engineering/chap03/",
-      "title": "Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments",
-      "route": "/ai-system-performance-engineering/chap03/",
-      "group": "ai-system-performance-engineering",
+      "id": "/courses/deep-learning-for-network-engineers/week02/",
+      "title": "Week 2: Large Language Model, LLM",
+      "route": "/courses/deep-learning-for-network-engineers/week02/",
+      "group": "courses/deep-learning-for-network-engineers",
       "keywords": [
-        "gpu",
-        "cpu",
-        "kubernetes",
-        "memory",
-        "cuda",
-        "container",
-        "mig",
-        "numa",
-        "image",
-        "kernel"
+        "token",
+        "vector",
+        "embedding",
+        "attention",
+        "word",
+        "decoder",
+        "layer",
+        "ffnn",
+        "parameter",
+        "책에서"
       ],
-      "excerpt": "Table of Contents Goal 이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다. 핵심 아이디어는 다음과 같다. GPU 성능은 CUDA kernel만으로 "
+      "excerpt": "이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다."
     },
     {
       "id": "/",
@@ -307,33 +326,28 @@
       "group": "home",
       "keywords": [
         "systems",
+        "organized",
+        "courses",
         "storage",
+        "tracks",
         "mlperf",
-        "training",
+        "profiling",
+        "clos",
         "study",
-        "center",
-        "notes",
-        "lecture",
-        "rdma",
-        "roce"
+        "training"
       ],
-      "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
+      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering."
     }
   ],
   "edges": [
     {
       "source": "/",
-      "target": "/ai-data-center-network/rdma-examples/",
-      "type": "link",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/",
       "target": "/storage/",
-      "type": "link",
+      "type": "link+keyword",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "storage"
+      ]
     },
     {
       "source": "/",
@@ -343,18 +357,31 @@
       "terms": []
     },
     {
-      "source": "/ai-system-performance-engineering/chap03/",
-      "target": "/training/",
-      "type": "link",
+      "source": "/courses/cme295/",
+      "target": "/courses/cme295/lec-02/",
+      "type": "link+keyword+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "transformer"
+      ]
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "/courses/cme295/lec-03/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "llm"
+      ]
     },
     {
       "source": "/storage/",
       "target": "/storage/mlperf-storage/",
-      "type": "link+section",
+      "type": "link+keyword+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "storage"
+      ]
     },
     {
       "source": "/storage/",
@@ -364,7 +391,54 @@
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap09/",
+      "source": "/systems-performance/chap03/",
+      "target": "/training/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-03/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "concept:checkpointing",
       "type": "mentions",
       "weight": 0.93,
@@ -375,7 +449,7 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/network/chap09/",
       "target": "concept:checkpointing",
       "type": "mentions",
       "weight": 0.93,
@@ -386,7 +460,18 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/network/chap10/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/network/chap10/",
       "target": "concept:mlperf",
       "type": "mentions",
       "weight": 0.93,
@@ -394,87 +479,6 @@
         "MLPerf",
         "MLPerf Training",
         "MLPerf Storage"
-      ]
-    },
-    {
-      "source": "/ai-data-center-network/rdma-examples/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "concept:checkpointing",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "checkpoint"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "concept:checkpointing",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "checkpoint"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap03/",
-      "target": "concept:checkpointing",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "checkpoint",
-        "model checkpoint",
-        "checkpointing",
-        "Checkpointing"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap03/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week03/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache",
-        "KV-cache"
       ]
     },
     {
@@ -505,6 +509,57 @@
       "weight": 0.93,
       "terms": [
         "checkpoint"
+      ]
+    },
+    {
+      "source": "/systems-performance/chap02/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint"
+      ]
+    },
+    {
+      "source": "/systems-performance/chap02/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/systems-performance/chap03/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint",
+        "model checkpoint",
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/systems-performance/chap03/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/systems-performance/chap04/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
       ]
     },
     {
@@ -550,13 +605,6 @@
       ]
     },
     {
-      "source": "/storage/mlperf-storage/",
-      "target": "/storage/zfs/",
-      "type": "semantic+section",
-      "weight": 0.847,
-      "terms": []
-    },
-    {
       "source": "/",
       "target": "concept:kv-cache",
       "type": "mentions",
@@ -567,7 +615,17 @@
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "checkpointing",
+        "Checkpointing"
+      ]
+    },
+    {
+      "source": "/network/chap10/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.83,
@@ -577,148 +635,174 @@
       ]
     },
     {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.777,
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "keyword+section",
+      "weight": 0.493,
       "terms": [
-        "gpu",
-        "memory"
+        "layer"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-02/",
+      "target": "/courses/cme295/lec-03/",
+      "type": "keyword+section",
+      "weight": 0.486,
+      "terms": [
+        "token"
       ]
     },
     {
       "source": "/storage/mlperf-storage/",
-      "target": "/training/",
-      "type": "semantic",
-      "weight": 0.727,
-      "terms": []
-    },
-    {
-      "source": "/ai-data-center-network/chap09/",
       "target": "/storage/zfs/",
-      "type": "semantic",
-      "weight": 0.715,
+      "type": "keyword+section",
+      "weight": 0.454,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.714,
+      "source": "/courses/cme295/lec-02/",
+      "target": "/courses/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.285,
       "terms": [
-        "time"
+        "token",
+        "embedding",
+        "attention"
       ]
     },
     {
-      "source": "/ai-data-center-network/chap10/",
-      "target": "/ai-system-performance-engineering/chap02/",
-      "type": "semantic",
-      "weight": 0.674,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "semantic",
-      "weight": 0.659,
+      "source": "/systems-performance/chap02/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.285,
       "terms": [
         "gpu",
-        "memory",
-        "cpu"
-      ]
-    },
-    {
-      "source": "/",
-      "target": "/ai-data-center-network/chap10/",
-      "type": "semantic",
-      "weight": 0.648,
-      "terms": [
-        "mlperf",
-        "storage",
-        "training"
-      ]
-    },
-    {
-      "source": "/",
-      "target": "/ai-system-performance-engineering/chap01/",
-      "type": "semantic",
-      "weight": 0.645,
-      "terms": [
-        "systems"
-      ]
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap02/",
-      "target": "/storage/zfs/",
-      "type": "semantic",
-      "weight": 0.645,
-      "terms": []
-    },
-    {
-      "source": "/ai-system-performance-engineering/chap01/",
-      "target": "/ai-system-performance-engineering/chap03/",
-      "type": "semantic",
-      "weight": 0.641,
-      "terms": [
-        "gpu",
+        "cpu",
         "memory"
       ]
     },
     {
-      "source": "/",
-      "target": "/ai-data-center-network/chap09/",
-      "type": "semantic",
-      "weight": 0.637,
+      "source": "/systems-performance/chap02/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.283,
       "terms": [
-        "storage",
-        "training"
+        "gpu"
       ]
     },
     {
-      "source": "/efficient-llm-inference-systems/week03/",
-      "target": "/efficient-llm-inference-systems/week04/results/results/",
-      "type": "semantic",
-      "weight": 0.637,
+      "source": "/systems-performance/chap03/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.272,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.248,
+      "terms": [
+        "gpu",
+        "communication"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-03/",
+      "target": "/courses/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.241,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/systems-performance/chap02/",
+      "type": "keyword",
+      "weight": 0.226,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/storage/zfs/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/efficient-llm-inference-systems/week04/results/results/",
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "/training/",
-      "type": "semantic",
-      "weight": 0.59,
+      "type": "keyword",
+      "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/cme295/lec-06/",
-      "target": "/storage/mlperf-storage/",
-      "type": "semantic",
-      "weight": 0.585,
+      "source": "/storage/",
+      "target": "/training/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/efficient-llm-inference-systems/week03/",
-      "target": "/storage/mlperf-storage/",
-      "type": "semantic",
-      "weight": 0.58,
-      "terms": [
-        "cache"
-      ]
-    },
-    {
-      "source": "/efficient-llm-inference-systems/week04/results/results/",
-      "target": "/storage/mlperf-storage/",
-      "type": "semantic",
-      "weight": 0.578,
+      "source": "/storage/mlperf-storage/",
+      "target": "/systems-performance/chap02/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/ai-data-center-network/chap09/",
-      "target": "/storage/mlperf-storage/",
-      "type": "semantic",
-      "weight": 0.575,
-      "terms": [
-        "storage"
-      ]
+      "source": "/storage/mlperf-storage/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/mlperf-storage/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/mlperf-storage/",
+      "target": "/training/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/zfs/",
+      "target": "/systems-performance/chap02/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/zfs/",
+      "target": "/systems-performance/chap03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/zfs/",
+      "target": "/systems-performance/chap04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/chap02/",
+      "target": "/training/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
     }
   ]
 }

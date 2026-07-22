@@ -1,0 +1,540 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/gpu/appendix/architecture/",
+    "title": "GPU Architecture (reference)",
+    "route": "/gpu/appendix/architecture/",
+    "group": "gpu",
+    "keywords": [
+      "memory",
+      "execution",
+      "architecture",
+      "warp",
+      "shared",
+      "registers",
+      "model",
+      "cuda",
+      "hardware",
+      "occupancy"
+    ],
+    "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
+  },
+  "nodes": [
+    {
+      "id": "/gpu/appendix/architecture/",
+      "title": "GPU Architecture (reference)",
+      "route": "/gpu/appendix/architecture/",
+      "group": "gpu",
+      "keywords": [
+        "memory",
+        "execution",
+        "architecture",
+        "warp",
+        "shared",
+        "registers",
+        "model",
+        "cuda",
+        "hardware",
+        "occupancy"
+      ],
+      "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
+    },
+    {
+      "id": "/gpu/",
+      "title": "GPU Systems",
+      "route": "/gpu/",
+      "group": "gpu",
+      "keywords": [
+        "course",
+        "lives",
+        "kernels",
+        "folder",
+        "track",
+        "practice",
+        "complement",
+        "parallel",
+        "systems",
+        "advanced"
+      ],
+      "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
+    },
+    {
+      "id": "/gpu/appendix/cuda/",
+      "title": "CUDA (reference)",
+      "route": "/gpu/appendix/cuda/",
+      "group": "gpu",
+      "keywords": [
+        "cuda",
+        "lookup",
+        "language",
+        "guidelines",
+        "compilation",
+        "ptx/sass",
+        "api",
+        "reference",
+        "spaces",
+        "analyze"
+      ],
+      "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
+    },
+    {
+      "id": "/gpu/gpu-mode/",
+      "title": "GPU MODE",
+      "route": "/gpu/gpu-mode/",
+      "group": "gpu",
+      "keywords": [
+        "lectures",
+        "talks",
+        "mode",
+        "lecture",
+        "ongoing",
+        "youtube",
+        "advanced",
+        "theme",
+        "cuda",
+        "gpu"
+      ],
+      "excerpt": "Advanced, ongoing feed for modern ML kernels (formerly CUDA MODE). Treat this as a later / advanced course: come here after the PMPP foundation is in place...."
+    },
+    {
+      "id": "/gpu/pmpp/",
+      "title": "PMPP / Programming Massively Parallel Processors",
+      "route": "/gpu/pmpp/",
+      "group": "gpu",
+      "keywords": [
+        "programming",
+        "pmpp",
+        "massively",
+        "processors",
+        "parallel",
+        "notes",
+        "lecture",
+        "cuda",
+        "primary",
+        "gpu"
+      ],
+      "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
+    },
+    {
+      "id": "/gpu/labs/kernels/",
+      "title": "Kernel Case Studies (practice)",
+      "route": "/gpu/labs/kernels/",
+      "group": "gpu",
+      "keywords": [
+        "lecture",
+        "triton",
+        "kernels",
+        "matmul",
+        "kernel",
+        "gemm",
+        "cutlass",
+        "fused",
+        "attention",
+        "case"
+      ],
+      "excerpt": "References and backlog for hands-on GPU kernel case studies — the do half of this track. Learn the patterns in PMPP and Heterogeneous Systems, then..."
+    },
+    {
+      "id": "/gpu/labs/profiling/",
+      "title": "Profiling (practice)",
+      "route": "/gpu/labs/profiling/",
+      "group": "gpu",
+      "keywords": [
+        "profiling",
+        "practice",
+        "hit",
+        "cores",
+        "saying",
+        "every",
+        "performance-analysis",
+        "launch-overhead-bound",
+        "hands-on",
+        "coalesced"
+      ],
+      "excerpt": "Nsight Compute and related GPU performance-analysis references. This is the hands-on tool you run while learning: for every concept in PMPP and every kernel..."
+    },
+    {
+      "id": "/gpu/articles/",
+      "title": "GPU Articles",
+      "route": "/gpu/articles/",
+      "group": "gpu",
+      "keywords": [
+        "articles",
+        "essays",
+        "gpu",
+        "platform",
+        "kubernetes",
+        "connect",
+        "operational",
+        "design",
+        "cuda",
+        "behavior"
+      ],
+      "excerpt": "Operational notes and essays that connect GPU architecture, CUDA behavior, and Kubernetes platform design."
+    },
+    {
+      "id": "/gpu/articles/hami-core-deep-dive.ko/",
+      "title": "HAMi-core 심층 분석: `libvgpu.so`는 GPU를 어떻게 나누는가",
+      "route": "/gpu/articles/hami-core-deep-dive.ko/",
+      "group": "gpu",
+      "keywords": [
+        "hami-core",
+        "메모리",
+        "quota",
+        "프로세스",
+        "nvml",
+        "cuda",
+        "컨테이너",
+        "사용량",
+        "gpu",
+        "프레임워크"
+      ],
+      "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
+    },
+    {
+      "id": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "title": "DRA와 HAMi로 보는 Kubernetes GPU 분할",
+      "route": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "group": "gpu",
+      "keywords": [
+        "hami",
+        "dra",
+        "quota",
+        "mig",
+        "스케줄러",
+        "메모리",
+        "gpu",
+        "pod",
+        "annotation",
+        "워크로드"
+      ],
+      "excerpt": "첫째, “어떤 GPU를 어떤 Pod에 할당할 것인가?” 둘째, “하나의 GPU 안에서 메모리와 연산 사용량을 실제로 어떻게 제한할 것인가?” Dynamic Resource Allocation(DRA)은 첫 번째 문제를 Kubernetes 표준 API로 해결하려는 체계다...."
+    },
+    {
+      "id": "/gpu/cs149/",
+      "title": "Stanford CS149 / Parallel Computing",
+      "route": "/gpu/cs149/",
+      "group": "gpu",
+      "keywords": [
+        "cs149",
+        "stanford",
+        "dnn",
+        "multi-core",
+        "simd",
+        "systems",
+        "parallel-computing",
+        "specialization",
+        "execution",
+        "parallelism"
+      ],
+      "excerpt": "Stanford CS149 is the systems foundation course for this GPU track. It connects GPU programming with the broader parallel-computing model: multi-core CPUs,..."
+    }
+  ],
+  "edges": [
+    {
+      "source": "/gpu/",
+      "target": "/gpu/appendix/architecture/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/appendix/cuda/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/cs149/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "systems"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/gpu-mode/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "advanced"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/labs/kernels/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/labs/profiling/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/pmpp/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "parallel"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/appendix/cuda/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/gpu-mode/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/pmpp/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/gpu-mode/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/labs/kernels/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/pmpp/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/articles/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/gpu-mode/",
+      "target": "/gpu/labs/kernels/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "lecture"
+      ]
+    },
+    {
+      "source": "/gpu/gpu-mode/",
+      "target": "/gpu/labs/profiling/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/gpu-mode/",
+      "target": "/gpu/pmpp/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "lecture",
+        "cuda",
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/labs/kernels/",
+      "target": "/gpu/labs/profiling/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/labs/kernels/",
+      "target": "/gpu/pmpp/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "lecture"
+      ]
+    },
+    {
+      "source": "/gpu/labs/profiling/",
+      "target": "/gpu/pmpp/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "keyword",
+      "weight": 0.344,
+      "terms": [
+        "quota",
+        "메모리",
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/labs/kernels/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/labs/profiling/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/labs/profiling/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/gpu/cs149/",
+      "target": "/gpu/pmpp/",
+      "type": "keyword",
+      "weight": 0.26,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/",
+      "target": "/gpu/gpu-mode/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "cuda",
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/articles/",
+      "target": "/gpu/pmpp/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "cuda",
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/cs149/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/cs149/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

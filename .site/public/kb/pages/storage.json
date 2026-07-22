@@ -8,7 +8,7 @@
     "keywords": [
       "storage"
     ],
-    "excerpt": "! !"
+    "excerpt": "AI workload storage notes covering checkpoint data paths, ZFS, MLPerf Storage, storage benchmarking, and data pipeline performance."
   },
   "nodes": [
     {
@@ -19,7 +19,7 @@
       "keywords": [
         "storage"
       ],
-      "excerpt": "! !"
+      "excerpt": "AI workload storage notes covering checkpoint data paths, ZFS, MLPerf Storage, storage benchmarking, and data pipeline performance."
     },
     {
       "id": "/",
@@ -28,17 +28,17 @@
       "group": "home",
       "keywords": [
         "systems",
+        "organized",
+        "courses",
         "storage",
+        "tracks",
         "mlperf",
-        "training",
+        "profiling",
+        "clos",
         "study",
-        "center",
-        "notes",
-        "lecture",
-        "rdma",
-        "roce"
+        "training"
       ],
-      "excerpt": "Study wiki AI infrastructure notes for the places where models meet machines. Networking, inference, training, storage, and performance engineering notes organi"
+      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering."
     },
     {
       "id": "/storage/mlperf-storage/",
@@ -49,15 +49,15 @@
         "storage",
         "object",
         "vectordb",
-        "benchmark",
         "인덱스",
+        "benchmark",
         "cache",
         "i/o",
         "체크포인트",
         "s3-compatible",
         "비교합니다"
       ],
-      "excerpt": "는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload, VectorDB 검색처럼 ML 시스템에서"
+      "excerpt": "MLCommons Storage는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload,..."
     },
     {
       "id": "/storage/zfs/",
@@ -67,22 +67,99 @@
       "keywords": [
         "zfs",
         "hdd",
+        "nvme",
         "special",
         "vdev",
-        "nvme",
-        "tip",
         "metadata",
         "nas",
+        "tip",
         "juicefs",
         "스토리지"
       ],
-      "excerpt": "HDD + NVMe 기반 중소형 AI 스토리지 설계 기준 이 문서는 AI 연구실, 대학 FTP/미러 운영팀, 중소형 AI 기업, MLOps/Infra 엔지니어가 엔터프라이즈 스토리지를 바로 도입하기 어려운 상황에서 HDD + NVMe + OpenZFS로 AI 학습 워크로드를 어디까지 감"
+      "excerpt": "이 분류가 중요한 이유는, AI 학습 워크로드에서는 단순히 “200TB 저장 가능”보다 다음 요소가 더 중요하기 때문이다."
+    },
+    {
+      "id": "/courses/",
+      "title": "Courses",
+      "route": "/courses/",
+      "group": "courses",
+      "keywords": [
+        "courses",
+        "foundations",
+        "lecture-oriented",
+        "systems-performance",
+        "training",
+        "tracks",
+        "cross",
+        "preference",
+        "material",
+        "domain-specific"
+      ],
+      "excerpt": "Course- and lecture-oriented learning tracks that cross multiple AI systems domains."
+    },
+    {
+      "id": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "title": "Cloud Data Center Network의 지금과 앞으로",
+      "route": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "group": "network",
+      "keywords": [
+        "network",
+        "ethernet",
+        "fabric",
+        "ai/ml",
+        "rdma",
+        "routing",
+        "traffic",
+        "adaptive",
+        "frontend",
+        "rack"
+      ],
+      "excerpt": "Cloud-native web-scale network는 많은 작은 TCP flow를 commodity Ethernet/Clos/ECMP로 처리하는 데 최적화되어 왔다. 그러나 AI/ML workload는 GPU 간 동기화, RDMA, collective..."
+    },
+    {
+      "id": "/training/",
+      "title": "MLPerf Training",
+      "route": "/training/",
+      "group": "training",
+      "keywords": [
+        "moe",
+        "pretraining",
+        "embedding",
+        "slurm",
+        "checkpoint",
+        "nemo",
+        "671b",
+        "flux.1",
+        "llama",
+        "3.1"
+      ],
+      "excerpt": "Distributed training notes covering MLPerf Training workloads, LLM training, mixture-of-experts, LoRA, scaling behavior, and system bottlenecks."
     }
   ],
   "edges": [
     {
       "source": "/",
+      "target": "/courses/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "courses",
+        "training",
+        "tracks"
+      ]
+    },
+    {
+      "source": "/",
       "target": "/storage/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "storage"
+      ]
+    },
+    {
+      "source": "/",
+      "target": "/training/",
       "type": "link",
       "weight": 1,
       "terms": []
@@ -90,9 +167,11 @@
     {
       "source": "/storage/",
       "target": "/storage/mlperf-storage/",
-      "type": "link+section",
+      "type": "link+keyword+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "storage"
+      ]
     },
     {
       "source": "/storage/",
@@ -104,8 +183,36 @@
     {
       "source": "/storage/mlperf-storage/",
       "target": "/storage/zfs/",
-      "type": "semantic+section",
-      "weight": 0.847,
+      "type": "keyword+section",
+      "weight": 0.454,
+      "terms": []
+    },
+    {
+      "source": "/courses/",
+      "target": "/storage/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "target": "/storage/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/",
+      "target": "/training/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/storage/mlperf-storage/",
+      "target": "/training/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": []
     }
   ]

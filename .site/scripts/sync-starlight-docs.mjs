@@ -1,6 +1,10 @@
 import { copyFile, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
 import path from 'node:path';
+import { promisify } from 'node:util';
 import { embedDocuments, isEmbeddingEnabled } from './lib/embeddings.mjs';
+
+const execFileAsync = promisify(execFile);
 
 const projectRoot = process.cwd();
 const sourceRoot = path.resolve(projectRoot, '..');
@@ -8,17 +12,16 @@ const docsOut = path.join(projectRoot, 'src', 'content', 'docs');
 const publicOut = path.join(projectRoot, 'public');
 const conceptsPath = path.join(projectRoot, 'kb', 'concepts.json');
 const siteUrl = 'https://adcs.restack.tech';
+const repositoryEditBase = 'https://github.com/ziwon/ai-data-center-systems/edit/main/';
 
 const docRoots = [
-  '.',
-  'ai-data-center-network',
-  'efficient-llm-inference-systems',
-  'deep-learning-for-network-engineers',
-  'ai-system-performance-engineering',
-  'cme295',
+  'network',
   'gpu',
   'training',
+  'inference',
   'storage',
+  'systems-performance',
+  'courses',
   'talks',
 ];
 
@@ -49,41 +52,50 @@ const ignoredDirs = new Set([
   'venv',
 ]);
 
-const generatedPublicRoots = [
+const publishedAssetRoots = [
   'fabric.svg',
+  'network',
+  'gpu',
+  'training',
+  'inference',
+  'storage',
+  'systems-performance',
+  'courses',
+  'talks',
+];
+
+const staleGeneratedPublicRoots = [
   'ai-data-center-network',
   'efficient-llm-inference-systems',
   'deep-learning-for-network-engineers',
   'ai-system-performance-engineering',
   'cme295',
-  'gpu',
-  'training',
-  'storage',
-  'talks',
   'refs',
 ];
+
+const generatedPublicRoots = [...new Set([...publishedAssetRoots, ...staleGeneratedPublicRoots])];
 
 const pages = [];
 
 const defaultDescriptionsBySource = new Map([
   [
-    'ai-data-center-network/README.md',
+    'network/README.md',
     'AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations.',
   ],
   [
-    'efficient-llm-inference-systems/README.md',
+    'inference/README.md',
     'LLM inference systems notes covering KV cache, batching, quantization, GPU profiling, model serving, and practical performance trade-offs.',
   ],
   [
-    'deep-learning-for-network-engineers/README.md',
+    'courses/deep-learning-for-network-engineers/README.md',
     'Deep learning systems notes for network engineers covering training fundamentals, parallelism, collectives, RDMA, RoCE, and NCCL behavior.',
   ],
   [
-    'ai-system-performance-engineering/README.md',
+    'systems-performance/README.md',
     'AI systems performance engineering notes covering GPU hardware, Linux and container tuning, CUDA, PyTorch, profiling, and distributed communication.',
   ],
   [
-    'cme295/README.md',
+    'courses/cme295/README.md',
     'CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations.',
   ],
   [
@@ -212,7 +224,7 @@ async function walk(currentDir) {
 
     if (entry.isDirectory()) {
       if (shouldIgnoreDirectory(entry.name)) continue;
-      if (relative === 'ai-data-center-network/ib-packets') continue;
+      if (relative === 'network/ib-packets') continue;
       await walk(absolute);
       continue;
     }
@@ -234,12 +246,12 @@ async function walk(currentDir) {
 function shouldPublishMarkdown(relative) {
   if (relative === 'AGENTS.md') return false;
   if (relative.startsWith('.')) return false;
-  return docRoots.some((docRoot) => docRoot === '.' || relative.startsWith(`${docRoot}/`));
+  return relative === 'README.md' || docRoots.some((docRoot) => relative.startsWith(`${docRoot}/`));
 }
 
 function shouldPublishAsset(relative) {
   if (relative.startsWith('.')) return false;
-  return generatedPublicRoots.some((docRoot) => relative === docRoot || relative.startsWith(`${docRoot}/`));
+  return publishedAssetRoots.some((docRoot) => relative === docRoot || relative.startsWith(`${docRoot}/`));
 }
 
 async function publishMarkdown(absolute, relative) {
@@ -253,8 +265,9 @@ async function publishMarkdown(absolute, relative) {
   const outRelative = markdownOutputPath(relative);
   const route = routeFromOutput(outRelative);
   const outAbsolute = path.join(docsOut, outRelative);
-  const sourceStats = await stat(absolute);
+  const lastUpdated = await sourceLastUpdated(relative, absolute);
   const head = pageHeadEntries(route, isSiteHome);
+  const editUrl = `${repositoryEditBase}${encodeURI(relative)}`;
 
   await mkdir(path.dirname(outAbsolute), { recursive: true });
   await writeFile(
@@ -264,9 +277,10 @@ async function publishMarkdown(absolute, relative) {
       `title: ${JSON.stringify(title)}`,
       ...(isSiteHome ? [] : [`slug: ${JSON.stringify(slugFromRoute(route))}`]),
       `description: ${JSON.stringify(description)}`,
+      `editUrl: ${JSON.stringify(editUrl)}`,
       ...frontmatterHeadLines(head),
       ...(isSiteHome ? ['template: splash'] : []),
-      `lastUpdated: ${sourceStats.mtime.toISOString()}`,
+      `lastUpdated: ${lastUpdated}`,
       '---',
       '',
       body.trimStart(),
@@ -281,6 +295,23 @@ async function publishMarkdown(absolute, relative) {
     description,
     body: body.trim(),
   });
+}
+
+async function sourceLastUpdated(relative, absolute) {
+  try {
+    const { stdout } = await execFileAsync(
+      'git',
+      ['log', '-1', '--follow', '--format=%cI', '--', relative],
+      { cwd: sourceRoot, timeout: 10_000 },
+    );
+    const timestamp = stdout.trim();
+    if (timestamp) return timestamp;
+  } catch {
+    // Fall back to filesystem metadata when Git history is unavailable.
+  }
+
+  const sourceStats = await stat(absolute);
+  return sourceStats.mtime.toISOString();
 }
 
 function pageHeadEntries(route, isSiteHome) {
@@ -315,56 +346,52 @@ function siteHomeBody() {
       connected study tracks.
     </p>
     <div class="adcs-home-actions">
-      <a href="/ai-data-center-network/">Start with AI fabric</a>
-      <a href="/efficient-llm-inference-systems/">Explore inference</a>
+      <a href="/network/">Start with AI fabric</a>
+      <a href="/inference/">Explore inference</a>
     </div>
   </div>
-  <a class="adcs-home-hero-visual" href="/ai-data-center-network/" aria-label="Open AI Data Center Network track">
+  <a class="adcs-home-hero-visual" href="/network/" aria-label="Open Network track">
     <img src="/fabric.svg" alt="Animated AI performance fabric" />
   </a>
 </section>
 
 <section class="adcs-track-grid" aria-label="Study tracks">
-  <a class="adcs-track-card" href="/ai-data-center-network/">
-    <span>AI Data Center Network</span>
+  <a class="adcs-track-card" href="/network/">
+    <span>Network</span>
     <small>RDMA, InfiniBand, RoCE, Clos fabrics, telemetry, and congestion control.</small>
   </a>
-  <a class="adcs-track-card" href="/efficient-llm-inference-systems/">
-    <span>Efficient LLM Inference Systems</span>
-    <small>KV cache, batching, quantization, GPU profiling, and serving trade-offs.</small>
-  </a>
   <a class="adcs-track-card" href="/gpu/">
-    <span>GPU Systems</span>
+    <span>GPU &amp; Accelerator Systems</span>
     <small>GPU architecture, CUDA, PMPP, profiling, and kernel case studies.</small>
   </a>
-  <a class="adcs-track-card" href="/ai-system-performance-engineering/">
-    <span>AI Systems Performance Engineering</span>
-    <small>GPU hardware, OS and container tuning, CUDA, PyTorch, and distributed communication.</small>
-  </a>
-  <a class="adcs-track-card" href="/deep-learning-for-network-engineers/">
-    <span>Deep Learning for Network Engineers</span>
-    <small>Training fundamentals, parallelism, collectives, RDMA, RoCE, and NCCL.</small>
-  </a>
-  <a class="adcs-track-card" href="/cme295/">
-    <span>CME295 Lecture Notes</span>
-    <small>Transformer and LLM lecture notes with practical systems annotations.</small>
+  <a class="adcs-track-card" href="/storage/">
+    <span>Storage</span>
+    <small>AI workload storage, ZFS, MLPerf Storage, and checkpoint data paths.</small>
   </a>
   <a class="adcs-track-card" href="/training/">
     <span>Training</span>
     <small>MLPerf Training, distributed training workloads, LLMs, MoE, and LoRA.</small>
   </a>
-  <a class="adcs-track-card" href="/storage/">
-    <span>Storage</span>
-    <small>AI workload storage, ZFS, MLPerf Storage, and checkpoint data paths.</small>
+  <a class="adcs-track-card" href="/inference/">
+    <span>Inference</span>
+    <small>KV cache, batching, quantization, GPU profiling, and serving trade-offs.</small>
+  </a>
+  <a class="adcs-track-card" href="/systems-performance/">
+    <span>Systems Performance</span>
+    <small>GPU hardware, OS and container tuning, CUDA, PyTorch, and distributed communication.</small>
+  </a>
+  <a class="adcs-track-card" href="/courses/">
+    <span>Courses</span>
+    <small>CME295 and deep learning systems courses organized as sequential learning tracks.</small>
   </a>
 </section>
 
 ## Labs and Talks
 
 <section class="adcs-link-band" aria-label="Labs and talks">
-  <a href="/ai-data-center-network/clos-ebgp-lab/">Clos Fabric Lab Series</a>
-  <a href="/ai-data-center-network/ib-packet-analysis/">InfiniBand Packet Analysis</a>
-  <a href="/ai-data-center-network/rdma-examples/">RDMA Read/Write Examples</a>
+  <a href="/network/clos-ebgp-lab/">Clos Fabric Lab Series</a>
+  <a href="/network/ib-packet-analysis/">InfiniBand Packet Analysis</a>
+  <a href="/network/rdma-examples/">RDMA Read/Write Examples</a>
   <a href="/knowledge-graph-3d/">Full Knowledge Graph 3D</a>
   <a href="/talks/sr-iov-with-dgx-b200/making-dgx-b200-rdma-ready.pdf">Making DGX B200 RDMA-ready</a>
 </section>
@@ -1091,7 +1118,8 @@ function normalizeRoute(route) {
 }
 
 function groupFromRoute(route) {
-  const [first] = route.replace(/^\/|\/$/g, '').split('/');
+  const [first, second] = route.replace(/^\/|\/$/g, '').split('/');
+  if (first === 'courses' && second) return `${first}/${second}`;
   return first || 'home';
 }
 

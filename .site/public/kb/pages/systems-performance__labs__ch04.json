@@ -1,0 +1,658 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/systems-performance/labs/ch04/",
+    "title": "Chapter 4 Labs",
+    "route": "/systems-performance/labs/ch04/",
+    "group": "systems-performance",
+    "keywords": [
+      "labs",
+      "communication",
+      "gpu-communication-reference",
+      "directory",
+      "exposed",
+      "transfers",
+      "multi-gpu",
+      "buffers",
+      "repeated",
+      "overlap"
+    ],
+    "excerpt": "This directory contains executable labs that support Chapter 4 notes on distributed networking communication."
+  },
+  "nodes": [
+    {
+      "id": "/systems-performance/labs/ch04/",
+      "title": "Chapter 4 Labs",
+      "route": "/systems-performance/labs/ch04/",
+      "group": "systems-performance",
+      "keywords": [
+        "labs",
+        "communication",
+        "gpu-communication-reference",
+        "directory",
+        "exposed",
+        "transfers",
+        "multi-gpu",
+        "buffers",
+        "repeated",
+        "overlap"
+      ],
+      "excerpt": "This directory contains executable labs that support Chapter 4 notes on distributed networking communication."
+    },
+    {
+      "id": "concept:nccl",
+      "kind": "concept",
+      "title": "NCCL",
+      "label": "NCCL",
+      "group": "distributed-training",
+      "description": "NVIDIA collective communication library used by distributed GPU training.",
+      "keywords": [
+        "NCCL",
+        "collectives",
+        "all-reduce",
+        "allreduce",
+        "reduce-scatter",
+        "all-gather"
+      ]
+    },
+    {
+      "id": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "title": "Lab: GPU Communication Reference",
+      "route": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "group": "systems-performance",
+      "keywords": [
+        "overlap.py",
+        "ddp",
+        "sweep.py",
+        "backward",
+        "bucket",
+        "communication",
+        "process-group",
+        "gradient",
+        "nccl",
+        "buckets"
+      ],
+      "excerpt": "Provide real GPU/NCCL entrypoints for the Chapter 4 communication labs."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/communication-overlap/",
+      "title": "Lab: Communication and Computation Overlap",
+      "route": "/systems-performance/labs/ch04/communication-overlap/",
+      "group": "systems-performance",
+      "keywords": [
+        "communication",
+        "bucket",
+        "overlap",
+        "optimized",
+        "exposed",
+        "lab",
+        "step",
+        "computation",
+        "compute",
+        "paths"
+      ],
+      "excerpt": "Show why Chapter 4 focuses on exposed communication time . The total communication volume may be the same, but the optimized path starts each bucket..."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "title": "Lab: DataParallel vs DDP",
+      "route": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "group": "systems-performance",
+      "keywords": [
+        "dataparallel",
+        "ddp",
+        "one",
+        "optimized",
+        "scatters",
+        "replicas",
+        "gathers",
+        "ddp-shaped",
+        "lab",
+        "process"
+      ],
+      "excerpt": "Show why Chapter 4 treats PyTorch DataParallel as an anti-pattern for serious multi-GPU training."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "title": "Lab: NIXL-Style Tier Handoff",
+      "route": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "group": "systems-performance",
+      "keywords": [
+        "handoff",
+        "nixl-style",
+        "tier",
+        "optimized",
+        "movement",
+        "selected",
+        "transfer",
+        "lab",
+        "baseline",
+        "disaggregated"
+      ],
+      "excerpt": "Show why Chapter 4 separates training collectives from disaggregated inference data movement. NCCL is the right lens for all-reduce, but KV cache handoff is..."
+    },
+    {
+      "id": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "title": "Lab: Pipeline and Tensor Parallel Scheduling",
+      "route": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "group": "systems-performance",
+      "keywords": [
+        "tensor-parallel",
+        "pipeline",
+        "optimized",
+        "scheduling",
+        "tensor",
+        "stage",
+        "lab",
+        "execution",
+        "baseline",
+        "fill-drain"
+      ],
+      "excerpt": "Show how pipeline bubbles and tensor-parallel synchronization affect distributed model execution."
+    },
+    {
+      "id": "/systems-performance/",
+      "title": "AI Systems Performance Engineering",
+      "route": "/systems-performance/",
+      "group": "systems-performance",
+      "keywords": [
+        "engineering",
+        "2025.12",
+        "2026.04",
+        "2025.08",
+        "numa-aware",
+        "systems",
+        "books",
+        "uncore",
+        "talks",
+        "topology"
+      ],
+      "excerpt": "AI systems performance engineering notes covering GPU hardware, Linux and container tuning, CUDA, PyTorch, profiling, and distributed communication."
+    },
+    {
+      "id": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "title": "Keeping GPU Workloads NUMA-Local in Kubernetes",
+      "route": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "group": "systems-performance",
+      "keywords": [
+        "numa",
+        "cpu",
+        "pod",
+        "node",
+        "container",
+        "kubelet",
+        "memory",
+        "request",
+        "manager",
+        "admission"
+      ],
+      "excerpt": "GPU workload에서 CPU가 request preparation, batching, dataloader, pinned memory staging처럼 GPU로 가는 data path에 있다면, Kubernetes의 기본 resource scheduling만으로는 부족하다...."
+    },
+    {
+      "id": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "title": "Never Underestimate Memory Architecture",
+      "route": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "group": "systems-performance",
+      "keywords": [
+        "cpu",
+        "numa",
+        "memory",
+        "instance",
+        "manager",
+        "node",
+        "gpu",
+        "zone",
+        "cloud",
+        "uncore"
+      ],
+      "excerpt": "대형 서버와 cloud VM에서는 CPU, memory, cache, PCIe device가 균일하게 연결되어 있지 않다. Workload가 NUMA boundary와 shared uncore resource를 넘나들면 같은 일을 하면서도 CPU 사용량, step time,..."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week03/",
+      "title": "Week 3: Parallelism Strategies in Deep Learning",
+      "route": "/courses/deep-learning-for-network-engineers/week03/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "parallelism",
+        "gpu",
+        "gradient",
+        "pipeline",
+        "stage",
+        "expert",
+        "tensor",
+        "training",
+        "layer",
+        "communication"
+      ],
+      "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week04/",
+      "title": "Week 4: RDMA and GPU Cluster Communication",
+      "route": "/courses/deep-learning-for-network-engineers/week04/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "rank",
+        "rdma",
+        "nccl",
+        "queue",
+        "host",
+        "memory",
+        "gpu",
+        "transport",
+        "chunk",
+        "key"
+      ],
+      "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
+    },
+    {
+      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "title": "Domain-Specific Architectures for AI Inference",
+      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "group": "inference",
+      "keywords": [
+        "dsa",
+        "cache",
+        "compute",
+        "week",
+        "tensor",
+        "hardware",
+        "decode",
+        "token",
+        "sram",
+        "accelerator"
+      ],
+      "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
+    },
+    {
+      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "title": "How to Think About GPUs",
+      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "group": "inference",
+      "keywords": [
+        "tensor",
+        "gpu",
+        "core",
+        "b300",
+        "blackwell",
+        "nvlink",
+        "dgx",
+        "memory",
+        "parallelism",
+        "decode"
+      ],
+      "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
+    }
+  ],
+  "edges": [
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "allreduce",
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "allreduce"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "allreduce",
+        "NCCL",
+        "collectives"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "allreduce",
+        "collectives",
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NCCL",
+        "all-reduce",
+        "allreduce"
+      ]
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "NCCL",
+        "all-reduce"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "all-reduce",
+        "collectives",
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "NCCL"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "target": "concept:nccl",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "all-gather"
+      ]
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "keyword+section",
+      "weight": 0.512,
+      "terms": [
+        "cpu",
+        "numa",
+        "memory",
+        "manager"
+      ]
+    },
+    {
+      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "type": "keyword",
+      "weight": 0.281,
+      "terms": [
+        "tensor",
+        "decode"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.254,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/courses/deep-learning-for-network-engineers/week04/",
+      "type": "keyword",
+      "weight": 0.25,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.237,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.232,
+      "terms": [
+        "communication"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/communication-overlap/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "communication",
+        "overlap",
+        "exposed"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "communication",
+        "bucket"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/communication-overlap/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "ddp"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/communication-overlap/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/nixl-tier-handoff/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

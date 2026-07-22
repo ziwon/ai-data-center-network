@@ -1029,7 +1029,7 @@
       0.015643
     ]
   },
-  "/ai-data-center-network/": {
+  "/network/": {
     "model": "@cf/baai/bge-m3",
     "hash": "fd06d91ee5bed6fc575891665a92514b4f2a75bc8e2dd3b2530f35848524eded",
     "vector": [
@@ -2059,7 +2059,7 @@
       0.021458
     ]
   },
-  "/ai-data-center-network/articles/cloud-data-center-network-now-and-next.ko/": {
+  "/network/articles/cloud-data-center-network-now-and-next.ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "d3512c1753c38b040d1a550416dd393b3968faea881a5084bd94ef5e3b3ca711",
     "vector": [
@@ -3089,7 +3089,7 @@
       0.010256
     ]
   },
-  "/ai-data-center-network/chap01/": {
+  "/network/chap01/": {
     "model": "@cf/baai/bge-m3",
     "hash": "f9e23c2a566672054ee04a0d87520a607186a559f43d89de9a39f1bba4644c2a",
     "vector": [
@@ -4119,7 +4119,7 @@
       0.013738
     ]
   },
-  "/ai-data-center-network/chap02/": {
+  "/network/chap02/": {
     "model": "@cf/baai/bge-m3",
     "hash": "590b7d42f06018132684463afe990b6b6928e035051d29beea09c7cb451b5fc9",
     "vector": [
@@ -5149,7 +5149,7 @@
       0.027296
     ]
   },
-  "/ai-data-center-network/chap03/": {
+  "/network/chap03/": {
     "model": "@cf/baai/bge-m3",
     "hash": "69c738d6eabf755c9664a6bc58f0da3a84b03f253089dd98d8e1d3ce0b3918b8",
     "vector": [
@@ -6179,7 +6179,7 @@
       0.000197
     ]
   },
-  "/ai-data-center-network/chap04/": {
+  "/network/chap04/": {
     "model": "@cf/baai/bge-m3",
     "hash": "aabd53747495ba93af1c5d72487cc80178e02ef21d6e4510c275dce5205a606a",
     "vector": [
@@ -7209,7 +7209,7 @@
       0.037315
     ]
   },
-  "/ai-data-center-network/chap05/": {
+  "/network/chap05/": {
     "model": "@cf/baai/bge-m3",
     "hash": "12cc0942ced10774fbc6df43aa823972306dcbb78432fc75e192e0c464576588",
     "vector": [
@@ -8239,7 +8239,7 @@
       -0.010877
     ]
   },
-  "/ai-data-center-network/chap06/": {
+  "/network/chap06/": {
     "model": "@cf/baai/bge-m3",
     "hash": "2a1c2669c2b52f50d9f3753967a0f2151067dda717536b73b959fde3cb623114",
     "vector": [
@@ -9269,7 +9269,7 @@
       0.038263
     ]
   },
-  "/ai-data-center-network/chap07/": {
+  "/network/chap07/": {
     "model": "@cf/baai/bge-m3",
     "hash": "480ce66440f651863edbc0b03c90b4d61febad620c63c6dbd9d433c401632df7",
     "vector": [
@@ -10299,7 +10299,7 @@
       0.032932
     ]
   },
-  "/ai-data-center-network/chap08/": {
+  "/network/chap08/": {
     "model": "@cf/baai/bge-m3",
     "hash": "5397e66514df47651ea48118ba853f921ff901ebf9642fc2348d09e17c85c21f",
     "vector": [
@@ -11329,7 +11329,7 @@
       0.036172
     ]
   },
-  "/ai-data-center-network/chap09/": {
+  "/network/chap09/": {
     "model": "@cf/baai/bge-m3",
     "hash": "4f2e2e7314683653bf7a606a8745de9c972defda2181c626586c0679349e07cc",
     "vector": [
@@ -12359,7 +12359,7 @@
       0.021028
     ]
   },
-  "/ai-data-center-network/chap10/": {
+  "/network/chap10/": {
     "model": "@cf/baai/bge-m3",
     "hash": "2f3ee6a8e02098d67cc39f339fc69c000a90a2ca7198e047efeb2b0cad607f20",
     "vector": [
@@ -13389,7 +13389,7 @@
       0.026717
     ]
   },
-  "/ai-data-center-network/chap11/": {
+  "/network/chap11/": {
     "model": "@cf/baai/bge-m3",
     "hash": "b987e74d751b5e5305a1907c0181cda14080063c42e48c188f4f51fec2648965",
     "vector": [
@@ -14419,7 +14419,7 @@
       0.050736
     ]
   },
-  "/ai-data-center-network/chap12/": {
+  "/network/chap12/": {
     "model": "@cf/baai/bge-m3",
     "hash": "a8298b3607ce8e365d59baea39eaf877cc043a713a0ed1fe2d5910e3e69f56d4",
     "vector": [
@@ -15449,7 +15449,7 @@
       0.033258
     ]
   },
-  "/ai-data-center-network/clos-ebgp-lab/": {
+  "/network/clos-ebgp-lab/": {
     "model": "@cf/baai/bge-m3",
     "hash": "ec84af21a057d48293cd0b19a46ffa87716bd93dec16e052725f2a76819f4687",
     "vector": [
@@ -16479,7 +16479,7 @@
       0.031705
     ]
   },
-  "/ai-data-center-network/glb-nnhn-bgp-underlay/": {
+  "/network/glb-nnhn-bgp-underlay/": {
     "model": "@cf/baai/bge-m3",
     "hash": "796c12e523ae41d696c3fdab5ecd0597eea9451c73e978e1e438bcfe251e0bbe",
     "vector": [
@@ -17509,7 +17509,7 @@
       0.009466
     ]
   },
-  "/ai-data-center-network/gpu-cluster-failure-analysis/": {
+  "/network/gpu-cluster-failure-analysis/": {
     "model": "@cf/baai/bge-m3",
     "hash": "78f3eecf5d9fc087dd4a73336a277b566aa1e493884d83ab8c62b9f6b5e8478e",
     "vector": [
@@ -18539,7 +18539,7 @@
       0.010251
     ]
   },
-  "/ai-data-center-network/ib-packet-analysis/": {
+  "/network/ib-packet-analysis/": {
     "model": "@cf/baai/bge-m3",
     "hash": "a48c6a83e6e12242f6e7c9209554a7ff33d2ac9f748879e794e2352c3b3ffc1a",
     "vector": [
@@ -19569,7 +19569,7 @@
       0.043993
     ]
   },
-  "/ai-data-center-network/ib-packet-analysis/packet-format-reference/": {
+  "/network/ib-packet-analysis/packet-format-reference/": {
     "model": "@cf/baai/bge-m3",
     "hash": "4c8cfca76b6ae18364f5b722a10c8efb9fc8f6b875b0ddf79597c493424999c6",
     "vector": [
@@ -20599,7 +20599,7 @@
       0.026021
     ]
   },
-  "/ai-data-center-network/ib-packet-analysis/packet-format-reference_ko/": {
+  "/network/ib-packet-analysis/packet-format-reference_ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "d727777adad6e878e1befdf0fea1701778c9977443894f46ece36284089e9148",
     "vector": [
@@ -21629,7 +21629,7 @@
       0.020298
     ]
   },
-  "/ai-data-center-network/ib-packet-analysis/readme_ko/": {
+  "/network/ib-packet-analysis/readme_ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "14a3a7780b667bcf23911455703ee8b3989c7a18ef26bb7cec2f7d58f556b376",
     "vector": [
@@ -22659,7 +22659,7 @@
       0.044858
     ]
   },
-  "/ai-data-center-network/rdma-examples/": {
+  "/network/rdma-examples/": {
     "model": "@cf/baai/bge-m3",
     "hash": "5eed1c2041771fe9365425f1451dd63f7826faaa48fa16118c174f8754483f8c",
     "vector": [
@@ -23689,7 +23689,7 @@
       0.004955
     ]
   },
-  "/ai-system-performance-engineering/": {
+  "/systems-performance/": {
     "model": "@cf/baai/bge-m3",
     "hash": "a9e5ae5ced5e11f1de3c8beb62a77bb0212114cf5a25d2b85634e71d5f4154ed",
     "vector": [
@@ -24719,7 +24719,7 @@
       -0.009362
     ]
   },
-  "/ai-system-performance-engineering/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/": {
+  "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "a5bd445699fcc194b2075d7af3da073375b312c1acf3b38ea93bfa1b6d052e9c",
     "vector": [
@@ -25749,7 +25749,7 @@
       -0.031918
     ]
   },
-  "/ai-system-performance-engineering/articles/never-underestimate-memory-architecture.ko/": {
+  "/systems-performance/articles/never-underestimate-memory-architecture.ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "4652b101475b20fa8b80a89cf1d5bf588d83f69e2fb9106431e4723e23a42cb8",
     "vector": [
@@ -26779,7 +26779,7 @@
       -0.007967
     ]
   },
-  "/ai-system-performance-engineering/chap01/": {
+  "/systems-performance/chap01/": {
     "model": "@cf/baai/bge-m3",
     "hash": "ecef409420adfcb59ec8db950546b87987a9f6c690c24c6ec0bff263428052fa",
     "vector": [
@@ -27809,7 +27809,7 @@
       -0.015199
     ]
   },
-  "/ai-system-performance-engineering/chap01/labs/": {
+  "/systems-performance/chap01/labs/": {
     "model": "@cf/baai/bge-m3",
     "hash": "5c9cb921fde9de48689d409a61837d64eeb13f475a4cee96175b5895064cae54",
     "vector": [
@@ -28839,7 +28839,7 @@
       0.030585
     ]
   },
-  "/ai-system-performance-engineering/chap01/labs/_template/": {
+  "/systems-performance/chap01/labs/_template/": {
     "model": "@cf/baai/bge-m3",
     "hash": "05ba656e74aa138550538784c705541d4950fabc118c241272ee310e9d3d2467",
     "vector": [
@@ -29869,7 +29869,7 @@
       -0.013728
     ]
   },
-  "/ai-system-performance-engineering/chap01/labs/goodput-vs-throughput/": {
+  "/systems-performance/chap01/labs/goodput-vs-throughput/": {
     "model": "@cf/baai/bge-m3",
     "hash": "f30edda60bda6f85d5e91a50e4105cc602e92141bf7d5a646e8610d22b70d53b",
     "vector": [
@@ -30899,7 +30899,7 @@
       -0.002762
     ]
   },
-  "/ai-system-performance-engineering/chap02/": {
+  "/systems-performance/chap02/": {
     "model": "@cf/baai/bge-m3",
     "hash": "083601644a883dc1a1d628bde92ff1e35fa7fdcdb3afda317dfbc211f8badce3",
     "vector": [
@@ -31929,7 +31929,7 @@
       0.023301
     ]
   },
-  "/ai-system-performance-engineering/chap02/labs/": {
+  "/systems-performance/chap02/labs/": {
     "model": "@cf/baai/bge-m3",
     "hash": "fa59b57c5d83a3aa71604a703786803355aa221c0d9d08bcad2b0422d9c7e0c4",
     "vector": [
@@ -32959,7 +32959,7 @@
       0.028815
     ]
   },
-  "/ai-system-performance-engineering/chap02/labs/_template/": {
+  "/systems-performance/chap02/labs/_template/": {
     "model": "@cf/baai/bge-m3",
     "hash": "d8c9a006a91b9d768b7e3ed3fe598f8b00886ece4dfb2d030b19914728be25c3",
     "vector": [
@@ -33989,7 +33989,7 @@
       0.021638
     ]
   },
-  "/ai-system-performance-engineering/chap02/labs/memory-bandwidth-pattern/": {
+  "/systems-performance/chap02/labs/memory-bandwidth-pattern/": {
     "model": "@cf/baai/bge-m3",
     "hash": "2978deed1563ac0bc38d3d09fddace519af73cb3cae9c2c0df5513d913e0ecd0",
     "vector": [
@@ -35019,7 +35019,7 @@
       0.021941
     ]
   },
-  "/ai-system-performance-engineering/chap03/": {
+  "/systems-performance/chap03/": {
     "model": "@cf/baai/bge-m3",
     "hash": "bf795d16523b7a540af3ed7aa07d8e47d712d3fc9b56dfb6dd609d02cca18e8e",
     "vector": [
@@ -36049,7 +36049,7 @@
       -0.048836
     ]
   },
-  "/ai-system-performance-engineering/chap04/": {
+  "/systems-performance/chap04/": {
     "model": "@cf/baai/bge-m3",
     "hash": "9a4d3ae79b68aafb3bc0c7ee8588cbd36765432d67b888c25d31aa64d01c5af6",
     "vector": [
@@ -37079,7 +37079,7 @@
       0.003772
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/": {
+  "/systems-performance/labs/ch04/": {
     "model": "@cf/baai/bge-m3",
     "hash": "7b6f49e08460b81b70b725bd1bb445cd81d5696aef6fd8ab2371af2e23e696d9",
     "vector": [
@@ -38109,7 +38109,7 @@
       0.058822
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/communication-overlap/": {
+  "/systems-performance/labs/ch04/communication-overlap/": {
     "model": "@cf/baai/bge-m3",
     "hash": "29f4c5f9f34a03689a0acbea8c50f0d0776d87a4d4a13cf0ed5b5987dc367989",
     "vector": [
@@ -39139,7 +39139,7 @@
       0.014392
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/communicator-lifecycle/": {
+  "/systems-performance/labs/ch04/communicator-lifecycle/": {
     "model": "@cf/baai/bge-m3",
     "hash": "696acf0c3f64f90682408a3a191a32d72cca36a4952f1597e4ad89d547c7365d",
     "vector": [
@@ -40169,7 +40169,7 @@
       -0.016849
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/dataparallel-vs-ddp/": {
+  "/systems-performance/labs/ch04/dataparallel-vs-ddp/": {
     "model": "@cf/baai/bge-m3",
     "hash": "1978d1a0bf923fe972c3759abe489224bd7f3e0d006eccf78cfcee3521c7efb5",
     "vector": [
@@ -41199,7 +41199,7 @@
       0.043237
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/gpu-communication-reference/": {
+  "/systems-performance/labs/ch04/gpu-communication-reference/": {
     "model": "@cf/baai/bge-m3",
     "hash": "1255254b223ec2085cd613e62dcb5bcfa04cd26f2f153c4c5ed5037622b66011",
     "vector": [
@@ -42229,7 +42229,7 @@
       0.017354
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/gradient-bucketing/": {
+  "/systems-performance/labs/ch04/gradient-bucketing/": {
     "model": "@cf/baai/bge-m3",
     "hash": "7766ad72dbdec729244c667e30c7411dabd27b91da39e1a0e557a9a54a3e8228",
     "vector": [
@@ -43259,7 +43259,7 @@
       0.053752
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/nixl-tier-handoff/": {
+  "/systems-performance/labs/ch04/nixl-tier-handoff/": {
     "model": "@cf/baai/bge-m3",
     "hash": "3202785ab23fd49b9c238dc57dbf0a995067e46702c3b323d770c1ea83f9ca42",
     "vector": [
@@ -44289,7 +44289,7 @@
       0.033575
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/pipeline-tensor-parallel/": {
+  "/systems-performance/labs/ch04/pipeline-tensor-parallel/": {
     "model": "@cf/baai/bge-m3",
     "hash": "d3bff7f3f9dba60bfecb4b556c4a8ab5d9aaf5e6ac9a119e64f734cbd46dea06",
     "vector": [
@@ -45319,7 +45319,7 @@
       0.023203
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/symmetric-memory-nvshmem/": {
+  "/systems-performance/labs/ch04/symmetric-memory-nvshmem/": {
     "model": "@cf/baai/bge-m3",
     "hash": "3e7321fd83bc9a7ea5bc1a53b670ae0eed412653bd41ad26a62ce4b9c85a5138",
     "vector": [
@@ -46349,7 +46349,7 @@
       0.028258
     ]
   },
-  "/ai-system-performance-engineering/labs/ch04/topology-aware-bandwidth/": {
+  "/systems-performance/labs/ch04/topology-aware-bandwidth/": {
     "model": "@cf/baai/bge-m3",
     "hash": "da44839b2e4d11dd7d732b2c7692832d1c89f0c97c3f6990a6c55b17e8c23bdd",
     "vector": [
@@ -47379,7 +47379,7 @@
       0.006802
     ]
   },
-  "/cme295/": {
+  "/courses/cme295/": {
     "model": "@cf/baai/bge-m3",
     "hash": "1f4a528aff0989e7d55024184a259d33e769624919bf9bec2340ecbdba2c802a",
     "vector": [
@@ -48409,7 +48409,7 @@
       0.016507
     ]
   },
-  "/cme295/lec-01/": {
+  "/courses/cme295/lec-01/": {
     "model": "@cf/baai/bge-m3",
     "hash": "2a701370b90a5ad339810e5b7b97b07e5cd2ab616afe7c087e78d856197e2e8d",
     "vector": [
@@ -49439,7 +49439,7 @@
       -0.02748
     ]
   },
-  "/cme295/lec-02/": {
+  "/courses/cme295/lec-02/": {
     "model": "@cf/baai/bge-m3",
     "hash": "c95e37f9e9feff1cc7ee1c64aba2c34fae7cf47255fac47e029e35407a16f99f",
     "vector": [
@@ -50469,7 +50469,7 @@
       0.007881
     ]
   },
-  "/cme295/lec-03/": {
+  "/courses/cme295/lec-03/": {
     "model": "@cf/baai/bge-m3",
     "hash": "549c22d7020b041161d13b744d626812b330a5ea5c800aeb77493b3b3672a203",
     "vector": [
@@ -51499,7 +51499,7 @@
       -0.01131
     ]
   },
-  "/cme295/lec-04/": {
+  "/courses/cme295/lec-04/": {
     "model": "@cf/baai/bge-m3",
     "hash": "f4ceaa6f7225d28d1d9200f88abe7c7688427019c218762aa7c10c03c07301ec",
     "vector": [
@@ -52529,7 +52529,7 @@
       0.013668
     ]
   },
-  "/cme295/lec-05/": {
+  "/courses/cme295/lec-05/": {
     "model": "@cf/baai/bge-m3",
     "hash": "ce7fae9d1e08e68d0ed7c1d75272e2c8ad2e2585f1bb74c4552a6fcedb56209e",
     "vector": [
@@ -53559,7 +53559,7 @@
       0.002048
     ]
   },
-  "/cme295/lec-06/": {
+  "/courses/cme295/lec-06/": {
     "model": "@cf/baai/bge-m3",
     "hash": "e23f3aae23db68ce445363fdc0656a851ec789d2406640454a70d8f2d3bb2618",
     "vector": [
@@ -54589,7 +54589,7 @@
       -0.013516
     ]
   },
-  "/deep-learning-for-network-engineers/": {
+  "/courses/deep-learning-for-network-engineers/": {
     "model": "@cf/baai/bge-m3",
     "hash": "1297e12bdea9b55e8317ebfd9d617f8bc1df4bd122df7314420431226e6f7da9",
     "vector": [
@@ -55619,7 +55619,7 @@
       -0.009429
     ]
   },
-  "/deep-learning-for-network-engineers/week01/": {
+  "/courses/deep-learning-for-network-engineers/week01/": {
     "model": "@cf/baai/bge-m3",
     "hash": "c1e46a0ca4b946bddc4a5deb2fd52e65033b4550541ef5188fefa5c8194b84ef",
     "vector": [
@@ -56649,7 +56649,7 @@
       -0.001978
     ]
   },
-  "/deep-learning-for-network-engineers/week02/": {
+  "/courses/deep-learning-for-network-engineers/week02/": {
     "model": "@cf/baai/bge-m3",
     "hash": "0947736d026210817b1611748e11aae4b9fe894847df9df64860c88316c919b2",
     "vector": [
@@ -57679,7 +57679,7 @@
       0.000617
     ]
   },
-  "/deep-learning-for-network-engineers/week03/": {
+  "/courses/deep-learning-for-network-engineers/week03/": {
     "model": "@cf/baai/bge-m3",
     "hash": "7343663e443319c4411f217041cccafdda19e8f8cf080ffa455c8a78c6e03718",
     "vector": [
@@ -58709,7 +58709,7 @@
       0.028252
     ]
   },
-  "/deep-learning-for-network-engineers/week04/": {
+  "/courses/deep-learning-for-network-engineers/week04/": {
     "model": "@cf/baai/bge-m3",
     "hash": "373848f622fdf2f2719e9db681c383df9418a6204f5cc331697e326e0f6275ab",
     "vector": [
@@ -59739,7 +59739,7 @@
       0.019147
     ]
   },
-  "/efficient-llm-inference-systems/": {
+  "/inference/": {
     "model": "@cf/baai/bge-m3",
     "hash": "0647058ac01ad96cde8e459b7b11583c3732e9202807879272192cd2e8340a31",
     "vector": [
@@ -60769,7 +60769,7 @@
       0.023225
     ]
   },
-  "/efficient-llm-inference-systems/appendix/": {
+  "/inference/appendix/": {
     "model": "@cf/baai/bge-m3",
     "hash": "24066ae7f700550bf01bb7635d7752c7777a92bf29815217fd5ba571f8553b73",
     "vector": [
@@ -61799,7 +61799,7 @@
       -0.007528
     ]
   },
-  "/efficient-llm-inference-systems/appendix/hardware-architectures/": {
+  "/inference/appendix/hardware-architectures/": {
     "model": "@cf/baai/bge-m3",
     "hash": "241ba702fc2546e6982e0ba6a471c5792792ff26f549185e6b355931be717146",
     "vector": [
@@ -62829,7 +62829,7 @@
       0.030914
     ]
   },
-  "/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/": {
+  "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "9c973688d56b226ec7b24ec4baab001670217dfee23c5e9c1990fbfc043d4c99",
     "vector": [
@@ -63859,7 +63859,7 @@
       0.000903
     ]
   },
-  "/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/": {
+  "/inference/appendix/hardware-architectures/gpus.ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "594350572a3c89a1124373e1a9199edd2dc8e9b72f23ebddd6cff3b8e206751a",
     "vector": [
@@ -64889,7 +64889,7 @@
       -0.008493
     ]
   },
-  "/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/": {
+  "/inference/appendix/hardware-architectures/npus.ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "090d4a193e87902827e8d6f5c50613f6dc7eb23fa812ebf47a6ca1af02f6f3cf",
     "vector": [
@@ -65919,7 +65919,7 @@
       -0.015546
     ]
   },
-  "/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/": {
+  "/inference/appendix/hardware-architectures/roofline.ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "a2ca6f1078a3abc27d20d62945e0e930e18fa230121e0ee557f2b6203b57585e",
     "vector": [
@@ -66949,7 +66949,7 @@
       0.011552
     ]
   },
-  "/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/": {
+  "/inference/appendix/hardware-architectures/tpus.ko/": {
     "model": "@cf/baai/bge-m3",
     "hash": "864f5919e73d79f4989cd8df82a229acb8d5ba57a67ab48a3cb686bde31b6ba3",
     "vector": [
@@ -67979,7 +67979,7 @@
       -0.011166
     ]
   },
-  "/efficient-llm-inference-systems/appendix/llm-inference/": {
+  "/inference/appendix/llm-inference/": {
     "model": "@cf/baai/bge-m3",
     "hash": "67ca4a90a171ff6dc5536d45b3fc0a8f7859af499ba300d90e8c25c3739d92b2",
     "vector": [
@@ -69009,7 +69009,7 @@
       0.020221
     ]
   },
-  "/efficient-llm-inference-systems/appendix/transformer/": {
+  "/inference/appendix/transformer/": {
     "model": "@cf/baai/bge-m3",
     "hash": "ce760d9d4b817c93777e6856f4ac613870b22bc8b7005fe340a15553cc407372",
     "vector": [
@@ -70039,7 +70039,7 @@
       0.042858
     ]
   },
-  "/efficient-llm-inference-systems/week01/": {
+  "/inference/week01/": {
     "model": "@cf/baai/bge-m3",
     "hash": "7ba98cc6a9594d8f78c49f105c4b3ee73e0bee7435d2f12a78032b9c52464a4e",
     "vector": [
@@ -71069,7 +71069,7 @@
       -0.005757
     ]
   },
-  "/efficient-llm-inference-systems/week02/": {
+  "/inference/week02/": {
     "model": "@cf/baai/bge-m3",
     "hash": "e3ad3a9d74d569a9541d632f5dc0f7616c0ea0591c39ebf7220fa2fd76882c57",
     "vector": [
@@ -72099,7 +72099,7 @@
       0.029519
     ]
   },
-  "/efficient-llm-inference-systems/week03/": {
+  "/inference/week03/": {
     "model": "@cf/baai/bge-m3",
     "hash": "b627ca598555e7846bd7269e7ea9fdedc61856fd45b3199c9f7a314f17d261e4",
     "vector": [
@@ -73129,7 +73129,7 @@
       0.006266
     ]
   },
-  "/efficient-llm-inference-systems/week04/": {
+  "/inference/week04/": {
     "model": "@cf/baai/bge-m3",
     "hash": "cd70c0f979eebae42281c2c98ad053c96146703ecb8b7352b8097426b1c16ab1",
     "vector": [
@@ -74159,7 +74159,7 @@
       0.002084
     ]
   },
-  "/efficient-llm-inference-systems/week04/results/results/": {
+  "/inference/week04/results/results/": {
     "model": "@cf/baai/bge-m3",
     "hash": "54a44195044a9fc5de7bc9cefb0dbd17fd2d7b1fd9ffb040489e7901e3a756ee",
     "vector": [
