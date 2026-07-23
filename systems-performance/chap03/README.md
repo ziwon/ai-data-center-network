@@ -1221,7 +1221,7 @@ flowchart TB
 > Distributed training pod는 “IP가 있다”로 충분하지 않다.
 > NCCL이 의도한 NIC, 의도한 NUMA path, 의도한 RDMA device를 쓰는지 확인해야 한다.
 
-If policy allows it, `hostNetwork: true` can remove pod overlay/NAT overhead for performance-sensitive NCCL/MPI jobs. If host networking is not allowed, validate CNI MTU, kernel-space datapath, firewall rules, service mesh bypass, and NCCL bootstrap ports explicitly.
+정책이 허용한다면, performance-sensitive NCCL/MPI job에서는 `hostNetwork: true`로 pod overlay/NAT overhead를 없앨 수 있다. host networking이 허용되지 않는다면 CNI MTU, kernel-space datapath, firewall rule, service mesh bypass, NCCL bootstrap port를 명시적으로 검증해야 한다.
 
 ## Reducing Kubernetes Orchestration Jitter
 

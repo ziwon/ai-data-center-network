@@ -34,7 +34,7 @@
 
 ## Goal
 
-이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 **성능 병목 구조**로 이해하는 것이다.
+이번 장의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 **성능 병목 구조**로 이해하는 것이다.
 
 핵심 아이디어는 다음과 같다.
 
@@ -112,7 +112,7 @@ flowchart TB
 
 ## Why Hardware Matters for AI Performance
 
-AI workload에서 GPU가 비싼 이유는 단순히 GPU 자체가 비싸서가 아니다. GPU가 놀고 있으면 전체 시스템의 비용 효율이 급격히 떨어진다.
+AI workload에서 GPU가 비싼 이유는 장비 가격 자체만이 아니다. GPU가 놀고 있으면 전체 시스템의 비용 효율이 급격히 떨어지기 때문이다.
 
 AI 시스템 성능 문제는 보통 다음 형태로 나타난다.
 
@@ -327,7 +327,7 @@ Blackwell의 핵심은 compute만 늘린 것이 아니라, **compute를 먹여 �
 
 ## Tensor Cores and Transformer Engine
 
-Tensor Cores는 GPU 내부의 matrix multiplication 전용 가속기다. Transformer Engine은 transformer workload에서 FP8/FP4 같은 reduced precision을 활용해 throughput과 memory efficiency를 높이는 방향이다.
+Tensor Cores는 GPU 내부의 matrix multiplication 전용 가속기다. Transformer Engine은 transformer workload에서 FP8/FP4 같은 reduced precision을 활용해 throughput과 memory efficiency를 높이는 기능이다.
 
 | Precision   | 장점                                          | Trade-off               |
 | ----------- | ------------------------------------------- | ----------------------- |
@@ -710,7 +710,7 @@ flowchart TB
 
 Chapter 2는 NVL72를 단순한 부품 묶음이 아니라 **preintegrated rack appliance**로 설명한다. 즉, 18개 compute tray, 9개 NVSwitch tray, 내부 NVLink cabling, power distribution, liquid cooling, cluster management software가 하나의 검증된 rack 단위로 제공된다.
 
-이 관점은 성능 엔지니어에게 중요하다. NVLink fabric을 운영자가 직접 72 GPU 규모로 배선하고 검증하는 방식이 아니라, rack 내부 topology는 이미 설계된 하나의 accelerator domain으로 취급한다. 따라서 운영자는 rack 내부를 바꾸기보다, 외부 InfiniBand/Ethernet 연결, storage path, scheduler placement, monitoring policy를 정확히 맞추는 쪽에 집중해야 한다.
+이 관점은 성능 엔지니어에게 중요하다. 운영자가 72 GPU 규모의 NVLink fabric을 직접 배선하고 검증하는 것이 아니라, rack 내부 topology를 이미 설계된 하나의 accelerator domain으로 취급하기 때문이다. 따라서 운영자는 rack 내부를 바꾸기보다, 외부 InfiniBand/Ethernet 연결, storage path, scheduler placement, monitoring policy를 정확히 맞추는 쪽에 집중해야 한다.
 
 ![NVL72 rack appliance boundary](assets/nvl72-rack-appliance-boundary.svg)
 
