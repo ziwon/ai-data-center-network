@@ -1200,33 +1200,61 @@ Kubernetes에서 GPU를 할당했는데 느린가?
 
 ## Answers
 
-1. **NVLink-C2C는 CPU와 GPU 사이의 data movement 병목을 줄이기 위한 고속 coherent interconnect다.** 전통적인 PCIe 기반 구조에서는 CPU memory와 GPU HBM 사이 copy 비용이 컸지만, Grace Blackwell에서는 CPU와 GPU가 더 빠르고 coherent하게 memory를 공유할 수 있다.
+### A1. Grace Blackwell Superchip에서 NVLink-C2C가 해결하려는 병목은 무엇인가?
 
-2. **CPU memory는 HBM보다 latency가 높고 bandwidth가 낮다.** 따라서 CPU memory는 HBM의 확장 계층으로 봐야 하며, hot activations, KV cache, frequent access tensor는 HBM에 두는 것이 좋다.
+**NVLink-C2C는 CPU와 GPU 사이의 data movement 병목을 줄이기 위한 고속 coherent interconnect다.** 전통적인 PCIe 기반 구조에서는 CPU memory와 GPU HBM 사이 copy 비용이 컸지만, Grace Blackwell에서는 CPU와 GPU가 더 빠르고 coherent하게 memory를 공유할 수 있다.
 
-3. **Tensor Core와 Transformer Engine은 matrix multiplication 중심 workload에 가장 큰 영향을 준다.** LLM training/inference의 attention, MLP, GEMM 연산에서 FP8/FP4 같은 reduced precision을 활용하면 throughput과 memory efficiency를 높일 수 있다.
+### A2. CPU memory가 GPU에서 접근 가능하다고 해서 HBM처럼 사용하면 안 되는 이유는?
 
-4. **HBM은 빠르지만 GPU core와 비교하면 여전히 멀다.** 모든 operation이 HBM을 왕복하면 memory-bound가 된다. shared memory, L1, L2 cache에서 data reuse를 높여야 SM과 Tensor Core가 stall 없이 동작한다.
+**CPU memory는 HBM보다 latency가 높고 bandwidth가 낮다.** 따라서 CPU memory는 HBM의 확장 계층으로 봐야 하며, hot activations, KV cache, frequent access tensor는 HBM에 두는 것이 좋다.
 
-5. **NVLink는 주로 GPU 간 scale-up fabric이고, InfiniBand/Ethernet은 node/rack 간 scale-out fabric이다.** NVLink/NVSwitch는 intra-node/intra-rack 통신에 매우 유리하고, InfiniBand/RDMA는 rack 밖으로 확장할 때 필요하다.
+### A3. Blackwell GPU에서 Tensor Core와 Transformer Engine은 어떤 workload에 가장 큰 영향을 주는가?
 
-6. **intra-rack NVLink/NVSwitch 통신이 inter-rack InfiniBand/Ethernet보다 bandwidth가 높고 latency가 낮기 때문이다.** tensor parallelism, expert parallelism처럼 통신이 많은 workload는 같은 NVSwitch domain 안에 배치하는 것이 중요하다.
+**Tensor Core와 Transformer Engine은 matrix multiplication 중심 workload에 가장 큰 영향을 준다.** LLM training/inference의 attention, MLP, GEMM 연산에서 FP8/FP4 같은 reduced precision을 활용하면 throughput과 memory efficiency를 높일 수 있다.
 
-7. **SHARP는 reduction 일부를 switch hardware에서 처리한다.** GPU가 모든 aggregation을 직접 처리하지 않아도 되므로 collective latency와 network traffic을 줄일 수 있다.
+### A4. GPU memory hierarchy에서 HBM 접근을 줄이는 것이 왜 중요한가?
 
-8. **BlueField DPU는 RDMA, TCP/IP, NVMe-oF, security/control-plane 작업을 offload한다.** CPU가 network interrupt나 storage movement에 과도하게 관여하지 않게 해 GPU feeding과 preprocessing에 집중할 수 있게 한다.
+**HBM은 빠르지만 GPU core와 비교하면 여전히 멀다.** 모든 operation이 HBM을 왕복하면 memory-bound가 된다. shared memory, L1, L2 cache에서 data reuse를 높여야 SM과 Tensor Core가 stall 없이 동작한다.
 
-9. **GPU utilization, memory utilization, HBM bandwidth, NVLink throughput, power/clock/temperature를 함께 봐야 한다.** GPU utilization 하나만 보면 compute 병목인지 data feeding 병목인지 구분할 수 없다.
+### A5. NVLink와 InfiniBand의 역할은 어떻게 다른가?
 
-10. **topology를 무시하면 GPU는 할당됐지만 통신 path가 나빠질 수 있다.** 예를 들어 tensor parallel group이 여러 rack에 흩어지면 NCCL collective가 InfiniBand를 타면서 latency와 bandwidth 병목이 커진다.
+**NVLink는 주로 GPU 간 scale-up fabric이고, InfiniBand/Ethernet은 node/rack 간 scale-out fabric이다.** NVLink/NVSwitch는 intra-node/intra-rack 통신에 매우 유리하고, InfiniBand/RDMA는 rack 밖으로 확장할 때 필요하다.
 
-11. **NVL72는 rack 내부 NVLink/NVSwitch fabric, power, cooling, management가 사전 통합된 운영 단위이기 때문이다.** 운영자는 내부 배선보다 external fabric, storage, scheduler, telemetry 검증에 집중해야 한다.
+### A6. NVL72에서 가능한 한 communication을 intra-rack에 유지해야 하는 이유는?
 
-12. **MIG는 작은 inference job이나 여러 tenant의 작은 model serving에 유용하다.** 하지만 대형 training, tensor parallel, NCCL-heavy workload는 whole GPU와 topology-aware multi-GPU allocation이 더 적합할 수 있다.
+**intra-rack NVLink/NVSwitch 통신이 inter-rack InfiniBand/Ethernet보다 bandwidth가 높고 latency가 낮기 때문이다.** tensor parallelism, expert parallelism처럼 통신이 많은 workload는 같은 NVSwitch domain 안에 배치하는 것이 중요하다.
 
-13. **throughput per dollar뿐 아니라 power, cooling, rack consolidation, network port, 운영 복잡도, utilization/goodput을 함께 봐야 한다.** 최신 GPU가 비싸도 더 적은 GPU와 rack으로 같은 일을 처리하면 장기 ROI가 좋아질 수 있다.
+### A7. SHARP는 NCCL all-reduce 병목을 어떤 방식으로 줄이는가?
 
-14. **Co-Packaged Optics는 수백~수천 rack 규모의 AI factory에서 inter-rack bandwidth와 optics power 병목을 완화하기 위한 방향이다.** rack 내부 NVLink가 아니라 rack 밖 InfiniBand/Ethernet fabric 확장성과 관련이 깊다.
+**SHARP는 reduction 일부를 switch hardware에서 처리한다.** GPU가 모든 aggregation을 직접 처리하지 않아도 되므로 collective latency와 network traffic을 줄일 수 있다.
+
+### A8. BlueField DPU는 storage/network path에서 어떤 CPU overhead를 줄이는가?
+
+**BlueField DPU는 RDMA, TCP/IP, NVMe-oF, security/control-plane 작업을 offload한다.** CPU가 network interrupt나 storage movement에 과도하게 관여하지 않게 해 GPU feeding과 preprocessing에 집중할 수 있게 한다.
+
+### A9. GPU utilization이 낮을 때 hardware 관점에서 가장 먼저 확인할 metric은 무엇인가?
+
+**GPU utilization, memory utilization, HBM bandwidth, NVLink throughput, power/clock/temperature를 함께 봐야 한다.** GPU utilization 하나만 보면 compute 병목인지 data feeding 병목인지 구분할 수 없다.
+
+### A10. Kubernetes GPU scheduling에서 topology를 무시하면 어떤 문제가 생기는가?
+
+**topology를 무시하면 GPU는 할당됐지만 통신 path가 나빠질 수 있다.** 예를 들어 tensor parallel group이 여러 rack에 흩어지면 NCCL collective가 InfiniBand를 타면서 latency와 bandwidth 병목이 커진다.
+
+### A11. NVL72를 preintegrated rack appliance로 보는 것이 운영상 왜 중요한가?
+
+**NVL72는 rack 내부 NVLink/NVSwitch fabric, power, cooling, management가 사전 통합된 운영 단위이기 때문이다.** 운영자는 내부 배선보다 external fabric, storage, scheduler, telemetry 검증에 집중해야 한다.
+
+### A12. MIG는 어떤 workload에 유용하고, 어떤 workload에서는 조심해야 하는가?
+
+**MIG는 작은 inference job이나 여러 tenant의 작은 model serving에 유용하다.** 하지만 대형 training, tensor parallel, NCCL-heavy workload는 whole GPU와 topology-aware multi-GPU allocation이 더 적합할 수 있다.
+
+### A13. hardware upgrade의 ROI를 계산할 때 GPU 구매 비용 외에 어떤 요소를 봐야 하는가?
+
+**throughput per dollar뿐 아니라 power, cooling, rack consolidation, network port, 운영 복잡도, utilization/goodput을 함께 봐야 한다.** 최신 GPU가 비싸도 더 적은 GPU와 rack으로 같은 일을 처리하면 장기 ROI가 좋아질 수 있다.
+
+### A14. Co-Packaged Optics는 어떤 규모의 병목을 완화하기 위한 기술 방향인가?
+
+**Co-Packaged Optics는 수백~수천 rack 규모의 AI factory에서 inter-rack bandwidth와 optics power 병목을 완화하기 위한 방향이다.** rack 내부 NVLink가 아니라 rack 밖 InfiniBand/Ethernet fabric 확장성과 관련이 깊다.
 
 
 ## References

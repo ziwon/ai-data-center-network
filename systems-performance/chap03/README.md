@@ -1629,75 +1629,75 @@ GPU workload에서는 Topology Manager, CPU Manager, device plugin, resource req
 
 ## Answers
 
-### 1. GPU utilization이 낮을 때 GPU kernel보다 먼저 확인해야 할 host-side 병목은 무엇인가?
+### A1. GPU utilization이 낮을 때 GPU kernel보다 먼저 확인해야 할 host-side 병목은 무엇인가?
 
 CPU dataloader, storage I/O, preprocessing, tokenization, pinned memory, H2D copy, CPU scheduling, NUMA placement를 먼저 확인해야 한다. GPU가 느린 것이 아니라 GPU에 공급되는 batch가 늦을 수 있다.
 
-### 2. NUMA locality가 GPU training throughput에 영향을 주는 이유는 무엇인가?
+### A2. NUMA locality가 GPU training throughput에 영향을 주는 이유는 무엇인가?
 
 CPU process와 memory allocation이 GPU와 다른 NUMA node에 있으면 remote memory access가 발생한다. 이 경우 latency가 증가하고 H2D copy path가 비효율적이 되며 dataloader jitter가 커질 수 있다.
 
-### 3. `pin_memory=True`와 `non_blocking=True`는 어떤 관계가 있는가?
+### A3. `pin_memory=True`와 `non_blocking=True`는 어떤 관계가 있는가?
 
 `pin_memory=True`는 host memory를 page-locked memory로 만들어 GPU로의 async copy를 가능하게 한다. `non_blocking=True`는 tensor를 GPU로 복사할 때 가능한 경우 비동기 복사를 사용한다. 둘을 함께 써야 CPU-GPU copy와 GPU compute를 overlap하기 쉽다.
 
-### 4. Transparent Hugepages는 training과 inference에서 각각 어떤 trade-off를 가지는가?
+### A4. Transparent Hugepages는 training과 inference에서 각각 어떤 trade-off를 가지는가?
 
 Training에서는 큰 memory allocation이 많기 때문에 THP가 TLB miss와 page fault overhead를 줄여 throughput에 도움이 될 수 있다. 반면 latency-sensitive inference에서는 THP background compaction이 p95/p99 latency spike를 만들 수 있으므로 `madvise`나 `never` 설정을 검토해야 한다.
 
-### 5. GPU persistence mode는 실제 compute throughput을 높이는 기능인가?
+### A5. GPU persistence mode는 실제 compute throughput을 높이는 기능인가?
 
 아니다. matrix multiplication이나 kernel execution 자체를 빠르게 하지는 않는다. 대신 GPU idle 후 첫 CUDA call에서 발생하는 driver/context initialization latency를 줄여 startup latency와 consistency를 개선한다.
 
-### 6. MPS와 MIG의 가장 큰 차이는 무엇인가?
+### A6. MPS와 MIG의 가장 큰 차이는 무엇인가?
 
 MPS는 여러 process가 하나의 GPU scheduler context를 공유해 kernel execution overlap을 높이는 기능이다. MIG는 GPU를 hardware-level slice로 나누어 memory, SM, cache 등을 격리하는 기능이다. MPS는 utilization 개선에, MIG는 isolation과 predictable resource allocation에 더 적합하다.
 
-### 7. Kubernetes에서 Guaranteed QoS를 얻으려면 어떤 조건이 필요한가?
+### A7. Kubernetes에서 Guaranteed QoS를 얻으려면 어떤 조건이 필요한가?
 
 Pod의 모든 container에서 CPU와 memory의 request와 limit이 같아야 한다. GPU limit만 지정한다고 Guaranteed QoS가 되는 것은 아니다.
 
-### 8. GPU pod에서 CPU request/limit을 명확히 잡지 않으면 어떤 문제가 생길 수 있는가?
+### A8. GPU pod에서 CPU request/limit을 명확히 잡지 않으면 어떤 문제가 생길 수 있는가?
 
 dataloader나 inference server thread가 다른 pod와 CPU를 공유하게 되고, context switching, CPU throttling, cache pollution, scheduling jitter가 발생할 수 있다. GPU는 준비된 batch나 request를 기다리게 되어 utilization과 goodput이 떨어진다.
 
-### 9. container overlay filesystem이 AI workload에서 문제가 되는 경우는 언제인가?
+### A9. container overlay filesystem이 AI workload에서 문제가 되는 경우는 언제인가?
 
 대규모 dataset, model checkpoint, 많은 small files, random I/O를 container writable layer에서 처리할 때 문제가 된다. training dataset과 model cache는 overlay layer가 아니라 hostPath, PVC, local NVMe, parallel filesystem 같은 외부 volume에 두는 것이 좋다.
 
-### 10. Kubernetes Topology Manager의 `single-numa-node` 정책은 어떤 상황에서 유용한가?
+### A10. Kubernetes Topology Manager의 `single-numa-node` 정책은 어떤 상황에서 유용한가?
 
 GPU, NIC, CPU core, memory가 같은 NUMA node에 있어야 성능이 잘 나오는 workload에서 유용하다. 특히 RDMA/NCCL 기반 distributed training, GPU-local preprocessing, high-throughput dataloader workload에서 중요하다.
 
-### 11. distributed training에서 GPU와 NIC topology가 중요한 이유는 무엇인가?
+### A11. distributed training에서 GPU와 NIC topology가 중요한 이유는 무엇인가?
 
 NCCL communication은 GPU와 NIC 사이의 data path를 많이 사용한다. GPU와 NIC가 다른 NUMA domain에 있거나 PCIe path가 멀면 latency와 bandwidth 손실이 발생한다. 이는 all-reduce, all-gather 같은 collective operation의 병목으로 이어진다.
 
-### 12. OOM killer가 long-running training job에 위험한 이유는 무엇인가?
+### A12. OOM killer가 long-running training job에 위험한 이유는 무엇인가?
 
 OOM killer는 memory pressure 상황에서 heuristic으로 process를 죽인다. 큰 training rank가 죽으면 distributed job 전체가 hang되거나 실패할 수 있다. 며칠 동안 진행된 training이 checkpoint 전에 죽으면 비용 손실도 크다.
 
-### 13. MIG slice를 사용할 때 GPU utilization이 오히려 낮아질 수 있는 이유는 무엇인가?
+### A13. MIG slice를 사용할 때 GPU utilization이 오히려 낮아질 수 있는 이유는 무엇인가?
 
 MIG는 hardware partitioning이므로 한 slice가 idle이어도 다른 slice가 그 resource를 빌려 쓸 수 없다. workload 크기와 MIG profile이 맞지 않으면 일부 slice가 비어 있거나 memory/compute balance가 맞지 않아 전체 GPU utilization이 낮아질 수 있다.
 
-### 14. Kubernetes time-slicing과 MPS는 GPU sharing 방식에서 어떻게 다른가?
+### A14. Kubernetes time-slicing과 MPS는 GPU sharing 방식에서 어떻게 다른가?
 
 Kubernetes time-slicing은 여러 pod가 같은 GPU를 시간 단위로 나눠 쓰는 방식이다. 실제 kernel execution overlap은 제한적이다. MPS는 여러 process의 GPU work를 하나의 scheduler context로 합쳐 idle gap을 줄이고 더 많은 overlap을 가능하게 한다.
 
-### 15. Chapter 3의 관점에서 goodput을 높인다는 것은 무엇을 의미하는가?
+### A15. Chapter 3의 관점에서 goodput을 높인다는 것은 무엇을 의미하는가?
 
 GPU가 실제 training/inference 계산을 수행하는 시간을 늘리고, CPU feeding delay, memory copy delay, OS jitter, container startup delay, Kubernetes scheduling/resource contention, OOM/restart 같은 비생산적 시간을 줄이는 것이다. 즉, GPU utilization 숫자만 높이는 것이 아니라 end-to-end useful throughput을 높이는 것이다.
 
-### 16. `jemalloc`이나 `tcmalloc` tuning은 GPU workload에서 어떤 문제를 줄이기 위한 것인가?
+### A16. `jemalloc`이나 `tcmalloc` tuning은 GPU workload에서 어떤 문제를 줄이기 위한 것인가?
 
 CPU-side allocation lock contention, fragmentation, page return, allocator pause를 줄이기 위한 것이다. GPU kernel 자체를 빠르게 만드는 것이 아니라 DataLoader, preprocessing, request batching 같은 CPU feeding path의 jitter를 줄여 GPU가 batch를 기다리는 시간을 줄인다.
 
-### 17. GPU clock locking과 ECC 설정은 각각 언제 중요하게 봐야 하는가?
+### A17. GPU clock locking과 ECC 설정은 각각 언제 중요하게 봐야 하는가?
 
 GPU clock locking은 benchmark reproducibility와 run-to-run variance 분석에서 중요하다. 일반 training/inference에서는 GPU Boost 기본 동작을 두는 경우가 많다. ECC는 long-running training과 production inference의 data integrity를 위해 켜 두는 것이 원칙이며, 끄는 것은 작은 capacity/performance 이득보다 silent corruption risk가 더 큰 경우가 많다.
 
-### 18. CUDA Python, cuPyNumeric, cuTile, Triton 같은 Python-facing CUDA layer를 알아야 하는 이유는 무엇인가?
+### A18. CUDA Python, cuPyNumeric, cuTile, Triton 같은 Python-facing CUDA layer를 알아야 하는 이유는 무엇인가?
 
 현대 AI workload는 Python 코드로 작성되지만 실제 실행은 CUDA runtime, compiler backend, optimized library, custom kernel로 내려간다. Python-facing CUDA layer를 이해하면 framework가 어떤 kernel path를 선택하는지, 언제 Triton/autotuning/custom kernel이 필요한지, Python-level API가 GPU memory access pattern에 어떤 영향을 주는지 더 정확히 판단할 수 있다.
 

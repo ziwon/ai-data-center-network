@@ -1407,21 +1407,14 @@ Chapter 4의 핵심은 distributed AI workload에서 communication을 최대한 
 
 ## Questions
 
-### Q1. Distributed training에서 GPU utilization이 낮을 때 네트워크 병목인지 어떻게 확인할 수 있는가?
-
-### Q2. DDP가 DataParallel보다 성능상 유리한 이유는 무엇인가?
-
-### Q3. Communication/computation overlap이 잘 되는지 어떤 profiler로 확인할 수 있는가?
-
-### Q4. NCCL이 RDMA 대신 TCP fallback을 타는지 어떻게 확인할 수 있는가?
-
-### Q5. `NCCL_P2P_DISABLE=1`이 production에 남아 있으면 왜 위험한가?
-
-### Q6. SHARP는 어떤 병목을 줄이는가?
-
-### Q7. Training에서는 NCCL이 중요하고 disaggregated inference에서는 NIXL이 중요한 이유는 무엇인가?
-
-### Q8. Kubernetes 기반 GPU cluster에서 RDMA 통신이 안 될 때 가장 먼저 볼 것은 무엇인가?
+1. Distributed training에서 GPU utilization이 낮을 때 네트워크 병목인지 어떻게 확인할 수 있는가?
+2. DDP가 DataParallel보다 성능상 유리한 이유는 무엇인가?
+3. Communication/computation overlap이 잘 되는지 어떤 profiler로 확인할 수 있는가?
+4. NCCL이 RDMA 대신 TCP fallback을 타는지 어떻게 확인할 수 있는가?
+5. `NCCL_P2P_DISABLE=1`이 production에 남아 있으면 왜 위험한가?
+6. SHARP는 어떤 병목을 줄이는가?
+7. Training에서는 NCCL이 중요하고 disaggregated inference에서는 NIXL이 중요한 이유는 무엇인가?
+8. Kubernetes 기반 GPU cluster에서 RDMA 통신이 안 될 때 가장 먼저 볼 것은 무엇인가?
 
 ## Answers
 

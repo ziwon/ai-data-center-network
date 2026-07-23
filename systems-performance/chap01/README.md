@@ -667,24 +667,16 @@ Important takeaways:
 
 ## Questions
 
-### Concept Check
-
 1. What is the difference between throughput and goodput?
 2. Why can GPU utilization be misleading?
 3. What does an AI Systems Performance Engineer optimize?
 4. What is mechanical sympathy?
 5. Why does Chapter 1 emphasize reproducible benchmarking?
-
-### Bottleneck Diagnosis
-
 6. GPU utilization is 95%, but training throughput is low. What are three possible causes?
 7. Multi-GPU training scales poorly from 8 GPUs to 64 GPUs. Which metrics would you check?
 8. Inference p99 latency is high while average latency is acceptable. What should you inspect?
 9. A training job pauses every few hundred steps. Which layer might be responsible?
 10. A model serving system has high TTFT but acceptable TPOT. Which phase is likely bottlenecked?
-
-### Practical Application
-
 11. In a DGX B200/H100 cluster, why is topology-aware scheduling important?
 12. Which tools would you use to distinguish GPU compute bottleneck from network bottleneck?
 13. How would you prove that a dataloader optimization improved goodput?
@@ -694,32 +686,62 @@ Important takeaways:
 
 ## Answers
 
-1. **Throughput** is total processed work per time. **Goodput** is useful completed work per time, excluding waits, restarts, stalls, and overhead.
+### A1. What is the difference between throughput and goodput?
 
-2. GPU utilization only says the GPU is active. It does not prove that the GPU is doing useful model progress. A GPU can be busy with inefficient kernels, memory movement, or synchronization overhead.
+**Throughput** is total processed work per time. **Goodput** is useful completed work per time, excluding waits, restarts, stalls, and overhead.
 
-3. The role optimizes end-to-end AI workload performance across hardware, software, algorithms, runtime, network, storage, and scheduler layers.
+### A2. Why can GPU utilization be misleading?
 
-4. Mechanical sympathy means understanding the hardware’s actual behavior and designing software/algorithms that exploit its strengths and avoid its weaknesses.
+GPU utilization only says the GPU is active. It does not prove that the GPU is doing useful model progress. A GPU can be busy with inefficient kernels, memory movement, or synchronization overhead.
 
-5. Because performance claims are meaningless unless they can be repeated, compared, and validated with the same workload, environment, and metrics.
+### A3. What does an AI Systems Performance Engineer optimize?
 
-6. Possible causes: NCCL wait, memory-bound kernels, small batch size, dataloader stalls, storage jitter, CPU NUMA issues, synchronization bubbles.
+The role optimizes end-to-end AI workload performance across hardware, software, algorithms, runtime, network, storage, and scheduler layers.
 
-7. Check NCCL bandwidth, all-reduce time, step time breakdown, GPU/NIC topology, RDMA counters, NVLink/NVSwitch usage, and straggler behavior.
+### A4. What is mechanical sympathy?
 
-8. Inspect queue time, request length distribution, batch size, KV cache usage, prefill/decode split, TTFT, TPOT, and scheduler policy.
+Mechanical sympathy means understanding the hardware’s actual behavior and designing software/algorithms that exploit its strengths and avoid its weaknesses.
 
-9. Checkpoint I/O, storage bandwidth, filesystem latency, or distributed synchronization may be responsible.
+### A5. Why does Chapter 1 emphasize reproducible benchmarking?
 
-10. High TTFT usually points to the prefill phase, prompt processing, scheduling queue, or long input context bottleneck.
+Because performance claims are meaningless unless they can be repeated, compared, and validated with the same workload, environment, and metrics.
 
-11. Because bad placement can put GPUs, NICs, and CPU threads across inefficient topology paths, increasing NCCL latency and reducing goodput.
+### A6. GPU utilization is 95%, but training throughput is low. What are three possible causes?
 
-12. Use Nsight Systems for timeline and NCCL overlap, Nsight Compute for kernel-level compute/memory analysis, and NCCL tests for network baseline.
+Possible causes: NCCL wait, memory-bound kernels, small batch size, dataloader stalls, storage jitter, CPU NUMA issues, synchronization bubbles.
 
-13. Measure before/after samples/sec or tokens/sec, dataloader wait time, GPU idle time, CPU utilization, and repeat the benchmark under the same conditions.
+### A7. Multi-GPU training scales poorly from 8 GPUs to 64 GPUs. Which metrics would you check?
 
-14. When profiling shows the bottleneck is memory movement, communication, attention complexity, batching policy, or KV cache behavior rather than raw compute capacity.
+Check NCCL bandwidth, all-reduce time, step time breakdown, GPU/NIC topology, RDMA counters, NVLink/NVSwitch usage, and straggler behavior.
 
-15. Workload definition, fixed input shape/data, hardware/software versions, baseline metric, acceptable threshold, profiler artifact, and automated comparison.
+### A8. Inference p99 latency is high while average latency is acceptable. What should you inspect?
+
+Inspect queue time, request length distribution, batch size, KV cache usage, prefill/decode split, TTFT, TPOT, and scheduler policy.
+
+### A9. A training job pauses every few hundred steps. Which layer might be responsible?
+
+Checkpoint I/O, storage bandwidth, filesystem latency, or distributed synchronization may be responsible.
+
+### A10. A model serving system has high TTFT but acceptable TPOT. Which phase is likely bottlenecked?
+
+High TTFT usually points to the prefill phase, prompt processing, scheduling queue, or long input context bottleneck.
+
+### A11. In a DGX B200/H100 cluster, why is topology-aware scheduling important?
+
+Because bad placement can put GPUs, NICs, and CPU threads across inefficient topology paths, increasing NCCL latency and reducing goodput.
+
+### A12. Which tools would you use to distinguish GPU compute bottleneck from network bottleneck?
+
+Use Nsight Systems for timeline and NCCL overlap, Nsight Compute for kernel-level compute/memory analysis, and NCCL tests for network baseline.
+
+### A13. How would you prove that a dataloader optimization improved goodput?
+
+Measure before/after samples/sec or tokens/sec, dataloader wait time, GPU idle time, CPU utilization, and repeat the benchmark under the same conditions.
+
+### A14. When should you consider algorithm-level optimization instead of buying more GPUs?
+
+When profiling shows the bottleneck is memory movement, communication, attention complexity, batching policy, or KV cache behavior rather than raw compute capacity.
+
+### A15. What should be included in a performance regression test?
+
+Workload definition, fixed input shape/data, hardware/software versions, baseline metric, acceptable threshold, profiler artifact, and automated comparison.
