@@ -15,17 +15,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # PyTorch CUDA allocator tuning.
-# Workload-specific. Override at runtime when benchmarking.
-ENV PYTORCH_ALLOC_CONF=max_split_size_mb:256,backend:cudaMallocAsync
+# This is workload-specific. Override at runtime when benchmarking.
+ENV PYTORCH_ALLOC_CONF=max_split_size_mb:512,backend:cudaMallocAsync
 
 # Stable GPU ordering.
 ENV CUDA_DEVICE_ORDER=PCI_BUS_ID
 
 # CUDA extension / CUTLASS / custom kernel build targets.
 # These do not usually affect normal PyTorch execution unless native CUDA extensions are built.
-ARG TORCH_CUDA_ARCH_LIST="8.0;8.6;8.9;9.0;10.0;10.3;12.0;12.1+PTX"
-ARG CMAKE_CUDA_ARCHITECTURES="80;86;89;90;100;103;120;121"
-ARG CUTLASS_NVCC_ARCHS="80;86;89;90;100;103;120;121"
+ARG TORCH_CUDA_ARCH_LIST="10.0;10.3;12.0;12.1+PTX"
+ARG CMAKE_CUDA_ARCHITECTURES="100;103;120;121"
+ARG CUTLASS_NVCC_ARCHS="100;103;120;121"
 
 ENV TORCH_CUDA_ARCH_LIST=${TORCH_CUDA_ARCH_LIST}
 ENV CMAKE_CUDA_ARCHITECTURES=${CMAKE_CUDA_ARCHITECTURES}
@@ -59,13 +59,23 @@ RUN python -m pip install --upgrade pip && \
       psutil==6.1.0 \
       GPUtil==1.4.0
 
-# Better Docker layer cache behavior.
-COPY requirements.txt /tmp/requirements.txt
-RUN python -m pip install --no-cache-dir -r /tmp/requirements.txt
+# Optional dependency hook.
+# This lets child images or local builds provide requirements.txt,
+# but does not fail when the base image is used standalone.
+COPY requirements*.txt /tmp/requirements/
+RUN if compgen -G "/tmp/requirements/requirements*.txt" > /dev/null; then \
+      for req in /tmp/requirements/requirements*.txt; do \
+        echo "[build] installing Python requirements from ${req}"; \
+        python -m pip install --no-cache-dir -r "${req}"; \
+      done; \
+    else \
+      echo "[build] no requirements.txt found; skipping project dependency install"; \
+    fi
 
+# Copy application code if this Dockerfile is used directly.
+# If this image is intended only as a base image, child images can override this.
 COPY . /app
 
-# Runtime launcher that selects CPU allocator dynamically.
 RUN cat > /usr/local/bin/gpu-entrypoint.sh <<'EOF' && \
     chmod +x /usr/local/bin/gpu-entrypoint.sh
 #!/usr/bin/env bash
