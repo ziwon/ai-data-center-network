@@ -22,4 +22,4 @@
 - [Systems Performance](./systems-performance/README.md) — GPU/CUDA/PyTorch performance engineering
 - [Courses](./courses/cme295/README.md) · [Talks](./talks/)
 
-The web wiki adds an AI Q&A panel over these docs and a bilingual (KO/EN) [knowledge graph](https://adcs.restack.tech/) ([3D view](https://adcs.restack.tech/knowledge-graph-3d/)).
+The web wiki adds an AI Q&A panel over these docs and a bilingual (KO/EN) [knowledge graph](https://adcs.restack.tech/) ([3D view](https://adcs.restack.tech/knowledge-graph-3d/)) and plays focus background music 🎧.
