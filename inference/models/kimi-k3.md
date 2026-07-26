@@ -59,7 +59,7 @@ K3에서 가장 눈에 띄는 숫자는 2.8T이지만, 실제 추론 성능과 �
 즉 K3는 단순히 K2의 파라미터를 2.8배 늘린 모델이 아니다. 토큰 축, 레이어 축, 전문가 축, 클러스터 축을 각각 다른 방식으로 희소화하거나 압축한 모델에 가깝다.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif", "fontSize": "12px"}}}%%
 flowchart LR
     I[초장기 멀티모달 입력] --> S[시퀀스 축<br/>KDA + Gated MLA]
     I --> D[깊이 축<br/>Attention Residuals]
@@ -71,10 +71,10 @@ flowchart LR
     E --> O
     C --> O
 
-    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px,font-family:Inter;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px,font-family:Inter;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px,font-family:Inter;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px,font-family:Inter;
     class I,O primary
     class S,D secondary
     class C note
@@ -84,6 +84,8 @@ flowchart LR
 ## 발표 영상: Kimi K2.5에서 K3로 이어지는 스케일링 경로
 
 아래 발표는 K3 자체의 기술 보고서는 아니지만, Kimi 공동창업자 겸 CEO Zhilin Yang이 K2.5를 확장하며 적용한 Muon optimizer, Day 0 인프라 공동 설계, Kimi Linear, 장시간 에이전트 시스템을 직접 설명한다. K3의 KDA와 Attention Residuals가 등장한 기술적 배경을 이해하는 데 유용하다. ([NVIDIA GTC][11])
+
+발표의 전체 내용은 [Kimi K2.5 스케일링 강의 노트](kimi-k2-5-scaling.md)에서 토큰 효율, 장문 컨텍스트, 에이전트 스웜의 세 축으로 자세히 정리했다.
 
 <iframe
   src="https://www.youtube-nocookie.com/embed/CwePo4847ho"

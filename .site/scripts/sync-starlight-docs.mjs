@@ -572,7 +572,7 @@ function rewriteMarkdown(markdown, sourceRelative) {
     })
     .replace(/(\]\()([^)\s]+?)(README\.md)(#[^)]+)?(\))/g, (_, open, prefix, _readme, hash = '', close) => {
       if (isExternalLink(prefix)) return `${open}${prefix}README.md${hash}${close}`;
-      return `${open}${prefix}${hash}${close}`;
+      return `${open}${routeFromSourceMarkdownHref(`${prefix}README.md`, sourceRelative)}${hash}${close}`;
     })
     .replace(/(\]\()([^)\s]+?\.md)(#[^)]+)?(\))/g, (_, open, href, hash = '', close) => {
       if (isExternalLink(href)) return `${open}${href}${hash}${close}`;
@@ -582,7 +582,7 @@ function rewriteMarkdown(markdown, sourceRelative) {
           sourceRelative,
         )}${hash}${close}`;
       }
-      return `${open}${href.replace(/\.md$/, '/').toLowerCase()}${hash}${close}`;
+      return `${open}${routeFromSourceMarkdownHref(href, sourceRelative)}${hash}${close}`;
     })
     .replace(/(<img\b[^>]*\bsrc=["'])([^"']+)(["'][^>]*>)/g, (_, open, src, close) => {
       if (shouldLeaveHref(src)) return `${open}${src}${close}`;
@@ -609,6 +609,10 @@ function publicHref(href, sourceRelative) {
 function resolveSourceHref(href, sourceRelative) {
   const sourceDir = sourceRelative === 'README.md' ? '' : path.posix.dirname(sourceRelative);
   return path.posix.normalize(path.posix.join(sourceDir, href));
+}
+
+function routeFromSourceMarkdownHref(href, sourceRelative) {
+  return routeFromOutput(markdownOutputPath(resolveSourceHref(href, sourceRelative)));
 }
 
 function titleCase(value) {
