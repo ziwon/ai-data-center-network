@@ -7,6 +7,13 @@ import sharp from 'sharp';
 export const prerender = true;
 
 const siteTitle = 'AI Data Center Systems';
+const ogFonts = [
+  'https://api.fontsource.org/v1/fonts/noto-sans/latin-400-normal.ttf',
+  'https://api.fontsource.org/v1/fonts/noto-sans/latin-700-normal.ttf',
+  'https://api.fontsource.org/v1/fonts/noto-sans-kr/korean-400-normal.ttf',
+  'https://api.fontsource.org/v1/fonts/noto-sans-kr/korean-700-normal.ttf',
+];
+const ogFontFamilies = ['Noto Sans', 'Noto Sans KR Thin'];
 let ogBackgroundPathPromise;
 
 export async function getStaticPaths() {
@@ -42,16 +49,19 @@ export async function GET({ props }) {
       fit: 'cover',
       position: 'center',
     },
+    fonts: ogFonts,
     padding: 72,
     font: {
       title: {
         color: [248, 244, 237],
+        families: ogFontFamilies,
         size: 68,
         weight: 'Bold',
         lineHeight: 0.98,
       },
       description: {
         color: [216, 209, 199],
+        families: ogFontFamilies,
         size: 30,
         lineHeight: 1.25,
       },

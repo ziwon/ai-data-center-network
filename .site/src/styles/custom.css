@@ -135,6 +135,39 @@ a {
   background: transparent;
 }
 
+/* Admonition icons are UI glyphs too. Keep their inherited semantic color,
+   but do not render them as framed document figures. */
+.sl-markdown-content .starlight-aside__icon {
+  flex: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* Mermaid's portable source uses light connectors for a dark canvas, while
+   the Pages figure surface is cream. Give optional and feedback paths enough
+   contrast without changing the diagram source used by GitHub. */
+.sl-markdown-content pre.mermaid[data-processed] svg
+  :is(.edge-pattern-dashed, .edge-pattern-dotted) {
+  stroke: #6f6a63 !important;
+  stroke-width: 2px !important;
+  opacity: 1;
+}
+
+.sl-markdown-content pre.mermaid[data-processed] svg .edge-pattern-dashed {
+  stroke-dasharray: 7 5 !important;
+}
+
+.sl-markdown-content pre.mermaid[data-processed] svg .edge-pattern-dotted {
+  stroke-dasharray: 2 4 !important;
+  stroke-linecap: round;
+}
+
+.sl-markdown-content pre.mermaid[data-processed] svg marker path {
+  fill: #6f6a63 !important;
+  stroke: #6f6a63 !important;
+}
+
 .sl-markdown-content blockquote {
   border-inline-start-color: var(--fabric-node-cyan);
   background: color-mix(in srgb, var(--fabric-node-cyan), transparent 92%);

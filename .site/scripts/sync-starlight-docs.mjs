@@ -12,6 +12,7 @@ const docsOut = path.join(projectRoot, 'src', 'content', 'docs');
 const publicOut = path.join(projectRoot, 'public');
 const conceptsPath = path.join(projectRoot, 'kb', 'concepts.json');
 const siteUrl = 'https://adcs.restack.tech';
+const ogImageRevision = '2';
 const repositoryEditBase = 'https://github.com/ziwon/ai-data-center-systems/edit/main/';
 
 const docRoots = [
@@ -325,7 +326,7 @@ async function sourceLastUpdated(relative, absolute) {
 }
 
 function pageHeadEntries(route, isSiteHome) {
-  const image = `${siteUrl}/og/${ogImageSlugFromRoute(route)}.png`;
+  const image = `${siteUrl}/og/${ogImageSlugFromRoute(route)}.png?v=${ogImageRevision}`;
   return [
     { tag: 'meta', attrs: { property: 'og:type', content: isSiteHome ? 'website' : 'article' } },
     { tag: 'meta', attrs: { property: 'og:image', content: image } },
