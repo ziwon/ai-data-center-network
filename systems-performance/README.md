@@ -15,7 +15,7 @@
 ### Articles
 
 - [Making Deep Learning Go Brrrr From First Principles](https://horace.io/brrr_intro.html)
-- [Hardware Architectures for LLM Inference](../inference/appendix/hardware-architectures/README.md)
+- [Hardware Architectures for LLM Inference](../inference/efficient-llm-inference-systems/appendix/hardware-architectures/README.md)
 - [Never Underestimate Memory Architecture](./articles/never-underestimate-memory-architecture.ko.md): NUMA, cloud VM topology, Kubernetes CPU Manager, uncore bottlenecks
 - [Keeping GPU Workloads NUMA-Local in Kubernetes](./articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko.md): GPU-local CPU placement, kubelet topology policies, NUMA-aware scheduling
 

@@ -126,25 +126,9 @@ o_t=S_t^\top q_t
 
 이를 직관적으로 표현하면 다음과 같다.
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
-flowchart LR
-    P[과거 토큰] --> KV[전체 K/V 저장]
-    KV --> G[시퀀스에 따라<br/>KV cache 증가]
+![Softmax Attention의 KV cache와 KDA의 고정 크기 상태 비교](assets/kimi-k3-kv-cache-vs-kda.svg)
 
-    P --> U[선택적 감쇠·수정]
-    U --> F[고정 크기<br/>state S_t]
-    F --> N[다음 토큰]
-
-    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    class P,N primary
-    class KV,U secondary
-    class F note
-    class G accent
-```
+*그림: Softmax Attention의 선형 KV cache 증가와 KDA의 고정 크기 recurrent state 비교. [Kimi Linear 기술 보고서][4]를 바탕으로 재구성.*
 
 ## 그렇다면 왜 MLA가 여전히 필요한가
 

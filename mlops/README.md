@@ -664,7 +664,7 @@ Git
 이 저장소의 다른 트랙은 이 참조 아키텍처의 data plane을 더 깊게 다룬다.
 
 - [Training](../training/README.md): 분산 학습, MLPerf workload, checkpoint와 scaling 병목
-- [Inference](../inference/README.md): KV cache, batching, quantization, model serving 성능
+- [Efficient LLM Inference Systems](../inference/efficient-llm-inference-systems/README.md): KV cache, batching, quantization, model serving 성능
 - [Storage](../storage/README.md): dataset과 checkpoint의 storage data path
 - [Network](../network/README.md): RDMA, InfiniBand, RoCE, Clos fabric
 - [Systems Performance](../systems-performance/README.md): GPU, OS, container, CUDA, PyTorch 튜닝

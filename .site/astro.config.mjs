@@ -23,7 +23,10 @@ const legacyRoutePrefixes = [
 ];
 const legacyRedirects = buildLegacyRedirects([
   { from: '/ai-data-center-network', to: '/network' },
-  { from: '/efficient-llm-inference-systems', to: '/inference' },
+  {
+    from: '/efficient-llm-inference-systems',
+    to: '/inference/efficient-llm-inference-systems',
+  },
   { from: '/ai-system-performance-engineering', to: '/systems-performance' },
   { from: '/cme295', to: '/courses/cme295' },
   {
