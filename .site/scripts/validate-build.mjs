@@ -1,5 +1,9 @@
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
+import {
+  legacyMappings,
+  legacyRoutePrefixes as legacyPrefixes,
+} from './route-mappings.mjs';
 
 const distRoot = path.join(process.cwd(), 'dist');
 const errors = [];
@@ -11,7 +15,10 @@ const canonicalRoutes = [
   '/gpu/',
   '/training/',
   '/inference/',
-  '/inference/week01/',
+  '/inference/models/',
+  '/inference/models/kimi-k3/',
+  '/inference/efficient-llm-inference-systems/',
+  '/inference/efficient-llm-inference-systems/week01/',
   '/mlops/',
   '/storage/',
   '/systems-performance/',
@@ -23,17 +30,6 @@ const canonicalRoutes = [
   '/courses/deep-learning-for-network-engineers/week04/',
 ];
 
-const legacyMappings = [
-  { from: '/ai-data-center-network', to: '/network' },
-  { from: '/efficient-llm-inference-systems', to: '/inference' },
-  { from: '/ai-system-performance-engineering', to: '/systems-performance' },
-  { from: '/cme295', to: '/courses/cme295' },
-  {
-    from: '/deep-learning-for-network-engineers',
-    to: '/courses/deep-learning-for-network-engineers',
-  },
-];
-const legacyPrefixes = legacyMappings.map(({ from }) => from);
 let legacyRedirectCount = 0;
 
 for (const route of canonicalRoutes) {

@@ -10,30 +10,12 @@ import rehypeKatex from 'rehype-katex';
 import starlightGitHubAlerts from 'starlight-github-alerts';
 import starlightImageZoom from 'starlight-image-zoom';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
+import { legacyMappings, legacyRoutePrefixes } from './scripts/route-mappings.mjs';
 
 const googleAnalyticsId = getGoogleTagId('PUBLIC_GA_MEASUREMENT_ID', /^G-[A-Z0-9]+$/);
 const googleAdSenseClient =
   getGoogleTagId('PUBLIC_GOOGLE_ADSENSE_CLIENT', /^ca-pub-\d+$/) ?? 'ca-pub-8128231647578658';
-const legacyRoutePrefixes = [
-  '/ai-data-center-network',
-  '/efficient-llm-inference-systems',
-  '/ai-system-performance-engineering',
-  '/cme295',
-  '/deep-learning-for-network-engineers',
-];
-const legacyRedirects = buildLegacyRedirects([
-  { from: '/ai-data-center-network', to: '/network' },
-  {
-    from: '/efficient-llm-inference-systems',
-    to: '/inference/efficient-llm-inference-systems',
-  },
-  { from: '/ai-system-performance-engineering', to: '/systems-performance' },
-  { from: '/cme295', to: '/courses/cme295' },
-  {
-    from: '/deep-learning-for-network-engineers',
-    to: '/courses/deep-learning-for-network-engineers',
-  },
-]);
+const legacyRedirects = buildLegacyRedirects(legacyMappings);
 
 function buildLegacyRedirects(mappings) {
   return Object.fromEntries(
