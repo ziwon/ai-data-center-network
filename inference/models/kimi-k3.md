@@ -81,6 +81,22 @@ flowchart LR
     class E accent
 ```
 
+## 발표 영상: Kimi K2.5에서 K3로 이어지는 스케일링 경로
+
+아래 발표는 K3 자체의 기술 보고서는 아니지만, Kimi 공동창업자 겸 CEO Zhilin Yang이 K2.5를 확장하며 적용한 Muon optimizer, Day 0 인프라 공동 설계, Kimi Linear, 장시간 에이전트 시스템을 직접 설명한다. K3의 KDA와 Attention Residuals가 등장한 기술적 배경을 이해하는 데 유용하다. ([NVIDIA GTC][11])
+
+<iframe
+  src="https://www.youtube-nocookie.com/embed/CwePo4847ho"
+  title="How We Scaled Kimi K2.5 | Zhilin Yang's full GTC 2026 Keynote"
+  style="width: 100%; aspect-ratio: 16 / 9; border: 0;"
+  loading="lazy"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen>
+</iframe>
+
+*영상: [How We Scaled Kimi K2.5 | Zhilin Yang's full GTC 2026 Keynote][10] — Kimi AI 공식 YouTube 채널.*
+
 ---
 
 # 2. Kimi Delta Attention: KV Cache를 계속 늘리지 않는 어텐션
@@ -691,6 +707,7 @@ Kimi K3의 의미는 “세계 최초의 2.8T 오픈 모델”이라는 숫자�
 * FlashKDA 구현 ([GitHub][7])
 * Mooncake 분리형 추론 아키텍처 ([GitHub][9])
 * 첨부 아키텍처 초안 출처 ([GitHub][2])
+* Zhilin Yang의 GTC 2026 발표 영상 ([YouTube][10], [NVIDIA GTC][11])
 
 [1]: https://www.kimi.com/blog/kimi-k3 "Kimi K3 Tech Blog: Open Frontier Intelligence"
 [2]: https://github.com/CalvinXKY/InfraTech/blob/main/models/kimi_k_3/README.md "InfraTech/models/kimi_k_3/README.md at main · CalvinXKY/InfraTech · GitHub"
@@ -701,3 +718,5 @@ Kimi K3의 의미는 “세계 최초의 2.8T 오픈 모델”이라는 숫자�
 [7]: https://github.com/MoonshotAI/FlashKDA?utm_source=chatgpt.com "FlashKDA: high-performance Kimi Delta Attention kernels"
 [8]: https://platform.kimi.ai/docs/guide/kimi-k3-quickstart "Kimi K3 - Kimi API Platform"
 [9]: https://github.com/kvcache-ai/Mooncake "GitHub - kvcache-ai/Mooncake: Mooncake is the serving platform for Kimi, a leading LLM service provided by Moonshot AI. · GitHub"
+[10]: https://www.youtube.com/watch?v=CwePo4847ho "How We Scaled Kimi K2.5 | Zhilin Yang's full GTC 2026 Keynote"
+[11]: https://www.nvidia.com/en-us/on-demand/session/gtc26-s81695/ "How We Scaled Kimi K2.5 | GTC San Jose 2026"
