@@ -102,21 +102,21 @@ flowchart LR
 
 KDA는 과거의 모든 K/V를 그대로 유지하기보다, 각 attention head가 행렬 형태의 recurrent state를 관리한다. 단순화한 상태 업데이트는 다음과 같다.
 
-[
+$$
 S_t =
 \left(I-\beta_t k_tk_t^\top\right)
 \operatorname{Diag}(\alpha_t)S_{t-1}
-+\beta_t k_tv_t^\top
-]
++\beta_t k_t v_t^\top
+$$
 
-[
+$$
 o_t=S_t^\top q_t
-]
+$$
 
 여기서 중요한 요소는 두 가지다.
 
-* (\operatorname{Diag}(\alpha_t)): 기존 기억을 feature dimension별로 서로 다른 속도로 감쇠시킨다.
-* (\beta_t): 기존 key-value 대응 관계를 수정하고 새로운 관계를 기록하는 정도를 결정한다.
+* $\operatorname{Diag}(\alpha_t)$: 기존 기억을 feature dimension별로 서로 다른 속도로 감쇠시킨다.
+* $\beta_t$: 기존 key-value 대응 관계를 수정하고 새로운 관계를 기록하는 정도를 결정한다.
 
 일반 Gated DeltaNet이 head 단위의 하나의 forget gate를 사용한다면, KDA는 채널별 gate를 사용한다. 어떤 정보는 오래 유지하고 어떤 정보는 빠르게 잊도록 더 세밀하게 조절할 수 있는 셈이다. KDA 레이어의 recurrent state 크기는 시퀀스 길이에 관계없이 고정된다. ([arXiv][4])
 
@@ -147,17 +147,17 @@ o_t=S_t^\top q_t
 
 Transformer의 일반 residual connection은 이전 레이어 출력을 계속 더한다.
 
-[
+$$
 h_l=h_{l-1}+f_l(h_{l-1})
-]
+$$
 
 레이어가 깊어질수록 초기 레이어의 정보와 최근 레이어의 정보가 모두 균일하게 누적된다. 이는 학습을 안정화하는 데 도움이 되지만, 매우 깊은 모델에서는 각 레이어의 기여가 희석되고 hidden state 크기가 계속 증가할 수 있다.
 
 AttnRes는 모든 이전 표현을 단순히 더하지 않고, 현재 레이어가 필요한 과거 표현에 attention을 수행한다.
 
-[
+$$
 h_l=\sum_{i=0}^{l-1}\alpha_{i\rightarrow l}v_i
-]
+$$
 
 즉 attention이 토큰 방향뿐 아니라 **모델 깊이 방향**에도 적용된다.
 
@@ -351,9 +351,9 @@ Kimi API의 context caching은 자동으로 동작한다. 앞선 요청의 promp
 
 | 토큰 종류            |      공식 출시 가격 |
 | ---------------- | ------------: |
-| Cache-hit input  |  $0.30 / MTok |
-| Cache-miss input |  $3.00 / MTok |
-| Output           | $15.00 / MTok |
+| Cache-hit input  |  \$0.30 / MTok |
+| Cache-miss input |  \$3.00 / MTok |
+| Output           | \$15.00 / MTok |
 
 cache-hit input이 cache-miss보다 10배 저렴하다. Moonshot AI는 자사 coding workload에서 90% 이상의 cache hit rate를 달성했다고 주장한다. 이는 공식 서비스 환경의 수치이므로 일반적인 자체 배포에서도 그대로 달성된다고 보기는 어렵다. ([Kimi][1])
 
