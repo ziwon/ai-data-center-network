@@ -168,6 +168,12 @@ export default defineConfig({
               items: [{ autogenerate: { directory: 'inference', collapsed: true } }],
             },
             {
+              label: 'MLOps',
+              link: '/mlops/',
+              icon: 'setting',
+              items: [{ autogenerate: { directory: 'mlops', collapsed: true } }],
+            },
+            {
               label: 'Systems Performance',
               link: '/systems-performance/',
               icon: 'setting',
@@ -184,7 +190,7 @@ export default defineConfig({
       ],
       title: 'AI Data Center Systems',
       description:
-        'AI data center networking, LLM inference, training, storage, and systems performance engineering study notes.',
+        'AI data center networking, LLM inference, training, MLOps, storage, and systems performance engineering study notes.',
       favicon: '/favicon.svg',
       components: {
         PageFrame: './src/components/PageFrame.astro',

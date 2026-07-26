@@ -1,6 +1,6 @@
 # AI Data Center Systems
 
-> AI data center networking, LLM inference/training, storage, and systems performance engineering — study notes.
+> AI data center networking, LLM inference/training, MLOps, storage, and systems performance engineering — study notes.
 
 <p align="center">
   <a href="https://adcs.restack.tech/">
@@ -19,6 +19,7 @@
 - [Storage](./storage/README.md) — AI workload storage, checkpoint/data pipeline
 - [Training](./training/README.md) — distributed training, LLM/MoE/LoRA workloads
 - [Inference](./inference/README.md) — KV cache, batching, GPU profiling
+- [MLOps](./mlops/README.md) — lifecycle, lineage, CI/CD/CT, deployment, monitoring
 - [Systems Performance](./systems-performance/README.md) — GPU/CUDA/PyTorch performance engineering
 - [Courses](./courses/cme295/README.md) · [Talks](./talks/)
 

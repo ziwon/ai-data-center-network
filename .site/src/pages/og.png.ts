@@ -5,7 +5,7 @@ export const prerender = true;
 export async function GET() {
   const image = await generateOpenGraphImage({
     title: 'AI Data Center Systems',
-    description: 'Networking, inference, training, storage, and performance engineering study notes.',
+    description: 'Networking, inference, training, MLOps, storage, and performance engineering study notes.',
     bgGradient: [
       [2, 8, 23],
       [3, 21, 45],

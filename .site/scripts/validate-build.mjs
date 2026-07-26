@@ -12,6 +12,7 @@ const canonicalRoutes = [
   '/training/',
   '/inference/',
   '/inference/week01/',
+  '/mlops/',
   '/storage/',
   '/systems-performance/',
   '/systems-performance/chap01/',

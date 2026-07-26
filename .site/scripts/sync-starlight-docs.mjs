@@ -19,6 +19,7 @@ const docRoots = [
   'gpu',
   'training',
   'inference',
+  'mlops',
   'storage',
   'systems-performance',
   'courses',
@@ -58,6 +59,7 @@ const publishedAssetRoots = [
   'gpu',
   'training',
   'inference',
+  'mlops',
   'storage',
   'systems-performance',
   'courses',
@@ -101,6 +103,10 @@ const defaultDescriptionsBySource = new Map([
   [
     'training/README.md',
     'Distributed training notes covering MLPerf Training workloads, LLM training, mixture-of-experts, LoRA, scaling behavior, and system bottlenecks.',
+  ],
+  [
+    'mlops/README.md',
+    'Production MLOps guide covering lifecycle control, reproducibility, lineage, CI/CD/CT, feature stores, progressive delivery, monitoring, and LLMOps.',
   ],
   [
     'storage/README.md',
@@ -260,7 +266,7 @@ async function publishMarkdown(absolute, relative) {
   const title = extractTitle(source, relative);
   const body = isSiteHome ? siteHomeBody() : rewriteMarkdown(stripLeadingTitle(source), relative);
   const description = isSiteHome
-    ? 'A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering.'
+    ? 'A study wiki for AI data center networking, LLM inference, distributed training, MLOps, storage, and systems performance engineering.'
     : descriptionFrom(source, title, relative);
   const outRelative = markdownOutputPath(relative);
   const route = routeFromOutput(outRelative);
@@ -342,7 +348,7 @@ function siteHomeBody() {
     <p class="adcs-home-kicker">Study wiki</p>
     <h2>AI infrastructure notes for the places where models meet machines.</h2>
     <p>
-      Networking, inference, training, storage, and performance engineering notes organized as
+      Networking, inference, training, MLOps, storage, and performance engineering notes organized as
       connected study tracks.
     </p>
     <div class="adcs-home-actions">
@@ -375,6 +381,10 @@ function siteHomeBody() {
   <a class="adcs-track-card" href="/inference/">
     <span>Inference</span>
     <small>KV cache, batching, quantization, GPU profiling, and serving trade-offs.</small>
+  </a>
+  <a class="adcs-track-card" href="/mlops/">
+    <span>MLOps</span>
+    <small>Lifecycle control, lineage, CI/CD/CT, progressive delivery, and model monitoring.</small>
   </a>
   <a class="adcs-track-card" href="/systems-performance/">
     <span>Systems Performance</span>
@@ -610,7 +620,7 @@ async function writeLlmsFiles() {
   const llmsLines = [
     '# AI Data Center Systems',
     '',
-    'AI data center networking, LLM inference, training, storage, and systems performance engineering study notes.',
+    'AI data center networking, LLM inference, training, MLOps, storage, and systems performance engineering study notes.',
     '',
     '## Docs',
     '',
