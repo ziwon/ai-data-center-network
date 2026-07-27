@@ -9,11 +9,43 @@
 
 공개 전에는 Kimi K2의 수치를 대입한 비공식 아키텍처 초안이 유통되었다. 이 초안은 KDA, Gated MLA, Block AttnRes, LatentMoE와 vision pathway의 연결 구조를 한 장에 보여준다는 점에서 여전히 유용하다. 다만 `hidden_size=7168`만 실제 K3와 일치했고, expert hidden dimension `2048`, attention heads `64`, vision hidden size `1152`, `SiLU` 표기는 각각 공식 값 `3072`, `96`, `1024`, `SiTU-GLU`와 달랐다.
 
-아래 그림은 기존 초안의 전체 배치와 세부 구조를 유지하면서 공식 기술 보고서와 공개 `config.json`의 값으로 다시 그린 수정본이다.
+### 빠르게 보는 전체 구조
 
-[![Kimi K3 전체 아키텍처 수정본](assets/kimi-k3-architecture.svg)](assets/kimi-k3-architecture.svg)
+아래 개요도는 K3의 전체 흐름을 입력 modality, token mixing, depth mixing, channel mixing 순서로 단순화한 것이다. 23개의 hybrid pattern은 각각 KDA 세 레이어와 Gated MLA 한 레이어로 구성되고, 모든 attention layer 뒤에는 channel mixing을 담당하는 feed-forward network가 이어진다. 첫 번째 레이어만 dense FFN을 사용하며 나머지는 Stable LatentMoE를 사용한다.
 
-*그림: [CalvinXKY/InfraTech의 공개 전 초안][2]의 구조를 유지하고, [Kimi K3 공식 기술 보고서 PDF][12]와 공개 `config.json`을 기준으로 수치, 모듈명, 계산 흐름을 정정한 hand-editable SVG. 클릭하면 원본 크기로 볼 수 있다.*
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+flowchart TB
+    T[Text tokens] --> E[Shared embedding<br/>hidden 7168]
+    V[Images / video] --> MV[MoonViT-V2<br/>401M · 27 layers]
+    MV --> E
+
+    E --> HB[Layers 1–92 · 23× hybrid pattern<br/>3 KDA → 1 Gated MLA<br/>L1 dense FFN · L2–92 Stable LatentMoE]
+    D[Block AttnRes depth sources<br/>embedding + preceding layer blocks] -.-> HB
+
+    HB --> F[Final layer 93<br/>Gated MLA → Stable LatentMoE]
+    D -.-> F
+    F --> O[RMSNorm → LM head<br/>vocab 163,840]
+
+    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
+    class T,V,E,O primary
+    class MV,F secondary
+    class D note
+    class HB accent
+```
+
+*그림: Kimi K3 전체 구조 개요. [Kimi K3 공식 기술 보고서 PDF][12]와 공개 `config.json`을 기준으로 재구성.*
+
+### 공식 구조를 반영한 연산 경로 상세도
+
+위 개요를 token mixing(KDA·Gated MLA), depth mixing(Block AttnRes), channel mixing(Stable LatentMoE), modality mixing(MoonViT-V2)의 네 축으로 펼치면 다음 상세도가 된다. [CalvinXKY/InfraTech의 공개 전 초안][2]이 제공하던 연산 단위의 정보량을 유지하면서, 공식 보고서와 공개 checkpoint에서 확인되는 구조만 다시 그렸다. Block AttnRes의 pseudo-query와 depth softmax, KDA의 Q/K/V·α/β 생성 및 recurrent state, Stable LatentMoE의 routed/shared expert 경로와 SiTU-GLU, Gated MLA의 Q/KV LoRA와 latent KV cache, MoonViT-V2의 residual block과 projector 흐름을 포함한다.
+
+[![Kimi K3 공식 구조 기반 상세 아키텍처](assets/kimi-k3-architecture-detailed.svg)](assets/kimi-k3-architecture-detailed.svg)
+
+*그림: Kimi K3 연산 경로 상세도. 공개 전 초안의 RoPE·PE-cache MLA 경로는 K3의 `mla_use_nope=true`와 맞지 않아 제외했고, MTP는 기술 보고서와 공개 checkpoint 설정의 차이를 주석으로 표시했다. 출처: [Technical Report][12], [Kimi K3 Config][14].*
 
 ---
 
@@ -394,7 +426,7 @@ MLOps 관점에서 중요한 점은 **체크포인트가 MXFP4라고 해서 어�
 * runtime의 expert parallel 구현
 * collective communication과 compute overlap
 
-Moonshot AI는 FlashKDA라는 전용 CUDA kernel을 공개했다. 현재 구현은 Hopper 계열과 Blackwell 계열 architecture target을 지원하며, `flash-linear-attention`의 KDA backend로 자동 dispatch될 수 있다. 공식 모델 카드는 K3 inference engine으로 vLLM, SGLang, TokenSpeed를 권장한다. 다만 엔진별 kernel backend, 지원 가속기, KDA state memory policy와 멀티모달 범위가 다르므로 단순한 공통 실행 명령보다 각 엔진의 K3 recipe를 기준으로 검증해야 한다. ([GitHub][7], [Hugging Face][13])
+Moonshot AI는 FlashKDA라는 전용 CUDA kernel을 공개했다. 현재 구현은 Hopper 계열과 Blackwell 계열 architecture target을 지원하며, `flash-linear-attention`의 KDA backend로 자동 dispatch될 수 있다. 공식 모델 카드는 K3 inference engine으로 vLLM, SGLang, TokenSpeed를 권장한다. 다만 **권장 engine 목록에 포함되는 것과 특정 hardware recipe가 production workload에서 검증됐다는 것은 다르다.** 엔진별 kernel backend, 지원 가속기, KDA state memory policy와 멀티모달 범위가 다르므로 단순한 공통 실행 명령보다 각 엔진의 K3 recipe와 검증 상태를 함께 확인해야 한다. ([GitHub][7], [Hugging Face][13])
 
 ---
 
@@ -532,17 +564,17 @@ K3는 long-horizon task를 적극적으로 끝까지 수행하도록 학습돼, 
 
 공식 웨이트와 vLLM·SGLang·TokenSpeed 지원이 공개됐지만, K3 자체 서빙을 단일 Kubernetes Deployment 수준으로 접근하기는 어렵다. 가중치만 1.56TB이고 KDA recurrent state와 MLA KV cache가 서로 다른 memory scaling 특성을 가지며, 896-expert routing을 위한 고대역폭 All-to-All이 필요하기 때문이다.
 
-Moonshot AI의 권장 조건을 반영한 논리 구조는 다음과 같다.
+아래 그림은 하나의 공식 검증 topology가 아니라, 기술 보고서의 cache-aware scheduling·KDA Context Parallelism(KCP)과 공개 runtime의 PP·DCP·prefill-decode 분리를 한눈에 연결한 **논리적 참조 구조**다.
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
-flowchart LR
+flowchart TB
     C[Clients] --> G[API Gateway]
     G --> R[Cache-aware affinity<br/>Budget admission]
 
-    R --> P[Prefill pool<br/>TP / PP / KCP]
+    R --> P[Prefill pool<br/>runtime: TP / PP<br/>report: KCP]
     P --> K[Unified cache pool<br/>KDA state + MLA KV]
-    K --> D[Decode pool<br/>TP / EP / DCP]
+    K --> D[Decode pool<br/>TP / EP<br/>MLA KV: DCP]
 
     D --> S[Streaming Gateway]
     S --> C
@@ -557,11 +589,15 @@ flowchart LR
     class K accent
 ```
 
-이 구성은 Moonshot AI의 Mooncake 계열과 유사한 prefill-decode disaggregation 형태다. Mooncake는 prefill과 decode cluster를 분리하고, CPU DRAM과 SSD까지 활용해 분산 KV cache를 구성한다. 현재 Mooncake는 vLLM과 SGLang 생태계에 통합되어 있으며, K2도 128개의 H200에서 대규모 expert parallelism과 PD 분리를 이용해 배포된 사례가 있다. ([GitHub][9])
+기술 보고서는 KCP, KDA-aware prefix cache, cache-aware affinity와 budget-based admission control을 Moonshot의 production design으로 설명한다. 반면 PP·DCP·HiCache의 구체적인 flag와 조합은 SGLang·vLLM 같은 공개 runtime의 구현 선택이다. 둘을 같은 수준의 공식 K3 배포 사양으로 해석하면 안 된다. ([Technical Report][12], [SGLang][16], [vLLM Recipe][19])
+
+전체 형태는 Moonshot AI의 Mooncake 계열과 유사한 prefill-decode disaggregation 구조다. Mooncake는 prefill과 decode cluster를 분리하고, CPU DRAM과 SSD까지 활용해 분산 KV cache를 구성한다. 현재 Mooncake는 vLLM과 SGLang 생태계에 통합되어 있으며, K2도 128개의 H200에서 대규모 expert parallelism과 PD 분리를 이용해 배포된 사례가 있다. 이는 K3의 특정 공개 recipe를 검증한 사례가 아니라, 분리형 서빙의 선행 운영 사례다. ([GitHub][9])
 
 ## 64+ accelerator는 권장 구성이지 절대 최소값은 아니다
 
-Moonshot AI는 inference efficiency를 위해 64개 이상의 accelerator를 하나의 고대역폭 communication domain으로 묶은 supernode를 권장한다. 반면 SGLang cookbook에는 HBM 용량과 backend에 따라 B300·MI350X/MI355X 8개, B200·H200 16개, H100 32개부터 시작하는 구성도 제시돼 있다. 따라서 64+는 production throughput과 communication efficiency를 위한 vendor 권장값이며, 기술적으로 부팅 가능한 절대 최소값과는 구분해야 한다. 공개 recipe도 final weight와 목표 workload에서 throughput·정확도·메모리 사용량을 다시 측정해야 한다. ([Kimi][1], [SGLang][16])
+Moonshot AI는 inference efficiency를 위해 64개 이상의 accelerator를 하나의 고대역폭 communication domain으로 묶은 supernode를 권장한다. 반면 SGLang cookbook에는 HBM 용량과 backend에 따라 B300·MI350X/MI355X 8개, B200·H200 16개, H100 32개부터 시작하는 구성도 제시돼 있다. 따라서 64+는 production throughput과 communication efficiency를 위한 vendor 권장값이며, 기술적으로 부팅 가능한 절대 최소값과는 구분해야 한다. ([Kimi][1], [SGLang][16])
+
+다만 공개 recipe의 숫자를 곧바로 검증된 production baseline으로 사용해서는 안 된다. 현재 SGLang cookbook은 모든 configuration cell을 `Not Verified`로 표시하고 final weight·current code 조합의 전체 serving round가 없다고 명시한다. vLLM recipe에도 pre-release estimate와 nightly build 관련 문구가 남아 있다. 이 구성들은 **실행 가능한 출발점**으로 보고, 목표 hardware와 workload에서 throughput, 정확도, memory headroom, prefix-cache 동작을 다시 측정해야 한다. ([SGLang][16], [vLLM Recipe][19])
 
 ## KDA-aware prefix cache
 
@@ -576,9 +612,19 @@ K3 기술 보고서는 KDA state와 MLA KV cache를 함께 관리하는 cache pr
 
 즉 이전에 예상했던 “KDA state와 MLA KV를 함께 이동·저장하는 새로운 protocol”은 실제 serving design으로 확인됐다. 다만 보고서는 Moonshot 내부 production architecture를 설명하므로, 오픈소스 runtime에서 지원되는 세부 기능과 option은 엔진별 recipe를 확인해야 한다. ([Technical Report][12], [SGLang][16])
 
+## 공개 보고서에 추가된 inference kernel 경로
+
+기술 보고서는 FlashKDA prefill 외에도 decode와 MoE의 구현 경로를 공개했다.
+
+* KDA decode의 speculative verification은 draft 위치마다 큰 recurrent state를 복사하지 않고, 작은 projected input만 보존한 뒤 accepted token의 state를 on-chip에서 재생성한다.
+* Block AttnRes prefill은 sequence parallelism으로 block representation의 중복 materialization을 줄이고, decode는 inter-block pass를 side stream에서 겹치며 intra-block merge와 RMSNorm을 collective에 fuse한다.
+* Stable LatentMoE는 latent down projection과 router를 fuse하고, routed expert의 small-batch decode에는 WarpDecode 계열의 token-centric kernel을 사용한다.
+
+이 최적화들은 K3의 production serving design을 설명하지만, 공개 engine에서 동일한 kernel path가 선택되는지는 backend, 가속기와 runtime version별로 확인해야 한다. ([Technical Report][12])
+
 ## 병렬화 구성
 
-K3 배포에서는 다음 병렬화 축을 workload와 hardware topology에 맞게 조합한다.
+K3 배포에서는 다음 병렬화 축을 workload와 hardware topology에 맞게 조합한다. 특히 KCP와 DCP는 이름은 비슷하지만 대상과 공개 범위가 다르다.
 
 ### Expert Parallelism
 
@@ -591,6 +637,14 @@ attention projection, shared layer 및 개별 expert의 큰 matrix multiplicatio
 ### Pipeline Parallelism
 
 전체 레이어를 여러 stage로 나눈다. 다만 pipeline bubble과 긴 에이전트 요청의 비균질한 출력 길이를 고려해야 한다.
+
+### KDA Context Parallelism
+
+기술 보고서의 KCP는 긴 prefill sequence를 여러 rank로 나누고, 각 rank가 계산한 fixed-size KDA transition과 recurrent state fragment를 all-gather한 뒤 prefix scan으로 합성한다. 시퀀스 길이에 비례하는 KV block 대신 고정 크기 state를 교환한다는 것이 핵심이다. 현재 SGLang cookbook의 long-context prefill 기본 recipe는 KCP가 아니라 PP를 사용하므로, 보고서 알고리즘과 공개 runtime flag를 동일시하면 안 된다. ([Technical Report][12], [SGLang][16])
+
+### Decode Context Parallelism
+
+SGLang의 DCP는 TP rank에 복제된 **MLA KV cache**를 나눠 context capacity를 늘리는 runtime 병렬화 축이다. KDA state는 DP·EP·DCP로 분할되지 않으므로 KDA state pool이 동시 request 수의 상한이 된다. KDA state의 가속기당 부담을 바꾸는 주요 수단은 attention TP width, state dtype과 cache strategy다. 따라서 DCP를 KDA state sharding으로 해석하면 안 된다. ([SGLang][16])
 
 ### Data Parallelism
 
@@ -801,6 +855,7 @@ Kimi K3의 의미는 “세계 최초의 2.8T 오픈 모델”이라는 숫자�
 * Hugging Face 모델 카드와 공개 설정 ([Hugging Face][13], [Kimi K3 Config][14])
 * Kimi K3 License ([Kimi K3 License][15])
 * SGLang Kimi K3 serving cookbook ([SGLang][16])
+* vLLM Kimi K3 serving recipe ([vLLM Recipe][19])
 * Kimi K3 API 가이드 ([Kimi API Platform][8])
 * Kimi Linear 기술 보고서 ([arXiv][4])
 * Attention Residuals 기술 보고서와 구현 ([GitHub][5])
@@ -826,3 +881,4 @@ Kimi K3의 의미는 “세계 최초의 2.8T 오픈 모델”이라는 숫자�
 [16]: https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3 "SGLang Kimi K3 Cookbook"
 [17]: https://huggingface.co/moonshotai/Kimi-K3/blob/main/kimi_k3_processor.py "Kimi K3 Hugging Face processor"
 [18]: https://huggingface.co/moonshotai/Kimi-K3/tree/main "Kimi K3 Hugging Face files"
+[19]: https://recipes.vllm.ai/moonshotai/Kimi-K3 "Kimi K3 vLLM Recipe"
