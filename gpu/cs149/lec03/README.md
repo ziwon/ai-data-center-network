@@ -437,7 +437,9 @@ instruction으로 실행하는 것이다.
 
 ## ISPC Gang and Program Instances
 
-Gang은 lockstep에 가깝게 함께 실행되는 program instance 집합이다.
+Gang은 하나의 ISPC function을 함께 실행하는 logical program instance 집합이다.
+각 instance는 varying condition에 따라 서로 다른 control-flow path를 선택할 수 있다.
+Compiler는 이러한 semantics를 SIMD lane mask와 convergence로 구현한다.
 
 | ISPC concept | Meaning |
 | ------------ | ------- |
@@ -599,10 +601,11 @@ Parallel loop를 검토할 때는 다음을 확인한다.
 Array 전체의 합처럼 여러 iteration의 값을 하나로 모으는 operation은 단순한
 independent map과 다르다.
 
-Gang 전체에 하나뿐인 uniform accumulator에 각 lane의 varying value를 직접 더하면
-어느 값을 사용할지 정의되지 않는다. 반대로 instance별 varying accumulator만
-만들면 partial sum은 여러 개이므로 C++ caller가 기대하는 scalar return value 하나로
-바로 반환할 수 없다.
+Gang 전체에 하나뿐인 uniform accumulator에는 각 lane의 varying value를 직접 더할
+수 없다. 여러 lane value를 uniform value 하나로 암묵적으로 변환할 방법이 없으므로
+ISPC compiler가 compile-time type error로 거부한다. 반대로 instance별 varying
+accumulator만 만들면 partial sum은 여러 개이므로, C++ caller가 기대하는 uniform
+scalar return value 하나로 바로 반환할 수 없다.
 
 올바른 reduction은 두 단계로 구성된다.
 
@@ -623,10 +626,10 @@ ISPC는 instance 사이의 communication을 위해 여러 primitive를 제공한
 
 | Operation | Meaning |
 | --------- | ------- |
-| `reduce_add(x)` | 모든 instance의 `x` 합을 uniform value로 반환 |
-| `reduce_min(x)` | 모든 instance의 최솟값을 uniform value로 반환 |
+| `reduce_add(x)` | 현재 active instance들의 `x` 합을 uniform value로 반환 |
+| `reduce_min(x)` | 현재 active instance들의 최솟값을 uniform value로 반환 |
 | `broadcast(x, k)` | Instance `k`의 값을 모든 instance에 전달 |
-| `rotate(x, offset)` | Instance value를 gang 안에서 일정 offset만큼 이동 |
+| `rotate(x, offset)` | Instance value를 gang 안에서 circular하게 이동 |
 
 이 operation은 SIMD horizontal reduction, shuffle, permute 같은 instruction sequence로
 구현될 수 있다. Programmer는 cross-instance semantics를 사용하고 compiler는 target
@@ -671,10 +674,9 @@ ISPC는 별도의 task abstraction을 제공해 multi-core execution을 표현�
 ```text
 C++ caller
   -> launch multiple ISPC tasks
-      -> task 0 runs a gang on core 0
-      -> task 1 runs a gang on core 1
-      -> task 2 runs a gang on core 2
-      -> ...
+      -> task scheduler / worker pool
+          -> an available worker executes one gang
+          -> other workers execute additional gangs
 ```
 
 Task와 gang은 서로 다른 parallelism level이다.
@@ -683,6 +685,10 @@ Task와 gang은 서로 다른 parallelism level이다.
 | ----- | ------- | ---------------- |
 | Task parallelism | 여러 work chunk를 독립 실행 | CPU cores / software worker threads |
 | Gang parallelism | 한 chunk 안의 data-parallel work | SIMD lanes within one core |
+
+Task는 asynchronous하게 enqueue되며 즉시 실행되거나 다른 processor에서 실행될 수
+있다. Task index와 physical core 사이의 고정된 일대일 mapping이나 task 실행 순서는
+보장되지 않는다. 실제 placement와 load balancing은 연결된 task system이 결정한다.
 
 Assignment 1 같은 workload에서 full CPU utilization을 얻으려면 큰 input을 task로
 나누어 여러 core에 공급하고, 각 task 안에서는 ISPC gang이 SIMD를 사용하도록 만드는
@@ -717,6 +723,10 @@ mapping하는가?”를 분리해 질문해야 한다.
 ## GPU Systems Lens
 
 Lecture 3의 개념은 GPU와 AI workload를 해석하는 데 직접 적용된다.
+
+이 절의 GPU/LLM interpretation과 이어지는 Practical Tips는 강의 개념을 이
+repository의 systems 관점에 적용한 추가 노트다. 강의 영상이나 슬라이드의 직접
+주장으로 간주하지 않는다.
 
 | Lecture 3 concept | GPU/AI systems interpretation |
 | ----------------- | ----------------------------- |

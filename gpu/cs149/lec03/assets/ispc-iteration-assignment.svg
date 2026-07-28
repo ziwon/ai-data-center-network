@@ -19,13 +19,13 @@
 
   <text class="label" x="55" y="55">Interleaved assignment</text>
   <text class="small" x="55" y="80">At one SIMD step, lanes touch adjacent addresses.</text>
-  <text class="small" x="55" y="124">lane</text>
+  <text class="small" x="55" y="124">step</text>
 
   <g transform="translate(125 100)">
     <rect class="frame" x="0" y="0" width="880" height="120"/>
     <line class="dash" x1="0" y1="60" x2="880" y2="60"/>
-    <text class="text" x="-58" y="36">0–7</text>
-    <text class="text" x="-58" y="96">0–7</text>
+    <text class="text" x="-25" y="36">0</text>
+    <text class="text" x="-25" y="96">1</text>
 
     <g>
       <rect class="active" x="20" y="16" width="88" height="28"/>
@@ -71,12 +71,12 @@
 
   <text class="label" x="55" y="315">Blocked assignment</text>
   <text class="small" x="55" y="340">At one SIMD step, lanes touch distant addresses.</text>
-  <text class="small" x="55" y="384">lane</text>
+  <text class="small" x="55" y="384">step</text>
 
   <g transform="translate(125 360)">
     <rect class="frame" x="0" y="0" width="880" height="100"/>
-    <text class="text" x="-45" y="34">0</text>
-    <text class="text" x="-45" y="78">1</text>
+    <text class="text" x="-25" y="34">0</text>
+    <text class="text" x="-25" y="78">1</text>
 
     <rect class="active" x="20" y="16" width="88" height="28"/>
     <rect class="active" x="128" y="16" width="88" height="28"/>
