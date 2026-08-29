@@ -72,6 +72,8 @@ for (const { from, to } of legacyMappings) {
   }
 }
 
+await validateTalkDeck('/talks/sr-iov-with-dgx-b200/');
+
 await expectFile(path.join(distRoot, 'CNAME'), 'custom-domain CNAME');
 await expectFile(path.join(distRoot, 'llms.txt'), 'llms.txt');
 await expectFile(path.join(distRoot, 'llms-full.txt'), 'llms-full.txt');
@@ -145,6 +147,52 @@ if (errors.length > 0) {
   console.log(
     `Validated ${canonicalRoutes.length} canonical routes, ${legacyRedirectCount} legacy fallbacks, ${htmlFiles.length} HTML files, sitemap, LLM indexes, and knowledge graph.`,
   );
+}
+
+// Slide decks ship as self-contained static bundles in public/, so validate that the
+// deck entry point and every local resource it pulls in actually landed in dist.
+async function validateTalkDeck(route) {
+  const deckDirectory = path.join(distRoot, route.slice(1));
+  const entryPoint = path.join(deckDirectory, 'index.html');
+  await expectFile(entryPoint, `talk deck ${route}`);
+
+  const html = await readText(entryPoint);
+  if (!html) return;
+
+  const references = new Set();
+  const pendingStylesheets = [];
+
+  const addReference = (reference, fromDirectory) => {
+    if (isExternalReference(reference)) return;
+    const resolved = path.posix.join(fromDirectory, reference);
+    if (references.has(resolved)) return;
+    references.add(resolved);
+    if (resolved.endsWith('.css')) pendingStylesheets.push(resolved);
+  };
+
+  for (const match of html.matchAll(/(?:src|href)="([^"]+)"/g)) addReference(match[1], '.');
+
+  // Stylesheets pull in further resources (@import, fonts), so follow them transitively.
+  while (pendingStylesheets.length > 0) {
+    const stylesheet = pendingStylesheets.pop();
+    const css = await readText(path.join(deckDirectory, stylesheet));
+    for (const match of css.matchAll(/url\(["']?([^"')]+)["']?\)/g)) {
+      addReference(match[1], path.posix.dirname(stylesheet));
+    }
+  }
+
+  for (const reference of references) {
+    // Fonts declare multi-format fallbacks; only the woff2 files are shipped.
+    if (/\.(?:otf|ttf|woff)$/i.test(reference)) continue;
+    await expectFile(
+      path.join(deckDirectory, reference),
+      `talk deck resource ${route}${reference}`,
+    );
+  }
+}
+
+function isExternalReference(reference) {
+  return /^(?:[a-z][a-z0-9+.-]*:|\/\/|[#?])/i.test(reference);
 }
 
 async function expectFile(filePath, label) {

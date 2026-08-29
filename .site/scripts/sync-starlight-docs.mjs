@@ -9,6 +9,7 @@ const execFileAsync = promisify(execFile);
 const projectRoot = process.cwd();
 const sourceRoot = path.resolve(projectRoot, '..');
 const docsOut = path.join(projectRoot, 'src', 'content', 'docs');
+const pagesOut = path.join(projectRoot, 'src', 'pages');
 const publicOut = path.join(projectRoot, 'public');
 const conceptsPath = path.join(projectRoot, 'kb', 'concepts.json');
 const siteUrl = 'https://adcs.restack.tech';
@@ -35,6 +36,22 @@ const assetExtensions = new Set([
   '.png',
   '.svg',
   '.webp',
+]);
+
+// Self-contained static bundles (slide decks) are copied verbatim, so they need the web
+// runtime extensions that `assetExtensions` deliberately excludes. Sub-resources go to
+// public/, while each bundle's index.html becomes an Astro HTML page route so the
+// directory URL resolves in `astro dev` too, not only behind a static file server.
+const bundleRoots = ['talks'];
+
+const bundleExtensions = new Set([
+  '.css',
+  '.html',
+  '.js',
+  '.otf',
+  '.ttf',
+  '.woff',
+  '.woff2',
 ]);
 
 const ignoredDirs = new Set([
@@ -214,6 +231,12 @@ async function cleanGeneratedOutput() {
   await rm(docsOut, { recursive: true, force: true });
   await mkdir(docsOut, { recursive: true });
 
+  await Promise.all(
+    bundleRoots.map((bundleRoot) =>
+      rm(path.join(pagesOut, bundleRoot), { recursive: true, force: true }),
+    ),
+  );
+
   await mkdir(publicOut, { recursive: true });
   await Promise.all(
     generatedPublicRoots.map((entry) =>
@@ -250,6 +273,11 @@ async function walk(currentDir) {
 
     if (assetExtensions.has(ext) && shouldPublishAsset(relative)) {
       await publishAsset(absolute, relative);
+      continue;
+    }
+
+    if (bundleExtensions.has(ext) && shouldPublishBundleFile(relative)) {
+      await publishBundleFile(absolute, relative, entry.name);
     }
   }
 }
@@ -263,6 +291,11 @@ function shouldPublishMarkdown(relative) {
 function shouldPublishAsset(relative) {
   if (relative.startsWith('.')) return false;
   return publishedAssetRoots.some((docRoot) => relative === docRoot || relative.startsWith(`${docRoot}/`));
+}
+
+function shouldPublishBundleFile(relative) {
+  if (relative.startsWith('.')) return false;
+  return bundleRoots.some((bundleRoot) => relative.startsWith(`${bundleRoot}/`));
 }
 
 async function publishMarkdown(absolute, relative) {
@@ -359,6 +392,7 @@ function siteHomeBody() {
     <div class="adcs-home-actions">
       <a href="/network/">Start with AI fabric</a>
       <a href="/inference/">Explore inference</a>
+      <a href="/knowledge-graph-3d/">3D graph</a>
     </div>
   </div>
   <a class="adcs-home-hero-visual" href="/network/" aria-label="Open Network track">
@@ -407,10 +441,16 @@ function siteHomeBody() {
   <a href="/network/clos-ebgp-lab/">Clos Fabric Lab Series</a>
   <a href="/network/ib-packet-analysis/">InfiniBand Packet Analysis</a>
   <a href="/network/rdma-examples/">RDMA Read/Write Examples</a>
-  <a href="/knowledge-graph-3d/">Full Knowledge Graph 3D</a>
-  <a href="/talks/sr-iov-with-dgx-b200/making-dgx-b200-rdma-ready.pdf">Making DGX B200 RDMA-ready</a>
+  <a href="/talks/sr-iov-with-dgx-b200/">Making DGX B200 RDMA-ready</a>
 </section>
 `;
+}
+
+async function publishBundleFile(absolute, relative, fileName) {
+  const outRoot = fileName === 'index.html' ? pagesOut : publicOut;
+  const outAbsolute = path.join(outRoot, relative);
+  await mkdir(path.dirname(outAbsolute), { recursive: true });
+  await copyFile(absolute, outAbsolute);
 }
 
 async function publishAsset(absolute, relative) {
