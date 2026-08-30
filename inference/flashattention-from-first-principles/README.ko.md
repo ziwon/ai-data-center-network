@@ -91,7 +91,7 @@ FlashAttention은 dense attention의 제곱 연산량을 없애지 **않습니�
 3. $PV$ 계산을 위한 GEMM.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     Q[Q] --> G1["GEMM: QKᵀ / √d"]
     K[K] --> G1
@@ -260,7 +260,7 @@ $$
 ![병합 가능한 온라인 softmax 상태](assets/02-online-softmax-merge.svg)
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A["Tile A의 score와 value"] --> SA["A의 상태<br/>(mA, ℓA, UA)"]
     B["Tile B의 score와 value"] --> SB["B의 상태<br/>(mB, ℓB, UB)"]
@@ -366,7 +366,7 @@ $$
 ```
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
     A["Q tile 하나를 CTA에 할당"] --> B["Qᵢ 적재"]
     B --> C["m=-∞, ℓ=0, U=0으로 초기화"]
@@ -537,7 +537,7 @@ CTA 하나에는 여러 warp가 있습니다. 기존의 작업 분할 방식에�
 FA2는 각 warp에 서로 다른 query 행을 할당하고 $K$와 $V$만 공유합니다. 각 warp가 자신의 출력 행을 온전히 담당하므로 forward 경로에서 부분 출력값을 합치는 inter-warp reduction이 필요 없습니다.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph SplitK["Warp별 K/V 분할"]
         W0["Warp 0: 같은 행의 부분 O"]
@@ -900,7 +900,7 @@ FA4는 longest-processing-time-first에서 착안한 스케줄링을 적용하�
 FA4는 Python에 내장된 CuTe DSL로 작성되었습니다. 실행 경로를 개념적으로 표현하면 다음과 같습니다.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     P["Python CuTe DSL source"] --> IR["CuTe / compiler IR"]
     IR --> PTX[PTX]
@@ -1004,7 +1004,7 @@ $$
 흔한 오해 중 하나는 $N\times N$인 training의 그림을 token 하나씩 처리하는 autoregressive decoding에도 그대로 적용하는 것입니다.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
     W{"Attention workload"} --> T[Training]
     W --> P["Prompt prefill"]

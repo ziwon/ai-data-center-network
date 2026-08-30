@@ -89,7 +89,7 @@ A straightforward implementation launches separate kernels:
 3. GEMM for $PV$.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     Q[Q] --> G1["GEMM: QKᵀ / √d"]
     K[K] --> G1
@@ -254,7 +254,7 @@ This is the core identity behind tiled exact attention. Every tile can be summar
 ![Mergeable online softmax state](assets/02-online-softmax-merge.svg)
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     A["Tile A scores and values"] --> SA["State A<br/>(mA, ℓA, UA)"]
     B["Tile B scores and values"] --> SB["State B<br/>(mB, ℓB, UB)"]
@@ -358,7 +358,7 @@ parallel for each batch, head, and query tile Qi:
 ```
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
     A["Assign one Q tile to a CTA"] --> B["Load Qᵢ"]
     B --> C["Initialize m=-∞, ℓ=0, U=0"]
@@ -527,7 +527,7 @@ A CTA contains multiple warps. In the original work partition, warps could split
 FA2 instead gives different warps different query rows while allowing them to share $K$ and $V$. Each warp owns its output rows, so the forward path avoids the inter-warp reduction of partial output values.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
     subgraph SplitK["Split K/V across warps"]
         W0["Warp 0: partial O for same rows"]
@@ -886,7 +886,7 @@ FA4 applies longest-processing-time-first-inspired scheduling while also account
 FA4 is written in CuTe DSL embedded in Python. The execution path is conceptually:
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart LR
     P["Python CuTe DSL source"] --> IR["CuTe / compiler IR"]
     IR --> PTX[PTX]
@@ -984,7 +984,7 @@ A precise formulation is:
 A frequent conceptual mistake is to apply the $N\times N$ training picture to one-token autoregressive decoding.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
+%%{init: {"theme": "base", "htmlLabels": false, "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TD
     W{Attention workload} --> T[Training]
     W --> P[Prompt prefill]
