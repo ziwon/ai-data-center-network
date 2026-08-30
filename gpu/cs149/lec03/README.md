@@ -5,9 +5,10 @@ Source: [Stanford CS149 2023 Lecture 3](https://www.youtube.com/watch?v=F4bVSyz_
 Course materials:
 
 * [CS149 Fall 2023 course page](https://gfxcourses.stanford.edu/cs149/fall23)
+* [Lecture 2 slides PDF (review material)](https://gfxcourses.stanford.edu/cs149/fall23content/media/multicore/02_basicarch_xX3ssOi.pdf)
 * [Lecture 3 slides PDF](https://gfxcourses.stanford.edu/cs149/fall23content/media/multicore2-ispc/03_multicore2-ispc.pdf)
 * [ISPC documentation](https://ispc.github.io/)
-* [The Story of ISPC](https://pharr.org/matt/blog/2018/04/30/ispc-all.html)
+* [The Story of ISPC](https://pharr.org/matt/blog/2018/04/30/ispc-all)
 
 > 영상 강의는 hardware multi-threading 복습, latency와 bandwidth, 그리고 ISPC의
 > `foreach`까지 설명한다. 이 노트의 data race, reduction, cross-instance operation,
@@ -76,12 +77,13 @@ semantics와 그것을 실제 hardware에 mapping하는 implementation을 구분
 
 ## Lecture Overview
 
-강의 전반부는 Lecture 2의 hardware model을 더 정밀하게 복습한다. Hardware
-multi-threading은 한 thread가 memory를 기다릴 때 다른 thread를 실행하여
-execution unit의 idle cycle을 줄인다. 그러나 이미 100% utilization에 도달했다면
-hardware thread를 더 추가해도 throughput은 증가하지 않는다. 오히려 execution
-context를 저장할 chip area가 더 필요하고, 개별 thread의 completion latency가
-늘거나 cache와 execution resource에서 서로 간섭할 수 있다.
+강의 전반부는 [Lecture 2 slides](https://gfxcourses.stanford.edu/cs149/fall23content/media/multicore/02_basicarch_xX3ssOi.pdf)의
+마지막 부분을 따라 hardware model을 더 정밀하게 복습한다. Hardware multi-threading은
+한 thread가 memory를 기다릴 때 다른 thread를 실행하여 execution unit의 idle cycle을
+줄인다. 그러나 이미 100% utilization에 도달했다면 hardware thread를 더 추가해도
+throughput은 증가하지 않는다. 오히려 execution context를 저장할 chip area가 더
+필요하고, 개별 thread의 completion latency가 늘거나 cache와 execution resource에서
+서로 간섭할 수 있다.
 
 이후 강의는 latency와 bandwidth를 구분한다. Latency는 한 요청이 끝날 때까지 걸리는
 시간이고, bandwidth는 단위 시간에 완료할 수 있는 data의 양이다. Highway, laundry
@@ -159,6 +161,17 @@ parallelism을 조합한다.
 | SIMD | 한 instruction이 처리하는 여러 data lane | Data-parallel arithmetic throughput |
 | Hardware multi-threading | Core에 resident한 여러 execution context | Stall 사이의 idle cycle 감소 |
 
+강의의 conceptual core는 여러 hardware context에서 instruction을 고르고, scalar와
+vector execution unit에 동시에 issue할 수 있는 구조를 다음처럼 보여 준다.
+
+![Multi-threaded superscalar core with scalar and vector execution units](assets/multithreaded-superscala-core.png)
+
+이 그림은 multi-core processor 전체가 아니라 single core의 conceptual
+implementation을 나타낸다. 네 execution context가 resident하더라도 issue width는
+최대 두 instruction이므로 네 thread가 매 clock 동시에 실행된다는 뜻은 아니다. 또한
+이 예시는 동시에 issue하는 두 instruction을 scalar 하나와 vector 하나로 제한하지만,
+구체적인 조합과 선택 규칙은 processor implementation에 따라 달라질 수 있다.
+
 가상의 processor가 16 cores, core당 4 hardware threads, 8-wide SIMD를 가진다고 하자.
 
 * 동시에 resident할 수 있는 software thread context는 `16 × 4 = 64`개다.
@@ -172,6 +185,15 @@ parallelism을 조합한다.
 양을 판단하면 resident warp와 latency hiding 요구량을 놓치게 된다. 큰 GPU에서 작은
 DNN이나 작은 tensor operation이 비효율적인 이유 중 하나도 충분한 work item이 모든
 execution context를 채우지 못하기 때문이다.
+
+![NVIDIA V100 SM with warp contexts and SIMD execution units](assets/nvidia-v100-gpu-sm-unit.png)
+
+이 그림은 V100 GPU 전체가 아니라 하나의 SM을 나타낸다. `64 warps × 32 threads =
+2,048 threads`는 latency hiding을 위해 SM에 resident할 수 있는 최대 execution
+context 규모이지, 2,048개 thread가 같은 clock에 ALU를 사용한다는 뜻은 아니다. Warp
+scheduler는 ready warp를 선택하고, 그림의 16-wide SIMD unit은 32-thread warp의
+instruction을 2 clocks에 걸쳐 처리한다. 실제 resident warp 수는 kernel의 register와
+shared-memory 사용량에 따라 이 최대치보다 작아질 수 있다.
 
 또한 CPU core는 이 네 mechanism을 함께 사용할 수 있다. 예를 들어 한 core가 두
 hardware thread에서 instruction을 가져오고, dependency가 없는 scalar/vector
@@ -309,6 +331,14 @@ load 64 bytes -> add -> add -> repeat
 처음에는 processor가 load request를 빠르게 발행할 수 있다. 그러나 memory가
 64-byte request 하나를 처리하는 동안 processor는 다음 request를 계속 만든다.
 Outstanding-request queue가 차면 core는 더 이상 load를 issue하지 못하고 stall한다.
+
+![Timeline of co-issued loads, memory transfers, and processor stalls](assets/processor-per-clock.png)
+
+그림에서 green block은 load issue, gray interval은 memory에 command가 전달되는
+latency의 일부, blue block은 64-byte data가 실제로 link를 점유하는 전송 구간이다.
+세 outstanding request는 gray interval을 겹쳐 latency를 숨길 수 있지만, blue transfer는
+8 bytes/cycle의 bandwidth에 맞춰 직렬화된다. 따라서 request limit에 도달한 뒤에는
+다음 load가 지연되며, concurrency를 더 늘려도 steady-state bandwidth는 높아지지 않는다.
 
 이 steady state에서 중요한 관찰은 다음과 같다.
 
