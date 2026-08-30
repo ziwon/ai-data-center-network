@@ -14,8 +14,8 @@
       "tracks",
       "cross",
       "preference",
-      "material",
-      "domain-specific"
+      "domain-specific",
+      "material"
     ],
     "excerpt": "Course- and lecture-oriented learning tracks that cross multiple AI systems domains."
   },
@@ -34,8 +34,8 @@
         "tracks",
         "cross",
         "preference",
-        "material",
-        "domain-specific"
+        "domain-specific",
+        "material"
       ],
       "excerpt": "Course- and lecture-oriented learning tracks that cross multiple AI systems domains."
     },
@@ -48,15 +48,15 @@
         "systems",
         "organized",
         "courses",
-        "storage",
+        "mlops",
         "tracks",
+        "storage",
         "mlperf",
-        "profiling",
         "clos",
-        "study",
+        "profiling",
         "training"
       ],
-      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering."
+      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, MLOps, storage, and systems performance engineering."
     },
     {
       "id": "/courses/cme295/",
@@ -72,8 +72,8 @@
         "sft",
         "llm",
         "transformer",
-        "tuning",
-        "human"
+        "human",
+        "pre-training"
       ],
       "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
     },
@@ -89,8 +89,8 @@
         "focus",
         "training",
         "deep",
-        "distributed",
         "engineers",
+        "distributed",
         "congestion",
         "understand"
       ],
@@ -149,18 +149,18 @@
         "kernels",
         "folder",
         "track",
-        "practice",
         "complement",
+        "practice",
         "parallel",
-        "systems",
-        "advanced"
+        "advanced",
+        "systems"
       ],
       "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
     },
     {
-      "id": "/inference/appendix/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/",
       "title": "Appendix",
-      "route": "/inference/appendix/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/",
       "group": "inference",
       "keywords": [
         "appendix",
@@ -188,10 +188,10 @@
         "fabric",
         "2026.02",
         "2026.05",
+        "2022.10",
         "2026.03",
         "2025.11",
-        "2025.10",
-        "2024.08"
+        "2025.10"
       ],
       "excerpt": "AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations."
     },
@@ -215,11 +215,11 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
@@ -236,48 +236,48 @@
         "queue",
         "host",
         "memory",
-        "gpu",
         "transport",
-        "chunk",
+        "gpu",
+        "unique",
         "key"
       ],
       "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "title": "Domain-Specific Architectures for AI Inference",
-      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "group": "inference",
       "keywords": [
         "dsa",
         "cache",
         "compute",
         "week",
-        "tensor",
         "hardware",
+        "tensor",
+        "scratchpad",
         "decode",
-        "token",
         "sram",
-        "accelerator"
+        "inference"
       ],
       "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "title": "How to Think About GPUs",
-      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "group": "inference",
       "keywords": [
         "tensor",
         "gpu",
         "core",
         "b300",
-        "blackwell",
         "nvlink",
         "dgx",
+        "blackwell",
         "memory",
         "parallelism",
-        "decode"
+        "scale-up"
       ],
       "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
     },
@@ -310,12 +310,12 @@
         "nic",
         "memory",
         "infiniband",
-        "queue",
         "remote",
+        "queue",
         "kernel",
         "send",
-        "training",
-        "rnic"
+        "rnic",
+        "training"
       ],
       "excerpt": "The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining."
     },
@@ -328,9 +328,9 @@
         "congestion",
         "flows",
         "traffic",
-        "balancing",
         "training",
         "ethernet",
+        "balancing",
         "flow",
         "rocev2",
         "pfc",
@@ -481,7 +481,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.93,
@@ -492,7 +492,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.93,
@@ -601,7 +601,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.855,
@@ -610,7 +610,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:roce",
       "type": "mentions",
       "weight": 0.855,
@@ -648,7 +648,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.83,
@@ -729,13 +729,6 @@
       ]
     },
     {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "section",
-      "weight": 0.297,
-      "terms": []
-    },
-    {
       "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
       "target": "/network/chap01/",
       "type": "section",
@@ -750,20 +743,19 @@
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "keyword",
-      "weight": 0.281,
+      "weight": 0.278,
       "terms": [
-        "tensor",
-        "decode"
+        "tensor"
       ]
     },
     {
       "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "keyword",
-      "weight": 0.25,
+      "weight": 0.247,
       "terms": [
         "gpu"
       ]
@@ -774,7 +766,6 @@
       "type": "keyword",
       "weight": 0.22,
       "terms": [
-        "study",
         "training"
       ]
     },
@@ -787,7 +778,7 @@
     },
     {
       "source": "/courses/",
-      "target": "/inference/appendix/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
@@ -845,7 +836,7 @@
     },
     {
       "source": "/gpu/",
-      "target": "/inference/appendix/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
@@ -858,8 +849,15 @@
       "terms": []
     },
     {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []

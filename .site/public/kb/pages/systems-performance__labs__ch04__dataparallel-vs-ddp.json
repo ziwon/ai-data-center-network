@@ -11,11 +11,11 @@
       "one",
       "optimized",
       "scatters",
-      "replicas",
       "gathers",
       "ddp-shaped",
       "lab",
-      "process"
+      "anti-pattern",
+      "replicas"
     ],
     "excerpt": "Show why Chapter 4 treats PyTorch DataParallel as an anti-pattern for serious multi-GPU training."
   },
@@ -31,11 +31,11 @@
         "one",
         "optimized",
         "scatters",
-        "replicas",
         "gathers",
         "ddp-shaped",
         "lab",
-        "process"
+        "anti-pattern",
+        "replicas"
       ],
       "excerpt": "Show why Chapter 4 treats PyTorch DataParallel as an anti-pattern for serious multi-GPU training."
     },
@@ -52,9 +52,9 @@
         "tensor",
         "stage",
         "lab",
+        "fill-drain",
         "execution",
-        "baseline",
-        "fill-drain"
+        "bubbles"
       ],
       "excerpt": "Show how pipeline bubbles and tensor-parallel synchronization affect distributed model execution."
     },
@@ -72,7 +72,7 @@
         "slow",
         "topology-agnostic",
         "lab",
-        "baseline",
+        "cross-socket",
         "fast"
       ],
       "excerpt": "Show why NCCL path quality depends on placement. A job can use GPUs successfully and still run over a slow PCIe or cross-socket path."
@@ -89,10 +89,10 @@
         "once",
         "recreates",
         "lab",
-        "baseline",
         "communicators",
         "reuses",
-        "per-step"
+        "per-step",
+        "baseline"
       ],
       "excerpt": "Show why communicators and registered buffers should be created once and reused."
     },
@@ -144,11 +144,11 @@
         "compression",
         "fusion",
         "bucketing",
-        "optimized",
         "buckets",
+        "optimized",
         "checksum",
-        "tolerance",
         "lab",
+        "tolerance",
         "fewer"
       ],
       "excerpt": "Show why Chapter 4 treats gradient synchronization as both a bandwidth problem and a launch-latency problem."
@@ -164,11 +164,11 @@
         "2026.04",
         "2025.08",
         "numa-aware",
-        "systems",
         "books",
         "uncore",
         "talks",
-        "topology"
+        "gpu-local",
+        "kubelet"
       ],
       "excerpt": "AI systems performance engineering notes covering GPU hardware, Linux and container tuning, CUDA, PyTorch, profiling, and distributed communication."
     },
@@ -182,11 +182,11 @@
         "cpu",
         "pod",
         "node",
-        "container",
         "kubelet",
+        "container",
+        "manager",
         "memory",
         "request",
-        "manager",
         "admission"
       ],
       "excerpt": "GPU workload에서 CPU가 request preparation, batching, dataloader, pinned memory staging처럼 GPU로 가는 data path에 있다면, Kubernetes의 기본 resource scheduling만으로는 부족하다...."
@@ -203,10 +203,10 @@
         "instance",
         "manager",
         "node",
-        "gpu",
         "zone",
-        "cloud",
-        "uncore"
+        "gpu",
+        "uncore",
+        "cloud"
       ],
       "excerpt": "대형 서버와 cloud VM에서는 CPU, memory, cache, PCIe device가 균일하게 연결되어 있지 않다. Workload가 NUMA boundary와 shared uncore resource를 넘나들면 같은 일을 하면서도 CPU 사용량, step time,..."
     }
@@ -222,15 +222,17 @@
     {
       "source": "/systems-performance/",
       "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
-      "type": "link+section",
+      "type": "link+keyword+section",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "uncore"
+      ]
     },
     {
       "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
       "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
       "type": "keyword+section",
-      "weight": 0.512,
+      "weight": 0.51,
       "terms": [
         "cpu",
         "numa",
@@ -242,22 +244,20 @@
       "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
       "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
       "type": "keyword",
-      "weight": 0.265,
+      "weight": 0.266,
       "terms": [
         "optimized",
-        "lab",
-        "baseline"
+        "lab"
       ]
     },
     {
       "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
       "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
       "type": "keyword",
-      "weight": 0.242,
+      "weight": 0.241,
       "terms": [
         "optimized",
-        "lab",
-        "baseline"
+        "lab"
       ]
     },
     {
@@ -271,25 +271,6 @@
       ]
     },
     {
-      "source": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
-      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
-      "type": "keyword",
-      "weight": 0.235,
-      "terms": [
-        "optimized",
-        "lab"
-      ]
-    },
-    {
-      "source": "/systems-performance/labs/ch04/",
-      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
-      "type": "keyword",
-      "weight": 0.232,
-      "terms": [
-        "communication"
-      ]
-    },
-    {
       "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
       "target": "/systems-performance/labs/ch04/gradient-bucketing/",
       "type": "keyword",
@@ -300,10 +281,29 @@
       ]
     },
     {
+      "source": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
+      "target": "/systems-performance/labs/ch04/topology-aware-bandwidth/",
+      "type": "keyword",
+      "weight": 0.232,
+      "terms": [
+        "optimized",
+        "lab"
+      ]
+    },
+    {
+      "source": "/systems-performance/labs/ch04/",
+      "target": "/systems-performance/labs/ch04/gpu-communication-reference/",
+      "type": "keyword",
+      "weight": 0.231,
+      "terms": [
+        "communication"
+      ]
+    },
+    {
       "source": "/systems-performance/labs/ch04/communicator-lifecycle/",
       "target": "/systems-performance/labs/ch04/dataparallel-vs-ddp/",
       "type": "keyword",
-      "weight": 0.227,
+      "weight": 0.225,
       "terms": [
         "optimized",
         "lab"
@@ -313,7 +313,7 @@
       "source": "/systems-performance/labs/ch04/gradient-bucketing/",
       "target": "/systems-performance/labs/ch04/pipeline-tensor-parallel/",
       "type": "keyword",
-      "weight": 0.221,
+      "weight": 0.222,
       "terms": [
         "optimized",
         "lab"
@@ -376,8 +376,7 @@
       "weight": 0.22,
       "terms": [
         "optimized",
-        "lab",
-        "baseline"
+        "lab"
       ]
     },
     {

@@ -15,7 +15,7 @@
       "decoder-only",
       "sampling",
       "llm",
-      "top-k"
+      "temperature"
     ],
     "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
   },
@@ -35,7 +35,7 @@
         "decoder-only",
         "sampling",
         "llm",
-        "top-k"
+        "temperature"
       ],
       "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
     },
@@ -53,8 +53,8 @@
         "sft",
         "llm",
         "transformer",
-        "tuning",
-        "human"
+        "human",
+        "pre-training"
       ],
       "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
     },
@@ -99,14 +99,14 @@
       "keywords": [
         "token",
         "position",
-        "attention",
         "bert",
+        "attention",
         "embedding",
         "positional",
+        "nsp",
         "transformer",
         "encoder",
-        "nsp",
-        "head"
+        "cls"
       ],
       "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
     },
@@ -117,15 +117,15 @@
       "group": "courses/cme295",
       "keywords": [
         "token",
-        "embedding",
         "rnn",
-        "text",
-        "representation",
-        "self-attention",
+        "embedding",
         "decoder",
+        "text",
+        "self-attention",
+        "representation",
         "label",
         "sequence",
-        "attention"
+        "one-hot"
       ],
       "excerpt": "이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다."
     },
@@ -139,8 +139,8 @@
         "vector",
         "embedding",
         "attention",
-        "word",
         "decoder",
+        "word",
         "layer",
         "ffnn",
         "parameter",
@@ -156,11 +156,11 @@
       "keywords": [
         "pre-training",
         "model",
-        "sft",
         "training",
+        "sft",
         "parallelism",
-        "optimizer",
         "lora",
+        "optimizer",
         "fine-tuning",
         "precision",
         "states"
@@ -178,11 +178,11 @@
         "sft",
         "model",
         "grpo",
-        "chain",
         "answer",
+        "chain",
         "advantage",
         "final",
-        "pass"
+        "sampling"
       ],
       "excerpt": "이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다."
     },
@@ -206,42 +206,42 @@
       "excerpt": "이번 강의의 목표는 pre-trained + SFT model을 human preference에 맞게 조정하는 preference tuning을 이해하는 것이다."
     },
     {
-      "id": "/inference/appendix/transformer/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/transformer/",
       "title": "Transformer",
-      "route": "/inference/appendix/transformer/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/transformer/",
       "group": "inference",
       "keywords": [
         "다음과",
         "토큰을",
         "attention",
         "embedding",
-        "score",
         "hel",
+        "score",
         "softmax",
         "transformer",
         "mask",
-        "head"
+        "pre-ln"
       ],
       "excerpt": "LLM은 문장을 한 번에 완성하지 않는다. 입력 문맥을 기반으로 다음 토큰 하나의 확률 분포를 계산하고, 그중 하나를 선택한 뒤, 선택된 토큰을 다시 문맥에 붙여 반복 생성한다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "title": "Domain-Specific Architectures for AI Inference",
-      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "id": "/inference/",
+      "title": "Inference",
+      "route": "/inference/",
       "group": "inference",
       "keywords": [
-        "dsa",
+        "최적화",
+        "하드웨어",
+        "모델별",
+        "serving",
+        "아키텍처",
+        "speculative",
+        "시스템",
         "cache",
-        "compute",
-        "week",
-        "tensor",
-        "hardware",
-        "decode",
-        "token",
-        "sram",
-        "accelerator"
+        "decoding",
+        "주제별"
       ],
-      "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
+      "excerpt": "LLM inference notes covering KV cache, quantization, speculative decoding, FlashAttention, SGLang production serving, and model serving profiles."
     }
   ],
   "edges": [
@@ -276,6 +276,7 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
+        "pre-training",
         "sft"
       ]
     },
@@ -286,8 +287,7 @@
       "weight": 1,
       "terms": [
         "preference",
-        "sft",
-        "tuning"
+        "sft"
       ]
     },
     {
@@ -411,19 +411,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "MQA",
-        "GQA"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -433,7 +421,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/transformer/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/transformer/",
       "target": "concept:attention",
       "type": "mentions",
       "weight": 0.93,
@@ -445,7 +433,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/transformer/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/transformer/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -478,10 +466,9 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-02/",
       "type": "keyword+section",
-      "weight": 0.532,
+      "weight": 0.528,
       "terms": [
         "token",
-        "attention",
         "embedding"
       ]
     },
@@ -489,7 +476,7 @@
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.486,
+      "weight": 0.482,
       "terms": [
         "token"
       ]
@@ -498,7 +485,7 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.466,
+      "weight": 0.463,
       "terms": [
         "token"
       ]
@@ -547,9 +534,9 @@
     },
     {
       "source": "/courses/deep-learning-for-network-engineers/week02/",
-      "target": "/inference/appendix/transformer/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/transformer/",
       "type": "keyword",
-      "weight": 0.299,
+      "weight": 0.295,
       "terms": [
         "attention",
         "embedding"
@@ -559,11 +546,10 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.295,
+      "weight": 0.292,
       "terms": [
         "token",
         "embedding",
-        "attention",
         "decoder"
       ]
     },
@@ -571,7 +557,7 @@
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.285,
+      "weight": 0.281,
       "terms": [
         "token",
         "embedding",
@@ -582,7 +568,7 @@
       "source": "/courses/cme295/lec-05/",
       "target": "/courses/cme295/lec-06/",
       "type": "keyword",
-      "weight": 0.256,
+      "weight": 0.253,
       "terms": [
         "reward",
         "sft",
@@ -593,7 +579,7 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.241,
+      "weight": 0.237,
       "terms": [
         "token"
       ]
@@ -602,57 +588,56 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/cme295/lec-04/",
       "type": "keyword",
-      "weight": 0.239,
+      "weight": 0.235,
       "terms": [
         "model"
       ]
     },
     {
       "source": "/courses/cme295/lec-02/",
-      "target": "/inference/appendix/transformer/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/transformer/",
       "type": "keyword",
-      "weight": 0.235,
+      "weight": 0.232,
       "terms": [
         "attention",
         "embedding",
-        "transformer",
-        "head"
+        "transformer"
       ]
     },
     {
       "source": "/courses/cme295/lec-04/",
       "target": "/courses/cme295/lec-05/",
       "type": "keyword",
-      "weight": 0.234,
+      "weight": 0.231,
       "terms": [
         "model",
         "sft"
       ]
     },
     {
-      "source": "/courses/cme295/lec-01/",
-      "target": "/inference/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.227,
-      "terms": [
-        "attention",
-        "embedding"
-      ]
-    },
-    {
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/cme295/lec-06/",
       "type": "keyword",
-      "weight": 0.227,
+      "weight": 0.225,
       "terms": [
-        "model"
+        "model",
+        "sampling"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-01/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "keyword",
+      "weight": 0.223,
+      "terms": [
+        "embedding"
       ]
     },
     {
       "source": "/courses/cme295/lec-04/",
       "target": "/courses/cme295/lec-06/",
       "type": "keyword",
-      "weight": 0.226,
+      "weight": 0.223,
       "terms": [
         "sft",
         "model"
@@ -669,16 +654,16 @@
     },
     {
       "source": "/courses/cme295/lec-03/",
-      "target": "/inference/appendix/transformer/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/transformer/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.22,
+      "source": "/inference/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/transformer/",
+      "type": "section",
+      "weight": 0.18,
       "terms": []
     }
   ]

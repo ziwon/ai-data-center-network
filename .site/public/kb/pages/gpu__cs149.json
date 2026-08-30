@@ -7,15 +7,15 @@
     "group": "gpu",
     "keywords": [
       "cs149",
-      "stanford",
-      "dnn",
       "multi-core",
+      "dnn",
+      "stanford",
       "simd",
-      "systems",
       "parallel-computing",
-      "specialization",
+      "systems",
       "execution",
-      "parallelism"
+      "specialization",
+      "parallel"
     ],
     "excerpt": "Stanford CS149 is the systems foundation course for this GPU track. It connects GPU programming with the broader parallel-computing model: multi-core CPUs,..."
   },
@@ -27,15 +27,15 @@
       "group": "gpu",
       "keywords": [
         "cs149",
-        "stanford",
-        "dnn",
         "multi-core",
+        "dnn",
+        "stanford",
         "simd",
-        "systems",
         "parallel-computing",
-        "specialization",
+        "systems",
         "execution",
-        "parallelism"
+        "specialization",
+        "parallel"
       ],
       "excerpt": "Stanford CS149 is the systems foundation course for this GPU track. It connects GPU programming with the broader parallel-computing model: multi-core CPUs,..."
     },
@@ -50,11 +50,11 @@
         "kernels",
         "folder",
         "track",
-        "practice",
         "complement",
+        "practice",
         "parallel",
-        "systems",
-        "advanced"
+        "advanced",
+        "systems"
       ],
       "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
     },
@@ -69,8 +69,8 @@
         "speedup",
         "instruction",
         "work",
-        "parallelism",
         "efficiency",
+        "parallelism",
         "parallel",
         "memory",
         "cache"
@@ -87,14 +87,52 @@
         "instruction",
         "thread",
         "execution",
-        "multi-threading",
         "processor",
+        "multi-threading",
+        "lane",
         "stream",
-        "multi-core",
         "cache",
+        "warp"
+      ],
+      "excerpt": "이번 강의의 목표는 modern processor가 hardware 수준에서 parallelism을 어떤 방식으로 제공하는지 이해하는 것이다. 1강에서는 program을 instruction stream으로 보고 speedup과 efficiency를 구분했다. 2강에서는 이..."
+    },
+    {
+      "id": "/gpu/cs149/lec03/",
+      "title": "Lecture 3: Multi-Core Architecture, Part II and ISPC",
+      "route": "/gpu/cs149/lec03/",
+      "group": "gpu",
+      "keywords": [
+        "ispc",
+        "instance",
+        "gang",
+        "simd",
+        "thread",
+        "program",
+        "instruction",
+        "foreach",
+        "abstraction",
         "lane"
       ],
-      "excerpt": "이번 강의의 목표는 modern processor가 parallelism을 hardware 안에서 어떤 형태로 제공하는지 이해하는 것이다. 1강에서는 program을 instruction stream으로 보고, speedup과 efficiency를 구분했다. 2강은 그 관점을..."
+      "excerpt": "이번 강의의 목표는 두 가지다. 첫째, modern throughput processor에서 latency와 bandwidth가 서로 다른 제약임을 이해한다. 둘째, parallel programming model의 semantics와 그것을 실제 hardware에..."
+    },
+    {
+      "id": "/gpu/cs149/lec04/",
+      "title": "Lecture 4: Parallel Programming Basics",
+      "route": "/gpu/cs149/lec04/",
+      "group": "gpu",
+      "keywords": [
+        "task",
+        "assignment",
+        "thread",
+        "barrier",
+        "worker",
+        "dependency",
+        "phase",
+        "work",
+        "cell",
+        "iteration"
+      ],
+      "excerpt": "이번 강의의 목표는 sequential program을 parallel program으로 바꾸는 사고 과정을 체계화하는 것이다. 핵심은 thread나 API를 먼저 고르는 것이 아니라, computation의 dependency를 찾아 independent work를 드러낸 뒤..."
     },
     {
       "id": "concept:parallelism",
@@ -126,8 +164,8 @@
         "notes",
         "lecture",
         "cuda",
-        "primary",
-        "gpu"
+        "gpu",
+        "primary"
       ],
       "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
     },
@@ -140,15 +178,34 @@
         "systems",
         "organized",
         "courses",
-        "storage",
+        "mlops",
         "tracks",
+        "storage",
         "mlperf",
-        "profiling",
         "clos",
-        "study",
+        "profiling",
         "training"
       ],
-      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering."
+      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, MLOps, storage, and systems performance engineering."
+    },
+    {
+      "id": "/gpu/gpu-mode/",
+      "title": "GPU MODE",
+      "route": "/gpu/gpu-mode/",
+      "group": "gpu",
+      "keywords": [
+        "lectures",
+        "talks",
+        "mode",
+        "ongoing",
+        "lecture",
+        "theme",
+        "advanced",
+        "youtube",
+        "watch",
+        "gpu"
+      ],
+      "excerpt": "Advanced, ongoing feed for modern ML kernels (formerly CUDA MODE). Treat this as a later / advanced course: come here after the PMPP foundation is in place...."
     },
     {
       "id": "/gpu/heterogeneous-systems/",
@@ -160,71 +217,14 @@
         "irregular",
         "onur",
         "mutlu",
-        "parallel",
         "meeting",
         "course",
+        "parallel",
+        "patterns",
         "pattern",
-        "heterogeneous",
-        "patterns"
+        "heterogeneous"
       ],
       "excerpt": "A complementary course to PMPP, used in parallel for a second pass over the classic parallel patterns behind GPU kernels. Where PMPP is the spine, this..."
-    },
-    {
-      "id": "/inference/appendix/hardware-architectures/",
-      "title": "Hardware Architectures for LLM Inference",
-      "route": "/inference/appendix/hardware-architectures/",
-      "group": "inference",
-      "keywords": [
-        "week",
-        "how",
-        "hardware",
-        "think",
-        "architectures",
-        "inference",
-        "copied",
-        "inference-first",
-        "npus",
-        "parallelism"
-      ],
-      "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course."
-    },
-    {
-      "id": "/systems-performance/",
-      "title": "AI Systems Performance Engineering",
-      "route": "/systems-performance/",
-      "group": "systems-performance",
-      "keywords": [
-        "engineering",
-        "2025.12",
-        "2026.04",
-        "2025.08",
-        "numa-aware",
-        "systems",
-        "books",
-        "uncore",
-        "talks",
-        "topology"
-      ],
-      "excerpt": "AI systems performance engineering notes covering GPU hardware, Linux and container tuning, CUDA, PyTorch, profiling, and distributed communication."
-    },
-    {
-      "id": "/gpu/appendix/architecture/",
-      "title": "GPU Architecture (reference)",
-      "route": "/gpu/appendix/architecture/",
-      "group": "gpu",
-      "keywords": [
-        "memory",
-        "execution",
-        "architecture",
-        "warp",
-        "shared",
-        "registers",
-        "model",
-        "cuda",
-        "hardware",
-        "occupancy"
-      ],
-      "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
     },
     {
       "id": "/courses/cme295/lec-04/",
@@ -234,11 +234,11 @@
       "keywords": [
         "pre-training",
         "model",
-        "sft",
         "training",
+        "sft",
         "parallelism",
-        "optimizer",
         "lora",
+        "optimizer",
         "fine-tuning",
         "precision",
         "states"
@@ -255,8 +255,8 @@
         "vector",
         "embedding",
         "attention",
-        "word",
         "decoder",
+        "word",
         "layer",
         "ffnn",
         "parameter",
@@ -274,11 +274,11 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
@@ -293,28 +293,22 @@
       "terms": []
     },
     {
-      "source": "/",
-      "target": "/systems-performance/",
-      "type": "link+keyword",
-      "weight": 1,
-      "terms": [
-        "systems"
-      ]
-    },
-    {
-      "source": "/gpu/",
-      "target": "/gpu/appendix/architecture/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
       "source": "/gpu/",
       "target": "/gpu/cs149/",
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
-        "systems"
+        "systems",
+        "parallel"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/gpu-mode/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "advanced"
       ]
     },
     {
@@ -323,8 +317,8 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
-        "parallel",
-        "course"
+        "course",
+        "parallel"
       ]
     },
     {
@@ -337,22 +331,11 @@
       ]
     },
     {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/pmpp/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": [
-        "cuda"
-      ]
-    },
-    {
       "source": "/gpu/cs149/",
       "target": "/gpu/cs149/lec01/",
-      "type": "link+keyword",
+      "type": "link",
       "weight": 1,
-      "terms": [
-        "parallelism"
-      ]
+      "terms": []
     },
     {
       "source": "/gpu/cs149/",
@@ -360,6 +343,37 @@
       "type": "link",
       "weight": 1,
       "terms": []
+    },
+    {
+      "source": "/gpu/cs149/",
+      "target": "/gpu/cs149/lec03/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/cs149/",
+      "target": "/gpu/cs149/lec04/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/gpu-mode/",
+      "target": "/gpu/heterogeneous-systems/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/gpu-mode/",
+      "target": "/gpu/pmpp/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "lecture",
+        "gpu"
+      ]
     },
     {
       "source": "/gpu/heterogeneous-systems/",
@@ -370,13 +384,6 @@
         "pmpp",
         "parallel"
       ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/systems-performance/",
-      "type": "link",
-      "weight": 1,
-      "terms": []
     },
     {
       "source": "/courses/cme295/lec-04/",
@@ -429,16 +436,26 @@
       ]
     },
     {
-      "source": "/gpu/cs149/",
+      "source": "/gpu/cs149/lec03/",
       "target": "concept:parallelism",
       "type": "mentions",
-      "weight": 0.88,
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "tensor parallel"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec04/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
       "terms": [
         "Parallelism"
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
+      "source": "/gpu/cs149/",
       "target": "concept:parallelism",
       "type": "mentions",
       "weight": 0.88,
@@ -459,16 +476,35 @@
       "source": "/courses/deep-learning-for-network-engineers/week02/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword+section",
-      "weight": 0.493,
+      "weight": 0.49,
+      "terms": []
+    },
+    {
+      "source": "/gpu/cs149/lec03/",
+      "target": "/gpu/cs149/lec04/",
+      "type": "keyword",
+      "weight": 0.329,
       "terms": [
-        "layer"
+        "thread"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec02/",
+      "target": "/gpu/cs149/lec03/",
+      "type": "keyword",
+      "weight": 0.321,
+      "terms": [
+        "simd",
+        "thread",
+        "instruction",
+        "lane"
       ]
     },
     {
       "source": "/gpu/cs149/lec01/",
       "target": "/gpu/cs149/lec02/",
       "type": "keyword",
-      "weight": 0.312,
+      "weight": 0.294,
       "terms": [
         "instruction",
         "processor",
@@ -479,17 +515,27 @@
       "source": "/gpu/cs149/",
       "target": "/gpu/pmpp/",
       "type": "keyword",
-      "weight": 0.26,
-      "terms": []
+      "weight": 0.27,
+      "terms": [
+        "parallel"
+      ]
     },
     {
-      "source": "/courses/cme295/lec-04/",
-      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "source": "/gpu/cs149/lec01/",
+      "target": "/gpu/cs149/lec03/",
+      "type": "keyword",
+      "weight": 0.247,
+      "terms": [
+        "instruction"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec02/",
+      "target": "/gpu/cs149/lec04/",
       "type": "keyword",
       "weight": 0.221,
       "terms": [
-        "parallelism",
-        "training"
+        "thread"
       ]
     },
     {
@@ -502,28 +548,38 @@
       ]
     },
     {
+      "source": "/courses/cme295/lec-04/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "parallelism",
+        "training"
+      ]
+    },
+    {
       "source": "/gpu/cs149/",
-      "target": "/gpu/heterogeneous-systems/",
+      "target": "/gpu/gpu-mode/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
     },
     {
       "source": "/gpu/cs149/",
-      "target": "/inference/appendix/hardware-architectures/",
+      "target": "/gpu/heterogeneous-systems/",
       "type": "keyword",
       "weight": 0.22,
       "terms": [
-        "parallelism"
+        "parallel"
       ]
     },
     {
-      "source": "/gpu/cs149/",
-      "target": "/systems-performance/",
+      "source": "/gpu/cs149/lec01/",
+      "target": "/gpu/cs149/lec04/",
       "type": "keyword",
       "weight": 0.22,
       "terms": [
-        "systems"
+        "work"
       ]
     },
     {
@@ -541,29 +597,15 @@
       "terms": []
     },
     {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/cs149/",
+      "source": "/gpu/",
+      "target": "/gpu/cs149/lec03/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/cs149/lec01/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/cs149/lec02/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/heterogeneous-systems/",
+      "source": "/gpu/",
+      "target": "/gpu/cs149/lec04/",
       "type": "section",
       "weight": 0.18,
       "terms": []

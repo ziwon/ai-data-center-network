@@ -7,12 +7,12 @@
     "group": "gpu",
     "keywords": [
       "lecture",
-      "triton",
       "kernels",
+      "triton",
       "matmul",
+      "cutlass",
       "kernel",
       "gemm",
-      "cutlass",
       "fused",
       "attention",
       "case"
@@ -27,12 +27,12 @@
       "group": "gpu",
       "keywords": [
         "lecture",
-        "triton",
         "kernels",
+        "triton",
         "matmul",
+        "cutlass",
         "kernel",
         "gemm",
-        "cutlass",
         "fused",
         "attention",
         "case"
@@ -50,11 +50,11 @@
         "kernels",
         "folder",
         "track",
-        "practice",
         "complement",
+        "practice",
         "parallel",
-        "systems",
-        "advanced"
+        "advanced",
+        "systems"
       ],
       "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
     },
@@ -68,12 +68,12 @@
         "lookup",
         "language",
         "guidelines",
-        "compilation",
         "ptx/sass",
         "api",
-        "reference",
         "spaces",
-        "analyze"
+        "reference",
+        "analyze",
+        "constant"
       ],
       "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
     },
@@ -86,12 +86,12 @@
         "lectures",
         "talks",
         "mode",
-        "lecture",
         "ongoing",
-        "youtube",
-        "advanced",
+        "lecture",
         "theme",
-        "cuda",
+        "advanced",
+        "youtube",
+        "watch",
         "gpu"
       ],
       "excerpt": "Advanced, ongoing feed for modern ML kernels (formerly CUDA MODE). Treat this as a later / advanced course: come here after the PMPP foundation is in place...."
@@ -106,12 +106,12 @@
         "irregular",
         "onur",
         "mutlu",
-        "parallel",
         "meeting",
         "course",
+        "parallel",
+        "patterns",
         "pattern",
-        "heterogeneous",
-        "patterns"
+        "heterogeneous"
       ],
       "excerpt": "A complementary course to PMPP, used in parallel for a second pass over the classic parallel patterns behind GPU kernels. Where PMPP is the spine, this..."
     },
@@ -129,8 +129,8 @@
         "every",
         "performance-analysis",
         "launch-overhead-bound",
-        "hands-on",
-        "coalesced"
+        "coalesced",
+        "hands-on"
       ],
       "excerpt": "Nsight Compute and related GPU performance-analysis references. This is the hands-on tool you run while learning: for every concept in PMPP and every kernel..."
     },
@@ -148,8 +148,8 @@
         "notes",
         "lecture",
         "cuda",
-        "primary",
-        "gpu"
+        "gpu",
+        "primary"
       ],
       "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
     },
@@ -195,34 +195,34 @@
         "memory",
         "execution",
         "architecture",
+        "registers",
         "warp",
         "shared",
-        "registers",
         "model",
         "cuda",
         "hardware",
-        "occupancy"
+        "look-up"
       ],
       "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
     },
     {
-      "id": "/systems-performance/chap01/",
-      "title": "Chapter 1: Introduction and AI System Overview",
-      "route": "/systems-performance/chap01/",
-      "group": "systems-performance",
+      "id": "/inference/",
+      "title": "Inference",
+      "route": "/inference/",
+      "group": "inference",
       "keywords": [
-        "goodput",
-        "gpu",
-        "performance",
-        "time",
-        "nsight",
-        "bottleneck",
-        "systems",
-        "sympathy",
-        "nccl",
-        "dataloader"
+        "최적화",
+        "하드웨어",
+        "모델별",
+        "serving",
+        "아키텍처",
+        "speculative",
+        "시스템",
+        "cache",
+        "decoding",
+        "주제별"
       ],
-      "excerpt": "This chapter introduces the mental model of AI Systems Performance Engineering ."
+      "excerpt": "LLM inference notes covering KV cache, quantization, speculative decoding, FlashAttention, SGLang production serving, and model serving profiles."
     },
     {
       "id": "/courses/cme295/",
@@ -238,8 +238,8 @@
         "sft",
         "llm",
         "transformer",
-        "tuning",
-        "human"
+        "human",
+        "pre-training"
       ],
       "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
     },
@@ -250,15 +250,15 @@
       "group": "courses/cme295",
       "keywords": [
         "token",
-        "embedding",
         "rnn",
-        "text",
-        "representation",
-        "self-attention",
+        "embedding",
         "decoder",
+        "text",
+        "self-attention",
+        "representation",
         "label",
         "sequence",
-        "attention"
+        "one-hot"
       ],
       "excerpt": "이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다."
     },
@@ -270,14 +270,14 @@
       "keywords": [
         "token",
         "position",
-        "attention",
         "bert",
+        "attention",
         "embedding",
         "positional",
+        "nsp",
         "transformer",
         "encoder",
-        "nsp",
-        "head"
+        "cls"
       ],
       "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
     },
@@ -296,7 +296,7 @@
         "decoder-only",
         "sampling",
         "llm",
-        "top-k"
+        "temperature"
       ],
       "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
     },
@@ -310,8 +310,8 @@
         "vector",
         "embedding",
         "attention",
-        "word",
         "decoder",
+        "word",
         "layer",
         "ffnn",
         "parameter",
@@ -375,8 +375,8 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
-        "parallel",
-        "course"
+        "course",
+        "parallel"
       ]
     },
     {
@@ -432,9 +432,7 @@
       "target": "/gpu/gpu-mode/",
       "type": "link+keyword+section",
       "weight": 1,
-      "terms": [
-        "cuda"
-      ]
+      "terms": []
     },
     {
       "source": "/gpu/appendix/cuda/",
@@ -482,7 +480,6 @@
       "weight": 1,
       "terms": [
         "lecture",
-        "cuda",
         "gpu"
       ]
     },
@@ -636,18 +633,7 @@
       ]
     },
     {
-      "source": "/systems-performance/chap01/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "FlashAttention"
-      ]
-    },
-    {
-      "source": "/systems-performance/chap01/",
+      "source": "/inference/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -690,10 +676,9 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-02/",
       "type": "keyword+section",
-      "weight": 0.532,
+      "weight": 0.528,
       "terms": [
         "token",
-        "attention",
         "embedding"
       ]
     },
@@ -701,7 +686,7 @@
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.486,
+      "weight": 0.482,
       "terms": [
         "token"
       ]
@@ -710,7 +695,7 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.466,
+      "weight": 0.463,
       "terms": [
         "token"
       ]
@@ -740,11 +725,10 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.295,
+      "weight": 0.292,
       "terms": [
         "token",
         "embedding",
-        "attention",
         "decoder"
       ]
     },
@@ -752,7 +736,7 @@
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.285,
+      "weight": 0.281,
       "terms": [
         "token",
         "embedding",
@@ -763,14 +747,14 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.241,
+      "weight": 0.237,
       "terms": [
         "token"
       ]
     },
     {
       "source": "/gpu/labs/kernels/",
-      "target": "/systems-performance/chap01/",
+      "target": "/inference/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []

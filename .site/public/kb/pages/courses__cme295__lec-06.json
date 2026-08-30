@@ -11,11 +11,11 @@
       "sft",
       "model",
       "grpo",
-      "chain",
       "answer",
+      "chain",
       "advantage",
       "final",
-      "pass"
+      "sampling"
     ],
     "excerpt": "이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다."
   },
@@ -31,11 +31,11 @@
         "sft",
         "model",
         "grpo",
-        "chain",
         "answer",
+        "chain",
         "advantage",
         "final",
-        "pass"
+        "sampling"
       ],
       "excerpt": "이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다."
     },
@@ -53,8 +53,8 @@
         "sft",
         "llm",
         "transformer",
-        "tuning",
-        "human"
+        "human",
+        "pre-training"
       ],
       "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
     },
@@ -65,15 +65,15 @@
       "group": "courses/cme295",
       "keywords": [
         "token",
-        "embedding",
         "rnn",
-        "text",
-        "representation",
-        "self-attention",
+        "embedding",
         "decoder",
+        "text",
+        "self-attention",
+        "representation",
         "label",
         "sequence",
-        "attention"
+        "one-hot"
       ],
       "excerpt": "이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다."
     },
@@ -85,14 +85,14 @@
       "keywords": [
         "token",
         "position",
-        "attention",
         "bert",
+        "attention",
         "embedding",
         "positional",
+        "nsp",
         "transformer",
         "encoder",
-        "nsp",
-        "head"
+        "cls"
       ],
       "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
     },
@@ -130,7 +130,7 @@
         "decoder-only",
         "sampling",
         "llm",
-        "top-k"
+        "temperature"
       ],
       "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
     },
@@ -142,11 +142,11 @@
       "keywords": [
         "pre-training",
         "model",
-        "sft",
         "training",
+        "sft",
         "parallelism",
-        "optimizer",
         "lora",
+        "optimizer",
         "fine-tuning",
         "precision",
         "states"
@@ -186,6 +186,7 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
+        "pre-training",
         "sft"
       ]
     },
@@ -196,8 +197,7 @@
       "weight": 1,
       "terms": [
         "preference",
-        "sft",
-        "tuning"
+        "sft"
       ]
     },
     {
@@ -215,10 +215,9 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-02/",
       "type": "keyword+section",
-      "weight": 0.532,
+      "weight": 0.528,
       "terms": [
         "token",
-        "attention",
         "embedding"
       ]
     },
@@ -226,7 +225,7 @@
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.486,
+      "weight": 0.482,
       "terms": [
         "token"
       ]
@@ -235,7 +234,7 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.466,
+      "weight": 0.463,
       "terms": [
         "token"
       ]
@@ -286,7 +285,7 @@
       "source": "/courses/cme295/lec-05/",
       "target": "/courses/cme295/lec-06/",
       "type": "keyword",
-      "weight": 0.256,
+      "weight": 0.253,
       "terms": [
         "reward",
         "sft",
@@ -297,7 +296,7 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/cme295/lec-04/",
       "type": "keyword",
-      "weight": 0.239,
+      "weight": 0.235,
       "terms": [
         "model"
       ]
@@ -306,7 +305,7 @@
       "source": "/courses/cme295/lec-04/",
       "target": "/courses/cme295/lec-05/",
       "type": "keyword",
-      "weight": 0.234,
+      "weight": 0.231,
       "terms": [
         "model",
         "sft"
@@ -316,16 +315,17 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/cme295/lec-06/",
       "type": "keyword",
-      "weight": 0.227,
+      "weight": 0.225,
       "terms": [
-        "model"
+        "model",
+        "sampling"
       ]
     },
     {
       "source": "/courses/cme295/lec-04/",
       "target": "/courses/cme295/lec-06/",
       "type": "keyword",
-      "weight": 0.226,
+      "weight": 0.223,
       "terms": [
         "sft",
         "model"

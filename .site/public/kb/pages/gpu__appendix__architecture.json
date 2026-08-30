@@ -9,13 +9,13 @@
       "memory",
       "execution",
       "architecture",
+      "registers",
       "warp",
       "shared",
-      "registers",
       "model",
       "cuda",
       "hardware",
-      "occupancy"
+      "look-up"
     ],
     "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
   },
@@ -29,13 +29,13 @@
         "memory",
         "execution",
         "architecture",
+        "registers",
         "warp",
         "shared",
-        "registers",
         "model",
         "cuda",
         "hardware",
-        "occupancy"
+        "look-up"
       ],
       "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
     },
@@ -50,11 +50,11 @@
         "kernels",
         "folder",
         "track",
-        "practice",
         "complement",
+        "practice",
         "parallel",
-        "systems",
-        "advanced"
+        "advanced",
+        "systems"
       ],
       "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
     },
@@ -68,12 +68,12 @@
         "lookup",
         "language",
         "guidelines",
-        "compilation",
         "ptx/sass",
         "api",
-        "reference",
         "spaces",
-        "analyze"
+        "reference",
+        "analyze",
+        "constant"
       ],
       "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
     },
@@ -86,12 +86,12 @@
         "lectures",
         "talks",
         "mode",
-        "lecture",
         "ongoing",
-        "youtube",
-        "advanced",
+        "lecture",
         "theme",
-        "cuda",
+        "advanced",
+        "youtube",
+        "watch",
         "gpu"
       ],
       "excerpt": "Advanced, ongoing feed for modern ML kernels (formerly CUDA MODE). Treat this as a later / advanced course: come here after the PMPP foundation is in place...."
@@ -110,8 +110,8 @@
         "notes",
         "lecture",
         "cuda",
-        "primary",
-        "gpu"
+        "gpu",
+        "primary"
       ],
       "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
     },
@@ -122,12 +122,12 @@
       "group": "gpu",
       "keywords": [
         "lecture",
-        "triton",
         "kernels",
+        "triton",
         "matmul",
+        "cutlass",
         "kernel",
         "gemm",
-        "cutlass",
         "fused",
         "attention",
         "case"
@@ -148,8 +148,8 @@
         "every",
         "performance-analysis",
         "launch-overhead-bound",
-        "hands-on",
-        "coalesced"
+        "coalesced",
+        "hands-on"
       ],
       "excerpt": "Nsight Compute and related GPU performance-analysis references. This is the hands-on tool you run while learning: for every concept in PMPP and every kernel..."
     },
@@ -163,14 +163,33 @@
         "essays",
         "gpu",
         "platform",
-        "kubernetes",
         "connect",
+        "kubernetes",
         "operational",
         "design",
         "cuda",
         "behavior"
       ],
       "excerpt": "Operational notes and essays that connect GPU architecture, CUDA behavior, and Kubernetes platform design."
+    },
+    {
+      "id": "/inference/models/",
+      "title": "Model Architecture and Serving Profiles",
+      "route": "/inference/models/",
+      "group": "inference",
+      "keywords": [
+        "profiles",
+        "정리합니다",
+        "설계가",
+        "미치는",
+        "architecture",
+        "serving",
+        "model",
+        "시스템",
+        "llm별",
+        "영향에"
+      ],
+      "excerpt": "LLM별 핵심 아키텍처와 실제 추론·서빙 시스템에서 확인해야 할 메모리, 통신, 캐시, 병렬화 특성을 정리합니다. 시스템 최적화 기법 자체보다 모델 설계가 serving profile에 미치는 영향에 집중합니다."
     },
     {
       "id": "/gpu/articles/hami-core-deep-dive.ko/",
@@ -186,8 +205,8 @@
         "cuda",
         "컨테이너",
         "사용량",
-        "gpu",
-        "프레임워크"
+        "프레임워크",
+        "gpu"
       ],
       "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
     },
@@ -202,32 +221,13 @@
         "quota",
         "mig",
         "스케줄러",
-        "메모리",
         "gpu",
+        "메모리",
         "pod",
         "annotation",
         "워크로드"
       ],
       "excerpt": "첫째, “어떤 GPU를 어떤 Pod에 할당할 것인가?” 둘째, “하나의 GPU 안에서 메모리와 연산 사용량을 실제로 어떻게 제한할 것인가?” Dynamic Resource Allocation(DRA)은 첫 번째 문제를 Kubernetes 표준 API로 해결하려는 체계다...."
-    },
-    {
-      "id": "/gpu/cs149/",
-      "title": "Stanford CS149 / Parallel Computing",
-      "route": "/gpu/cs149/",
-      "group": "gpu",
-      "keywords": [
-        "cs149",
-        "stanford",
-        "dnn",
-        "multi-core",
-        "simd",
-        "systems",
-        "parallel-computing",
-        "specialization",
-        "execution",
-        "parallelism"
-      ],
-      "excerpt": "Stanford CS149 is the systems foundation course for this GPU track. It connects GPU programming with the broader parallel-computing model: multi-core CPUs,..."
     }
   ],
   "edges": [
@@ -251,15 +251,6 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": []
-    },
-    {
-      "source": "/gpu/",
-      "target": "/gpu/cs149/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": [
-        "systems"
-      ]
     },
     {
       "source": "/gpu/",
@@ -323,9 +314,7 @@
       "target": "/gpu/gpu-mode/",
       "type": "link+keyword+section",
       "weight": 1,
-      "terms": [
-        "cuda"
-      ]
+      "terms": []
     },
     {
       "source": "/gpu/appendix/cuda/",
@@ -358,6 +347,17 @@
       "terms": []
     },
     {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "quota",
+        "gpu",
+        "메모리"
+      ]
+    },
+    {
       "source": "/gpu/gpu-mode/",
       "target": "/gpu/labs/kernels/",
       "type": "link+keyword",
@@ -380,7 +380,6 @@
       "weight": 1,
       "terms": [
         "lecture",
-        "cuda",
         "gpu"
       ]
     },
@@ -408,17 +407,6 @@
       "terms": []
     },
     {
-      "source": "/gpu/articles/hami-core-deep-dive.ko/",
-      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
-      "type": "keyword",
-      "weight": 0.344,
-      "terms": [
-        "quota",
-        "메모리",
-        "gpu"
-      ]
-    },
-    {
       "source": "/gpu/appendix/architecture/",
       "target": "/gpu/labs/kernels/",
       "type": "keyword+section",
@@ -454,11 +442,14 @@
       "terms": []
     },
     {
-      "source": "/gpu/cs149/",
-      "target": "/gpu/pmpp/",
+      "source": "/gpu/appendix/architecture/",
+      "target": "/inference/models/",
       "type": "keyword",
-      "weight": 0.26,
-      "terms": []
+      "weight": 0.22,
+      "terms": [
+        "architecture",
+        "model"
+      ]
     },
     {
       "source": "/gpu/articles/",
@@ -466,7 +457,6 @@
       "type": "keyword",
       "weight": 0.22,
       "terms": [
-        "cuda",
         "gpu"
       ]
     },
@@ -509,13 +499,6 @@
       "terms": []
     },
     {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/cs149/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
       "source": "/gpu/appendix/cuda/",
       "target": "/gpu/articles/hami-core-deep-dive.ko/",
       "type": "section",
@@ -525,13 +508,6 @@
     {
       "source": "/gpu/appendix/cuda/",
       "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/gpu/appendix/cuda/",
-      "target": "/gpu/cs149/",
       "type": "section",
       "weight": 0.18,
       "terms": []

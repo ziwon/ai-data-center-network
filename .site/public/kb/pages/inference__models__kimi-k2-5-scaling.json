@@ -1,0 +1,726 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/inference/models/kimi-k2-5-scaling/",
+    "title": "How We Scaled Kimi K2.5: 토큰 효율, 장문 컨텍스트, 에이전트 스웜",
+    "route": "/inference/models/kimi-k2-5-scaling/",
+    "group": "inference",
+    "keywords": [
+      "kimi",
+      "agent",
+      "attention",
+      "token",
+      "reward",
+      "vision",
+      "발표자",
+      "decay",
+      "residual",
+      "swarm"
+    ],
+    "excerpt": "Source: How We Scaled Kimi K2.5 Zhilin Yang's full GTC 2026 Keynote"
+  },
+  "nodes": [
+    {
+      "id": "/inference/models/kimi-k2-5-scaling/",
+      "title": "How We Scaled Kimi K2.5: 토큰 효율, 장문 컨텍스트, 에이전트 스웜",
+      "route": "/inference/models/kimi-k2-5-scaling/",
+      "group": "inference",
+      "keywords": [
+        "kimi",
+        "agent",
+        "attention",
+        "token",
+        "reward",
+        "vision",
+        "발표자",
+        "decay",
+        "residual",
+        "swarm"
+      ],
+      "excerpt": "Source: How We Scaled Kimi K2.5 Zhilin Yang's full GTC 2026 Keynote"
+    },
+    {
+      "id": "/inference/",
+      "title": "Inference",
+      "route": "/inference/",
+      "group": "inference",
+      "keywords": [
+        "최적화",
+        "하드웨어",
+        "모델별",
+        "serving",
+        "아키텍처",
+        "speculative",
+        "시스템",
+        "cache",
+        "decoding",
+        "주제별"
+      ],
+      "excerpt": "LLM inference notes covering KV cache, quantization, speculative decoding, FlashAttention, SGLang production serving, and model serving profiles."
+    },
+    {
+      "id": "/inference/models/",
+      "title": "Model Architecture and Serving Profiles",
+      "route": "/inference/models/",
+      "group": "inference",
+      "keywords": [
+        "profiles",
+        "정리합니다",
+        "설계가",
+        "미치는",
+        "architecture",
+        "serving",
+        "model",
+        "시스템",
+        "llm별",
+        "영향에"
+      ],
+      "excerpt": "LLM별 핵심 아키텍처와 실제 추론·서빙 시스템에서 확인해야 할 메모리, 통신, 캐시, 병렬화 특성을 정리합니다. 시스템 최적화 기법 자체보다 모델 설계가 serving profile에 미치는 영향에 집중합니다."
+    },
+    {
+      "id": "/inference/models/kimi-k3/",
+      "title": "Kimi K3 기술 해부: 2.8T MoE, KDA, Attention Residuals, 그리고 64-GPU 서빙",
+      "route": "/inference/models/kimi-k3/",
+      "group": "inference",
+      "keywords": [
+        "kimi",
+        "kda",
+        "레이어",
+        "mla",
+        "sglang",
+        "보고서",
+        "expert",
+        "attnres",
+        "moonshot",
+        "attention"
+      ],
+      "excerpt": "공개 전에는 Kimi K2의 수치를 대입한 비공식 아키텍처 초안이 유통되었다. 이 초안은 KDA, Gated MLA, Block AttnRes, LatentMoE와 vision pathway의 연결 구조를 한 장에 보여준다는 점에서 여전히 유용하다. 다만 hidden..."
+    },
+    {
+      "id": "concept:attention",
+      "kind": "concept",
+      "title": "Attention",
+      "label": "Attention",
+      "group": "model-architecture",
+      "description": "Transformer attention mechanism and its MHA, MQA, GQA, RoPE, and FlashAttention variants.",
+      "keywords": [
+        "Attention",
+        "attention",
+        "self-attention",
+        "MHA",
+        "MQA",
+        "GQA",
+        "RoPE",
+        "FlashAttention"
+      ]
+    },
+    {
+      "id": "concept:parallelism",
+      "kind": "concept",
+      "title": "Parallelism",
+      "label": "Parallelism",
+      "group": "distributed-training",
+      "description": "Data, tensor, pipeline, and expert parallel strategies for training or serving models.",
+      "keywords": [
+        "Parallelism",
+        "data parallel",
+        "tensor parallel",
+        "pipeline parallel",
+        "expert parallel",
+        "3D parallelism"
+      ]
+    },
+    {
+      "id": "/courses/cme295/lec-03/",
+      "title": "Lecture 3: Large Language Models, Decoding, Prompting, and Inference",
+      "route": "/courses/cme295/lec-03/",
+      "group": "courses/cme295",
+      "keywords": [
+        "token",
+        "model",
+        "decoding",
+        "probability",
+        "context",
+        "expert",
+        "decoder-only",
+        "sampling",
+        "llm",
+        "temperature"
+      ],
+      "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
+    },
+    {
+      "id": "/courses/cme295/lec-04/",
+      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
+      "route": "/courses/cme295/lec-04/",
+      "group": "courses/cme295",
+      "keywords": [
+        "pre-training",
+        "model",
+        "training",
+        "sft",
+        "parallelism",
+        "lora",
+        "optimizer",
+        "fine-tuning",
+        "precision",
+        "states"
+      ],
+      "excerpt": "이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre-training 이후 fine-tuning과 alignment 단계가 필요한지 이해하는 것이다."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week02/",
+      "title": "Week 2: Large Language Model, LLM",
+      "route": "/courses/deep-learning-for-network-engineers/week02/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "token",
+        "vector",
+        "embedding",
+        "attention",
+        "decoder",
+        "word",
+        "layer",
+        "ffnn",
+        "parameter",
+        "책에서"
+      ],
+      "excerpt": "이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다."
+    },
+    {
+      "id": "/courses/deep-learning-for-network-engineers/week03/",
+      "title": "Week 3: Parallelism Strategies in Deep Learning",
+      "route": "/courses/deep-learning-for-network-engineers/week03/",
+      "group": "courses/deep-learning-for-network-engineers",
+      "keywords": [
+        "parallelism",
+        "gpu",
+        "gradient",
+        "pipeline",
+        "expert",
+        "stage",
+        "tensor",
+        "training",
+        "micro-batch",
+        "communication"
+      ],
+      "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
+    },
+    {
+      "id": "/mlops/",
+      "title": "MLOps: 모델을 배포하는 기술이 아니라 변경을 통제하는 운영 시스템",
+      "route": "/mlops/",
+      "group": "mlops",
+      "keywords": [
+        "데이터",
+        "feature",
+        "schema",
+        "재학습",
+        "revision",
+        "freshness",
+        "drift",
+        "snapshot",
+        "artifact",
+        "mlops"
+      ],
+      "excerpt": "Production MLOps guide covering lifecycle control, reproducibility, lineage, CI/CD/CT, feature stores, progressive delivery, monitoring, and LLMOps."
+    },
+    {
+      "id": "/courses/cme295/",
+      "title": "CME295 Lecture Notes",
+      "route": "/courses/cme295/",
+      "group": "courses/cme295",
+      "keywords": [
+        "lecture",
+        "reasoning",
+        "다이어그램",
+        "preference",
+        "grpo",
+        "sft",
+        "llm",
+        "transformer",
+        "human",
+        "pre-training"
+      ],
+      "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
+    },
+    {
+      "id": "/courses/cme295/lec-01/",
+      "title": "Lecture 1: Transformer",
+      "route": "/courses/cme295/lec-01/",
+      "group": "courses/cme295",
+      "keywords": [
+        "token",
+        "rnn",
+        "embedding",
+        "decoder",
+        "text",
+        "self-attention",
+        "representation",
+        "label",
+        "sequence",
+        "one-hot"
+      ],
+      "excerpt": "이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다."
+    },
+    {
+      "id": "/courses/cme295/lec-02/",
+      "title": "Lecture 2: Transformer-Based Models & Tricks",
+      "route": "/courses/cme295/lec-02/",
+      "group": "courses/cme295",
+      "keywords": [
+        "token",
+        "position",
+        "bert",
+        "attention",
+        "embedding",
+        "positional",
+        "nsp",
+        "transformer",
+        "encoder",
+        "cls"
+      ],
+      "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
+    },
+    {
+      "id": "/gpu/cs149/lec01/",
+      "title": "Lecture 1: Why Parallelism? Why Efficiency?",
+      "route": "/gpu/cs149/lec01/",
+      "group": "gpu",
+      "keywords": [
+        "processor",
+        "locality",
+        "speedup",
+        "instruction",
+        "work",
+        "efficiency",
+        "parallelism",
+        "parallel",
+        "memory",
+        "cache"
+      ],
+      "excerpt": "이번 강의의 목표는 왜 현대 시스템에서 parallelism이 선택 사항이 아니라 기본 조건이 되었는지, 그리고 단순히 \"병렬로 돌렸다\"는 사실만으로는 충분하지 않은 이유를 이해하는 것이다."
+    }
+  ],
+  "edges": [
+    {
+      "source": "/courses/cme295/",
+      "target": "/courses/cme295/lec-01/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "/courses/cme295/lec-02/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "transformer"
+      ]
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "/courses/cme295/lec-03/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "llm"
+      ]
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "/courses/cme295/lec-04/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "pre-training",
+        "sft"
+      ]
+    },
+    {
+      "source": "/inference/",
+      "target": "/inference/models/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "serving",
+        "시스템"
+      ]
+    },
+    {
+      "source": "/inference/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/",
+      "target": "/inference/models/kimi-k3/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/models/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/models/",
+      "target": "/inference/models/kimi-k3/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/models/kimi-k2-5-scaling/",
+      "target": "/inference/models/kimi-k3/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "kimi",
+        "attention"
+      ]
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention",
+        "MHA"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-01/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-02/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "RoPE",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-03/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "GQA",
+        "MQA"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-04/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-04/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "data parallel",
+        "tensor parallel"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "data parallel",
+        "tensor parallel",
+        "pipeline parallel"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec01/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/inference/models/kimi-k2-5-scaling/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention"
+      ]
+    },
+    {
+      "source": "/inference/models/kimi-k2-5-scaling/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/inference/models/kimi-k3/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "RoPE",
+        "self-attention"
+      ]
+    },
+    {
+      "source": "/inference/models/kimi-k3/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "expert parallel"
+      ]
+    },
+    {
+      "source": "/courses/cme295/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec01/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "attention",
+        "Attention"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-01/",
+      "target": "/courses/cme295/lec-02/",
+      "type": "keyword+section",
+      "weight": 0.528,
+      "terms": [
+        "token",
+        "embedding"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "keyword+section",
+      "weight": 0.49,
+      "terms": []
+    },
+    {
+      "source": "/courses/cme295/lec-02/",
+      "target": "/courses/cme295/lec-03/",
+      "type": "keyword+section",
+      "weight": 0.482,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-01/",
+      "target": "/courses/cme295/lec-03/",
+      "type": "keyword+section",
+      "weight": 0.463,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-01/",
+      "target": "/courses/cme295/lec-04/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/courses/cme295/lec-02/",
+      "target": "/courses/cme295/lec-04/",
+      "type": "keyword+section",
+      "weight": 0.337,
+      "terms": []
+    },
+    {
+      "source": "/courses/cme295/lec-01/",
+      "target": "/courses/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.292,
+      "terms": [
+        "token",
+        "embedding",
+        "decoder"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-02/",
+      "target": "/courses/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.281,
+      "terms": [
+        "token",
+        "embedding",
+        "attention"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-03/",
+      "target": "/courses/deep-learning-for-network-engineers/week02/",
+      "type": "keyword",
+      "weight": 0.237,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-03/",
+      "target": "/courses/cme295/lec-04/",
+      "type": "keyword",
+      "weight": 0.235,
+      "terms": [
+        "model"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-03/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-04/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "parallelism",
+        "training"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-04/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "token",
+        "attention"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/inference/models/kimi-k3/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "attention"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/inference/models/kimi-k2-5-scaling/",
+      "target": "/mlops/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    },
+    {
+      "source": "/inference/models/kimi-k3/",
+      "target": "/mlops/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
+    }
+  ]
+}

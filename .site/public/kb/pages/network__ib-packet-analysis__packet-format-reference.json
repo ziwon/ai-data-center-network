@@ -9,13 +9,13 @@
       "send",
       "header",
       "rdma",
-      "reserved",
       "field",
-      "bits",
+      "reserved",
       "bth",
-      "width",
+      "bits",
       "immediate",
-      "extended"
+      "extended",
+      "width"
     ],
     "excerpt": "This document is a bit-level reference for InfiniBand packet headers, intended as a companion to the main analysis report. The report focuses on what was..."
   },
@@ -29,13 +29,13 @@
         "send",
         "header",
         "rdma",
-        "reserved",
         "field",
-        "bits",
+        "reserved",
         "bth",
-        "width",
+        "bits",
         "immediate",
-        "extended"
+        "extended",
+        "width"
       ],
       "excerpt": "This document is a bit-level reference for InfiniBand packet headers, intended as a companion to the main analysis report. The report focuses on what was..."
     },
@@ -46,17 +46,36 @@
       "group": "network",
       "keywords": [
         "rdma",
-        "captures",
         "infiniband",
         "packet",
+        "captures",
         "ipoib",
         "capture",
         "packets",
         "bth",
         "reth",
-        "read"
+        "aeth"
       ],
       "excerpt": "This report analyzes the packet captures in the ib-packets directory using tshark . The goal is to connect the captured packets back to the Chapter 1 RDMA..."
+    },
+    {
+      "id": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "title": "InfiniBand 패킷 형식 참조 문서",
+      "route": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "group": "network",
+      "keywords": [
+        "send",
+        "rdma",
+        "bth",
+        "reserved",
+        "immediate",
+        "mad",
+        "smp",
+        "header",
+        "byte",
+        "다음에"
+      ],
+      "excerpt": "이 문서는 InfiniBand 패킷 헤더를 비트 단위로 정리한 참조 문서이며, 메인 분석 보고서를 보완하도록 작성되었습니다. 보고서가 ib-packets 데이터셋에서 무엇이 관측되었는지에 초점을 둔다면, 이 문서는 IB 패킷 헤더가 실제 전송 형식에서 어떻게 배치되는지에 초점을..."
     },
     {
       "id": "concept:infiniband",
@@ -99,25 +118,6 @@
       ]
     },
     {
-      "id": "/network/ib-packet-analysis/packet-format-reference_ko/",
-      "title": "InfiniBand 패킷 형식 참조 문서",
-      "route": "/network/ib-packet-analysis/packet-format-reference_ko/",
-      "group": "network",
-      "keywords": [
-        "send",
-        "rdma",
-        "reserved",
-        "bth",
-        "immediate",
-        "byte",
-        "다음에",
-        "mad",
-        "smp",
-        "header"
-      ],
-      "excerpt": "이 문서는 InfiniBand 패킷 헤더를 비트 단위로 정리한 참조 문서이며, 메인 분석 보고서를 보완하도록 작성되었습니다. 보고서가 ib-packets 데이터셋에서 무엇이 관측되었는지에 초점을 둔다면, 이 문서는 IB 패킷 헤더가 실제 전송 형식에서 어떻게 배치되는지에 초점을..."
-    },
-    {
       "id": "/network/chap01/",
       "title": "Chapter 1: Wonders in the Workload",
       "route": "/network/chap01/",
@@ -127,12 +127,12 @@
         "nic",
         "memory",
         "infiniband",
-        "queue",
         "remote",
+        "queue",
         "kernel",
         "send",
-        "training",
-        "rnic"
+        "rnic",
+        "training"
       ],
       "excerpt": "The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining."
     },
@@ -149,9 +149,9 @@
         "congestion",
         "inc",
         "cbfc",
+        "rocev2",
         "pdc",
-        "llr",
-        "unordered"
+        "llr"
       ],
       "excerpt": "This chapter explains why the Ultra Ethernet Consortium, UEC, exists and how Ultra Ethernet Transport, UET, changes Ethernet-based AI/HPC fabrics."
     },
@@ -162,15 +162,15 @@
       "group": "network",
       "keywords": [
         "rdma",
-        "트래픽",
         "infiniband",
+        "트래픽",
         "ipoib",
         "bth",
         "보여줍니다",
         "reth",
         "aeth",
         "페이로드",
-        "데이터"
+        "sniffer.pcap"
       ],
       "excerpt": "이 보고서는 ib-packets 디렉터리의 패킷 캡처를 tshark 로 분석합니다. 목표는 캡처된 패킷을 1장의 RDMA 및 InfiniBand 노트와 다시 연결하는 것입니다. 즉, 데이터 경로 vs 제어 경로, InfiniBand 패킷 구조, 관리 트래픽, IP over..."
     },
@@ -186,10 +186,10 @@
         "fabric",
         "2026.02",
         "2026.05",
+        "2022.10",
         "2026.03",
         "2025.11",
-        "2025.10",
-        "2024.08"
+        "2025.10"
       ],
       "excerpt": "AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations."
     },
@@ -224,29 +224,29 @@
         "queue",
         "host",
         "memory",
-        "gpu",
         "transport",
-        "chunk",
+        "gpu",
+        "unique",
         "key"
       ],
       "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "title": "How to Think About GPUs",
-      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "group": "inference",
       "keywords": [
         "tensor",
         "gpu",
         "core",
         "b300",
-        "blackwell",
         "nvlink",
         "dgx",
+        "blackwell",
         "memory",
         "parallelism",
-        "decode"
+        "scale-up"
       ],
       "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
     },
@@ -260,11 +260,11 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
@@ -278,9 +278,9 @@
         "congestion",
         "flows",
         "traffic",
-        "balancing",
         "training",
         "ethernet",
+        "balancing",
         "flow",
         "rocev2",
         "pfc",
@@ -351,6 +351,28 @@
       ]
     },
     {
+      "source": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "target": "/network/ib-packet-analysis/packet-format-reference/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "send",
+        "header",
+        "rdma",
+        "reserved"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/packet-format-reference_ko/",
+      "target": "/network/ib-packet-analysis/readme_ko/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "rdma",
+        "bth"
+      ]
+    },
+    {
       "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "concept:rdma",
       "type": "mentions",
@@ -391,7 +413,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.93,
@@ -617,7 +639,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.855,
@@ -626,7 +648,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:roce",
       "type": "mentions",
       "weight": 0.855,
@@ -681,18 +703,6 @@
       ]
     },
     {
-      "source": "/network/ib-packet-analysis/packet-format-reference_ko/",
-      "target": "/network/ib-packet-analysis/packet-format-reference/",
-      "type": "keyword",
-      "weight": 0.559,
-      "terms": [
-        "send",
-        "header",
-        "rdma",
-        "reserved"
-      ]
-    },
-    {
       "source": "/network/chap01/",
       "target": "/network/ib-packet-analysis/",
       "type": "keyword+section",
@@ -739,24 +749,15 @@
       "type": "keyword",
       "weight": 0.293,
       "terms": [
-        "congestion"
-      ]
-    },
-    {
-      "source": "/network/ib-packet-analysis/packet-format-reference_ko/",
-      "target": "/network/ib-packet-analysis/readme_ko/",
-      "type": "keyword",
-      "weight": 0.285,
-      "terms": [
-        "rdma",
-        "bth"
+        "congestion",
+        "rocev2"
       ]
     },
     {
       "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "keyword",
-      "weight": 0.25,
+      "weight": 0.247,
       "terms": [
         "gpu"
       ]
@@ -765,7 +766,7 @@
       "source": "/network/chap12/",
       "target": "/network/ib-packet-analysis/",
       "type": "keyword",
-      "weight": 0.223,
+      "weight": 0.222,
       "terms": [
         "packet"
       ]
@@ -800,15 +801,6 @@
     {
       "source": "/courses/deep-learning-for-network-engineers/week04/",
       "target": "/network/ib-packet-analysis/packet-format-reference_ko/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "rdma"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week04/",
-      "target": "/network/ib-packet-analysis/readme_ko/",
       "type": "keyword",
       "weight": 0.22,
       "terms": [

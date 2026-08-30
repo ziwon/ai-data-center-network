@@ -6,8 +6,8 @@
     "route": "/gpu/pmpp/lec04/",
     "group": "gpu",
     "keywords": [
-      "warp",
       "block",
+      "warp",
       "thread",
       "threads",
       "sm에",
@@ -26,8 +26,8 @@
       "route": "/gpu/pmpp/lec04/",
       "group": "gpu",
       "keywords": [
-        "warp",
         "block",
+        "warp",
         "thread",
         "threads",
         "sm에",
@@ -53,8 +53,8 @@
         "notes",
         "lecture",
         "cuda",
-        "primary",
-        "gpu"
+        "gpu",
+        "primary"
       ],
       "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
     },
@@ -84,14 +84,14 @@
         "instruction",
         "thread",
         "execution",
-        "multi-threading",
         "processor",
+        "multi-threading",
+        "lane",
         "stream",
-        "multi-core",
         "cache",
-        "lane"
+        "warp"
       ],
-      "excerpt": "이번 강의의 목표는 modern processor가 parallelism을 hardware 안에서 어떤 형태로 제공하는지 이해하는 것이다. 1강에서는 program을 instruction stream으로 보고, speedup과 efficiency를 구분했다. 2강은 그 관점을..."
+      "excerpt": "이번 강의의 목표는 modern processor가 hardware 수준에서 parallelism을 어떤 방식으로 제공하는지 이해하는 것이다. 1강에서는 program을 instruction stream으로 보고 speedup과 efficiency를 구분했다. 2강에서는 이..."
     },
     {
       "id": "/gpu/pmpp/lec05/",
@@ -113,6 +113,25 @@
       "excerpt": "이번 강의의 목표는 CUDA memory hierarchy를 이해하고, global memory access를 줄이기 위해 shared memory를 어떻게 사용하는지 배우는 것이다. 4강에서는 GPU가 SM, warp, occupancy를 통해 많은 thread를 실행하고..."
     },
     {
+      "id": "/gpu/cs149/lec03/",
+      "title": "Lecture 3: Multi-Core Architecture, Part II and ISPC",
+      "route": "/gpu/cs149/lec03/",
+      "group": "gpu",
+      "keywords": [
+        "ispc",
+        "instance",
+        "gang",
+        "simd",
+        "thread",
+        "program",
+        "instruction",
+        "foreach",
+        "abstraction",
+        "lane"
+      ],
+      "excerpt": "이번 강의의 목표는 두 가지다. 첫째, modern throughput processor에서 latency와 bandwidth가 서로 다른 제약임을 이해한다. 둘째, parallel programming model의 semantics와 그것을 실제 hardware에..."
+    },
+    {
       "id": "/gpu/cs149/lec01/",
       "title": "Lecture 1: Why Parallelism? Why Efficiency?",
       "route": "/gpu/cs149/lec01/",
@@ -123,13 +142,32 @@
         "speedup",
         "instruction",
         "work",
-        "parallelism",
         "efficiency",
+        "parallelism",
         "parallel",
         "memory",
         "cache"
       ],
       "excerpt": "이번 강의의 목표는 왜 현대 시스템에서 parallelism이 선택 사항이 아니라 기본 조건이 되었는지, 그리고 단순히 \"병렬로 돌렸다\"는 사실만으로는 충분하지 않은 이유를 이해하는 것이다."
+    },
+    {
+      "id": "/gpu/cs149/lec04/",
+      "title": "Lecture 4: Parallel Programming Basics",
+      "route": "/gpu/cs149/lec04/",
+      "group": "gpu",
+      "keywords": [
+        "task",
+        "assignment",
+        "thread",
+        "barrier",
+        "worker",
+        "dependency",
+        "phase",
+        "work",
+        "cell",
+        "iteration"
+      ],
+      "excerpt": "이번 강의의 목표는 sequential program을 parallel program으로 바꾸는 사고 과정을 체계화하는 것이다. 핵심은 thread나 API를 먼저 고르는 것이 아니라, computation의 dependency를 찾아 independent work를 드러낸 뒤..."
     },
     {
       "id": "/gpu/pmpp/lec02/",
@@ -157,36 +195,17 @@
       "group": "gpu",
       "keywords": [
         "row",
-        "pixel",
         "col",
+        "pixel",
         "image",
         "thread",
-        "index",
         "blur",
+        "index",
         "output",
-        "column",
-        "rgb"
+        "rgb",
+        "column"
       ],
       "excerpt": "이번 강의의 목표는 CUDA에서 2D/3D grid와 block을 사용하는 방법을 배우고, image와 matrix처럼 multidimensional data를 1D memory layout 위에서 올바르게 index하는 법을 익히는 것이다."
-    },
-    {
-      "id": "/systems-performance/chap02/",
-      "title": "Chapter 2: AI System Hardware Overview",
-      "route": "/systems-performance/chap02/",
-      "group": "systems-performance",
-      "keywords": [
-        "gpu",
-        "rack",
-        "blackwell",
-        "grace",
-        "memory",
-        "nvl72",
-        "cpu",
-        "nvlink",
-        "hbm",
-        "power"
-      ],
-      "excerpt": "이번 주의 목표는 AI 시스템 하드웨어를 단순한 스펙표가 아니라 성능 병목 구조 로 이해하는 것이다."
     },
     {
       "id": "/gpu/",
@@ -199,32 +218,13 @@
         "kernels",
         "folder",
         "track",
-        "practice",
         "complement",
+        "practice",
         "parallel",
-        "systems",
-        "advanced"
+        "advanced",
+        "systems"
       ],
       "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
-    },
-    {
-      "id": "/gpu/appendix/architecture/",
-      "title": "GPU Architecture (reference)",
-      "route": "/gpu/appendix/architecture/",
-      "group": "gpu",
-      "keywords": [
-        "memory",
-        "execution",
-        "architecture",
-        "warp",
-        "shared",
-        "registers",
-        "model",
-        "cuda",
-        "hardware",
-        "occupancy"
-      ],
-      "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
     },
     {
       "id": "/courses/cme295/lec-04/",
@@ -234,11 +234,11 @@
       "keywords": [
         "pre-training",
         "model",
-        "sft",
         "training",
+        "sft",
         "parallelism",
-        "optimizer",
         "lora",
+        "optimizer",
         "fine-tuning",
         "precision",
         "states"
@@ -255,8 +255,8 @@
         "vector",
         "embedding",
         "attention",
-        "word",
         "decoder",
+        "word",
         "layer",
         "ffnn",
         "parameter",
@@ -274,11 +274,11 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
@@ -287,27 +287,11 @@
   "edges": [
     {
       "source": "/gpu/",
-      "target": "/gpu/appendix/architecture/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/gpu/",
       "target": "/gpu/pmpp/",
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
         "parallel"
-      ]
-    },
-    {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/pmpp/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": [
-        "cuda"
       ]
     },
     {
@@ -389,24 +373,31 @@
       ]
     },
     {
+      "source": "/gpu/cs149/lec03/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism",
+        "tensor parallel"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec04/",
+      "target": "concept:parallelism",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "Parallelism"
+      ]
+    },
+    {
       "source": "/gpu/pmpp/lec02/",
       "target": "concept:parallelism",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
         "Parallelism",
-        "data parallel"
-      ]
-    },
-    {
-      "source": "/systems-performance/chap02/",
-      "target": "concept:parallelism",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "Parallelism",
-        "tensor parallel",
-        "expert parallel",
         "data parallel"
       ]
     },
@@ -433,37 +424,46 @@
       "source": "/courses/deep-learning-for-network-engineers/week02/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword+section",
-      "weight": 0.493,
+      "weight": 0.49,
+      "terms": []
+    },
+    {
+      "source": "/gpu/cs149/lec03/",
+      "target": "/gpu/cs149/lec04/",
+      "type": "keyword",
+      "weight": 0.329,
       "terms": [
-        "layer"
+        "thread"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec02/",
+      "target": "/gpu/cs149/lec03/",
+      "type": "keyword",
+      "weight": 0.321,
+      "terms": [
+        "simd",
+        "thread",
+        "instruction",
+        "lane"
       ]
     },
     {
       "source": "/gpu/cs149/lec02/",
       "target": "/gpu/pmpp/lec04/",
       "type": "keyword",
-      "weight": 0.328,
+      "weight": 0.307,
       "terms": [
+        "warp",
         "thread",
         "instruction"
-      ]
-    },
-    {
-      "source": "/gpu/cs149/lec01/",
-      "target": "/gpu/cs149/lec02/",
-      "type": "keyword",
-      "weight": 0.312,
-      "terms": [
-        "instruction",
-        "processor",
-        "cache"
       ]
     },
     {
       "source": "/gpu/pmpp/lec04/",
       "target": "/gpu/pmpp/lec05/",
       "type": "keyword",
-      "weight": 0.304,
+      "weight": 0.3,
       "terms": [
         "memory",
         "thread",
@@ -471,7 +471,28 @@
       ]
     },
     {
-      "source": "/gpu/pmpp/lec03/",
+      "source": "/gpu/cs149/lec01/",
+      "target": "/gpu/cs149/lec02/",
+      "type": "keyword",
+      "weight": 0.294,
+      "terms": [
+        "instruction",
+        "processor",
+        "cache"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec03/",
+      "target": "/gpu/pmpp/lec04/",
+      "type": "keyword",
+      "weight": 0.268,
+      "terms": [
+        "thread",
+        "instruction"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec03/",
       "target": "/gpu/pmpp/lec05/",
       "type": "keyword",
       "weight": 0.264,
@@ -480,19 +501,46 @@
       ]
     },
     {
-      "source": "/gpu/cs149/lec02/",
+      "source": "/gpu/pmpp/lec03/",
       "target": "/gpu/pmpp/lec05/",
       "type": "keyword",
-      "weight": 0.252,
+      "weight": 0.261,
       "terms": [
         "thread"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec01/",
+      "target": "/gpu/cs149/lec03/",
+      "type": "keyword",
+      "weight": 0.247,
+      "terms": [
+        "instruction"
       ]
     },
     {
       "source": "/gpu/pmpp/lec02/",
       "target": "/gpu/pmpp/lec03/",
       "type": "keyword",
-      "weight": 0.243,
+      "weight": 0.24,
+      "terms": [
+        "thread"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec02/",
+      "target": "/gpu/pmpp/lec05/",
+      "type": "keyword",
+      "weight": 0.237,
+      "terms": [
+        "thread"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec04/",
+      "target": "/gpu/pmpp/lec05/",
+      "type": "keyword",
+      "weight": 0.233,
       "terms": [
         "thread"
       ]
@@ -501,58 +549,48 @@
       "source": "/gpu/cs149/lec01/",
       "target": "/gpu/pmpp/lec04/",
       "type": "keyword",
-      "weight": 0.231,
+      "weight": 0.228,
       "terms": [
         "instruction",
         "memory"
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/week03/",
-      "target": "/systems-performance/chap02/",
-      "type": "keyword",
-      "weight": 0.226,
-      "terms": [
-        "gpu"
-      ]
-    },
-    {
       "source": "/gpu/cs149/lec01/",
       "target": "/gpu/pmpp/lec05/",
       "type": "keyword",
-      "weight": 0.224,
+      "weight": 0.221,
       "terms": [
         "memory"
       ]
     },
     {
-      "source": "/gpu/pmpp/lec02/",
-      "target": "/gpu/pmpp/lec05/",
+      "source": "/gpu/cs149/lec02/",
+      "target": "/gpu/cs149/lec04/",
       "type": "keyword",
-      "weight": 0.222,
+      "weight": 0.221,
       "terms": [
-        "memory",
-        "thread",
-        "global",
-        "block"
+        "thread"
       ]
     },
     {
       "source": "/courses/cme295/lec-04/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword",
-      "weight": 0.221,
+      "weight": 0.22,
       "terms": [
         "parallelism",
         "training"
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/week02/",
-      "target": "/gpu/pmpp/lec03/",
+      "source": "/gpu/cs149/lec01/",
+      "target": "/gpu/cs149/lec04/",
       "type": "keyword",
       "weight": 0.22,
-      "terms": []
+      "terms": [
+        "work"
+      ]
     },
     {
       "source": "/gpu/cs149/lec01/",
@@ -564,23 +602,7 @@
       ]
     },
     {
-      "source": "/gpu/cs149/lec01/",
-      "target": "/gpu/pmpp/lec03/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/gpu/cs149/lec01/",
-      "target": "/systems-performance/chap02/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "memory"
-      ]
-    },
-    {
-      "source": "/gpu/cs149/lec02/",
+      "source": "/gpu/cs149/lec03/",
       "target": "/gpu/pmpp/lec02/",
       "type": "keyword",
       "weight": 0.22,
@@ -589,11 +611,31 @@
       ]
     },
     {
-      "source": "/gpu/cs149/lec02/",
-      "target": "/systems-performance/chap02/",
+      "source": "/gpu/cs149/lec03/",
+      "target": "/gpu/pmpp/lec03/",
       "type": "keyword",
       "weight": 0.22,
-      "terms": []
+      "terms": [
+        "thread"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec04/",
+      "target": "/gpu/pmpp/lec03/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "thread"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/lec04/",
+      "target": "/gpu/pmpp/lec04/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "thread"
+      ]
     },
     {
       "source": "/gpu/pmpp/lec02/",
@@ -607,6 +649,18 @@
       ]
     },
     {
+      "source": "/gpu/pmpp/lec02/",
+      "target": "/gpu/pmpp/lec05/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "memory",
+        "thread",
+        "global",
+        "block"
+      ]
+    },
+    {
       "source": "/gpu/pmpp/lec03/",
       "target": "/gpu/pmpp/lec04/",
       "type": "keyword",
@@ -616,15 +670,6 @@
       ]
     },
     {
-      "source": "/gpu/pmpp/lec04/",
-      "target": "/systems-performance/chap02/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "memory"
-      ]
-    },
-    {
       "source": "/gpu/",
       "target": "/gpu/cs149/lec01/",
       "type": "section",
@@ -634,6 +679,20 @@
     {
       "source": "/gpu/",
       "target": "/gpu/cs149/lec02/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/cs149/lec03/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/cs149/lec04/",
       "type": "section",
       "weight": 0.18,
       "terms": []
@@ -661,48 +720,6 @@
     },
     {
       "source": "/gpu/",
-      "target": "/gpu/pmpp/lec05/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/cs149/lec01/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/cs149/lec02/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/pmpp/lec02/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/pmpp/lec03/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/gpu/appendix/architecture/",
-      "target": "/gpu/pmpp/lec04/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/gpu/appendix/architecture/",
       "target": "/gpu/pmpp/lec05/",
       "type": "section",
       "weight": 0.18,

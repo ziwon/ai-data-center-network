@@ -10,12 +10,12 @@
       "irregular",
       "onur",
       "mutlu",
-      "parallel",
       "meeting",
       "course",
+      "parallel",
+      "patterns",
       "pattern",
-      "heterogeneous",
-      "patterns"
+      "heterogeneous"
     ],
     "excerpt": "A complementary course to PMPP, used in parallel for a second pass over the classic parallel patterns behind GPU kernels. Where PMPP is the spine, this..."
   },
@@ -30,12 +30,12 @@
         "irregular",
         "onur",
         "mutlu",
-        "parallel",
         "meeting",
         "course",
+        "parallel",
+        "patterns",
         "pattern",
-        "heterogeneous",
-        "patterns"
+        "heterogeneous"
       ],
       "excerpt": "A complementary course to PMPP, used in parallel for a second pass over the classic parallel patterns behind GPU kernels. Where PMPP is the spine, this..."
     },
@@ -50,11 +50,11 @@
         "kernels",
         "folder",
         "track",
-        "practice",
         "complement",
+        "practice",
         "parallel",
-        "systems",
-        "advanced"
+        "advanced",
+        "systems"
       ],
       "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
     },
@@ -67,12 +67,12 @@
         "lectures",
         "talks",
         "mode",
-        "lecture",
         "ongoing",
-        "youtube",
-        "advanced",
+        "lecture",
         "theme",
-        "cuda",
+        "advanced",
+        "youtube",
+        "watch",
         "gpu"
       ],
       "excerpt": "Advanced, ongoing feed for modern ML kernels (formerly CUDA MODE). Treat this as a later / advanced course: come here after the PMPP foundation is in place...."
@@ -84,12 +84,12 @@
       "group": "gpu",
       "keywords": [
         "lecture",
-        "triton",
         "kernels",
+        "triton",
         "matmul",
+        "cutlass",
         "kernel",
         "gemm",
-        "cutlass",
         "fused",
         "attention",
         "case"
@@ -110,8 +110,8 @@
         "notes",
         "lecture",
         "cuda",
-        "primary",
-        "gpu"
+        "gpu",
+        "primary"
       ],
       "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
     },
@@ -122,15 +122,15 @@
       "group": "gpu",
       "keywords": [
         "cs149",
-        "stanford",
-        "dnn",
         "multi-core",
+        "dnn",
+        "stanford",
         "simd",
-        "systems",
         "parallel-computing",
-        "specialization",
+        "systems",
         "execution",
-        "parallelism"
+        "specialization",
+        "parallel"
       ],
       "excerpt": "Stanford CS149 is the systems foundation course for this GPU track. It connects GPU programming with the broader parallel-computing model: multi-core CPUs,..."
     },
@@ -143,13 +143,13 @@
         "memory",
         "execution",
         "architecture",
+        "registers",
         "warp",
         "shared",
-        "registers",
         "model",
         "cuda",
         "hardware",
-        "occupancy"
+        "look-up"
       ],
       "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
     },
@@ -163,12 +163,12 @@
         "lookup",
         "language",
         "guidelines",
-        "compilation",
         "ptx/sass",
         "api",
-        "reference",
         "spaces",
-        "analyze"
+        "reference",
+        "analyze",
+        "constant"
       ],
       "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
     }
@@ -194,7 +194,8 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
-        "systems"
+        "systems",
+        "parallel"
       ]
     },
     {
@@ -212,8 +213,8 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
-        "parallel",
-        "course"
+        "course",
+        "parallel"
       ]
     },
     {
@@ -262,9 +263,7 @@
       "target": "/gpu/gpu-mode/",
       "type": "link+keyword+section",
       "weight": 1,
-      "terms": [
-        "cuda"
-      ]
+      "terms": []
     },
     {
       "source": "/gpu/appendix/cuda/",
@@ -305,7 +304,6 @@
       "weight": 1,
       "terms": [
         "lecture",
-        "cuda",
         "gpu"
       ]
     },
@@ -346,7 +344,16 @@
       "source": "/gpu/cs149/",
       "target": "/gpu/pmpp/",
       "type": "keyword",
-      "weight": 0.26,
+      "weight": 0.27,
+      "terms": [
+        "parallel"
+      ]
+    },
+    {
+      "source": "/gpu/cs149/",
+      "target": "/gpu/gpu-mode/",
+      "type": "keyword",
+      "weight": 0.22,
       "terms": []
     },
     {
@@ -354,7 +361,9 @@
       "target": "/gpu/heterogeneous-systems/",
       "type": "keyword",
       "weight": 0.22,
-      "terms": []
+      "terms": [
+        "parallel"
+      ]
     },
     {
       "source": "/gpu/appendix/architecture/",

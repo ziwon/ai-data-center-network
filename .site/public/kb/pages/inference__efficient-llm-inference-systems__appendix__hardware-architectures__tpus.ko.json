@@ -1,9 +1,9 @@
 {
   "version": 1,
   "current": {
-    "id": "/inference/appendix/hardware-architectures/tpus.ko/",
+    "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
     "title": "How to Think About TPUs",
-    "route": "/inference/appendix/hardware-architectures/tpus.ko/",
+    "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
     "group": "inference",
     "keywords": [
       "tpu",
@@ -12,8 +12,8 @@
       "ici",
       "systolic",
       "hbm",
-      "tile",
       "dcn",
+      "tile",
       "chip",
       "array"
     ],
@@ -21,9 +21,9 @@
   },
   "nodes": [
     {
-      "id": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "title": "How to Think About TPUs",
-      "route": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "group": "inference",
       "keywords": [
         "tpu",
@@ -32,17 +32,17 @@
         "ici",
         "systolic",
         "hbm",
-        "tile",
         "dcn",
+        "tile",
         "chip",
         "array"
       ],
       "excerpt": "GPU와 비교하면 TPU는 더 단순하고, 더 규칙적인 workload에 맞춰져 있다. 이 단순함은 강점이지만, 모든 문제에 자동으로 유리하다는 뜻은 아니다. TPU에서 성능을 내려면 HBM, VMEM, MXU, ICI, DCN의 bandwidth 계층을 함께 이해해야 한다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "title": "Hardware Architectures for LLM Inference",
-      "route": "/inference/appendix/hardware-architectures/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "group": "inference",
       "keywords": [
         "week",
@@ -50,11 +50,11 @@
         "hardware",
         "think",
         "architectures",
-        "inference",
         "copied",
+        "inference",
         "inference-first",
         "npus",
-        "parallelism"
+        "1-4"
       ],
       "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course."
     },
@@ -105,66 +105,66 @@
       ]
     },
     {
-      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "title": "How to Think About GPUs",
-      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "group": "inference",
       "keywords": [
         "tensor",
         "gpu",
         "core",
         "b300",
-        "blackwell",
         "nvlink",
         "dgx",
+        "blackwell",
         "memory",
         "parallelism",
-        "decode"
+        "scale-up"
       ],
       "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/roofline.ko/",
-      "title": "All About Rooflines",
-      "route": "/inference/appendix/hardware-architectures/roofline.ko/",
-      "group": "inference",
-      "keywords": [
-        "roofline",
-        "intensity",
-        "arithmetic",
-        "bytes",
-        "comms",
-        "batch",
-        "compute-bound",
-        "critical",
-        "matmul",
-        "decode"
-      ],
-      "excerpt": "Roofline model은 이 중 compute throughput과 bandwidth를 함께 써서 어떤 workload가 compute-bound인지 memory-bound인지 빠르게 판단하는 방법이다."
-    },
-    {
-      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "title": "Domain-Specific Architectures for AI Inference",
-      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "group": "inference",
       "keywords": [
         "dsa",
         "cache",
         "compute",
         "week",
-        "tensor",
         "hardware",
+        "tensor",
+        "scratchpad",
         "decode",
-        "token",
         "sram",
-        "accelerator"
+        "inference"
       ],
       "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/npus.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "title": "All About Rooflines",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "group": "inference",
+      "keywords": [
+        "roofline",
+        "intensity",
+        "arithmetic",
+        "comms",
+        "bytes",
+        "compute-bound",
+        "batch",
+        "matmul",
+        "decode",
+        "critical"
+      ],
+      "excerpt": "Roofline model은 이 중 compute throughput과 bandwidth를 함께 써서 어떤 workload가 compute-bound인지 memory-bound인지 빠르게 판단하는 방법이다."
+    },
+    {
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "title": "How to Think About NPUs",
-      "route": "/inference/appendix/hardware-architectures/npus.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "group": "inference",
       "keywords": [
         "rbln",
@@ -173,50 +173,50 @@
         "rebellions",
         "furiosa-llm",
         "vllm",
-        "serving",
         "rsd",
         "rngd",
-        "surface"
+        "serving",
+        "docs"
       ],
       "excerpt": "NPU라는 이름은 넓다. 모바일 SoC 안의 작은 neural engine도 NPU라고 부르고, datacenter용 inference accelerator도 NPU라고 부른다. 이 노트에서 말하는 NPU는 후자다."
     },
     {
       "id": "/inference/",
-      "title": "Efficient LLM Inference Systems",
+      "title": "Inference",
       "route": "/inference/",
       "group": "inference",
       "keywords": [
-        "2022.11",
-        "2024.01",
-        "systems",
-        "llm",
-        "efficient",
-        "inference",
-        "2023.11",
-        "2019.11",
-        "2021.04",
-        "2023.05"
+        "최적화",
+        "하드웨어",
+        "모델별",
+        "serving",
+        "아키텍처",
+        "speculative",
+        "시스템",
+        "cache",
+        "decoding",
+        "주제별"
       ],
-      "excerpt": "LLM inference systems notes covering KV cache, batching, quantization, GPU profiling, model serving, and practical performance trade-offs."
+      "excerpt": "LLM inference notes covering KV cache, quantization, speculative decoding, FlashAttention, SGLang production serving, and model serving profiles."
     },
     {
-      "id": "/inference/appendix/",
-      "title": "Appendix",
-      "route": "/inference/appendix/",
+      "id": "/inference/efficient-llm-inference-systems/",
+      "title": "Efficient LLM Inference Systems",
+      "route": "/inference/efficient-llm-inference-systems/",
       "group": "inference",
       "keywords": [
-        "appendix",
-        "reusable",
-        "weeks",
-        "background",
-        "appear",
-        "topics",
-        "multiple",
-        "across",
+        "메모리",
+        "양자화",
+        "다룹니다",
+        "특성을",
+        "speculative",
         "llm",
-        "inference"
+        "efficient",
+        "decoding",
+        "지표와",
+        "학습합니다"
       ],
-      "excerpt": "Reusable background notes for LLM inference topics that appear across multiple weeks."
+      "excerpt": "LLM inference systems notes covering KV cache, batching, quantization, GPU profiling, model serving, and practical performance trade-offs."
     },
     {
       "id": "/courses/cme295/",
@@ -232,8 +232,8 @@
         "sft",
         "llm",
         "transformer",
-        "tuning",
-        "human"
+        "human",
+        "pre-training"
       ],
       "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
     },
@@ -245,14 +245,14 @@
       "keywords": [
         "token",
         "position",
-        "attention",
         "bert",
+        "attention",
         "embedding",
         "positional",
+        "nsp",
         "transformer",
         "encoder",
-        "nsp",
-        "head"
+        "cls"
       ],
       "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
     },
@@ -271,7 +271,7 @@
         "decoder-only",
         "sampling",
         "llm",
-        "top-k"
+        "temperature"
       ],
       "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
     },
@@ -285,8 +285,8 @@
         "vector",
         "embedding",
         "attention",
-        "word",
         "decoder",
+        "word",
         "layer",
         "ffnn",
         "parameter",
@@ -302,11 +302,11 @@
       "keywords": [
         "pre-training",
         "model",
-        "sft",
         "training",
+        "sft",
         "parallelism",
-        "optimizer",
         "lora",
+        "optimizer",
         "fine-tuning",
         "precision",
         "states"
@@ -325,9 +325,9 @@
         "queue",
         "host",
         "memory",
-        "gpu",
         "transport",
-        "chunk",
+        "gpu",
+        "unique",
         "key"
       ],
       "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
@@ -361,12 +361,12 @@
         "nic",
         "memory",
         "infiniband",
-        "queue",
         "remote",
+        "queue",
         "kernel",
         "send",
-        "training",
-        "rnic"
+        "rnic",
+        "training"
       ],
       "excerpt": "The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining."
     }
@@ -396,59 +396,63 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
+        "pre-training",
         "sft"
       ]
     },
     {
       "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/",
-      "type": "link+section",
+      "target": "/inference/efficient-llm-inference-systems/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": [
+        "speculative",
+        "decoding"
+      ]
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "type": "link+keyword+section",
       "weight": 1,
       "terms": []
     },
     {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/",
-      "type": "link+keyword+section",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "link+keyword",
       "weight": 1,
       "terms": [
+        "week",
+        "hardware",
         "inference"
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "link+section",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "link+keyword",
       "weight": 1,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": [
-        "parallelism"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
-      "type": "link+section",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "type": "link",
       "weight": 1,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/roofline.ko/",
-      "type": "link+keyword+section",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "type": "link+keyword",
       "weight": 1,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/tpus.ko/",
-      "type": "link+keyword+section",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "link+keyword",
       "weight": 1,
       "terms": []
     },
@@ -525,7 +529,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -535,7 +539,17 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -547,7 +561,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.93,
@@ -556,7 +570,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -566,7 +580,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -578,7 +592,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -588,7 +602,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -600,7 +614,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/roofline.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -610,7 +624,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/roofline.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -622,7 +636,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -632,7 +646,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -663,7 +677,17 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.88,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.88,
@@ -695,16 +719,6 @@
     },
     {
       "source": "/inference/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/inference/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.83,
@@ -714,7 +728,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.83,
@@ -733,7 +747,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/roofline.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.805,
@@ -742,7 +756,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "target": "concept:infiniband",
       "type": "mentions",
       "weight": 0.805,
@@ -754,19 +768,9 @@
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.486,
+      "weight": 0.482,
       "terms": [
         "token"
-      ]
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/appendix/",
-      "type": "keyword+section",
-      "weight": 0.454,
-      "terms": [
-        "llm",
-        "inference"
       ]
     },
     {
@@ -778,14 +782,7 @@
     },
     {
       "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "section",
-      "weight": 0.297,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "type": "section",
       "weight": 0.297,
       "terms": []
@@ -798,10 +795,10 @@
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/hardware-architectures/roofline.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
       "type": "keyword",
-      "weight": 0.29,
+      "weight": 0.287,
       "terms": [
         "decode"
       ]
@@ -810,7 +807,7 @@
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.285,
+      "weight": 0.281,
       "terms": [
         "token",
         "embedding",
@@ -818,57 +815,54 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "keyword",
-      "weight": 0.281,
+      "weight": 0.278,
       "terms": [
-        "tensor",
-        "decode"
+        "tensor"
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
-      "type": "keyword",
-      "weight": 0.277,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "target": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "type": "keyword",
       "weight": 0.274,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/roofline.ko/",
-      "target": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "type": "keyword",
-      "weight": 0.265,
+      "weight": 0.272,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "type": "keyword",
-      "weight": 0.264,
+      "weight": 0.263,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "target": "/inference/appendix/hardware-architectures/roofline.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "type": "keyword",
-      "weight": 0.244,
-      "terms": [
-        "decode"
-      ]
+      "weight": 0.263,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "type": "keyword",
+      "weight": 0.241,
+      "terms": []
     },
     {
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.241,
+      "weight": 0.237,
       "terms": [
         "token"
       ]
@@ -877,7 +871,7 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/cme295/lec-04/",
       "type": "keyword",
-      "weight": 0.239,
+      "weight": 0.235,
       "terms": [
         "model"
       ]
@@ -903,22 +897,22 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/npus.ko/",
-      "target": "/inference/appendix/hardware-architectures/roofline.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/npus.ko/",
-      "target": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
@@ -932,56 +926,70 @@
     },
     {
       "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
       "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
       "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/roofline.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
       "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/roofline.ko/",
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/tpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/roofline.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []

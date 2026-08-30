@@ -14,8 +14,8 @@
       "sft",
       "llm",
       "transformer",
-      "tuning",
-      "human"
+      "human",
+      "pre-training"
     ],
     "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
   },
@@ -34,8 +34,8 @@
         "sft",
         "llm",
         "transformer",
-        "tuning",
-        "human"
+        "human",
+        "pre-training"
       ],
       "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
     },
@@ -53,8 +53,8 @@
         "tracks",
         "cross",
         "preference",
-        "material",
-        "domain-specific"
+        "domain-specific",
+        "material"
       ],
       "excerpt": "Course- and lecture-oriented learning tracks that cross multiple AI systems domains."
     },
@@ -65,15 +65,15 @@
       "group": "courses/cme295",
       "keywords": [
         "token",
-        "embedding",
         "rnn",
-        "text",
-        "representation",
-        "self-attention",
+        "embedding",
         "decoder",
+        "text",
+        "self-attention",
+        "representation",
         "label",
         "sequence",
-        "attention"
+        "one-hot"
       ],
       "excerpt": "이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다."
     },
@@ -85,14 +85,14 @@
       "keywords": [
         "token",
         "position",
-        "attention",
         "bert",
+        "attention",
         "embedding",
         "positional",
+        "nsp",
         "transformer",
         "encoder",
-        "nsp",
-        "head"
+        "cls"
       ],
       "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
     },
@@ -111,7 +111,7 @@
         "decoder-only",
         "sampling",
         "llm",
-        "top-k"
+        "temperature"
       ],
       "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
     },
@@ -123,11 +123,11 @@
       "keywords": [
         "pre-training",
         "model",
-        "sft",
         "training",
+        "sft",
         "parallelism",
-        "optimizer",
         "lora",
+        "optimizer",
         "fine-tuning",
         "precision",
         "states"
@@ -164,11 +164,11 @@
         "sft",
         "model",
         "grpo",
-        "chain",
         "answer",
+        "chain",
         "advantage",
         "final",
-        "pass"
+        "sampling"
       ],
       "excerpt": "이번 강의의 목표는 reasoning model이 무엇이고, 왜 최근 LLM training에서 reinforcement learning이 reasoning capability를 키우는 핵심 도구가 되었는지 이해하는 것이다."
     },
@@ -231,8 +231,8 @@
         "vector",
         "embedding",
         "attention",
-        "word",
         "decoder",
+        "word",
         "layer",
         "ffnn",
         "parameter",
@@ -241,23 +241,23 @@
       "excerpt": "이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "title": "Domain-Specific Architectures for AI Inference",
-      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "id": "/inference/",
+      "title": "Inference",
+      "route": "/inference/",
       "group": "inference",
       "keywords": [
-        "dsa",
+        "최적화",
+        "하드웨어",
+        "모델별",
+        "serving",
+        "아키텍처",
+        "speculative",
+        "시스템",
         "cache",
-        "compute",
-        "week",
-        "tensor",
-        "hardware",
-        "decode",
-        "token",
-        "sram",
-        "accelerator"
+        "decoding",
+        "주제별"
       ],
-      "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
+      "excerpt": "LLM inference notes covering KV cache, quantization, speculative decoding, FlashAttention, SGLang production serving, and model serving profiles."
     },
     {
       "id": "/courses/deep-learning-for-network-engineers/week03/",
@@ -269,11 +269,11 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
@@ -289,8 +289,8 @@
         "speedup",
         "instruction",
         "work",
-        "parallelism",
         "efficiency",
+        "parallelism",
         "parallel",
         "memory",
         "cache"
@@ -337,6 +337,7 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
+        "pre-training",
         "sft"
       ]
     },
@@ -347,8 +348,7 @@
       "weight": 1,
       "terms": [
         "preference",
-        "sft",
-        "tuning"
+        "sft"
       ]
     },
     {
@@ -524,34 +524,13 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "MQA",
-        "GQA"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
         "KV cache",
         "KV Cache"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "concept:parallelism",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "Parallelism"
       ]
     },
     {
@@ -597,10 +576,9 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-02/",
       "type": "keyword+section",
-      "weight": 0.532,
+      "weight": 0.528,
       "terms": [
         "token",
-        "attention",
         "embedding"
       ]
     },
@@ -608,16 +586,14 @@
       "source": "/courses/deep-learning-for-network-engineers/week02/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword+section",
-      "weight": 0.493,
-      "terms": [
-        "layer"
-      ]
+      "weight": 0.49,
+      "terms": []
     },
     {
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.486,
+      "weight": 0.482,
       "terms": [
         "token"
       ]
@@ -626,7 +602,7 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.466,
+      "weight": 0.463,
       "terms": [
         "token"
       ]
@@ -677,11 +653,10 @@
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.295,
+      "weight": 0.292,
       "terms": [
         "token",
         "embedding",
-        "attention",
         "decoder"
       ]
     },
@@ -689,7 +664,7 @@
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.285,
+      "weight": 0.281,
       "terms": [
         "token",
         "embedding",
@@ -700,7 +675,7 @@
       "source": "/courses/cme295/lec-05/",
       "target": "/courses/cme295/lec-06/",
       "type": "keyword",
-      "weight": 0.256,
+      "weight": 0.253,
       "terms": [
         "reward",
         "sft",
@@ -711,7 +686,7 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.241,
+      "weight": 0.237,
       "terms": [
         "token"
       ]
@@ -720,7 +695,7 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/cme295/lec-04/",
       "type": "keyword",
-      "weight": 0.239,
+      "weight": 0.235,
       "terms": [
         "model"
       ]
@@ -729,7 +704,7 @@
       "source": "/courses/cme295/lec-04/",
       "target": "/courses/cme295/lec-05/",
       "type": "keyword",
-      "weight": 0.234,
+      "weight": 0.231,
       "terms": [
         "model",
         "sft"
@@ -739,29 +714,20 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/cme295/lec-06/",
       "type": "keyword",
-      "weight": 0.227,
+      "weight": 0.225,
       "terms": [
-        "model"
+        "model",
+        "sampling"
       ]
     },
     {
       "source": "/courses/cme295/lec-04/",
       "target": "/courses/cme295/lec-06/",
       "type": "keyword",
-      "weight": 0.226,
+      "weight": 0.223,
       "terms": [
         "sft",
         "model"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-04/",
-      "target": "/courses/deep-learning-for-network-engineers/week03/",
-      "type": "keyword",
-      "weight": 0.221,
-      "terms": [
-        "parallelism",
-        "training"
       ]
     },
     {
@@ -774,12 +740,13 @@
       ]
     },
     {
-      "source": "/gpu/cs149/lec01/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/courses/cme295/lec-04/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword",
       "weight": 0.22,
       "terms": [
-        "cache"
+        "parallelism",
+        "training"
       ]
     }
   ]

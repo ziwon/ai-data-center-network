@@ -10,8 +10,8 @@
       "essays",
       "gpu",
       "platform",
-      "kubernetes",
       "connect",
+      "kubernetes",
       "operational",
       "design",
       "cuda",
@@ -30,8 +30,8 @@
         "essays",
         "gpu",
         "platform",
-        "kubernetes",
         "connect",
+        "kubernetes",
         "operational",
         "design",
         "cuda",
@@ -50,11 +50,11 @@
         "kernels",
         "folder",
         "track",
-        "practice",
         "complement",
+        "practice",
         "parallel",
-        "systems",
-        "advanced"
+        "advanced",
+        "systems"
       ],
       "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
     },
@@ -72,8 +72,8 @@
         "cuda",
         "컨테이너",
         "사용량",
-        "gpu",
-        "프레임워크"
+        "프레임워크",
+        "gpu"
       ],
       "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
     },
@@ -88,8 +88,8 @@
         "quota",
         "mig",
         "스케줄러",
-        "메모리",
         "gpu",
+        "메모리",
         "pod",
         "annotation",
         "워크로드"
@@ -105,13 +105,13 @@
         "memory",
         "execution",
         "architecture",
+        "registers",
         "warp",
         "shared",
-        "registers",
         "model",
         "cuda",
         "hardware",
-        "occupancy"
+        "look-up"
       ],
       "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
     },
@@ -125,33 +125,33 @@
         "lookup",
         "language",
         "guidelines",
-        "compilation",
         "ptx/sass",
         "api",
-        "reference",
         "spaces",
-        "analyze"
+        "reference",
+        "analyze",
+        "constant"
       ],
       "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
     },
     {
-      "id": "/",
-      "title": "AI Data Center Systems",
-      "route": "/",
-      "group": "home",
+      "id": "/courses/deep-learning-for-network-engineers/",
+      "title": "Deep Learning for Network Engineers",
+      "route": "/courses/deep-learning-for-network-engineers/",
+      "group": "courses/deep-learning-for-network-engineers",
       "keywords": [
-        "systems",
-        "organized",
-        "courses",
-        "storage",
-        "tracks",
-        "mlperf",
-        "profiling",
-        "clos",
         "study",
-        "training"
+        "backend",
+        "networks",
+        "focus",
+        "training",
+        "deep",
+        "engineers",
+        "distributed",
+        "congestion",
+        "understand"
       ],
-      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering."
+      "excerpt": "Deep learning systems notes for network engineers covering training fundamentals, parallelism, collectives, RDMA, RoCE, and NCCL behavior."
     },
     {
       "id": "/gpu/gpu-mode/",
@@ -162,12 +162,12 @@
         "lectures",
         "talks",
         "mode",
-        "lecture",
         "ongoing",
-        "youtube",
-        "advanced",
+        "lecture",
         "theme",
-        "cuda",
+        "advanced",
+        "youtube",
+        "watch",
         "gpu"
       ],
       "excerpt": "Advanced, ongoing feed for modern ML kernels (formerly CUDA MODE). Treat this as a later / advanced course: come here after the PMPP foundation is in place...."
@@ -186,8 +186,8 @@
         "notes",
         "lecture",
         "cuda",
-        "primary",
-        "gpu"
+        "gpu",
+        "primary"
       ],
       "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
     },
@@ -202,32 +202,16 @@
         "2026.04",
         "2025.08",
         "numa-aware",
-        "systems",
         "books",
         "uncore",
         "talks",
-        "topology"
+        "gpu-local",
+        "kubelet"
       ],
       "excerpt": "AI systems performance engineering notes covering GPU hardware, Linux and container tuning, CUDA, PyTorch, profiling, and distributed communication."
     }
   ],
   "edges": [
-    {
-      "source": "/",
-      "target": "/gpu/",
-      "type": "link",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/",
-      "target": "/systems-performance/",
-      "type": "link+keyword",
-      "weight": 1,
-      "terms": [
-        "systems"
-      ]
-    },
     {
       "source": "/gpu/",
       "target": "/gpu/appendix/architecture/",
@@ -297,9 +281,7 @@
       "target": "/gpu/gpu-mode/",
       "type": "link+keyword+section",
       "weight": 1,
-      "terms": [
-        "cuda"
-      ]
+      "terms": []
     },
     {
       "source": "/gpu/appendix/cuda/",
@@ -325,24 +307,23 @@
       "terms": []
     },
     {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "link+keyword",
+      "weight": 1,
+      "terms": [
+        "quota",
+        "gpu",
+        "메모리"
+      ]
+    },
+    {
       "source": "/gpu/gpu-mode/",
       "target": "/gpu/pmpp/",
       "type": "link+keyword",
       "weight": 1,
       "terms": [
         "lecture",
-        "cuda",
-        "gpu"
-      ]
-    },
-    {
-      "source": "/gpu/articles/hami-core-deep-dive.ko/",
-      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
-      "type": "keyword",
-      "weight": 0.344,
-      "terms": [
-        "quota",
-        "메모리",
         "gpu"
       ]
     },
@@ -361,7 +342,7 @@
       "terms": []
     },
     {
-      "source": "/",
+      "source": "/courses/deep-learning-for-network-engineers/",
       "target": "/gpu/articles/",
       "type": "keyword",
       "weight": 0.22,
@@ -373,7 +354,6 @@
       "type": "keyword",
       "weight": 0.22,
       "terms": [
-        "cuda",
         "gpu"
       ]
     },

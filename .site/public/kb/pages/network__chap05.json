@@ -8,9 +8,9 @@
     "keywords": [
       "cooling",
       "power",
-      "airflow",
       "heat",
       "liquid",
+      "airflow",
       "rack",
       "immersion",
       "equipment",
@@ -28,9 +28,9 @@
       "keywords": [
         "cooling",
         "power",
-        "airflow",
         "heat",
         "liquid",
+        "airflow",
         "rack",
         "immersion",
         "equipment",
@@ -51,10 +51,10 @@
         "fabric",
         "2026.02",
         "2026.05",
+        "2022.10",
         "2026.03",
         "2025.11",
-        "2025.10",
-        "2024.08"
+        "2025.10"
       ],
       "excerpt": "AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations."
     },
@@ -72,8 +72,8 @@
         "fiber",
         "power",
         "dsp",
-        "signal",
-        "smf"
+        "links",
+        "signal"
       ],
       "excerpt": "This chapter explains how optics, transceivers, cables, connectors, and physical cable management affect AI/ML data center fabrics."
     },
@@ -88,10 +88,10 @@
         "fabric",
         "clos",
         "rail",
-        "server",
         "cabling",
-        "spine",
+        "server",
         "congestion",
+        "spine",
         "rack"
       ],
       "excerpt": "This chapter explains the major physical and logical design choices for AI data center networks."
@@ -105,9 +105,9 @@
         "congestion",
         "flows",
         "traffic",
-        "balancing",
         "training",
         "ethernet",
+        "balancing",
         "flow",
         "rocev2",
         "pfc",
@@ -123,13 +123,13 @@
       "keywords": [
         "storage",
         "file",
-        "fabric",
         "nvme-o-tcp",
+        "fabric",
         "nvme-o-rdma",
-        "a/b",
-        "checkpoint",
         "infiniband",
+        "a/b",
         "network",
+        "checkpoint",
         "training"
       ],
       "excerpt": "This chapter explains why storage networking is a separate design topic in AI data centers."
@@ -144,12 +144,12 @@
         "mlperf",
         "storage",
         "time",
-        "benchmark",
-        "accuracy",
         "quality",
-        "latency",
+        "accuracy",
+        "benchmark",
+        "jct",
         "training",
-        "jct"
+        "latency"
       ],
       "excerpt": "This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks."
     },
@@ -182,12 +182,12 @@
         "nic",
         "memory",
         "infiniband",
-        "queue",
         "remote",
+        "queue",
         "kernel",
         "send",
-        "training",
-        "rnic"
+        "rnic",
+        "training"
       ],
       "excerpt": "The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining."
     }
@@ -365,6 +365,16 @@
       "weight": 0.264,
       "terms": [
         "power"
+      ]
+    },
+    {
+      "source": "/network/chap09/",
+      "target": "/network/chap10/",
+      "type": "keyword",
+      "weight": 0.26,
+      "terms": [
+        "storage",
+        "training"
       ]
     },
     {

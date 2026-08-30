@@ -14,8 +14,8 @@
       "notes",
       "lecture",
       "cuda",
-      "primary",
-      "gpu"
+      "gpu",
+      "primary"
     ],
     "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
   },
@@ -34,8 +34,8 @@
         "notes",
         "lecture",
         "cuda",
-        "primary",
-        "gpu"
+        "gpu",
+        "primary"
       ],
       "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
     },
@@ -50,11 +50,11 @@
         "kernels",
         "folder",
         "track",
-        "practice",
         "complement",
+        "practice",
         "parallel",
-        "systems",
-        "advanced"
+        "advanced",
+        "systems"
       ],
       "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
     },
@@ -67,13 +67,13 @@
         "memory",
         "execution",
         "architecture",
+        "registers",
         "warp",
         "shared",
-        "registers",
         "model",
         "cuda",
         "hardware",
-        "occupancy"
+        "look-up"
       ],
       "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
     },
@@ -87,12 +87,12 @@
         "lookup",
         "language",
         "guidelines",
-        "compilation",
         "ptx/sass",
         "api",
-        "reference",
         "spaces",
-        "analyze"
+        "reference",
+        "analyze",
+        "constant"
       ],
       "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
     },
@@ -105,12 +105,12 @@
         "lectures",
         "talks",
         "mode",
-        "lecture",
         "ongoing",
-        "youtube",
-        "advanced",
+        "lecture",
         "theme",
-        "cuda",
+        "advanced",
+        "youtube",
+        "watch",
         "gpu"
       ],
       "excerpt": "Advanced, ongoing feed for modern ML kernels (formerly CUDA MODE). Treat this as a later / advanced course: come here after the PMPP foundation is in place...."
@@ -125,12 +125,12 @@
         "irregular",
         "onur",
         "mutlu",
-        "parallel",
         "meeting",
         "course",
+        "parallel",
+        "patterns",
         "pattern",
-        "heterogeneous",
-        "patterns"
+        "heterogeneous"
       ],
       "excerpt": "A complementary course to PMPP, used in parallel for a second pass over the classic parallel patterns behind GPU kernels. Where PMPP is the spine, this..."
     },
@@ -141,12 +141,12 @@
       "group": "gpu",
       "keywords": [
         "lecture",
-        "triton",
         "kernels",
+        "triton",
         "matmul",
+        "cutlass",
         "kernel",
         "gemm",
-        "cutlass",
         "fused",
         "attention",
         "case"
@@ -167,8 +167,8 @@
         "every",
         "performance-analysis",
         "launch-overhead-bound",
-        "hands-on",
-        "coalesced"
+        "coalesced",
+        "hands-on"
       ],
       "excerpt": "Nsight Compute and related GPU performance-analysis references. This is the hands-on tool you run while learning: for every concept in PMPP and every kernel..."
     },
@@ -198,15 +198,15 @@
       "group": "gpu",
       "keywords": [
         "row",
-        "pixel",
         "col",
+        "pixel",
         "image",
         "thread",
-        "index",
         "blur",
+        "index",
         "output",
-        "column",
-        "rgb"
+        "rgb",
+        "column"
       ],
       "excerpt": "이번 강의의 목표는 CUDA에서 2D/3D grid와 block을 사용하는 방법을 배우고, image와 matrix처럼 multidimensional data를 1D memory layout 위에서 올바르게 index하는 법을 익히는 것이다."
     },
@@ -216,8 +216,8 @@
       "route": "/gpu/pmpp/lec04/",
       "group": "gpu",
       "keywords": [
-        "warp",
         "block",
+        "warp",
         "thread",
         "threads",
         "sm에",
@@ -253,11 +253,11 @@
       "keywords": [
         "pre-training",
         "model",
-        "sft",
         "training",
+        "sft",
         "parallelism",
-        "optimizer",
         "lora",
+        "optimizer",
         "fine-tuning",
         "precision",
         "states"
@@ -274,8 +274,8 @@
         "vector",
         "embedding",
         "attention",
-        "word",
         "decoder",
+        "word",
         "layer",
         "ffnn",
         "parameter",
@@ -293,11 +293,11 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
@@ -313,8 +313,8 @@
         "speedup",
         "instruction",
         "work",
-        "parallelism",
         "efficiency",
+        "parallelism",
         "parallel",
         "memory",
         "cache"
@@ -352,8 +352,8 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
-        "parallel",
-        "course"
+        "course",
+        "parallel"
       ]
     },
     {
@@ -409,9 +409,7 @@
       "target": "/gpu/gpu-mode/",
       "type": "link+keyword+section",
       "weight": 1,
-      "terms": [
-        "cuda"
-      ]
+      "terms": []
     },
     {
       "source": "/gpu/appendix/cuda/",
@@ -459,7 +457,6 @@
       "weight": 1,
       "terms": [
         "lecture",
-        "cuda",
         "gpu"
       ]
     },
@@ -598,10 +595,8 @@
       "source": "/courses/deep-learning-for-network-engineers/week02/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword+section",
-      "weight": 0.493,
-      "terms": [
-        "layer"
-      ]
+      "weight": 0.49,
+      "terms": []
     },
     {
       "source": "/gpu/appendix/architecture/",
@@ -628,7 +623,7 @@
       "source": "/gpu/pmpp/lec02/",
       "target": "/gpu/pmpp/lec03/",
       "type": "keyword",
-      "weight": 0.243,
+      "weight": 0.24,
       "terms": [
         "thread"
       ]
@@ -637,7 +632,7 @@
       "source": "/gpu/cs149/lec01/",
       "target": "/gpu/pmpp/lec04/",
       "type": "keyword",
-      "weight": 0.231,
+      "weight": 0.228,
       "terms": [
         "instruction",
         "memory"
@@ -647,18 +642,11 @@
       "source": "/courses/cme295/lec-04/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword",
-      "weight": 0.221,
+      "weight": 0.22,
       "terms": [
         "parallelism",
         "training"
       ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week02/",
-      "target": "/gpu/pmpp/lec03/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
     },
     {
       "source": "/gpu/cs149/lec01/",
@@ -668,13 +656,6 @@
       "terms": [
         "memory"
       ]
-    },
-    {
-      "source": "/gpu/cs149/lec01/",
-      "target": "/gpu/pmpp/lec03/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
     },
     {
       "source": "/gpu/pmpp/lec02/",

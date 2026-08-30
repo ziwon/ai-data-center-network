@@ -13,9 +13,9 @@
       "srv6",
       "fabric",
       "asn",
-      "segment",
+      "fabrics",
       "flexalgo",
-      "fabrics"
+      "segment"
     ],
     "excerpt": "This chapter explains routing choices for AI/ML data center fabrics."
   },
@@ -33,9 +33,9 @@
         "srv6",
         "fabric",
         "asn",
-        "segment",
+        "fabrics",
         "flexalgo",
-        "fabrics"
+        "segment"
       ],
       "excerpt": "This chapter explains routing choices for AI/ML data center fabrics."
     },
@@ -51,10 +51,10 @@
         "fabric",
         "2026.02",
         "2026.05",
+        "2022.10",
         "2026.03",
         "2025.11",
-        "2025.10",
-        "2024.08"
+        "2025.10"
       ],
       "excerpt": "AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations."
     },
@@ -66,11 +66,11 @@
       "keywords": [
         "bgp",
         "glb",
-        "nnhn",
         "leaf",
+        "nnhn",
         "spine",
-        "quality",
         "underlay",
+        "quality",
         "juniper",
         "ingress",
         "heartbeats"
@@ -176,12 +176,12 @@
         "leaf",
         "dlb",
         "spine",
-        "flow",
         "ecmp",
-        "path",
+        "flow",
         "telb",
         "packet",
-        "link"
+        "path",
+        "flows"
       ],
       "excerpt": "This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv2 training clusters."
     },
@@ -196,10 +196,10 @@
         "fabric",
         "clos",
         "rail",
-        "server",
         "cabling",
-        "spine",
+        "server",
         "congestion",
+        "spine",
         "rack"
       ],
       "excerpt": "This chapter explains the major physical and logical design choices for AI data center networks."
@@ -254,9 +254,9 @@
         "csig",
         "rocev2",
         "cnp",
-        "pause",
         "sfc",
         "sender",
+        "pause",
         "threshold"
       ],
       "excerpt": "This chapter explains how RoCEv2 traffic is transported across Ethernet AI fabrics and how congestion is detected, signaled, and mitigated."
@@ -273,8 +273,8 @@
         "focus",
         "training",
         "deep",
-        "distributed",
         "engineers",
+        "distributed",
         "congestion",
         "understand"
       ],
@@ -288,14 +288,14 @@
       "keywords": [
         "gradient",
         "weight",
-        "pass",
         "gpu",
+        "pass",
         "training",
-        "synchronization",
         "neuron",
+        "synchronization",
         "network",
         "책에서",
-        "bias"
+        "loss"
       ],
       "excerpt": "이번 주 목표는 기본적인 Deep Learning 학습 과정이 어떻게 network design 문제로 이어지는지 이해하는 것이다."
     },
@@ -309,11 +309,11 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
@@ -330,9 +330,9 @@
         "queue",
         "host",
         "memory",
-        "gpu",
         "transport",
-        "chunk",
+        "gpu",
+        "unique",
         "key"
       ],
       "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
@@ -347,12 +347,12 @@
         "nic",
         "memory",
         "infiniband",
-        "queue",
         "remote",
+        "queue",
         "kernel",
         "send",
-        "training",
-        "rnic"
+        "rnic",
+        "training"
       ],
       "excerpt": "The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining."
     },
@@ -365,9 +365,9 @@
         "congestion",
         "flows",
         "traffic",
-        "balancing",
         "training",
         "ethernet",
+        "balancing",
         "flow",
         "rocev2",
         "pfc",
@@ -376,40 +376,40 @@
       "excerpt": "This chapter explains why AI/ML data center fabrics are different from traditional data center networks ."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "title": "Domain-Specific Architectures for AI Inference",
-      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "group": "inference",
       "keywords": [
         "dsa",
         "cache",
         "compute",
         "week",
-        "tensor",
         "hardware",
+        "tensor",
+        "scratchpad",
         "decode",
-        "token",
         "sram",
-        "accelerator"
+        "inference"
       ],
       "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "title": "How to Think About GPUs",
-      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "group": "inference",
       "keywords": [
         "tensor",
         "gpu",
         "core",
         "b300",
-        "blackwell",
         "nvlink",
         "dgx",
+        "blackwell",
         "memory",
         "parallelism",
-        "decode"
+        "scale-up"
       ],
       "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
     }
@@ -628,7 +628,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.93,
@@ -639,7 +639,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.93,
@@ -1057,7 +1057,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:congestion-control",
       "type": "mentions",
       "weight": 0.855,
@@ -1066,7 +1066,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.855,
@@ -1075,7 +1075,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:roce",
       "type": "mentions",
       "weight": 0.855,
@@ -1150,7 +1150,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:rdma",
       "type": "mentions",
       "weight": 0.83,
@@ -1235,7 +1235,7 @@
       "source": "/courses/deep-learning-for-network-engineers/week01/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword+section",
-      "weight": 0.536,
+      "weight": 0.534,
       "terms": [
         "gpu",
         "gradient",
@@ -1255,7 +1255,8 @@
       "type": "keyword",
       "weight": 0.404,
       "terms": [
-        "flow"
+        "flow",
+        "flows"
       ]
     },
     {
@@ -1278,7 +1279,7 @@
       "source": "/courses/deep-learning-for-network-engineers/week01/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "keyword+section",
-      "weight": 0.344,
+      "weight": 0.343,
       "terms": [
         "gpu"
       ]
@@ -1297,7 +1298,7 @@
       "source": "/network/chap02/",
       "target": "/network/chap07/",
       "type": "keyword",
-      "weight": 0.327,
+      "weight": 0.328,
       "terms": [
         "pfc",
         "congestion",
@@ -1308,21 +1309,21 @@
       "source": "/network/chap06/",
       "target": "/network/chap08/",
       "type": "keyword",
-      "weight": 0.32,
+      "weight": 0.319,
       "terms": []
     },
     {
       "source": "/network/chap06/",
       "target": "/network/chap07/",
       "type": "keyword",
-      "weight": 0.31,
+      "weight": 0.311,
       "terms": []
     },
     {
       "source": "/network/chap03/",
       "target": "/network/chap08/",
       "type": "keyword",
-      "weight": 0.307,
+      "weight": 0.306,
       "terms": [
         "fabric"
       ]
@@ -1342,13 +1343,12 @@
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "keyword",
-      "weight": 0.281,
+      "weight": 0.278,
       "terms": [
-        "tensor",
-        "decode"
+        "tensor"
       ]
     },
     {
@@ -1371,7 +1371,7 @@
       "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "keyword",
-      "weight": 0.25,
+      "weight": 0.247,
       "terms": [
         "gpu"
       ]

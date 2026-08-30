@@ -2,42 +2,42 @@
   "version": 1,
   "current": {
     "id": "/inference/",
-    "title": "Efficient LLM Inference Systems",
+    "title": "Inference",
     "route": "/inference/",
     "group": "inference",
     "keywords": [
-      "2022.11",
-      "2024.01",
-      "systems",
-      "llm",
-      "efficient",
-      "inference",
-      "2023.11",
-      "2019.11",
-      "2021.04",
-      "2023.05"
+      "최적화",
+      "하드웨어",
+      "모델별",
+      "serving",
+      "아키텍처",
+      "speculative",
+      "시스템",
+      "cache",
+      "decoding",
+      "주제별"
     ],
-    "excerpt": "LLM inference systems notes covering KV cache, batching, quantization, GPU profiling, model serving, and practical performance trade-offs."
+    "excerpt": "LLM inference notes covering KV cache, quantization, speculative decoding, FlashAttention, SGLang production serving, and model serving profiles."
   },
   "nodes": [
     {
       "id": "/inference/",
-      "title": "Efficient LLM Inference Systems",
+      "title": "Inference",
       "route": "/inference/",
       "group": "inference",
       "keywords": [
-        "2022.11",
-        "2024.01",
-        "systems",
-        "llm",
-        "efficient",
-        "inference",
-        "2023.11",
-        "2019.11",
-        "2021.04",
-        "2023.05"
+        "최적화",
+        "하드웨어",
+        "모델별",
+        "serving",
+        "아키텍처",
+        "speculative",
+        "시스템",
+        "cache",
+        "decoding",
+        "주제별"
       ],
-      "excerpt": "LLM inference systems notes covering KV cache, batching, quantization, GPU profiling, model serving, and practical performance trade-offs."
+      "excerpt": "LLM inference notes covering KV cache, quantization, speculative decoding, FlashAttention, SGLang production serving, and model serving profiles."
     },
     {
       "id": "/",
@@ -48,185 +48,148 @@
         "systems",
         "organized",
         "courses",
-        "storage",
+        "mlops",
         "tracks",
+        "storage",
         "mlperf",
-        "profiling",
         "clos",
-        "study",
+        "profiling",
         "training"
       ],
-      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering."
+      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, MLOps, storage, and systems performance engineering."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/",
-      "title": "Hardware Architectures for LLM Inference",
-      "route": "/inference/appendix/hardware-architectures/",
-      "group": "inference",
-      "keywords": [
-        "week",
-        "how",
-        "hardware",
-        "think",
-        "architectures",
-        "inference",
-        "copied",
-        "inference-first",
-        "npus",
-        "parallelism"
-      ],
-      "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course."
-    },
-    {
-      "id": "/inference/appendix/llm-inference/",
-      "title": "LLM Inference",
-      "route": "/inference/appendix/llm-inference/",
-      "group": "inference",
-      "keywords": [
-        "token",
-        "convert",
-        "logits",
-        "inference",
-        "llm",
-        "decoding",
-        "transformer",
-        "project",
-        "detokenize",
-        "streamed"
-      ],
-      "excerpt": "It also connects the high-level pipeline to the Transformer block, single-head self-attention, decoding strategies, prefill/decode behavior with KV cache,..."
-    },
-    {
-      "id": "/inference/appendix/transformer/",
-      "title": "Transformer",
-      "route": "/inference/appendix/transformer/",
-      "group": "inference",
-      "keywords": [
-        "다음과",
-        "토큰을",
-        "attention",
-        "embedding",
-        "score",
-        "hel",
-        "softmax",
-        "transformer",
-        "mask",
-        "head"
-      ],
-      "excerpt": "LLM은 문장을 한 번에 완성하지 않는다. 입력 문맥을 기반으로 다음 토큰 하나의 확률 분포를 계산하고, 그중 하나를 선택한 뒤, 선택된 토큰을 다시 문맥에 붙여 반복 생성한다."
-    },
-    {
-      "id": "/inference/week01/",
+      "id": "/inference/efficient-llm-inference-systems/",
       "title": "Efficient LLM Inference Systems",
-      "route": "/inference/week01/",
+      "route": "/inference/efficient-llm-inference-systems/",
       "group": "inference",
       "keywords": [
-        "prompt",
-        "batch",
-        "tpot",
-        "length",
-        "128",
-        "logits",
-        "increases",
-        "size",
-        "ttft",
-        "throughput"
-      ],
-      "excerpt": "This chapter measures how prompt length and batch size affect latency and throughput in decoder-only LLM inference."
-    },
-    {
-      "id": "/inference/week02/",
-      "title": "Week 2 — Hardware Foundations for Inference",
-      "route": "/inference/week02/",
-      "group": "inference",
-      "keywords": [
-        "tflops",
-        "batch",
-        "gb/s",
-        "bf16",
-        "peak",
-        "hbm",
-        "tb/s",
-        "h100",
-        "dense",
-        "128"
-      ],
-      "excerpt": "All inference optimization is one principle in disguise: keep data in the fastest memory you can, and minimize traffic to slower memory. Once you..."
-    },
-    {
-      "id": "/inference/week03/",
-      "title": "Week 3 — Transformer Inference and the KV Cache",
-      "route": "/inference/week03/",
-      "group": "inference",
-      "keywords": [
-        "gqa",
-        "kib",
-        "mib",
-        "mha",
-        "cache",
-        "gib",
-        "week",
-        "batch",
-        "128",
-        "bf16"
-      ],
-      "excerpt": "If the Transformer attention flow is not fresh, review the Transformer appendix first. For the full input-to-output generation path, see the LLM inference..."
-    },
-    {
-      "id": "/inference/week04/",
-      "title": "Week 4 — Quantization",
-      "route": "/inference/week04/",
-      "group": "inference",
-      "keywords": [
-        "quantization",
-        "int4",
-        "awq",
-        "int8",
-        "week",
-        "scale",
-        "fp8",
-        "outliers",
-        "weight",
-        "bf16"
-      ],
-      "excerpt": "These notes expand Chapter 4 of the book. The source chapter is short and interview-oriented; this version keeps the same core topics while connecting them..."
-    },
-    {
-      "id": "/inference/week05/",
-      "title": "Week 5 — Speculative Decoding",
-      "route": "/inference/week05/",
-      "group": "inference",
-      "keywords": [
+        "메모리",
+        "양자화",
+        "다룹니다",
+        "특성을",
         "speculative",
+        "llm",
+        "efficient",
         "decoding",
-        "vrs",
-        "draft",
-        "verifier",
-        "week",
-        "medusa",
-        "eagle-2",
-        "vanilla",
-        "speedup"
+        "지표와",
+        "학습합니다"
       ],
-      "excerpt": "These notes expand Chapter 5 of the book. This version keeps the source chapter's core topic, speculative decoding, while connecting it to the Week 1-4..."
+      "excerpt": "LLM inference systems notes covering KV cache, batching, quantization, GPU profiling, model serving, and practical performance trade-offs."
     },
     {
-      "id": "concept:attention",
-      "kind": "concept",
-      "title": "Attention",
-      "label": "Attention",
-      "group": "model-architecture",
-      "description": "Transformer attention mechanism and its MHA, MQA, GQA, RoPE, and FlashAttention variants.",
+      "id": "/inference/flashattention-from-first-principles/",
+      "title": "FlashAttention from First Principles",
+      "route": "/inference/flashattention-from-first-principles/",
+      "group": "inference",
       "keywords": [
-        "Attention",
+        "tiles",
+        "not",
         "attention",
-        "self-attention",
-        "MHA",
-        "MQA",
-        "GQA",
-        "RoPE",
-        "FlashAttention"
-      ]
+        "softmax",
+        "times",
+        "text",
+        "tile",
+        "fa4",
+        "ell",
+        "one"
+      ],
+      "excerpt": "FlashAttention is often summarized as “a faster attention algorithm.” That is true, but incomplete. It is not a new attention mechanism, and it does not..."
+    },
+    {
+      "id": "/inference/flashattention-from-first-principles/readme.ko/",
+      "title": "원리로 이해하는 FlashAttention",
+      "route": "/inference/flashattention-from-first-principles/readme.ko/",
+      "group": "inference",
+      "keywords": [
+        "tile",
+        "있습니다",
+        "softmax",
+        "attention",
+        "같습니다",
+        "text",
+        "times",
+        "아닙니다",
+        "fa4",
+        "ell"
+      ],
+      "excerpt": "FlashAttention은 흔히 \"attention을 더 빠르게 계산하는 알고리즘\"으로 요약됩니다. 틀린 말은 아니지만 핵심을 모두 담지는 못합니다. FlashAttention은 새로운 attention 메커니즘이 아니며, dense softmax attention을..."
+    },
+    {
+      "id": "/inference/models/",
+      "title": "Model Architecture and Serving Profiles",
+      "route": "/inference/models/",
+      "group": "inference",
+      "keywords": [
+        "profiles",
+        "정리합니다",
+        "설계가",
+        "미치는",
+        "architecture",
+        "serving",
+        "model",
+        "시스템",
+        "llm별",
+        "영향에"
+      ],
+      "excerpt": "LLM별 핵심 아키텍처와 실제 추론·서빙 시스템에서 확인해야 할 메모리, 통신, 캐시, 병렬화 특성을 정리합니다. 시스템 최적화 기법 자체보다 모델 설계가 serving profile에 미치는 영향에 집중합니다."
+    },
+    {
+      "id": "/inference/models/kimi-k2-5-scaling/",
+      "title": "How We Scaled Kimi K2.5: 토큰 효율, 장문 컨텍스트, 에이전트 스웜",
+      "route": "/inference/models/kimi-k2-5-scaling/",
+      "group": "inference",
+      "keywords": [
+        "kimi",
+        "agent",
+        "attention",
+        "token",
+        "reward",
+        "vision",
+        "발표자",
+        "decay",
+        "residual",
+        "swarm"
+      ],
+      "excerpt": "Source: How We Scaled Kimi K2.5 Zhilin Yang's full GTC 2026 Keynote"
+    },
+    {
+      "id": "/inference/models/kimi-k3/",
+      "title": "Kimi K3 기술 해부: 2.8T MoE, KDA, Attention Residuals, 그리고 64-GPU 서빙",
+      "route": "/inference/models/kimi-k3/",
+      "group": "inference",
+      "keywords": [
+        "kimi",
+        "kda",
+        "레이어",
+        "mla",
+        "sglang",
+        "보고서",
+        "expert",
+        "attnres",
+        "moonshot",
+        "attention"
+      ],
+      "excerpt": "공개 전에는 Kimi K2의 수치를 대입한 비공식 아키텍처 초안이 유통되었다. 이 초안은 KDA, Gated MLA, Block AttnRes, LatentMoE와 vision pathway의 연결 구조를 한 장에 보여준다는 점에서 여전히 유용하다. 다만 hidden..."
+    },
+    {
+      "id": "/inference/sglang-production-practices/",
+      "title": "SGLang in 2026: Engineering a Production-Grade LLM Serving Stack",
+      "route": "/inference/sglang-production-practices/",
+      "group": "inference",
+      "keywords": [
+        "sglang",
+        "not",
+        "gateway",
+        "speculative",
+        "prefill",
+        "cache-aware",
+        "model",
+        "graph",
+        "decode",
+        "cache"
+      ],
+      "excerpt": "Version scope: SGLang v0.5.18, released August 22, 2026. Commands and defaults should be revalidated when upgrading."
     },
     {
       "id": "concept:kv-cache",
@@ -274,29 +237,10 @@
         "sft",
         "llm",
         "transformer",
-        "tuning",
-        "human"
+        "human",
+        "pre-training"
       ],
       "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
-    },
-    {
-      "id": "/courses/cme295/lec-01/",
-      "title": "Lecture 1: Transformer",
-      "route": "/courses/cme295/lec-01/",
-      "group": "courses/cme295",
-      "keywords": [
-        "token",
-        "embedding",
-        "rnn",
-        "text",
-        "representation",
-        "self-attention",
-        "decoder",
-        "label",
-        "sequence",
-        "attention"
-      ],
-      "excerpt": "이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다."
     },
     {
       "id": "/courses/cme295/lec-02/",
@@ -306,14 +250,14 @@
       "keywords": [
         "token",
         "position",
-        "attention",
         "bert",
+        "attention",
         "embedding",
         "positional",
+        "nsp",
         "transformer",
         "encoder",
-        "nsp",
-        "head"
+        "cls"
       ],
       "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
     },
@@ -332,7 +276,7 @@
         "decoder-only",
         "sampling",
         "llm",
-        "top-k"
+        "temperature"
       ],
       "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
     },
@@ -346,8 +290,8 @@
         "vector",
         "embedding",
         "attention",
-        "word",
         "decoder",
+        "word",
         "layer",
         "ffnn",
         "parameter",
@@ -363,11 +307,11 @@
       "keywords": [
         "pre-training",
         "model",
-        "sft",
         "training",
+        "sft",
         "parallelism",
-        "optimizer",
         "lora",
+        "optimizer",
         "fine-tuning",
         "precision",
         "states"
@@ -375,40 +319,40 @@
       "excerpt": "이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre-training 이후 fine-tuning과 alignment 단계가 필요한지 이해하는 것이다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "title": "Domain-Specific Architectures for AI Inference",
-      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "group": "inference",
       "keywords": [
         "dsa",
         "cache",
         "compute",
         "week",
-        "tensor",
         "hardware",
+        "tensor",
+        "scratchpad",
         "decode",
-        "token",
         "sram",
-        "accelerator"
+        "inference"
       ],
       "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "title": "How to Think About GPUs",
-      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "group": "inference",
       "keywords": [
         "tensor",
         "gpu",
         "core",
         "b300",
-        "blackwell",
         "nvlink",
         "dgx",
+        "blackwell",
         "memory",
         "parallelism",
-        "decode"
+        "scale-up"
       ],
       "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
     }
@@ -418,15 +362,6 @@
       "source": "/",
       "target": "/inference/",
       "type": "link+keyword",
-      "weight": 1,
-      "terms": [
-        "systems"
-      ]
-    },
-    {
-      "source": "/courses/cme295/",
-      "target": "/courses/cme295/lec-01/",
-      "type": "link+section",
       "weight": 1,
       "terms": []
     },
@@ -454,115 +389,134 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
+        "pre-training",
         "sft"
       ]
     },
     {
       "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/appendix/llm-inference/",
+      "target": "/inference/efficient-llm-inference-systems/",
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
-        "inference",
-        "llm"
+        "speculative",
+        "decoding"
       ]
     },
     {
       "source": "/inference/",
-      "target": "/inference/appendix/transformer/",
+      "target": "/inference/flashattention-from-first-principles/",
       "type": "link+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/inference/",
-      "target": "/inference/week01/",
+      "target": "/inference/flashattention-from-first-principles/readme.ko/",
       "type": "link+section",
       "weight": 1,
       "terms": []
     },
     {
       "source": "/inference/",
-      "target": "/inference/week02/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/week03/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/week04/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/week05/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "/inference/models/",
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
-        "parallelism"
+        "serving",
+        "시스템"
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/week04/",
+      "source": "/inference/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
       "type": "link+section",
       "weight": 1,
       "terms": []
     },
     {
-      "source": "/inference/appendix/llm-inference/",
-      "target": "/inference/week03/",
+      "source": "/inference/",
+      "target": "/inference/models/kimi-k3/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/",
+      "target": "/inference/sglang-production-practices/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/flashattention-from-first-principles/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/flashattention-from-first-principles/readme.ko/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/models/",
+      "type": "link+keyword+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/sglang-production-practices/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/flashattention-from-first-principles/",
+      "target": "/inference/flashattention-from-first-principles/readme.ko/",
       "type": "link+keyword",
       "weight": 1,
-      "terms": []
+      "terms": [
+        "tile",
+        "softmax",
+        "attention",
+        "text"
+      ]
     },
     {
-      "source": "/inference/appendix/transformer/",
-      "target": "/inference/week03/",
+      "source": "/inference/models/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
       "type": "link",
       "weight": 1,
       "terms": []
     },
     {
-      "source": "/courses/cme295/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
+      "source": "/inference/models/",
+      "target": "/inference/models/kimi-k3/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/models/",
+      "target": "/inference/sglang-production-practices/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/inference/models/kimi-k2-5-scaling/",
+      "target": "/inference/models/kimi-k3/",
+      "type": "link+keyword",
+      "weight": 1,
       "terms": [
-        "attention",
-        "Attention",
-        "FlashAttention",
-        "MHA"
+        "kimi",
+        "attention"
       ]
     },
     {
@@ -573,29 +527,6 @@
       "terms": [
         "KV cache",
         "KV Cache"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-01/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "self-attention"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-02/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "RoPE",
-        "self-attention"
       ]
     },
     {
@@ -610,35 +541,12 @@
     },
     {
       "source": "/courses/cme295/lec-03/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "GQA",
-        "MQA"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-03/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
         "KV cache",
         "KV Cache"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-04/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "FlashAttention"
       ]
     },
     {
@@ -649,17 +557,6 @@
       "terms": [
         "quantization",
         "Quantization"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week02/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "self-attention"
       ]
     },
     {
@@ -685,19 +582,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "MQA",
-        "GQA"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -707,7 +592,17 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -719,17 +614,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -739,7 +624,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -751,39 +636,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/transformer/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "self-attention",
-        "RoPE"
-      ]
-    },
-    {
-      "source": "/inference/appendix/transformer/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/inference/appendix/transformer/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "quantization",
-        "Quantization"
-      ]
-    },
-    {
-      "source": "/inference/week01/",
+      "source": "/inference/flashattention-from-first-principles/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -794,54 +647,18 @@
       ]
     },
     {
-      "source": "/inference/week02/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "attention",
-        "Attention",
-        "FlashAttention",
-        "GQA"
-      ]
-    },
-    {
-      "source": "/inference/week02/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "KV cache",
-        "KV Cache",
-        "KV-cache"
-      ]
-    },
-    {
-      "source": "/inference/week02/",
+      "source": "/inference/flashattention-from-first-principles/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
         "FP8",
-        "int8",
         "quantization",
         "Quantization"
       ]
     },
     {
-      "source": "/inference/week03/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "GQA",
-        "attention",
-        "Attention",
-        "MHA"
-      ]
-    },
-    {
-      "source": "/inference/week03/",
+      "source": "/inference/flashattention-from-first-principles/readme.ko/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -852,31 +669,18 @@
       ]
     },
     {
-      "source": "/inference/week03/",
+      "source": "/inference/flashattention-from-first-principles/readme.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
+        "FP8",
         "quantization",
-        "Quantization",
-        "int4",
-        "int8"
+        "Quantization"
       ]
     },
     {
-      "source": "/inference/week04/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "quantization",
-        "Quantization",
-        "int4",
-        "int8"
-      ]
-    },
-    {
-      "source": "/inference/week05/",
+      "source": "/inference/models/kimi-k3/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -886,28 +690,18 @@
       ]
     },
     {
-      "source": "/inference/week05/",
-      "target": "concept:quantization",
+      "source": "/inference/sglang-production-practices/",
+      "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
-        "int4",
-        "quantization",
-        "Quantization"
+        "KV cache",
+        "KV Cache",
+        "KV-cache"
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.88,
-      "terms": [
-        "quantization",
-        "Quantization"
-      ]
-    },
-    {
-      "source": "/inference/week04/",
+      "source": "/inference/efficient-llm-inference-systems/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.88,
@@ -917,24 +711,13 @@
       ]
     },
     {
-      "source": "/inference/week05/",
-      "target": "concept:attention",
+      "source": "/inference/models/kimi-k3/",
+      "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.88,
       "terms": [
-        "attention",
-        "Attention"
-      ]
-    },
-    {
-      "source": "/inference/appendix/llm-inference/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.855,
-      "terms": [
-        "attention",
-        "Attention",
-        "self-attention"
+        "quantization",
+        "Quantization"
       ]
     },
     {
@@ -955,16 +738,6 @@
       "terms": [
         "quantization",
         "Quantization"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-01/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "KV cache",
-        "KV Cache"
       ]
     },
     {
@@ -979,26 +752,6 @@
     },
     {
       "source": "/inference/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "attention",
-        "Attention"
-      ]
-    },
-    {
-      "source": "/inference/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/inference/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.83,
@@ -1008,79 +761,23 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "concept:kv-cache",
+      "source": "/inference/sglang-production-practices/",
+      "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.83,
       "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/inference/appendix/llm-inference/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/inference/week04/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "attention",
-        "Attention"
-      ]
-    },
-    {
-      "source": "/inference/week01/",
-      "target": "concept:attention",
-      "type": "mentions",
-      "weight": 0.805,
-      "terms": [
-        "GQA"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-01/",
-      "target": "/courses/cme295/lec-02/",
-      "type": "keyword+section",
-      "weight": 0.532,
-      "terms": [
-        "token",
-        "attention",
-        "embedding"
+        "quantization",
+        "Quantization"
       ]
     },
     {
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.486,
+      "weight": 0.482,
       "terms": [
         "token"
       ]
-    },
-    {
-      "source": "/courses/cme295/lec-01/",
-      "target": "/courses/cme295/lec-03/",
-      "type": "keyword+section",
-      "weight": 0.466,
-      "terms": [
-        "token"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-01/",
-      "target": "/courses/cme295/lec-04/",
-      "type": "keyword+section",
-      "weight": 0.337,
-      "terms": []
     },
     {
       "source": "/courses/cme295/lec-02/",
@@ -1090,39 +787,10 @@
       "terms": []
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/week02/",
-      "target": "/inference/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.299,
-      "terms": [
-        "attention",
-        "embedding"
-      ]
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "section",
-      "weight": 0.297,
-      "terms": []
-    },
-    {
-      "source": "/courses/cme295/lec-01/",
-      "target": "/courses/deep-learning-for-network-engineers/week02/",
-      "type": "keyword",
-      "weight": 0.295,
-      "terms": [
-        "token",
-        "embedding",
-        "attention",
-        "decoder"
-      ]
-    },
-    {
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.285,
+      "weight": 0.281,
       "terms": [
         "token",
         "embedding",
@@ -1130,224 +798,139 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "keyword",
-      "weight": 0.281,
+      "weight": 0.278,
       "terms": [
-        "tensor",
-        "decode"
+        "tensor"
       ]
     },
     {
-      "source": "/inference/week04/",
-      "target": "/inference/week05/",
+      "source": "/inference/flashattention-from-first-principles/",
+      "target": "/inference/sglang-production-practices/",
       "type": "keyword",
-      "weight": 0.272,
+      "weight": 0.241,
       "terms": [
-        "week"
+        "not"
       ]
     },
     {
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.241,
+      "weight": 0.237,
       "terms": [
         "token"
-      ]
-    },
-    {
-      "source": "/inference/week03/",
-      "target": "/inference/week04/",
-      "type": "keyword",
-      "weight": 0.241,
-      "terms": [
-        "week",
-        "bf16"
       ]
     },
     {
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/cme295/lec-04/",
       "type": "keyword",
-      "weight": 0.239,
+      "weight": 0.235,
       "terms": [
         "model"
       ]
     },
     {
-      "source": "/inference/week02/",
-      "target": "/inference/week04/",
-      "type": "keyword",
-      "weight": 0.239,
-      "terms": [
-        "bf16"
-      ]
-    },
-    {
-      "source": "/inference/week03/",
-      "target": "/inference/week05/",
-      "type": "keyword",
-      "weight": 0.239,
-      "terms": [
-        "week"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-02/",
-      "target": "/inference/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.235,
-      "terms": [
-        "attention",
-        "embedding",
-        "transformer",
-        "head"
-      ]
-    },
-    {
-      "source": "/courses/cme295/lec-01/",
-      "target": "/inference/appendix/transformer/",
-      "type": "keyword",
-      "weight": 0.227,
-      "terms": [
-        "attention",
-        "embedding"
-      ]
-    },
-    {
-      "source": "/courses/cme295/",
-      "target": "/inference/appendix/llm-inference/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "llm",
-        "transformer"
-      ]
-    },
-    {
       "source": "/courses/cme295/lec-03/",
-      "target": "/inference/appendix/transformer/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "token"
+      ]
+    },
+    {
+      "source": "/courses/cme295/lec-04/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/transformer/",
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/inference/flashattention-from-first-principles/readme.ko/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "attention"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "token",
+        "attention"
+      ]
+    },
+    {
+      "source": "/courses/deep-learning-for-network-engineers/week02/",
+      "target": "/inference/models/kimi-k3/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": [
+        "attention"
+      ]
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/flashattention-from-first-principles/readme.ko/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/inference/appendix/llm-inference/",
-      "target": "/inference/appendix/transformer/",
+      "source": "/inference/flashattention-from-first-principles/readme.ko/",
+      "target": "/inference/models/kimi-k3/",
       "type": "keyword",
       "weight": 0.22,
       "terms": [
-        "transformer"
+        "attention"
       ]
     },
     {
-      "source": "/inference/appendix/llm-inference/",
-      "target": "/inference/week01/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "logits"
-      ]
-    },
-    {
-      "source": "/inference/week01/",
-      "target": "/inference/week02/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "batch",
-        "128"
-      ]
-    },
-    {
-      "source": "/inference/week01/",
-      "target": "/inference/week03/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "batch",
-        "128"
-      ]
-    },
-    {
-      "source": "/inference/week01/",
-      "target": "/inference/week05/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": []
-    },
-    {
-      "source": "/inference/week02/",
-      "target": "/inference/week03/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "batch",
-        "128",
-        "bf16"
-      ]
-    },
-    {
-      "source": "/inference/week02/",
-      "target": "/inference/week05/",
-      "type": "keyword",
-      "weight": 0.22,
+      "source": "/inference/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "section",
+      "weight": 0.18,
       "terms": []
     },
     {
       "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/llm-inference/",
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/transformer/",
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/week01/",
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/models/kimi-k2-5-scaling/",
       "type": "section",
       "weight": 0.18,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/week02/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/week03/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/week05/",
+      "source": "/inference/efficient-llm-inference-systems/",
+      "target": "/inference/models/kimi-k3/",
       "type": "section",
       "weight": 0.18,
       "terms": []

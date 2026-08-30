@@ -8,11 +8,11 @@
     "keywords": [
       "bgp",
       "glb",
-      "nnhn",
       "leaf",
+      "nnhn",
       "spine",
-      "quality",
       "underlay",
+      "quality",
       "juniper",
       "ingress",
       "heartbeats"
@@ -28,11 +28,11 @@
       "keywords": [
         "bgp",
         "glb",
-        "nnhn",
         "leaf",
+        "nnhn",
         "spine",
-        "quality",
         "underlay",
+        "quality",
         "juniper",
         "ingress",
         "heartbeats"
@@ -49,12 +49,12 @@
         "leaf",
         "dlb",
         "spine",
-        "flow",
         "ecmp",
-        "path",
+        "flow",
         "telb",
         "packet",
-        "link"
+        "path",
+        "flows"
       ],
       "excerpt": "This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv2 training clusters."
     },
@@ -71,9 +71,9 @@
         "srv6",
         "fabric",
         "asn",
-        "segment",
+        "fabrics",
         "flexalgo",
-        "fabrics"
+        "segment"
       ],
       "excerpt": "This chapter explains routing choices for AI/ML data center fabrics."
     },
@@ -144,6 +144,25 @@
       ]
     },
     {
+      "id": "/inference/efficient-llm-inference-systems/appendix/",
+      "title": "Appendix",
+      "route": "/inference/efficient-llm-inference-systems/appendix/",
+      "group": "inference",
+      "keywords": [
+        "appendix",
+        "reusable",
+        "weeks",
+        "background",
+        "appear",
+        "topics",
+        "multiple",
+        "across",
+        "llm",
+        "inference"
+      ],
+      "excerpt": "Reusable background notes for LLM inference topics that appear across multiple weeks."
+    },
+    {
       "id": "/network/chap02/",
       "title": "Chapter 2: \"The Common-Man View\" of AI Data Center Fabrics",
       "route": "/network/chap02/",
@@ -152,9 +171,9 @@
         "congestion",
         "flows",
         "traffic",
-        "balancing",
         "training",
         "ethernet",
+        "balancing",
         "flow",
         "rocev2",
         "pfc",
@@ -174,9 +193,9 @@
         "csig",
         "rocev2",
         "cnp",
-        "pause",
         "sfc",
         "sender",
+        "pause",
         "threshold"
       ],
       "excerpt": "This chapter explains how RoCEv2 traffic is transported across Ethernet AI fabrics and how congestion is detected, signaled, and mitigated."
@@ -193,12 +212,31 @@
         "fabric",
         "2026.02",
         "2026.05",
+        "2022.10",
         "2026.03",
         "2025.11",
-        "2025.10",
-        "2024.08"
+        "2025.10"
       ],
       "excerpt": "AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations."
+    },
+    {
+      "id": "/network/chap03/",
+      "title": "Chapter 3: Network Design Considerations",
+      "route": "/network/chap03/",
+      "group": "network",
+      "keywords": [
+        "leaf",
+        "design",
+        "fabric",
+        "clos",
+        "rail",
+        "cabling",
+        "server",
+        "congestion",
+        "spine",
+        "rack"
+      ],
+      "excerpt": "This chapter explains the major physical and logical design choices for AI data center networks."
     },
     {
       "id": "/network/articles/cloud-data-center-network-now-and-next.ko/",
@@ -220,25 +258,6 @@
       "excerpt": "Cloud-native web-scale network는 많은 작은 TCP flow를 commodity Ethernet/Clos/ECMP로 처리하는 데 최적화되어 왔다. 그러나 AI/ML workload는 GPU 간 동기화, RDMA, collective..."
     },
     {
-      "id": "/network/chap03/",
-      "title": "Chapter 3: Network Design Considerations",
-      "route": "/network/chap03/",
-      "group": "network",
-      "keywords": [
-        "leaf",
-        "design",
-        "fabric",
-        "clos",
-        "rail",
-        "server",
-        "cabling",
-        "spine",
-        "congestion",
-        "rack"
-      ],
-      "excerpt": "This chapter explains the major physical and logical design choices for AI data center networks."
-    },
-    {
       "id": "/courses/deep-learning-for-network-engineers/",
       "title": "Deep Learning for Network Engineers",
       "route": "/courses/deep-learning-for-network-engineers/",
@@ -250,8 +269,8 @@
         "focus",
         "training",
         "deep",
-        "distributed",
         "engineers",
+        "distributed",
         "congestion",
         "understand"
       ],
@@ -265,14 +284,14 @@
       "keywords": [
         "gradient",
         "weight",
-        "pass",
         "gpu",
+        "pass",
         "training",
-        "synchronization",
         "neuron",
+        "synchronization",
         "network",
         "책에서",
-        "bias"
+        "loss"
       ],
       "excerpt": "이번 주 목표는 기본적인 Deep Learning 학습 과정이 어떻게 network design 문제로 이어지는지 이해하는 것이다."
     },
@@ -286,11 +305,11 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
@@ -307,9 +326,9 @@
         "queue",
         "host",
         "memory",
-        "gpu",
         "transport",
-        "chunk",
+        "gpu",
+        "unique",
         "key"
       ],
       "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
@@ -700,7 +719,7 @@
       "source": "/courses/deep-learning-for-network-engineers/week01/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword+section",
-      "weight": 0.536,
+      "weight": 0.534,
       "terms": [
         "gpu",
         "gradient",
@@ -713,7 +732,8 @@
       "type": "keyword",
       "weight": 0.404,
       "terms": [
-        "flow"
+        "flow",
+        "flows"
       ]
     },
     {
@@ -729,7 +749,7 @@
       "source": "/courses/deep-learning-for-network-engineers/week01/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "keyword+section",
-      "weight": 0.344,
+      "weight": 0.343,
       "terms": [
         "gpu"
       ]
@@ -748,7 +768,7 @@
       "source": "/network/chap02/",
       "target": "/network/chap07/",
       "type": "keyword",
-      "weight": 0.327,
+      "weight": 0.328,
       "terms": [
         "pfc",
         "congestion",
@@ -759,21 +779,21 @@
       "source": "/network/chap06/",
       "target": "/network/chap08/",
       "type": "keyword",
-      "weight": 0.32,
+      "weight": 0.319,
       "terms": []
     },
     {
       "source": "/network/chap06/",
       "target": "/network/chap07/",
       "type": "keyword",
-      "weight": 0.31,
+      "weight": 0.311,
       "terms": []
     },
     {
       "source": "/network/chap03/",
       "target": "/network/chap08/",
       "type": "keyword",
-      "weight": 0.307,
+      "weight": 0.306,
       "terms": [
         "fabric"
       ]
@@ -805,7 +825,7 @@
       "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "keyword",
-      "weight": 0.25,
+      "weight": 0.247,
       "terms": [
         "gpu"
       ]
@@ -853,6 +873,13 @@
       "terms": [
         "rdma"
       ]
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/",
+      "target": "/network/glb-nnhn-bgp-underlay/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
     },
     {
       "source": "/network/chap02/",

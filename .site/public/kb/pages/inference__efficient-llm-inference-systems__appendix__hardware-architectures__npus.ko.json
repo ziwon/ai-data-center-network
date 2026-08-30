@@ -1,48 +1,48 @@
 {
   "version": 1,
   "current": {
-    "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-    "title": "Domain-Specific Architectures for AI Inference",
-    "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+    "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+    "title": "How to Think About NPUs",
+    "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
     "group": "inference",
     "keywords": [
-      "dsa",
-      "cache",
-      "compute",
-      "week",
-      "tensor",
-      "hardware",
-      "decode",
-      "token",
-      "sram",
-      "accelerator"
+      "rbln",
+      "npu",
+      "furiosa",
+      "rebellions",
+      "furiosa-llm",
+      "vllm",
+      "rsd",
+      "rngd",
+      "serving",
+      "docs"
     ],
-    "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
+    "excerpt": "NPU라는 이름은 넓다. 모바일 SoC 안의 작은 neural engine도 NPU라고 부르고, datacenter용 inference accelerator도 NPU라고 부른다. 이 노트에서 말하는 NPU는 후자다."
   },
   "nodes": [
     {
-      "id": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "title": "Domain-Specific Architectures for AI Inference",
-      "route": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "title": "How to Think About NPUs",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "group": "inference",
       "keywords": [
-        "dsa",
-        "cache",
-        "compute",
-        "week",
-        "tensor",
-        "hardware",
-        "decode",
-        "token",
-        "sram",
-        "accelerator"
+        "rbln",
+        "npu",
+        "furiosa",
+        "rebellions",
+        "furiosa-llm",
+        "vllm",
+        "rsd",
+        "rngd",
+        "serving",
+        "docs"
       ],
-      "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
+      "excerpt": "NPU라는 이름은 넓다. 모바일 SoC 안의 작은 neural engine도 NPU라고 부르고, datacenter용 inference accelerator도 NPU라고 부른다. 이 노트에서 말하는 NPU는 후자다."
     },
     {
-      "id": "/inference/appendix/hardware-architectures/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "title": "Hardware Architectures for LLM Inference",
-      "route": "/inference/appendix/hardware-architectures/",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "group": "inference",
       "keywords": [
         "week",
@@ -50,11 +50,11 @@
         "hardware",
         "think",
         "architectures",
-        "inference",
         "copied",
+        "inference",
         "inference-first",
         "npus",
-        "parallelism"
+        "1-4"
       ],
       "excerpt": "This appendix collects Korean study notes for hardware architecture articles that are useful across the inference course."
     },
@@ -92,22 +92,6 @@
       ]
     },
     {
-      "id": "concept:nccl",
-      "kind": "concept",
-      "title": "NCCL",
-      "label": "NCCL",
-      "group": "distributed-training",
-      "description": "NVIDIA collective communication library used by distributed GPU training.",
-      "keywords": [
-        "NCCL",
-        "collectives",
-        "all-reduce",
-        "allreduce",
-        "reduce-scatter",
-        "all-gather"
-      ]
-    },
-    {
       "id": "concept:parallelism",
       "kind": "concept",
       "title": "Parallelism",
@@ -141,72 +125,92 @@
       ]
     },
     {
-      "id": "concept:congestion-control",
+      "id": "concept:nccl",
       "kind": "concept",
-      "title": "Congestion Control",
-      "label": "Congestion Control",
-      "group": "network",
-      "description": "Mechanisms that prevent fabric overload, queue buildup, and packet loss.",
+      "title": "NCCL",
+      "label": "NCCL",
+      "group": "distributed-training",
+      "description": "NVIDIA collective communication library used by distributed GPU training.",
       "keywords": [
-        "Congestion Control",
-        "congestion control",
-        "ECN",
-        "PFC",
-        "DCQCN",
-        "lossless Ethernet",
-        "tail latency"
+        "NCCL",
+        "collectives",
+        "all-reduce",
+        "allreduce",
+        "reduce-scatter",
+        "all-gather"
       ]
     },
     {
-      "id": "concept:rdma",
+      "id": "concept:numa",
       "kind": "concept",
-      "title": "RDMA",
-      "label": "RDMA",
-      "group": "network",
-      "description": "Remote direct memory access data path for low-latency GPU and storage communication.",
+      "title": "NUMA",
+      "label": "NUMA",
+      "group": "systems",
+      "description": "CPU and memory locality model that matters for GPU, NIC, and memory placement.",
       "keywords": [
-        "RDMA",
-        "Remote Direct Memory Access",
-        "InfiniBand verbs"
+        "NUMA",
+        "NUMA locality",
+        "NUMA node",
+        "NUMA domain",
+        "remote memory"
       ]
     },
     {
-      "id": "/inference/",
-      "title": "Efficient LLM Inference Systems",
-      "route": "/inference/",
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "title": "Domain-Specific Architectures for AI Inference",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "group": "inference",
       "keywords": [
-        "2022.11",
-        "2024.01",
-        "systems",
-        "llm",
-        "efficient",
-        "inference",
-        "2023.11",
-        "2019.11",
-        "2021.04",
-        "2023.05"
-      ],
-      "excerpt": "LLM inference systems notes covering KV cache, batching, quantization, GPU profiling, model serving, and practical performance trade-offs."
-    },
-    {
-      "id": "/inference/appendix/",
-      "title": "Appendix",
-      "route": "/inference/appendix/",
-      "group": "inference",
-      "keywords": [
-        "appendix",
-        "reusable",
-        "weeks",
-        "background",
-        "appear",
-        "topics",
-        "multiple",
-        "across",
-        "llm",
+        "dsa",
+        "cache",
+        "compute",
+        "week",
+        "hardware",
+        "tensor",
+        "scratchpad",
+        "decode",
+        "sram",
         "inference"
       ],
-      "excerpt": "Reusable background notes for LLM inference topics that appear across multiple weeks."
+      "excerpt": "저자는 이 질문에 답하기 위해 Transformer inference의 병목을 먼저 분석하고, 거기서 하드웨어 설계 원칙을 끌어낸다. 결론은 다음과 같다."
+    },
+    {
+      "id": "/systems-performance/chap03/",
+      "title": "Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments",
+      "route": "/systems-performance/chap03/",
+      "group": "systems-performance",
+      "keywords": [
+        "gpu",
+        "cpu",
+        "kubernetes",
+        "memory",
+        "container",
+        "mig",
+        "cuda",
+        "numa",
+        "image",
+        "mps"
+      ],
+      "excerpt": "이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다."
+    },
+    {
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "title": "How to Think About GPUs",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "group": "inference",
+      "keywords": [
+        "tensor",
+        "gpu",
+        "core",
+        "b300",
+        "nvlink",
+        "dgx",
+        "blackwell",
+        "memory",
+        "parallelism",
+        "scale-up"
+      ],
+      "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
     },
     {
       "id": "/courses/cme295/",
@@ -222,8 +226,8 @@
         "sft",
         "llm",
         "transformer",
-        "tuning",
-        "human"
+        "human",
+        "pre-training"
       ],
       "excerpt": "CME295 lecture notes on transformers, language models, and practical AI systems concepts with engineering-focused annotations."
     },
@@ -234,15 +238,15 @@
       "group": "courses/cme295",
       "keywords": [
         "token",
-        "embedding",
         "rnn",
-        "text",
-        "representation",
-        "self-attention",
+        "embedding",
         "decoder",
+        "text",
+        "self-attention",
+        "representation",
         "label",
         "sequence",
-        "attention"
+        "one-hot"
       ],
       "excerpt": "이번 강의의 목표는 Transformer를 갑자기 등장한 LLM 구조로 보는 것이 아니라, NLP 문제와 기존 sequence model의 한계에서 자연스럽게 등장한 architecture로 이해하는 것이다."
     },
@@ -254,14 +258,14 @@
       "keywords": [
         "token",
         "position",
-        "attention",
         "bert",
+        "attention",
         "embedding",
         "positional",
+        "nsp",
         "transformer",
         "encoder",
-        "nsp",
-        "head"
+        "cls"
       ],
       "excerpt": "이번 강의의 목표는 원래 Transformer 구조가 오늘날 LLM과 BERT 계열 모델로 어떻게 변형되었는지 이해하는 것이다."
     },
@@ -280,7 +284,7 @@
         "decoder-only",
         "sampling",
         "llm",
-        "top-k"
+        "temperature"
       ],
       "excerpt": "이번 강의의 목표는 현대 LLM을 decoder-only Transformer 기반의 next-token prediction system 으로 이해하고, 그 위에서 실제 응답이 어떻게 생성되고 최적화되는지 파악하는 것이다."
     },
@@ -294,14 +298,33 @@
         "vector",
         "embedding",
         "attention",
-        "word",
         "decoder",
+        "word",
         "layer",
         "ffnn",
         "parameter",
         "책에서"
       ],
       "excerpt": "이번 주 목표는 LLM이 텍스트를 어떻게 GPU가 처리할 수 있는 숫자 연산으로 바꾸는지 이해하는 것이다."
+    },
+    {
+      "id": "/courses/cme295/lec-04/",
+      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
+      "route": "/courses/cme295/lec-04/",
+      "group": "courses/cme295",
+      "keywords": [
+        "pre-training",
+        "model",
+        "training",
+        "sft",
+        "parallelism",
+        "lora",
+        "optimizer",
+        "fine-tuning",
+        "precision",
+        "states"
+      ],
+      "excerpt": "이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre-training 이후 fine-tuning과 alignment 단계가 필요한지 이해하는 것이다."
     },
     {
       "id": "/courses/deep-learning-for-network-engineers/week03/",
@@ -313,14 +336,33 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
+    },
+    {
+      "id": "/gpu/cs149/lec01/",
+      "title": "Lecture 1: Why Parallelism? Why Efficiency?",
+      "route": "/gpu/cs149/lec01/",
+      "group": "gpu",
+      "keywords": [
+        "processor",
+        "locality",
+        "speedup",
+        "instruction",
+        "work",
+        "efficiency",
+        "parallelism",
+        "parallel",
+        "memory",
+        "cache"
+      ],
+      "excerpt": "이번 강의의 목표는 왜 현대 시스템에서 parallelism이 선택 사항이 아니라 기본 조건이 되었는지, 그리고 단순히 \"병렬로 돌렸다\"는 사실만으로는 충분하지 않은 이유를 이해하는 것이다."
     },
     {
       "id": "/courses/deep-learning-for-network-engineers/week04/",
@@ -334,31 +376,12 @@
         "queue",
         "host",
         "memory",
-        "gpu",
         "transport",
-        "chunk",
+        "gpu",
+        "unique",
         "key"
       ],
       "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
-    },
-    {
-      "id": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "title": "How to Think About GPUs",
-      "route": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "group": "inference",
-      "keywords": [
-        "tensor",
-        "gpu",
-        "core",
-        "b300",
-        "blackwell",
-        "nvlink",
-        "dgx",
-        "memory",
-        "parallelism",
-        "decode"
-      ],
-      "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
     },
     {
       "id": "/network/chap01/",
@@ -370,128 +393,52 @@
         "nic",
         "memory",
         "infiniband",
-        "queue",
         "remote",
+        "queue",
         "kernel",
         "send",
-        "training",
-        "rnic"
+        "rnic",
+        "training"
       ],
       "excerpt": "The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining."
     },
     {
-      "id": "/courses/cme295/lec-04/",
-      "title": "Lecture 4: LLM Training, Fine-Tuning, and Efficient Adaptation",
-      "route": "/courses/cme295/lec-04/",
-      "group": "courses/cme295",
-      "keywords": [
-        "pre-training",
-        "model",
-        "sft",
-        "training",
-        "parallelism",
-        "optimizer",
-        "lora",
-        "fine-tuning",
-        "precision",
-        "states"
-      ],
-      "excerpt": "이번 강의의 목표는 LLM이 어떻게 학습되는지, 그리고 왜 pre-training 이후 fine-tuning과 alignment 단계가 필요한지 이해하는 것이다."
-    },
-    {
-      "id": "/gpu/cs149/lec01/",
-      "title": "Lecture 1: Why Parallelism? Why Efficiency?",
-      "route": "/gpu/cs149/lec01/",
-      "group": "gpu",
-      "keywords": [
-        "processor",
-        "locality",
-        "speedup",
-        "instruction",
-        "work",
-        "parallelism",
-        "efficiency",
-        "parallel",
-        "memory",
-        "cache"
-      ],
-      "excerpt": "이번 강의의 목표는 왜 현대 시스템에서 parallelism이 선택 사항이 아니라 기본 조건이 되었는지, 그리고 단순히 \"병렬로 돌렸다\"는 사실만으로는 충분하지 않은 이유를 이해하는 것이다."
-    },
-    {
-      "id": "/inference/appendix/hardware-architectures/npus.ko/",
-      "title": "How to Think About NPUs",
-      "route": "/inference/appendix/hardware-architectures/npus.ko/",
-      "group": "inference",
-      "keywords": [
-        "rbln",
-        "npu",
-        "furiosa",
-        "rebellions",
-        "furiosa-llm",
-        "vllm",
-        "serving",
-        "rsd",
-        "rngd",
-        "surface"
-      ],
-      "excerpt": "NPU라는 이름은 넓다. 모바일 SoC 안의 작은 neural engine도 NPU라고 부르고, datacenter용 inference accelerator도 NPU라고 부른다. 이 노트에서 말하는 NPU는 후자다."
-    },
-    {
-      "id": "/courses/deep-learning-for-network-engineers/",
-      "title": "Deep Learning for Network Engineers",
-      "route": "/courses/deep-learning-for-network-engineers/",
-      "group": "courses/deep-learning-for-network-engineers",
-      "keywords": [
-        "study",
-        "backend",
-        "networks",
-        "focus",
-        "training",
-        "deep",
-        "distributed",
-        "engineers",
-        "congestion",
-        "understand"
-      ],
-      "excerpt": "Deep learning systems notes for network engineers covering training fundamentals, parallelism, collectives, RDMA, RoCE, and NCCL behavior."
-    },
-    {
-      "id": "/courses/deep-learning-for-network-engineers/week01/",
-      "title": "Week 1: From Artificial Neuron to AI Training Fabric",
-      "route": "/courses/deep-learning-for-network-engineers/week01/",
-      "group": "courses/deep-learning-for-network-engineers",
-      "keywords": [
-        "gradient",
-        "weight",
-        "pass",
-        "gpu",
-        "training",
-        "synchronization",
-        "neuron",
-        "network",
-        "책에서",
-        "bias"
-      ],
-      "excerpt": "이번 주 목표는 기본적인 Deep Learning 학습 과정이 어떻게 network design 문제로 이어지는지 이해하는 것이다."
-    },
-    {
-      "id": "/network/articles/cloud-data-center-network-now-and-next.ko/",
-      "title": "Cloud Data Center Network의 지금과 앞으로",
-      "route": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "id": "/network/ib-packet-analysis/",
+      "title": "InfiniBand Packet Analysis: A Practical RDMA Transport Primer",
+      "route": "/network/ib-packet-analysis/",
       "group": "network",
       "keywords": [
-        "network",
-        "ethernet",
-        "fabric",
-        "ai/ml",
         "rdma",
-        "routing",
-        "traffic",
-        "adaptive",
-        "frontend",
-        "rack"
+        "infiniband",
+        "packet",
+        "captures",
+        "ipoib",
+        "capture",
+        "packets",
+        "bth",
+        "reth",
+        "aeth"
       ],
-      "excerpt": "Cloud-native web-scale network는 많은 작은 TCP flow를 commodity Ethernet/Clos/ECMP로 처리하는 데 최적화되어 왔다. 그러나 AI/ML workload는 GPU 간 동기화, RDMA, collective..."
+      "excerpt": "This report analyzes the packet captures in the ib-packets directory using tshark . The goal is to connect the captured packets back to the Chapter 1 RDMA..."
+    },
+    {
+      "id": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "title": "Keeping GPU Workloads NUMA-Local in Kubernetes",
+      "route": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "group": "systems-performance",
+      "keywords": [
+        "numa",
+        "cpu",
+        "pod",
+        "node",
+        "kubelet",
+        "container",
+        "manager",
+        "memory",
+        "request",
+        "admission"
+      ],
+      "excerpt": "GPU workload에서 CPU가 request preparation, batching, dataloader, pinned memory staging처럼 GPU로 가는 data path에 있다면, Kubernetes의 기본 resource scheduling만으로는 부족하다...."
     }
   ],
   "edges": [
@@ -526,79 +473,46 @@
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
+        "pre-training",
         "sft"
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/",
-      "target": "/courses/deep-learning-for-network-engineers/week01/",
-      "type": "link+keyword+section",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "type": "link+keyword",
       "weight": 1,
       "terms": [
-        "training"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/",
-      "target": "/courses/deep-learning-for-network-engineers/week02/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/",
-      "target": "/courses/deep-learning-for-network-engineers/week03/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": [
-        "training"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/",
-      "target": "/courses/deep-learning-for-network-engineers/week04/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/",
-      "type": "link+keyword+section",
-      "weight": 1,
-      "terms": [
+        "week",
+        "hardware",
         "inference"
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "link+section",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "link+keyword",
       "weight": 1,
       "terms": []
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/chap03/",
       "type": "link+keyword+section",
       "weight": 1,
       "terms": [
-        "parallelism"
+        "cpu",
+        "memory",
+        "container",
+        "numa"
       ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
-      "type": "link+section",
-      "weight": 1,
-      "terms": []
     },
     {
       "source": "/courses/cme295/",
@@ -710,30 +624,6 @@
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "congestion control",
-        "Congestion Control",
-        "DCQCN",
-        "ECN"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week01/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "tail latency",
-        "ECN",
-        "PFC",
-        "congestion control"
-      ]
-    },
-    {
       "source": "/courses/deep-learning-for-network-engineers/week02/",
       "target": "concept:attention",
       "type": "mentions",
@@ -788,18 +678,6 @@
     },
     {
       "source": "/courses/deep-learning-for-network-engineers/week03/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "congestion control",
-        "Congestion Control",
-        "DCQCN",
-        "ECN"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.93,
@@ -821,26 +699,6 @@
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/week03/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week04/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "PFC",
-        "ECN",
-        "tail latency"
-      ]
-    },
-    {
       "source": "/courses/deep-learning-for-network-engineers/week04/",
       "target": "concept:nccl",
       "type": "mentions",
@@ -852,12 +710,13 @@
     },
     {
       "source": "/courses/deep-learning-for-network-engineers/week04/",
-      "target": "concept:rdma",
+      "target": "concept:numa",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
-        "RDMA",
-        "Remote Direct Memory Access"
+        "remote memory",
+        "NUMA",
+        "NUMA domain"
       ]
     },
     {
@@ -870,7 +729,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:attention",
       "type": "mentions",
       "weight": 0.93,
@@ -882,7 +741,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -892,7 +751,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.93,
@@ -903,7 +762,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:parallelism",
       "type": "mentions",
       "weight": 0.93,
@@ -912,7 +771,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -924,7 +783,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:attention",
       "type": "mentions",
       "weight": 0.93,
@@ -934,7 +793,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -944,7 +803,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.93,
@@ -955,7 +814,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:parallelism",
       "type": "mentions",
       "weight": 0.93,
@@ -965,7 +824,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -977,7 +836,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "target": "concept:attention",
       "type": "mentions",
       "weight": 0.93,
@@ -988,7 +847,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "target": "concept:kv-cache",
       "type": "mentions",
       "weight": 0.93,
@@ -998,7 +857,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "target": "concept:parallelism",
       "type": "mentions",
       "weight": 0.93,
@@ -1007,7 +866,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.93,
@@ -1016,39 +875,6 @@
         "Quantization",
         "FP8",
         "int4"
-      ]
-    },
-    {
-      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "congestion control",
-        "Congestion Control",
-        "ECN",
-        "PFC"
-      ]
-    },
-    {
-      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/network/chap01/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "tail latency",
-        "congestion control",
-        "Congestion Control",
-        "PFC"
       ]
     },
     {
@@ -1060,6 +886,15 @@
         "NCCL",
         "allreduce",
         "collectives"
+      ]
+    },
+    {
+      "source": "/network/chap01/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "remote memory"
       ]
     },
     {
@@ -1074,46 +909,92 @@
       ]
     },
     {
-      "source": "/network/chap01/",
-      "target": "concept:rdma",
+      "source": "/network/ib-packet-analysis/",
+      "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.93,
       "terms": [
-        "RDMA",
-        "InfiniBand verbs"
+        "NCCL",
+        "allreduce",
+        "collectives"
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "source": "/network/ib-packet-analysis/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "remote memory"
+      ]
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NUMA",
+        "NUMA node",
+        "NUMA locality",
+        "remote memory"
+      ]
+    },
+    {
+      "source": "/systems-performance/chap03/",
+      "target": "concept:attention",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "attention",
+        "Attention",
+        "FlashAttention"
+      ]
+    },
+    {
+      "source": "/systems-performance/chap03/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/systems-performance/chap03/",
       "target": "concept:nccl",
       "type": "mentions",
-      "weight": 0.88,
+      "weight": 0.93,
       "terms": [
-        "allreduce",
-        "NCCL"
+        "NCCL",
+        "all-gather",
+        "all-reduce"
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/week01/",
+      "source": "/systems-performance/chap03/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "NUMA",
+        "NUMA node",
+        "NUMA locality",
+        "remote memory"
+      ]
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "concept:parallelism",
       "type": "mentions",
       "weight": 0.88,
       "terms": [
-        "data parallel",
         "Parallelism"
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "concept:parallelism",
-      "type": "mentions",
-      "weight": 0.88,
-      "terms": [
-        "Parallelism"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
       "target": "concept:quantization",
       "type": "mentions",
       "weight": 0.88,
@@ -1143,15 +1024,6 @@
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/",
-      "target": "concept:parallelism",
-      "type": "mentions",
-      "weight": 0.855,
-      "terms": [
-        "Parallelism"
-      ]
-    },
-    {
       "source": "/gpu/cs149/lec01/",
       "target": "concept:nccl",
       "type": "mentions",
@@ -1162,25 +1034,7 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.855,
-      "terms": [
-        "tail latency"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.855,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.855,
@@ -1188,15 +1042,6 @@
         "all-gather",
         "all-reduce",
         "collectives"
-      ]
-    },
-    {
-      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.855,
-      "terms": [
-        "NCCL"
       ]
     },
     {
@@ -1220,41 +1065,13 @@
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/",
-      "target": "concept:attention",
+      "source": "/courses/deep-learning-for-network-engineers/week03/",
+      "target": "concept:numa",
       "type": "mentions",
       "weight": 0.83,
       "terms": [
-        "attention",
-        "Attention"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/",
-      "target": "concept:nccl",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "allreduce",
-        "NCCL"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week01/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week02/",
-      "target": "concept:congestion-control",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "tail latency"
+        "NUMA",
+        "remote memory"
       ]
     },
     {
@@ -1268,7 +1085,27 @@
       ]
     },
     {
-      "source": "/inference/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/",
+      "target": "concept:kv-cache",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "KV cache",
+        "KV Cache"
+      ]
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "NUMA",
+        "NUMA locality"
+      ]
+    },
+    {
+      "source": "/network/ib-packet-analysis/",
       "target": "concept:attention",
       "type": "mentions",
       "weight": 0.83,
@@ -1278,60 +1115,12 @@
       ]
     },
     {
-      "source": "/inference/",
-      "target": "concept:kv-cache",
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "concept:nccl",
       "type": "mentions",
       "weight": 0.83,
       "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/inference/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "quantization",
-        "Quantization"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/",
-      "target": "concept:kv-cache",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "KV cache",
-        "KV Cache"
-      ]
-    },
-    {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.83,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/",
-      "target": "concept:rdma",
-      "type": "mentions",
-      "weight": 0.805,
-      "terms": [
-        "RDMA"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week01/",
-      "target": "concept:quantization",
-      "type": "mentions",
-      "weight": 0.805,
-      "terms": [
-        "FP8"
+        "NCCL"
       ]
     },
     {
@@ -1344,24 +1133,21 @@
       ]
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/week01/",
-      "target": "/courses/deep-learning-for-network-engineers/week03/",
-      "type": "keyword+section",
-      "weight": 0.536,
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "target": "concept:numa",
+      "type": "mentions",
+      "weight": 0.805,
       "terms": [
-        "gpu",
-        "gradient",
-        "training"
+        "NUMA"
       ]
     },
     {
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-02/",
       "type": "keyword+section",
-      "weight": 0.532,
+      "weight": 0.528,
       "terms": [
         "token",
-        "attention",
         "embedding"
       ]
     },
@@ -1369,55 +1155,35 @@
       "source": "/courses/deep-learning-for-network-engineers/week02/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword+section",
-      "weight": 0.493,
-      "terms": [
-        "layer"
-      ]
+      "weight": 0.49,
+      "terms": []
     },
     {
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.486,
+      "weight": 0.482,
       "terms": [
         "token"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week01/",
-      "target": "/courses/deep-learning-for-network-engineers/week02/",
-      "type": "keyword+section",
-      "weight": 0.476,
-      "terms": [
-        "책에서"
       ]
     },
     {
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/cme295/lec-03/",
       "type": "keyword+section",
-      "weight": 0.466,
+      "weight": 0.463,
       "terms": [
         "token"
       ]
     },
     {
-      "source": "/inference/",
-      "target": "/inference/appendix/",
+      "source": "/network/chap01/",
+      "target": "/network/ib-packet-analysis/",
       "type": "keyword+section",
-      "weight": 0.454,
+      "weight": 0.398,
       "terms": [
-        "llm",
-        "inference"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week01/",
-      "target": "/courses/deep-learning-for-network-engineers/week04/",
-      "type": "keyword+section",
-      "weight": 0.344,
-      "terms": [
-        "gpu"
+        "rdma",
+        "infiniband"
       ]
     },
     {
@@ -1432,38 +1198,16 @@
       "target": "/courses/cme295/lec-04/",
       "type": "keyword+section",
       "weight": 0.337,
-      "terms": []
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "section",
-      "weight": 0.297,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "type": "section",
-      "weight": 0.297,
-      "terms": []
-    },
-    {
-      "source": "/network/articles/cloud-data-center-network-now-and-next.ko/",
-      "target": "/network/chap01/",
-      "type": "section",
-      "weight": 0.297,
       "terms": []
     },
     {
       "source": "/courses/cme295/lec-01/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.295,
+      "weight": 0.292,
       "terms": [
         "token",
         "embedding",
-        "attention",
         "decoder"
       ]
     },
@@ -1471,7 +1215,7 @@
       "source": "/courses/cme295/lec-02/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.285,
+      "weight": 0.281,
       "terms": [
         "token",
         "embedding",
@@ -1479,27 +1223,26 @@
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
       "type": "keyword",
-      "weight": 0.281,
+      "weight": 0.278,
       "terms": [
-        "tensor",
-        "decode"
+        "tensor"
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "type": "keyword",
-      "weight": 0.277,
+      "weight": 0.274,
       "terms": []
     },
     {
       "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "keyword",
-      "weight": 0.25,
+      "weight": 0.247,
       "terms": [
         "gpu"
       ]
@@ -1508,7 +1251,7 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/deep-learning-for-network-engineers/week02/",
       "type": "keyword",
-      "weight": 0.241,
+      "weight": 0.237,
       "terms": [
         "token"
       ]
@@ -1517,44 +1260,26 @@
       "source": "/courses/cme295/lec-03/",
       "target": "/courses/cme295/lec-04/",
       "type": "keyword",
-      "weight": 0.239,
+      "weight": 0.235,
       "terms": [
         "model"
       ]
     },
     {
-      "source": "/courses/cme295/lec-04/",
-      "target": "/courses/deep-learning-for-network-engineers/week03/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
+      "target": "/systems-performance/chap03/",
       "type": "keyword",
       "weight": 0.221,
-      "terms": [
-        "parallelism",
-        "training"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week01/",
-      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "network"
-      ]
-    },
-    {
-      "source": "/courses/deep-learning-for-network-engineers/week03/",
-      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
-      "type": "keyword",
-      "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/courses/deep-learning-for-network-engineers/week04/",
-      "target": "/network/articles/cloud-data-center-network-now-and-next.ko/",
+      "source": "/courses/cme295/lec-04/",
+      "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword",
       "weight": 0.22,
       "terms": [
-        "rdma"
+        "parallelism",
+        "training"
       ]
     },
     {
@@ -1569,17 +1294,18 @@
       ]
     },
     {
-      "source": "/gpu/cs149/lec01/",
-      "target": "/inference/appendix/hardware-architectures/domain-specific-architectures-for-ai-inference.ko/",
+      "source": "/courses/deep-learning-for-network-engineers/week04/",
+      "target": "/systems-performance/chap03/",
       "type": "keyword",
       "weight": 0.22,
       "terms": [
-        "cache"
+        "gpu",
+        "memory"
       ]
     },
     {
-      "source": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/npus.ko/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
@@ -1587,34 +1313,6 @@
     {
       "source": "/courses/deep-learning-for-network-engineers/week02/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/inference/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/gpus.ko/",
-      "type": "section",
-      "weight": 0.18,
-      "terms": []
-    },
-    {
-      "source": "/inference/appendix/",
-      "target": "/inference/appendix/hardware-architectures/npus.ko/",
       "type": "section",
       "weight": 0.18,
       "terms": []

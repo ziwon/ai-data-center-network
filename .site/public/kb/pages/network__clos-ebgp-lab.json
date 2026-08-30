@@ -48,15 +48,15 @@
         "systems",
         "organized",
         "courses",
-        "storage",
+        "mlops",
         "tracks",
+        "storage",
         "mlperf",
-        "profiling",
         "clos",
-        "study",
+        "profiling",
         "training"
       ],
-      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, storage, and systems performance engineering."
+      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, MLOps, storage, and systems performance engineering."
     },
     {
       "id": "/network/",
@@ -70,10 +70,10 @@
         "fabric",
         "2026.02",
         "2026.05",
+        "2022.10",
         "2026.03",
         "2025.11",
-        "2025.10",
-        "2024.08"
+        "2025.10"
       ],
       "excerpt": "AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations."
     },
@@ -85,11 +85,11 @@
       "keywords": [
         "bgp",
         "glb",
-        "nnhn",
         "leaf",
+        "nnhn",
         "spine",
-        "quality",
         "underlay",
+        "quality",
         "juniper",
         "ingress",
         "heartbeats"
@@ -137,10 +137,10 @@
         "fabric",
         "clos",
         "rail",
-        "server",
         "cabling",
-        "spine",
+        "server",
         "congestion",
+        "spine",
         "rack"
       ],
       "excerpt": "This chapter explains the major physical and logical design choices for AI data center networks."
@@ -155,12 +155,12 @@
         "leaf",
         "dlb",
         "spine",
-        "flow",
         "ecmp",
-        "path",
+        "flow",
         "telb",
         "packet",
-        "link"
+        "path",
+        "flows"
       ],
       "excerpt": "This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv2 training clusters."
     },
@@ -177,9 +177,9 @@
         "srv6",
         "fabric",
         "asn",
-        "segment",
+        "fabrics",
         "flexalgo",
-        "fabrics"
+        "segment"
       ],
       "excerpt": "This chapter explains routing choices for AI/ML data center fabrics."
     },
@@ -190,15 +190,15 @@
       "group": "network",
       "keywords": [
         "rdma",
-        "captures",
         "infiniband",
         "packet",
+        "captures",
         "ipoib",
         "capture",
         "packets",
         "bth",
         "reth",
-        "read"
+        "aeth"
       ],
       "excerpt": "This report analyzes the packet captures in the ib-packets directory using tshark . The goal is to connect the captured packets back to the Chapter 1 RDMA..."
     },
@@ -233,9 +233,9 @@
         "csig",
         "rocev2",
         "cnp",
-        "pause",
         "sfc",
         "sender",
+        "pause",
         "threshold"
       ],
       "excerpt": "This chapter explains how RoCEv2 traffic is transported across Ethernet AI fabrics and how congestion is detected, signaled, and mitigated."
@@ -502,21 +502,21 @@
       "source": "/network/chap06/",
       "target": "/network/chap08/",
       "type": "keyword",
-      "weight": 0.32,
+      "weight": 0.319,
       "terms": []
     },
     {
       "source": "/network/chap06/",
       "target": "/network/chap07/",
       "type": "keyword",
-      "weight": 0.31,
+      "weight": 0.311,
       "terms": []
     },
     {
       "source": "/network/chap03/",
       "target": "/network/chap08/",
       "type": "keyword",
-      "weight": 0.307,
+      "weight": 0.306,
       "terms": [
         "fabric"
       ]

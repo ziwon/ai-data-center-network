@@ -9,12 +9,12 @@
       "ifa",
       "telemetry",
       "queue",
-      "monitoring",
       "snmp",
+      "monitoring",
       "mirroring",
       "collector",
-      "metadata",
       "pfc",
+      "ecn",
       "flow"
     ],
     "excerpt": "This chapter explains how monitoring and telemetry change in AI/ML data center fabrics."
@@ -29,12 +29,12 @@
         "ifa",
         "telemetry",
         "queue",
-        "monitoring",
         "snmp",
+        "monitoring",
         "mirroring",
         "collector",
-        "metadata",
         "pfc",
+        "ecn",
         "flow"
       ],
       "excerpt": "This chapter explains how monitoring and telemetry change in AI/ML data center fabrics."
@@ -51,10 +51,10 @@
         "fabric",
         "2026.02",
         "2026.05",
+        "2022.10",
         "2026.03",
         "2025.11",
-        "2025.10",
-        "2024.08"
+        "2025.10"
       ],
       "excerpt": "AI data center networking study notes covering RDMA, InfiniBand, RoCEv2, Clos fabrics, telemetry, congestion control, and AI fabric operations."
     },
@@ -157,9 +157,9 @@
         "csig",
         "rocev2",
         "cnp",
-        "pause",
         "sfc",
         "sender",
+        "pause",
         "threshold"
       ],
       "excerpt": "This chapter explains how RoCEv2 traffic is transported across Ethernet AI fabrics and how congestion is detected, signaled, and mitigated."
@@ -174,12 +174,12 @@
         "mlperf",
         "storage",
         "time",
-        "benchmark",
-        "accuracy",
         "quality",
-        "latency",
+        "accuracy",
+        "benchmark",
+        "jct",
         "training",
-        "jct"
+        "latency"
       ],
       "excerpt": "This chapter explains how to evaluate AI data center performance with KPIs and standardized benchmarks."
     },
@@ -193,12 +193,12 @@
         "leaf",
         "dlb",
         "spine",
-        "flow",
         "ecmp",
-        "path",
+        "flow",
         "telb",
         "packet",
-        "link"
+        "path",
+        "flows"
       ],
       "excerpt": "This chapter explains how load balancing works in AI/ML data center fabrics and why conventional ECMP is often not enough for large RoCEv2 training clusters."
     },
@@ -214,8 +214,8 @@
         "focus",
         "training",
         "deep",
-        "distributed",
         "engineers",
+        "distributed",
         "congestion",
         "understand"
       ],
@@ -229,14 +229,14 @@
       "keywords": [
         "gradient",
         "weight",
-        "pass",
         "gpu",
+        "pass",
         "training",
-        "synchronization",
         "neuron",
+        "synchronization",
         "network",
         "책에서",
-        "bias"
+        "loss"
       ],
       "excerpt": "이번 주 목표는 기본적인 Deep Learning 학습 과정이 어떻게 network design 문제로 이어지는지 이해하는 것이다."
     },
@@ -250,11 +250,11 @@
         "gpu",
         "gradient",
         "pipeline",
-        "stage",
         "expert",
+        "stage",
         "tensor",
         "training",
-        "layer",
+        "micro-batch",
         "communication"
       ],
       "excerpt": "이번 주 목표는 대규모 deep learning training이 왜 parallelism을 필요로 하는지 , 그리고 각 parallelization strategy가 GPU memory, GPU utilization, backend network design에 어떤 영향을..."
@@ -271,9 +271,9 @@
         "queue",
         "host",
         "memory",
-        "gpu",
         "transport",
-        "chunk",
+        "gpu",
+        "unique",
         "key"
       ],
       "excerpt": "이번 주 목표는 Chapter 9와 Chapter 14를 연결해서, RDMA가 GPU memory 사이의 빠른 data movement를 어떻게 만들고, NCCL이 distributed training job 안에서 어떤 communication pattern을 만드는지 이해하는..."
@@ -307,14 +307,52 @@
         "nic",
         "memory",
         "infiniband",
-        "queue",
         "remote",
+        "queue",
         "kernel",
         "send",
-        "training",
-        "rnic"
+        "rnic",
+        "training"
       ],
       "excerpt": "The machine learning lifecycle consists of data gathering, training, inference, retrieval augmentation, monitoring, and retraining."
+    },
+    {
+      "id": "/inference/models/kimi-k3/",
+      "title": "Kimi K3 기술 해부: 2.8T MoE, KDA, Attention Residuals, 그리고 64-GPU 서빙",
+      "route": "/inference/models/kimi-k3/",
+      "group": "inference",
+      "keywords": [
+        "kimi",
+        "kda",
+        "레이어",
+        "mla",
+        "sglang",
+        "보고서",
+        "expert",
+        "attnres",
+        "moonshot",
+        "attention"
+      ],
+      "excerpt": "공개 전에는 Kimi K2의 수치를 대입한 비공식 아키텍처 초안이 유통되었다. 이 초안은 KDA, Gated MLA, Block AttnRes, LatentMoE와 vision pathway의 연결 구조를 한 장에 보여준다는 점에서 여전히 유용하다. 다만 hidden..."
+    },
+    {
+      "id": "/mlops/",
+      "title": "MLOps: 모델을 배포하는 기술이 아니라 변경을 통제하는 운영 시스템",
+      "route": "/mlops/",
+      "group": "mlops",
+      "keywords": [
+        "데이터",
+        "feature",
+        "schema",
+        "재학습",
+        "revision",
+        "freshness",
+        "drift",
+        "snapshot",
+        "artifact",
+        "mlops"
+      ],
+      "excerpt": "Production MLOps guide covering lifecycle control, reproducibility, lineage, CI/CD/CT, feature stores, progressive delivery, monitoring, and LLMOps."
     },
     {
       "id": "/network/chap09/",
@@ -324,35 +362,16 @@
       "keywords": [
         "storage",
         "file",
-        "fabric",
         "nvme-o-tcp",
+        "fabric",
         "nvme-o-rdma",
-        "a/b",
-        "checkpoint",
         "infiniband",
+        "a/b",
         "network",
+        "checkpoint",
         "training"
       ],
       "excerpt": "This chapter explains why storage networking is a separate design topic in AI data centers."
-    },
-    {
-      "id": "/storage/mlperf-storage/",
-      "title": "MLPerf Storage Benchmark",
-      "route": "/storage/mlperf-storage/",
-      "group": "storage",
-      "keywords": [
-        "storage",
-        "object",
-        "vectordb",
-        "인덱스",
-        "benchmark",
-        "cache",
-        "i/o",
-        "체크포인트",
-        "s3-compatible",
-        "비교합니다"
-      ],
-      "excerpt": "MLCommons Storage는 ML 워크로드를 지원하는 스토리지 시스템의 성능을 측정하기 위한 MLPerf Storage Benchmark Suite입니다. 단순 파일시스템 벤치마크가 아니라 학습 데이터 로딩, 체크포인트 저장/복구, LLM KV cache offload,..."
     },
     {
       "id": "/network/chap03/",
@@ -365,10 +384,10 @@
         "fabric",
         "clos",
         "rail",
-        "server",
         "cabling",
-        "spine",
+        "server",
         "congestion",
+        "spine",
         "rack"
       ],
       "excerpt": "This chapter explains the major physical and logical design choices for AI data center networks."
@@ -382,9 +401,9 @@
         "congestion",
         "flows",
         "traffic",
-        "balancing",
         "training",
         "ethernet",
+        "balancing",
         "flow",
         "rocev2",
         "pfc",
@@ -405,9 +424,9 @@
         "srv6",
         "fabric",
         "asn",
-        "segment",
+        "fabrics",
         "flexalgo",
-        "fabrics"
+        "segment"
       ],
       "excerpt": "This chapter explains routing choices for AI/ML data center fabrics."
     },
@@ -438,11 +457,11 @@
       "keywords": [
         "bgp",
         "glb",
-        "nnhn",
         "leaf",
+        "nnhn",
         "spine",
-        "quality",
         "underlay",
+        "quality",
         "juniper",
         "ingress",
         "heartbeats"
@@ -473,6 +492,13 @@
       "source": "/courses/deep-learning-for-network-engineers/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/mlops/",
+      "target": "/network/",
+      "type": "link",
       "weight": 1,
       "terms": []
     },
@@ -673,6 +699,24 @@
         "RoCEv2",
         "RoCE",
         "RDMA over Converged Ethernet"
+      ]
+    },
+    {
+      "source": "/inference/models/kimi-k3/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint"
+      ]
+    },
+    {
+      "source": "/mlops/",
+      "target": "concept:checkpointing",
+      "type": "mentions",
+      "weight": 0.93,
+      "terms": [
+        "checkpoint"
       ]
     },
     {
@@ -1097,17 +1141,6 @@
       ]
     },
     {
-      "source": "/storage/mlperf-storage/",
-      "target": "concept:checkpointing",
-      "type": "mentions",
-      "weight": 0.93,
-      "terms": [
-        "checkpointing",
-        "Checkpointing",
-        "checkpoint"
-      ]
-    },
-    {
       "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "concept:roce",
       "type": "mentions",
@@ -1115,6 +1148,15 @@
       "terms": [
         "RoCE",
         "RoCEv2"
+      ]
+    },
+    {
+      "source": "/mlops/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.905,
+      "terms": [
+        "tail latency"
       ]
     },
     {
@@ -1162,6 +1204,17 @@
         "checkpoint",
         "checkpointing",
         "Checkpointing"
+      ]
+    },
+    {
+      "source": "/mlops/",
+      "target": "concept:clos",
+      "type": "mentions",
+      "weight": 0.855,
+      "terms": [
+        "Clos",
+        "CLOS",
+        "Clos Fabric"
       ]
     },
     {
@@ -1252,6 +1305,24 @@
       ]
     },
     {
+      "source": "/inference/models/kimi-k3/",
+      "target": "concept:congestion-control",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "tail latency"
+      ]
+    },
+    {
+      "source": "/inference/models/kimi-k3/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.83,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
       "source": "/network/",
       "target": "concept:roce",
       "type": "mentions",
@@ -1277,6 +1348,24 @@
       "weight": 0.805,
       "terms": [
         "RDMA"
+      ]
+    },
+    {
+      "source": "/mlops/",
+      "target": "concept:rdma",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "RDMA"
+      ]
+    },
+    {
+      "source": "/mlops/",
+      "target": "concept:roce",
+      "type": "mentions",
+      "weight": 0.805,
+      "terms": [
+        "RoCE"
       ]
     },
     {
@@ -1328,7 +1417,7 @@
       "source": "/courses/deep-learning-for-network-engineers/week01/",
       "target": "/courses/deep-learning-for-network-engineers/week03/",
       "type": "keyword+section",
-      "weight": 0.536,
+      "weight": 0.534,
       "terms": [
         "gpu",
         "gradient",
@@ -1358,7 +1447,8 @@
       "type": "keyword",
       "weight": 0.404,
       "terms": [
-        "flow"
+        "flow",
+        "flows"
       ]
     },
     {
@@ -1390,7 +1480,7 @@
       "source": "/courses/deep-learning-for-network-engineers/week01/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "keyword+section",
-      "weight": 0.344,
+      "weight": 0.343,
       "terms": [
         "gpu"
       ]
@@ -1409,7 +1499,7 @@
       "source": "/network/chap02/",
       "target": "/network/chap07/",
       "type": "keyword",
-      "weight": 0.327,
+      "weight": 0.328,
       "terms": [
         "pfc",
         "congestion",
@@ -1420,30 +1510,31 @@
       "source": "/network/chap06/",
       "target": "/network/chap08/",
       "type": "keyword",
-      "weight": 0.32,
+      "weight": 0.319,
       "terms": []
     },
     {
       "source": "/network/chap07/",
       "target": "/network/chap11/",
       "type": "keyword",
-      "weight": 0.311,
+      "weight": 0.312,
       "terms": [
-        "pfc"
+        "pfc",
+        "ecn"
       ]
     },
     {
       "source": "/network/chap06/",
       "target": "/network/chap07/",
       "type": "keyword",
-      "weight": 0.31,
+      "weight": 0.311,
       "terms": []
     },
     {
       "source": "/network/chap03/",
       "target": "/network/chap08/",
       "type": "keyword",
-      "weight": 0.307,
+      "weight": 0.306,
       "terms": [
         "fabric"
       ]
@@ -1452,7 +1543,7 @@
       "source": "/network/chap10/",
       "target": "/network/chap11/",
       "type": "keyword",
-      "weight": 0.298,
+      "weight": 0.299,
       "terms": []
     },
     {
@@ -1553,6 +1644,16 @@
       "terms": []
     },
     {
+      "source": "/network/chap09/",
+      "target": "/network/chap10/",
+      "type": "keyword",
+      "weight": 0.26,
+      "terms": [
+        "storage",
+        "training"
+      ]
+    },
+    {
       "source": "/network/chap08/",
       "target": "/network/chap09/",
       "type": "keyword",
@@ -1565,7 +1666,7 @@
       "source": "/courses/deep-learning-for-network-engineers/week03/",
       "target": "/courses/deep-learning-for-network-engineers/week04/",
       "type": "keyword",
-      "weight": 0.25,
+      "weight": 0.247,
       "terms": [
         "gpu"
       ]
@@ -1631,6 +1732,13 @@
         "memory",
         "queue"
       ]
+    },
+    {
+      "source": "/inference/models/kimi-k3/",
+      "target": "/mlops/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
     },
     {
       "source": "/network/chap02/",

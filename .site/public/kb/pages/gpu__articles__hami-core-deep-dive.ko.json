@@ -14,8 +14,8 @@
       "cuda",
       "컨테이너",
       "사용량",
-      "gpu",
-      "프레임워크"
+      "프레임워크",
+      "gpu"
     ],
     "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
   },
@@ -34,8 +34,8 @@
         "cuda",
         "컨테이너",
         "사용량",
-        "gpu",
-        "프레임워크"
+        "프레임워크",
+        "gpu"
       ],
       "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
     },
@@ -49,8 +49,8 @@
         "essays",
         "gpu",
         "platform",
-        "kubernetes",
         "connect",
+        "kubernetes",
         "operational",
         "design",
         "cuda",
@@ -69,8 +69,8 @@
         "quota",
         "mig",
         "스케줄러",
-        "메모리",
         "gpu",
+        "메모리",
         "pod",
         "annotation",
         "워크로드"
@@ -78,23 +78,42 @@
       "excerpt": "첫째, “어떤 GPU를 어떤 Pod에 할당할 것인가?” 둘째, “하나의 GPU 안에서 메모리와 연산 사용량을 실제로 어떻게 제한할 것인가?” Dynamic Resource Allocation(DRA)은 첫 번째 문제를 Kubernetes 표준 API로 해결하려는 체계다...."
     },
     {
-      "id": "/network/gpu-cluster-failure-analysis/",
-      "title": "GPU 클러스터 장애 분석: ECC, Xid, RDMA, NCCL Hang은 어떻게 연결되는가",
-      "route": "/network/gpu-cluster-failure-analysis/",
-      "group": "network",
+      "id": "/inference/models/kimi-k3/",
+      "title": "Kimi K3 기술 해부: 2.8T MoE, KDA, Attention Residuals, 그리고 64-GPU 서빙",
+      "route": "/inference/models/kimi-k3/",
+      "group": "inference",
       "keywords": [
-        "xid",
-        "ecc",
-        "gpu",
-        "row",
-        "drain",
-        "counter",
-        "reset",
-        "error",
-        "dcgm",
-        "remap"
+        "kimi",
+        "kda",
+        "레이어",
+        "mla",
+        "sglang",
+        "보고서",
+        "expert",
+        "attnres",
+        "moonshot",
+        "attention"
       ],
-      "excerpt": "대규모 GPU 클러스터를 운영하다 보면 겉으로는 네트워크 장애처럼 보이지만 실제 원인은 GPU RAS, ECC, PCIe, NVLink 쪽에서 시작되는 경우가 있다."
+      "excerpt": "공개 전에는 Kimi K2의 수치를 대입한 비공식 아키텍처 초안이 유통되었다. 이 초안은 KDA, Gated MLA, Block AttnRes, LatentMoE와 vision pathway의 연결 구조를 한 장에 보여준다는 점에서 여전히 유용하다. 다만 hidden..."
+    },
+    {
+      "id": "/mlops/",
+      "title": "MLOps: 모델을 배포하는 기술이 아니라 변경을 통제하는 운영 시스템",
+      "route": "/mlops/",
+      "group": "mlops",
+      "keywords": [
+        "데이터",
+        "feature",
+        "schema",
+        "재학습",
+        "revision",
+        "freshness",
+        "drift",
+        "snapshot",
+        "artifact",
+        "mlops"
+      ],
+      "excerpt": "Production MLOps guide covering lifecycle control, reproducibility, lineage, CI/CD/CT, feature stores, progressive delivery, monitoring, and LLMOps."
     },
     {
       "id": "/storage/zfs/",
@@ -104,14 +123,14 @@
       "keywords": [
         "zfs",
         "hdd",
-        "nvme",
         "special",
         "vdev",
+        "nvme",
         "metadata",
-        "nas",
-        "tip",
         "juicefs",
-        "스토리지"
+        "nas",
+        "스토리지",
+        "tip"
       ],
       "excerpt": "이 분류가 중요한 이유는, AI 학습 워크로드에서는 단순히 “200TB 저장 가능”보다 다음 요소가 더 중요하기 때문이다."
     },
@@ -135,25 +154,6 @@
       "excerpt": "이번 장의 목표는 GPU 서버의 OS, Docker, Kubernetes 환경을 단순한 설치 대상이 아니라 GPU goodput을 결정하는 성능 계층 으로 이해하는 것이다."
     },
     {
-      "id": "/systems-performance/chap04/",
-      "title": "Chapter 4: Tuning Distributed Networking Communication",
-      "route": "/systems-performance/chap04/",
-      "group": "systems-performance",
-      "keywords": [
-        "nccl",
-        "gpu",
-        "nixl",
-        "rdma",
-        "sharp",
-        "communication",
-        "overlap",
-        "all-reduce",
-        "bucket",
-        "rank"
-      ],
-      "excerpt": "이번 장의 목표는 distributed training과 distributed inference에서 네트워크 통신을 단순한 “속도 문제”가 아니라 GPU goodput을 결정하는 핵심 병목으로 이해하는 것이다."
-    },
-    {
       "id": "/gpu/",
       "title": "GPU Systems",
       "route": "/gpu/",
@@ -164,11 +164,11 @@
         "kernels",
         "folder",
         "track",
-        "practice",
         "complement",
+        "practice",
         "parallel",
-        "systems",
-        "advanced"
+        "advanced",
+        "systems"
       ],
       "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
     },
@@ -181,13 +181,13 @@
         "memory",
         "execution",
         "architecture",
+        "registers",
         "warp",
         "shared",
-        "registers",
         "model",
         "cuda",
         "hardware",
-        "occupancy"
+        "look-up"
       ],
       "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
     },
@@ -201,12 +201,12 @@
         "lookup",
         "language",
         "guidelines",
-        "compilation",
         "ptx/sass",
         "api",
-        "reference",
         "spaces",
-        "analyze"
+        "reference",
+        "analyze",
+        "constant"
       ],
       "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
     }
@@ -259,12 +259,12 @@
     {
       "source": "/gpu/articles/hami-core-deep-dive.ko/",
       "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
-      "type": "keyword",
-      "weight": 0.344,
+      "type": "link+keyword",
+      "weight": 1,
       "terms": [
         "quota",
-        "메모리",
-        "gpu"
+        "gpu",
+        "메모리"
       ]
     },
     {
@@ -282,22 +282,18 @@
       "terms": []
     },
     {
-      "source": "/systems-performance/chap03/",
-      "target": "/systems-performance/chap04/",
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/inference/models/kimi-k3/",
       "type": "keyword",
-      "weight": 0.272,
-      "terms": [
-        "gpu"
-      ]
+      "weight": 0.22,
+      "terms": []
     },
     {
       "source": "/gpu/articles/hami-core-deep-dive.ko/",
-      "target": "/network/gpu-cluster-failure-analysis/",
+      "target": "/mlops/",
       "type": "keyword",
       "weight": 0.22,
-      "terms": [
-        "gpu"
-      ]
+      "terms": []
     },
     {
       "source": "/gpu/articles/hami-core-deep-dive.ko/",
@@ -317,13 +313,18 @@
       ]
     },
     {
-      "source": "/gpu/articles/hami-core-deep-dive.ko/",
-      "target": "/systems-performance/chap04/",
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/inference/models/kimi-k3/",
       "type": "keyword",
       "weight": 0.22,
-      "terms": [
-        "gpu"
-      ]
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/mlops/",
+      "type": "keyword",
+      "weight": 0.22,
+      "terms": []
     },
     {
       "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
@@ -343,41 +344,21 @@
       ]
     },
     {
-      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
-      "target": "/systems-performance/chap04/",
+      "source": "/inference/models/kimi-k3/",
+      "target": "/mlops/",
       "type": "keyword",
       "weight": 0.22,
-      "terms": [
-        "gpu"
-      ]
+      "terms": []
     },
     {
-      "source": "/network/gpu-cluster-failure-analysis/",
+      "source": "/mlops/",
       "target": "/storage/zfs/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
     },
     {
-      "source": "/network/gpu-cluster-failure-analysis/",
-      "target": "/systems-performance/chap03/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "gpu"
-      ]
-    },
-    {
-      "source": "/network/gpu-cluster-failure-analysis/",
-      "target": "/systems-performance/chap04/",
-      "type": "keyword",
-      "weight": 0.22,
-      "terms": [
-        "gpu"
-      ]
-    },
-    {
-      "source": "/storage/zfs/",
+      "source": "/mlops/",
       "target": "/systems-performance/chap03/",
       "type": "keyword",
       "weight": 0.22,
@@ -385,7 +366,7 @@
     },
     {
       "source": "/storage/zfs/",
-      "target": "/systems-performance/chap04/",
+      "target": "/systems-performance/chap03/",
       "type": "keyword",
       "weight": 0.22,
       "terms": []
