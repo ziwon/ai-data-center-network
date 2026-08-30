@@ -397,6 +397,7 @@ a {
 
 @media (min-width: 50rem) {
   html[data-has-sidebar][data-navigation-mode="compact"] {
+    --sl-content-inline-start: var(--adcs-compact-sidebar-width);
     --sl-content-width: calc(
       45rem + var(--sl-sidebar-width) - var(--adcs-compact-sidebar-width)
     );
