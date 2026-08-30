@@ -104,7 +104,7 @@ const defaultDescriptionsBySource = new Map([
   ],
   [
     'inference/README.md',
-    'LLM inference resources organized into model architecture and serving profiles plus the Efficient LLM Inference Systems course.',
+    'LLM inference notes covering KV cache, quantization, speculative decoding, FlashAttention, SGLang production serving, and model serving profiles.',
   ],
   [
     'inference/efficient-llm-inference-systems/README.md',
