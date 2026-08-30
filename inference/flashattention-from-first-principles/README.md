@@ -1,5 +1,7 @@
 # FlashAttention from First Principles
 
+**English** | [한국어](README.ko.md)
+
 > **How exact attention became an I/O, parallelism, and pipeline-design problem—from Ampere to Blackwell**
 
 FlashAttention is often summarized as “a faster attention algorithm.” That is true, but incomplete. It is not a new attention mechanism, and it does not replace dense softmax attention with a sparse or low-rank approximation. Its deeper contribution is to ask a systems question:
