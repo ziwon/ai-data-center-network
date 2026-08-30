@@ -375,12 +375,12 @@ Batch concurrency can expand by about 4x.
 
 ### Recommended Papers
 
-1. **Dettmers et al. 2022, "LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale"**: the first systematic study of the outlier feature phenomenon. Short and clear.
-2. **Frantar et al. 2022, "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers"**: the original GPTQ paper.
-3. **Lin et al. 2023, "AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration"**: the original AWQ paper, with many experiments.
-4. **Xiao et al. 2022, "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"**: activation outlier problem and solution.
-5. **Tseng et al. 2024, "QuIP#: Even Better LLM Quantization with Hadamard Incoherence and Lattice Codebooks"**: useful for understanding the 2-bit frontier.
-6. **Egiazarian et al. 2024, "Extreme Compression of Large Language Models via Additive Quantization"**: AQLM and codebook-based compression.
+1. **Dettmers et al. 2022, ["LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale"](https://arxiv.org/abs/2208.07339)**: the first systematic study of the outlier feature phenomenon. Short and clear.
+2. **Frantar et al. 2022, ["GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers"](https://arxiv.org/abs/2210.17323)**: the original GPTQ paper.
+3. **Lin et al. 2023, ["AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration"](https://arxiv.org/abs/2306.00978)**: the original AWQ paper, with many experiments.
+4. **Xiao et al. 2022, ["SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"](https://arxiv.org/abs/2211.10438)**: activation outlier problem and solution.
+5. **Tseng et al. 2024, ["QuIP#: Even Better LLM Quantization with Hadamard Incoherence and Lattice Codebooks"](https://arxiv.org/abs/2402.04396)**: useful for understanding the 2-bit frontier.
+6. **Egiazarian et al. 2024, ["Extreme Compression of Large Language Models via Additive Quantization"](https://arxiv.org/abs/2401.06118)**: AQLM and codebook-based compression.
 7. **NVIDIA Hopper FP8 Training and Inference whitepaper**: guide to native H100 FP8 usage.
 
 The AWQ paper is the most directly practical one. Reading it once gives you material you can apply directly to 4-bit deployment decisions.

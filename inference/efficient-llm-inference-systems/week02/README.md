@@ -164,6 +164,10 @@ Three exercises in increasing return on time:
 
 Start with #1.
 
+## Recommended Reading
+
+- [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-hopper-architecture/nvidia-h100-tensor-c) (2022) — HBM, Tensor Core, NVLink와 Hopper의 inference 관련 hardware 기능을 설명합니다.
+
 ---
 
 # Lab Results

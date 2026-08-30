@@ -300,11 +300,11 @@ Long-context work must be paired with KV optimization.
 
 ### Recommended Papers
 
-1. **Shazeer 2019, "Fast Transformer Decoding: One Write-Head is All You Need"** — the original MQA paper; short and direct.
-2. **Ainslie et al. 2023, "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints"** — the core GQA paper, including how to convert MHA checkpoints to GQA.
-3. **DeepSeek-V2 paper (DeepSeek-AI 2024)** — read the MLA section; the architecture diagram is the key.
-4. **Su et al. 2021, "RoFormer: Enhanced Transformer with Rotary Position Embedding"** — the original RoPE paper.
-5. **Peng et al. 2023, "YaRN: Efficient Context Window Extension of Large Language Models"** — a practical guide to context extension.
+1. **Shazeer 2019, ["Fast Transformer Decoding: One Write-Head is All You Need"](https://arxiv.org/abs/1911.02150)** — the original MQA paper; short and direct.
+2. **Ainslie et al. 2023, ["GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints"](https://arxiv.org/abs/2305.13245)** — the core GQA paper, including how to convert MHA checkpoints to GQA.
+3. **[DeepSeek-V2 paper](https://arxiv.org/abs/2405.04434) (DeepSeek-AI 2024)** — read the MLA section; the architecture diagram is the key.
+4. **Su et al. 2021, ["RoFormer: Enhanced Transformer with Rotary Position Embedding"](https://arxiv.org/abs/2104.09864)** — the original RoPE paper.
+5. **Peng et al. 2023, ["YaRN: Efficient Context Window Extension of Large Language Models"](https://arxiv.org/abs/2309.00071)** — a practical guide to context extension.
 
 The GQA paper is the highest-value reading for this week. It is short and directly relevant to serving practice.
 

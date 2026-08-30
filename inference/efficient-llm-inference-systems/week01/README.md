@@ -139,3 +139,8 @@ The expected pattern is:
 
 - Increasing prompt length: TTFT increases, TPOT stays nearly flat
 - Increasing batch size: aggregate throughput increases, TPOT stays flat for a range and then rises once the setup approaches saturation
+
+### Recommended Papers
+
+1. [Efficiently Scaling Transformer Inference](https://arxiv.org/abs/2211.05102) (2022.11) — batch size, model parallelism, latency와 throughput의 관계를 분석합니다.
+2. [Splitwise: Efficient generative LLM inference using phase splitting](https://arxiv.org/abs/2311.18677) (2023.11) — prefill과 decode의 서로 다른 자원 특성을 분리된 serving 설계로 연결합니다.

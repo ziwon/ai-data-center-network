@@ -280,10 +280,10 @@ Disaggregated serving separates prefill nodes and decode nodes. Speculative deco
 
 ### Recommended Papers
 
-1. **Leviathan et al. 2023, "Fast Inference from Transformers via Speculative Decoding"**: Google paper; mathematical foundation for vanilla speculative decoding.
-2. **Chen et al. 2023, "Accelerating Large Language Model Decoding with Speculative Sampling"**: DeepMind paper; independent discovery around the same time, with rejection sampling proof.
-3. **Cai et al. 2024, "Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads"**: original Medusa paper.
-4. **Li et al. 2024, "EAGLE-2: Faster Inference of Language Models with Dynamic Draft Trees"**: EAGLE-2 and current high-performance draft-tree approach.
+1. **Leviathan et al. 2023, ["Fast Inference from Transformers via Speculative Decoding"](https://arxiv.org/abs/2211.17192)**: Google paper; mathematical foundation for vanilla speculative decoding.
+2. **Chen et al. 2023, ["Accelerating Large Language Model Decoding with Speculative Sampling"](https://arxiv.org/abs/2302.01318)**: DeepMind paper; independent discovery around the same time, with rejection sampling proof.
+3. **Cai et al. 2024, ["Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads"](https://arxiv.org/abs/2401.10774)**: original Medusa paper.
+4. **Li et al. 2024, ["EAGLE-2: Faster Inference of Language Models with Dynamic Draft Trees"](https://arxiv.org/abs/2406.16858)**: EAGLE-2 and current high-performance draft-tree approach.
 5. **NVIDIA TensorRT-LLM speculative decoding documentation**: production integration guide.
 
 The Leviathan paper is the best starting point for the mathematical foundation. It is short and clear.
