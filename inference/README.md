@@ -14,6 +14,12 @@ LLM 추론의 모델 구조와 시스템 최적화 자료를 주제별로 분리
 - **Hands-On LLM Serving and Optimization** (Chi Wang, Peiheng Hu) — KV cache, batching, quantization, speculative decoding, 분산 serving과 vLLM 최적화를 실습 중심으로 다룹니다.
   - [Book](https://orca3.github.io/llm-model-inference/) · [Video](https://www.oreilly.com/library/view/hands-on-llm-serving/9798341621480/) · [Code and Notebooks](https://github.com/orca3/llm-model-inference)
 
+## Production Serving Systems
+
+개별 kernel의 속도보다 SLO를 만족하는 goodput에 초점을 맞춰, cache locality, request routing, KV 계층화, phase 분리, model-aware parallelism을 하나의 운영 시스템으로 연결합니다.
+
+- [SGLang in 2026: Engineering a Production-Grade LLM Serving Stack](sglang-production-practices/README.md) — **영문** · SGLang v0.5.18 기준 RadixAttention, Model Gateway, speculative decoding, HiCache, prefill-decode disaggregation과 production rollout을 다룹니다.
+
 ## FlashAttention from First Principles
 
 Dense attention의 수학적 연산은 그대로 유지하면서, online softmax와 tiling으로 중간 score·probability 행렬을 HBM에 materialize하지 않는 원리를 설명합니다. 이어서 GPU 세대가 바뀔 때마다 최적화의 중심이 어떻게 이동했는지 추적합니다.

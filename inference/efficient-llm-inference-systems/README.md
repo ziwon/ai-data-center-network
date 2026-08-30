@@ -22,5 +22,6 @@ LLM 추론의 성능 지표와 하드웨어 특성을 이해하고, KV cache, �
 
 ## Related Topics
 
+- [SGLang Production Practices](../sglang-production-practices/README.md) — KV cache, speculative decoding, routing과 분산 topology를 production SLO와 연결합니다.
 - [Model Architecture and Serving Profiles](../models/README.md) — 모델별 architecture와 serving 특성을 정리합니다.
 - [FlashAttention from First Principles](../flashattention-from-first-principles/README.md) ([한국어 번역](../flashattention-from-first-principles/README.ko.md)) — exact attention의 I/O-aware kernel 최적화를 설명합니다.
