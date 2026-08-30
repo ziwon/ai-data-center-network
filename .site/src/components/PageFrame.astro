@@ -5,6 +5,17 @@ import AskDocs from './AskDocs.astro';
 const { hasSidebar } = Astro.locals.starlightRoute;
 ---
 
+<script is:inline>
+  (() => {
+    try {
+      const savedMode = localStorage.getItem('adcs-navigation-mode');
+      document.documentElement.dataset.navigationMode = savedMode === 'compact' ? 'compact' : 'normal';
+    } catch {
+      document.documentElement.dataset.navigationMode = 'normal';
+    }
+  })();
+</script>
+
 <div class="page sl-flex">
   <header class="header"><slot name="header" /></header>
   {
@@ -12,7 +23,24 @@ const { hasSidebar } = Astro.locals.starlightRoute;
       <nav class="sidebar print:hidden" aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}>
         <MobileMenuToggle />
         <div id="starlight__sidebar" class="sidebar-pane">
-          <div class="sidebar-content sl-flex">
+          <div class="navigation-controls">
+            <button
+              class="navigation-drawer-toggle"
+              type="button"
+              aria-controls="starlight__sidebar-content"
+              aria-expanded="false"
+              title="Open navigation"
+            >
+              <svg class="navigation-menu-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg class="navigation-close-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+                <path d="m6 6 12 12M18 6 6 18" />
+              </svg>
+              <span class="navigation-drawer-label">Open navigation</span>
+            </button>
+          </div>
+          <div id="starlight__sidebar-content" class="sidebar-content sl-flex">
             <slot name="sidebar" />
           </div>
         </div>
@@ -22,6 +50,87 @@ const { hasSidebar } = Astro.locals.starlightRoute;
   <div class="main-frame"><slot /></div>
   <AskDocs />
 </div>
+
+<script>
+  const root = document.documentElement;
+  const sidebarPane = document.querySelector<HTMLElement>('#starlight__sidebar');
+  const modeToggle = document.querySelector<HTMLButtonElement>('.navigation-mode-toggle');
+  const drawerToggle = document.querySelector<HTMLButtonElement>('.navigation-drawer-toggle');
+  const desktopQuery = window.matchMedia('(min-width: 50rem)');
+
+  function isCompact() {
+    return root.dataset.navigationMode === 'compact';
+  }
+
+  function isDrawerOpen() {
+    return root.dataset.navigationDrawer === 'open';
+  }
+
+  function updateControls() {
+    const compact = isCompact();
+    const open = compact && isDrawerOpen();
+
+    modeToggle?.setAttribute('aria-pressed', String(compact));
+    modeToggle?.setAttribute('title', compact ? 'Use normal navigation' : 'Use compact navigation');
+    drawerToggle?.setAttribute('aria-expanded', String(open));
+    drawerToggle?.setAttribute('title', open ? 'Close navigation' : 'Open navigation');
+
+    const drawerLabel = drawerToggle?.querySelector<HTMLElement>('.navigation-drawer-label');
+    if (drawerLabel) drawerLabel.textContent = open ? 'Close navigation' : 'Open navigation';
+  }
+
+  function setDrawer(open: boolean, returnFocus = false) {
+    const nextOpen = Boolean(open && isCompact() && desktopQuery.matches);
+    root.dataset.navigationDrawer = nextOpen ? 'open' : 'closed';
+    updateControls();
+
+    if (nextOpen) {
+      requestAnimationFrame(() => {
+        const currentPage = sidebarPane?.querySelector<HTMLElement>('a[aria-current="page"]');
+        const currentTopic = sidebarPane?.querySelector<HTMLElement>('.starlight-sidebar-topics-current');
+        (currentPage ?? currentTopic)?.focus();
+      });
+    } else if (returnFocus) {
+      drawerToggle?.focus();
+    }
+  }
+
+  function setMode(mode: 'normal' | 'compact') {
+    root.dataset.navigationMode = mode;
+    setDrawer(false);
+
+    try {
+      localStorage.setItem('adcs-navigation-mode', mode);
+    } catch {
+      // The selected mode still applies for this page when storage is unavailable.
+    }
+
+    updateControls();
+  }
+
+  modeToggle?.addEventListener('click', () => {
+    setMode(isCompact() ? 'normal' : 'compact');
+  });
+
+  drawerToggle?.addEventListener('click', () => {
+    setDrawer(!isDrawerOpen(), isDrawerOpen());
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && isDrawerOpen()) {
+      setDrawer(false, true);
+    }
+  });
+
+  document.addEventListener('pointerdown', (event) => {
+    if (!isDrawerOpen() || !(event.target instanceof Node) || sidebarPane?.contains(event.target)) return;
+    setDrawer(false);
+  });
+
+  desktopQuery.addEventListener('change', () => setDrawer(false));
+  root.dataset.navigationDrawer = 'closed';
+  updateControls();
+</script>
 
 <style>
   @layer starlight.core {
@@ -61,6 +170,68 @@ const { hasSidebar } = Astro.locals.starlightRoute;
       scrollbar-gutter: stable;
     }
 
+    .navigation-controls {
+      display: none;
+    }
+
+    .navigation-drawer-toggle {
+      align-items: center;
+      justify-content: center;
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      border: 1px solid var(--sl-color-gray-5);
+      border-radius: 6px;
+      padding: 0.55rem 0.7rem;
+      color: var(--sl-color-gray-2);
+      background: transparent;
+      font: inherit;
+      font-size: var(--sl-text-sm);
+      font-weight: 700;
+      line-height: 1.2;
+      cursor: pointer;
+    }
+
+    .navigation-drawer-toggle svg {
+      flex: none;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .navigation-close-icon,
+    .navigation-drawer-toggle[aria-expanded='true'] .navigation-menu-icon {
+      display: none;
+    }
+
+    .navigation-drawer-toggle[aria-expanded='true'] .navigation-close-icon {
+      display: block;
+    }
+
+    .navigation-drawer-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .navigation-drawer-toggle:hover {
+      border-color: var(--sl-color-gray-4);
+      color: var(--sl-color-white);
+      background: var(--sl-color-gray-6);
+    }
+
+    .navigation-drawer-toggle:focus-visible {
+      outline: 2px solid var(--sl-color-text-accent);
+      outline-offset: 2px;
+    }
+
     :global([aria-expanded='true']) ~ .sidebar-pane {
       --sl-sidebar-visibility: visible;
     }
@@ -86,15 +257,114 @@ const { hasSidebar } = Astro.locals.starlightRoute;
     }
 
     @media (min-width: 50rem) {
+      :global(html[data-has-sidebar]) {
+        --adcs-compact-sidebar-width: 4.75rem;
+        --adcs-left-sidebar-width: var(--sl-sidebar-width);
+        --sl-content-inline-start: var(--adcs-left-sidebar-width);
+      }
+
+      :global(html[data-has-sidebar][data-navigation-mode='compact']) {
+        --adcs-left-sidebar-width: var(--adcs-compact-sidebar-width);
+      }
+
       :global([data-has-sidebar]) .header {
         padding-inline-end: var(--sl-nav-pad-x);
       }
 
       .sidebar-pane {
         --sl-sidebar-visibility: visible;
-        width: var(--sl-sidebar-width);
+        display: flex;
+        width: var(--adcs-left-sidebar-width);
+        flex-direction: column;
         background-color: var(--sl-color-bg-sidebar);
         border-inline-end: 1px solid var(--sl-color-hairline-shade);
+        overflow: hidden;
+      }
+
+      .navigation-controls {
+        flex: none;
+        align-items: center;
+        border-bottom: 1px solid var(--sl-color-hairline-light);
+        padding: 0.625rem var(--sl-sidebar-pad-x);
+      }
+
+      .navigation-drawer-toggle {
+        display: none;
+      }
+
+      .sidebar-content {
+        height: auto;
+        min-height: 0;
+        flex: 1;
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+      }
+
+      :global(html[data-navigation-mode='compact'][data-navigation-drawer='open']) .sidebar-pane {
+        width: var(--sl-sidebar-width);
+        box-shadow: 0.75rem 0 2rem color-mix(in srgb, var(--sl-color-black), transparent 72%);
+      }
+
+      :global(html[data-navigation-mode='compact']) .navigation-controls {
+        display: flex;
+      }
+
+      :global(html[data-navigation-mode='compact']) .navigation-drawer-toggle {
+        display: inline-flex;
+      }
+
+      :global(html[data-navigation-mode='compact']:not([data-navigation-drawer='open']))
+        .navigation-controls {
+        justify-content: center;
+        padding-inline: 0.5rem;
+      }
+
+      :global(html[data-navigation-mode='compact']:not([data-navigation-drawer='open']))
+        .navigation-drawer-toggle {
+        width: 2.75rem;
+        padding-inline: 0;
+      }
+
+      :global(html[data-navigation-mode='compact']:not([data-navigation-drawer='open']))
+        .sidebar-content {
+        gap: 0;
+        padding: 0.75rem 0.5rem 0;
+        overflow-x: clip;
+      }
+
+      :global(html[data-navigation-mode='compact']:not([data-navigation-drawer='open']))
+        .sidebar-content
+        :global(sl-sidebar-state-persist) {
+        display: none;
+      }
+
+      :global(html[data-navigation-mode='compact']:not([data-navigation-drawer='open']))
+        .sidebar-content
+        :global(.starlight-sidebar-topics::after) {
+        display: none;
+      }
+
+      :global(html[data-navigation-mode='compact']:not([data-navigation-drawer='open']))
+        .sidebar-content
+        :global(.starlight-sidebar-topics a) {
+        justify-content: center;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        padding: 0;
+      }
+
+      :global(html[data-navigation-mode='compact']:not([data-navigation-drawer='open']))
+        .sidebar-content
+        :global(.starlight-sidebar-topics a > div:not(.starlight-sidebar-topics-icon)) {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
     }
   }
