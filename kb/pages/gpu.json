@@ -1,0 +1,535 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/gpu/",
+    "title": "GPU Systems",
+    "route": "/gpu/",
+    "group": "gpu",
+    "keywords": [
+      "course",
+      "lives",
+      "folder",
+      "kernels",
+      "track",
+      "complement",
+      "practice",
+      "advanced",
+      "foundation",
+      "parallel"
+    ],
+    "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
+  },
+  "nodes": [
+    {
+      "id": "/gpu/",
+      "title": "GPU Systems",
+      "route": "/gpu/",
+      "group": "gpu",
+      "keywords": [
+        "course",
+        "lives",
+        "folder",
+        "kernels",
+        "track",
+        "complement",
+        "practice",
+        "advanced",
+        "foundation",
+        "parallel"
+      ],
+      "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
+    },
+    {
+      "id": "/",
+      "title": "AI Data Center Systems",
+      "route": "/",
+      "group": "home",
+      "keywords": [
+        "systems",
+        "organized",
+        "courses",
+        "tracks",
+        "mlops",
+        "mlperf",
+        "storage",
+        "clos",
+        "training",
+        "study"
+      ],
+      "excerpt": "A study wiki for AI data center networking, LLM inference, distributed training, MLOps, storage, and systems performance engineering."
+    },
+    {
+      "id": "/gpu/appendix/architecture/",
+      "title": "GPU Architecture (reference)",
+      "route": "/gpu/appendix/architecture/",
+      "group": "gpu",
+      "keywords": [
+        "memory",
+        "architecture",
+        "execution",
+        "registers",
+        "shared",
+        "warp",
+        "model",
+        "cuda",
+        "hardware",
+        "look-up"
+      ],
+      "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
+    },
+    {
+      "id": "/gpu/appendix/cuda/",
+      "title": "CUDA (reference)",
+      "route": "/gpu/appendix/cuda/",
+      "group": "gpu",
+      "keywords": [
+        "cuda",
+        "lookup",
+        "language",
+        "guidelines",
+        "ptx/sass",
+        "analyze",
+        "api",
+        "reference",
+        "spaces",
+        "nvcc"
+      ],
+      "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
+    },
+    {
+      "id": "/gpu/articles/",
+      "title": "GPU Articles",
+      "route": "/gpu/articles/",
+      "group": "gpu",
+      "keywords": [
+        "articles",
+        "essays",
+        "gpu",
+        "platform",
+        "connect",
+        "kubernetes",
+        "operational",
+        "design",
+        "cuda",
+        "behavior"
+      ],
+      "excerpt": "Operational notes and essays that connect GPU architecture, CUDA behavior, and Kubernetes platform design."
+    },
+    {
+      "id": "/gpu/cs149/",
+      "title": "Stanford CS149 / Parallel Computing",
+      "route": "/gpu/cs149/",
+      "group": "gpu",
+      "keywords": [
+        "cs149",
+        "multi-core",
+        "data-parallel",
+        "dnn",
+        "stanford",
+        "parallel-computing",
+        "computing",
+        "simd",
+        "programming",
+        "systems"
+      ],
+      "excerpt": "Stanford CS149 is the systems foundation course for this GPU track. It connects GPU programming with the broader parallel-computing model: multi-core CPUs,..."
+    },
+    {
+      "id": "/gpu/gpu-mode/",
+      "title": "GPU MODE",
+      "route": "/gpu/gpu-mode/",
+      "group": "gpu",
+      "keywords": [
+        "lectures",
+        "talks",
+        "ongoing",
+        "mode",
+        "lecture",
+        "advanced",
+        "theme",
+        "youtube",
+        "watch",
+        "gpu"
+      ],
+      "excerpt": "Advanced, ongoing feed for modern ML kernels (formerly CUDA MODE). Treat this as a later / advanced course: come here after the PMPP foundation is in place...."
+    },
+    {
+      "id": "/gpu/heterogeneous-systems/",
+      "title": "Heterogeneous Systems (Onur Mutlu)",
+      "route": "/gpu/heterogeneous-systems/",
+      "group": "gpu",
+      "keywords": [
+        "pmpp",
+        "onur",
+        "mutlu",
+        "irregular",
+        "meeting",
+        "patterns",
+        "parallel",
+        "course",
+        "pattern",
+        "heterogeneous"
+      ],
+      "excerpt": "A complementary course to PMPP, used in parallel for a second pass over the classic parallel patterns behind GPU kernels. Where PMPP is the spine, this..."
+    },
+    {
+      "id": "/gpu/labs/kernels/",
+      "title": "Kernel Case Studies (practice)",
+      "route": "/gpu/labs/kernels/",
+      "group": "gpu",
+      "keywords": [
+        "lecture",
+        "kernels",
+        "triton",
+        "matmul",
+        "cutlass",
+        "kernel",
+        "gemm",
+        "attention",
+        "fused",
+        "studies"
+      ],
+      "excerpt": "References and backlog for hands-on GPU kernel case studies — the do half of this track. Learn the patterns in PMPP and Heterogeneous Systems, then..."
+    },
+    {
+      "id": "/gpu/labs/profiling/",
+      "title": "Profiling (practice)",
+      "route": "/gpu/labs/profiling/",
+      "group": "gpu",
+      "keywords": [
+        "practice",
+        "profiling",
+        "hit",
+        "cores",
+        "saying",
+        "every",
+        "performance-analysis",
+        "launch-overhead-bound",
+        "coalesced",
+        "hands-on"
+      ],
+      "excerpt": "Nsight Compute and related GPU performance-analysis references. This is the hands-on tool you run while learning: for every concept in PMPP and every kernel..."
+    },
+    {
+      "id": "/gpu/pmpp/",
+      "title": "PMPP / Programming Massively Parallel Processors",
+      "route": "/gpu/pmpp/",
+      "group": "gpu",
+      "keywords": [
+        "programming",
+        "pmpp",
+        "massively",
+        "processors",
+        "parallel",
+        "notes",
+        "cuda",
+        "lecture",
+        "gpu",
+        "primary"
+      ],
+      "excerpt": "The primary spine of this GPU track: the CUDA and parallel-programming foundation based on Programming Massively Parallel Processors . Everything else..."
+    }
+  ],
+  "edges": [
+    {
+      "source": "/",
+      "target": "/gpu/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/appendix/architecture/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/appendix/cuda/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/cs149/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/gpu-mode/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "advanced"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/heterogeneous-systems/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "course",
+        "parallel"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/labs/kernels/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "kernels"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/labs/profiling/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "practice"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/pmpp/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "parallel"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/appendix/cuda/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/gpu-mode/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/pmpp/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/gpu-mode/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/labs/kernels/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/pmpp/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/gpu-mode/",
+      "target": "/gpu/heterogeneous-systems/",
+      "type": "link+semantic",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/gpu-mode/",
+      "target": "/gpu/labs/kernels/",
+      "type": "link+semantic",
+      "weight": 1,
+      "terms": [
+        "lecture"
+      ]
+    },
+    {
+      "source": "/gpu/gpu-mode/",
+      "target": "/gpu/labs/profiling/",
+      "type": "link+semantic",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/gpu-mode/",
+      "target": "/gpu/pmpp/",
+      "type": "link+semantic",
+      "weight": 1,
+      "terms": [
+        "lecture",
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/heterogeneous-systems/",
+      "target": "/gpu/labs/kernels/",
+      "type": "link+semantic",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/heterogeneous-systems/",
+      "target": "/gpu/pmpp/",
+      "type": "link+semantic",
+      "weight": 1,
+      "terms": [
+        "pmpp",
+        "parallel"
+      ]
+    },
+    {
+      "source": "/gpu/labs/kernels/",
+      "target": "/gpu/labs/profiling/",
+      "type": "link+semantic",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/labs/kernels/",
+      "target": "/gpu/pmpp/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/labs/profiling/",
+      "target": "/gpu/pmpp/",
+      "type": "link+semantic",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/",
+      "type": "semantic+section",
+      "weight": 0.953,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/labs/profiling/",
+      "type": "semantic+section",
+      "weight": 0.806,
+      "terms": []
+    },
+    {
+      "source": "/gpu/cs149/",
+      "target": "/gpu/pmpp/",
+      "type": "semantic",
+      "weight": 0.763,
+      "terms": [
+        "programming"
+      ]
+    },
+    {
+      "source": "/gpu/heterogeneous-systems/",
+      "target": "/gpu/labs/profiling/",
+      "type": "semantic",
+      "weight": 0.686,
+      "terms": []
+    },
+    {
+      "source": "/gpu/cs149/",
+      "target": "/gpu/labs/profiling/",
+      "type": "semantic",
+      "weight": 0.677,
+      "terms": []
+    },
+    {
+      "source": "/gpu/cs149/",
+      "target": "/gpu/heterogeneous-systems/",
+      "type": "semantic",
+      "weight": 0.675,
+      "terms": []
+    },
+    {
+      "source": "/gpu/cs149/",
+      "target": "/gpu/labs/kernels/",
+      "type": "semantic",
+      "weight": 0.663,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/cs149/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/heterogeneous-systems/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/labs/kernels/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/labs/profiling/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/cs149/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/heterogeneous-systems/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}

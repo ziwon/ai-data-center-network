@@ -1,0 +1,513 @@
+{
+  "version": 1,
+  "current": {
+    "id": "/gpu/articles/hami-core-deep-dive.ko/",
+    "title": "HAMi-core 심층 분석: `libvgpu.so`는 GPU를 어떻게 나누는가",
+    "route": "/gpu/articles/hami-core-deep-dive.ko/",
+    "group": "gpu",
+    "keywords": [
+      "hami-core",
+      "메모리",
+      "quota",
+      "프로세스",
+      "nvml",
+      "컨테이너",
+      "cuda",
+      "사용량",
+      "프레임워크",
+      "pid"
+    ],
+    "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
+  },
+  "nodes": [
+    {
+      "id": "/gpu/articles/hami-core-deep-dive.ko/",
+      "title": "HAMi-core 심층 분석: `libvgpu.so`는 GPU를 어떻게 나누는가",
+      "route": "/gpu/articles/hami-core-deep-dive.ko/",
+      "group": "gpu",
+      "keywords": [
+        "hami-core",
+        "메모리",
+        "quota",
+        "프로세스",
+        "nvml",
+        "컨테이너",
+        "cuda",
+        "사용량",
+        "프레임워크",
+        "pid"
+      ],
+      "excerpt": "HAMi의 Kubernetes 구성 요소는 Pod를 배치하고 GPU 메모리·코어 quota를 정한 뒤, 컨테이너에 libvgpu.so 를 주입한다. 그러나 GPU 분할의 핵심은 그다음에 있다. 컨테이너 안에서 libvgpu.so 가 CUDA와 NVML 호출 경로에 개입해..."
+    },
+    {
+      "id": "/gpu/articles/",
+      "title": "GPU Articles",
+      "route": "/gpu/articles/",
+      "group": "gpu",
+      "keywords": [
+        "articles",
+        "essays",
+        "gpu",
+        "platform",
+        "connect",
+        "kubernetes",
+        "operational",
+        "design",
+        "cuda",
+        "behavior"
+      ],
+      "excerpt": "Operational notes and essays that connect GPU architecture, CUDA behavior, and Kubernetes platform design."
+    },
+    {
+      "id": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "title": "DRA와 HAMi로 보는 Kubernetes GPU 분할",
+      "route": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "group": "gpu",
+      "keywords": [
+        "hami",
+        "dra",
+        "quota",
+        "mig",
+        "스케줄러",
+        "메모리",
+        "gpu",
+        "워크로드",
+        "pod",
+        "annotation"
+      ],
+      "excerpt": "첫째, “어떤 GPU를 어떤 Pod에 할당할 것인가?” 둘째, “하나의 GPU 안에서 메모리와 연산 사용량을 실제로 어떻게 제한할 것인가?” Dynamic Resource Allocation(DRA)은 첫 번째 문제를 Kubernetes 표준 API로 해결하려는 체계다...."
+    },
+    {
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "title": "How to Think About GPUs",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "group": "inference",
+      "keywords": [
+        "gpu",
+        "tensor",
+        "b300",
+        "core",
+        "dgx",
+        "nvlink",
+        "blackwell",
+        "memory",
+        "scale-up",
+        "parallelism"
+      ],
+      "excerpt": "이 글은 NVIDIA GPU를 LLM scaling 관점에서 설명한다. 핵심은 GPU를 하나의 큰 계산기로 보지 않는 것이다."
+    },
+    {
+      "id": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "title": "Keeping GPU Workloads NUMA-Local in Kubernetes",
+      "route": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "group": "systems-performance",
+      "keywords": [
+        "numa",
+        "cpu",
+        "pod",
+        "node",
+        "kubelet",
+        "container",
+        "manager",
+        "memory",
+        "request",
+        "gpu"
+      ],
+      "excerpt": "GPU workload에서 CPU가 request preparation, batching, dataloader, pinned memory staging처럼 GPU로 가는 data path에 있다면, Kubernetes의 기본 resource scheduling만으로는 부족하다...."
+    },
+    {
+      "id": "/gpu/pmpp/lec04/",
+      "title": "Lecture 4: GPU Architecture",
+      "route": "/gpu/pmpp/lec04/",
+      "group": "gpu",
+      "keywords": [
+        "block",
+        "warp",
+        "thread",
+        "threads",
+        "sm에",
+        "resident",
+        "instruction",
+        "register",
+        "memory",
+        "v100"
+      ],
+      "excerpt": "이번 강의의 목표는 지금까지 작성한 CUDA kernel이 실제 GPU hardware 위에서 어떻게 실행되는지 이해하는 것이다. 2강과 3강에서는 thread, block, grid를 프로그래밍 모델로 사용했다. 4강은 이 추상화가 GPU의 streaming..."
+    },
+    {
+      "id": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "title": "How to Think About TPUs",
+      "route": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "group": "inference",
+      "keywords": [
+        "tpu",
+        "vmem",
+        "mxu",
+        "ici",
+        "systolic",
+        "hbm",
+        "dcn",
+        "tile",
+        "chip",
+        "vpu"
+      ],
+      "excerpt": "GPU와 비교하면 TPU는 더 단순하고, 더 규칙적인 workload에 맞춰져 있다. 이 단순함은 강점이지만, 모든 문제에 자동으로 유리하다는 뜻은 아니다. TPU에서 성능을 내려면 HBM, VMEM, MXU, ICI, DCN의 bandwidth 계층을 함께 이해해야 한다."
+    },
+    {
+      "id": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "title": "Never Underestimate Memory Architecture",
+      "route": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "group": "systems-performance",
+      "keywords": [
+        "cpu",
+        "numa",
+        "memory",
+        "manager",
+        "instance",
+        "zone",
+        "node",
+        "gpu",
+        "uncore",
+        "cloud"
+      ],
+      "excerpt": "대형 서버와 cloud VM에서는 CPU, memory, cache, PCIe device가 균일하게 연결되어 있지 않다. Workload가 NUMA boundary와 shared uncore resource를 넘나들면 같은 일을 하면서도 CPU 사용량, step time,..."
+    },
+    {
+      "id": "/gpu/",
+      "title": "GPU Systems",
+      "route": "/gpu/",
+      "group": "gpu",
+      "keywords": [
+        "course",
+        "lives",
+        "folder",
+        "kernels",
+        "track",
+        "complement",
+        "practice",
+        "advanced",
+        "foundation",
+        "parallel"
+      ],
+      "excerpt": "A learning track for GPU architecture and CUDA kernel programming. The goal is to learn how GPUs actually run kernels and why real inference workloads are..."
+    },
+    {
+      "id": "/gpu/appendix/architecture/",
+      "title": "GPU Architecture (reference)",
+      "route": "/gpu/appendix/architecture/",
+      "group": "gpu",
+      "keywords": [
+        "memory",
+        "architecture",
+        "execution",
+        "registers",
+        "shared",
+        "warp",
+        "model",
+        "cuda",
+        "hardware",
+        "look-up"
+      ],
+      "excerpt": "Look-up material for the GPU execution model and NVIDIA hardware architecture. Use this to check how the hardware behaves ; use ../cuda for the CUDA..."
+    },
+    {
+      "id": "/gpu/appendix/cuda/",
+      "title": "CUDA (reference)",
+      "route": "/gpu/appendix/cuda/",
+      "group": "gpu",
+      "keywords": [
+        "cuda",
+        "lookup",
+        "language",
+        "guidelines",
+        "ptx/sass",
+        "analyze",
+        "api",
+        "reference",
+        "spaces",
+        "nvcc"
+      ],
+      "excerpt": "Official NVIDIA CUDA programming documentation. This is a lookup resource for API and language details — not a course. Learn CUDA through PMPP; write and..."
+    }
+  ],
+  "edges": [
+    {
+      "source": "/gpu/",
+      "target": "/gpu/appendix/architecture/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/appendix/cuda/",
+      "type": "link+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/appendix/cuda/",
+      "type": "link+semantic+section",
+      "weight": 1,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/articles/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "link",
+      "weight": 1,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "link+semantic",
+      "weight": 1,
+      "terms": [
+        "quota",
+        "메모리"
+      ]
+    },
+    {
+      "source": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "semantic+section",
+      "weight": 0.999,
+      "terms": [
+        "cpu",
+        "numa",
+        "memory",
+        "manager"
+      ]
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/",
+      "type": "semantic+section",
+      "weight": 0.953,
+      "terms": [
+        "cuda"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/pmpp/lec04/",
+      "type": "semantic+section",
+      "weight": 0.86,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.777,
+      "terms": []
+    },
+    {
+      "source": "/gpu/pmpp/lec04/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.716,
+      "terms": [
+        "memory"
+      ]
+    },
+    {
+      "source": "/gpu/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.7,
+      "terms": []
+    },
+    {
+      "source": "/gpu/pmpp/lec04/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.684,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.682,
+      "terms": []
+    },
+    {
+      "source": "/gpu/pmpp/lec04/",
+      "target": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "semantic",
+      "weight": 0.667,
+      "terms": [
+        "memory"
+      ]
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "type": "semantic",
+      "weight": 0.666,
+      "terms": []
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/gpus.ko/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "semantic",
+      "weight": 0.666,
+      "terms": [
+        "gpu",
+        "memory"
+      ]
+    },
+    {
+      "source": "/gpu/pmpp/lec04/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "semantic",
+      "weight": 0.663,
+      "terms": [
+        "memory"
+      ]
+    },
+    {
+      "source": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "semantic",
+      "weight": 0.661,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "semantic",
+      "weight": 0.651,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/gpu/pmpp/lec04/",
+      "type": "semantic",
+      "weight": 0.641,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/inference/efficient-llm-inference-systems/appendix/hardware-architectures/tpus.ko/",
+      "type": "semantic",
+      "weight": 0.633,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/systems-performance/articles/keeping-gpu-workloads-numa-local-in-kubernetes.ko/",
+      "type": "semantic",
+      "weight": 0.627,
+      "terms": [
+        "pod",
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/articles/hami-core-deep-dive.ko/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "semantic",
+      "weight": 0.619,
+      "terms": []
+    },
+    {
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/systems-performance/articles/never-underestimate-memory-architecture.ko/",
+      "type": "semantic",
+      "weight": 0.604,
+      "terms": [
+        "gpu"
+      ]
+    },
+    {
+      "source": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "target": "/gpu/pmpp/lec04/",
+      "type": "semantic",
+      "weight": 0.6,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/",
+      "type": "section",
+      "weight": 0.297,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/architecture/",
+      "target": "/gpu/pmpp/lec04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/hami-core-deep-dive.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/articles/hami-dra-gpu-sharing.ko/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    },
+    {
+      "source": "/gpu/appendix/cuda/",
+      "target": "/gpu/pmpp/lec04/",
+      "type": "section",
+      "weight": 0.18,
+      "terms": []
+    }
+  ]
+}
