@@ -45,3 +45,9 @@ For this repository, read CS149 with these questions in mind:
 | 2 | A Modern Multi-Core Processor | [lec02](lec02/README.md) |
 | 3 | Multi-Core Architecture, Part II and ISPC | [lec03](lec03/README.md) |
 | 4 | Parallel Programming Basics | [lec04](lec04/README.md) |
+| 5 | Performance Optimization I: Work Distribution and Scheduling | [lec05](lec05/README.md) |
+| 6 | Performance Optimization II: Locality, Communication, and Contention | [lec06](lec06/README.md) |
+| 7 | GPU Architecture and CUDA Programming | [lec07](lec07/README.md) |
+| 8 | Data-Parallel Thinking | [lec08](lec08/README.md) |
+| 9 | Distributed Data-Parallel Computing Using Spark | [lec09](lec09/README.md) |
+| 10 | Efficiently Evaluating DNNs on GPUs | [lec10](lec10/README.md) |
