@@ -184,31 +184,7 @@ GPU는 수천 개의 lightweight thread를 동시에 실행해 throughput을 높
 
 한 warp는 32개의 thread로 구성되며, warp scheduler가 해당 warp의 instruction을 실행한다.
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
-flowchart TB
-    GPU[GPU]
-    GPU --> SM0[SM 0]
-    GPU --> SM1[SM 1]
-    GPU --> SMN[SM N]
-
-    SM0 --> W0[Warp 0<br/>32 threads]
-    SM0 --> W1[Warp 1<br/>32 threads]
-    SM0 --> WN[More active warps]
-
-    W0 --> T0[Thread 0]
-    W0 --> T1[Thread 1]
-    W0 --> T31[Thread 31]
-
-    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    class GPU primary
-    class SM0,SM1,SMN secondary
-    class T0,T1,T31 note
-    class W0,W1,WN accent
-```
+![GPU, streaming multiprocessor, warp, and thread execution hierarchy](assets/gpu-simt-hierarchy.svg)
 
 ### Performance Meaning
 
@@ -239,36 +215,7 @@ Chapter 6는 Blackwell SM을 예로 들어 여러 warp scheduler가 ready warp�
 
 책의 Blackwell 예시에서는 SM을 여러 scheduling partition으로 생각할 수 있다.
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
-flowchart LR
-    W[Ready Warps] --> S0[Warp Scheduler 0]
-    W --> S1[Warp Scheduler 1]
-    W --> S2[Warp Scheduler 2]
-    W --> S3[Warp Scheduler 3]
-
-    S0 --> MATH[Math / Tensor<br/>INT / FP]
-    S1 --> MATH
-    S2 --> MATH
-    S3 --> MATH
-
-    S0 --> LDST[Load / Store]
-    S1 --> LDST
-    S2 --> LDST
-    S3 --> LDST
-
-    MATH --> REG[Registers]
-    LDST --> CACHE[L1 / Shared<br/>L2 / HBM]
-
-    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    class W primary
-    class S0,S1,S2,S3 secondary
-    class LDST,CACHE note
-    class MATH,REG accent
-```
+![Ready warps flowing through SM warp schedulers into compute and memory pipelines](assets/sm-warp-scheduling.svg)
 
 Chapter 6의 포인트는 특정 scheduler 숫자를 외우는 것이 아니다.
 
@@ -378,31 +325,7 @@ Chapter 6는 modern GPU에서 thread block cluster와 DSMEM(Distributed Shared M
 
 전통적으로 block 간에는 shared memory를 직접 공유할 수 없었다. thread block cluster에서는 cluster에 속한 block들이 hardware-supported cluster synchronization과 DSMEM을 사용할 수 있다.
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
-flowchart TB
-    C[Thread Block Cluster]
-    C --> SM0[SM / Block 0]
-    C --> SM1[SM / Block 1]
-    C --> SM2[SM / Block 2]
-
-    SM0 --> S0[Shared Memory 0]
-    SM1 --> S1[Shared Memory 1]
-    SM2 --> S2[Shared Memory 2]
-
-    S0 <--> D[Distributed<br/>Shared Memory]
-    S1 <--> D
-    S2 <--> D
-
-    classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef secondary fill:#3b2f20,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef note fill:#52676b,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    classDef accent fill:#62164d,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
-    class C primary
-    class SM0,SM1,SM2 secondary
-    class S0,S1,S2 note
-    class D accent
-```
+![Thread block cluster members sharing distributed shared memory](assets/thread-block-cluster-dsm.svg)
 
 이 장에서는 개념만 기억하면 된다.
 

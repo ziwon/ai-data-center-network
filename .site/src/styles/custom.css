@@ -171,6 +171,13 @@ a {
   background: transparent;
 }
 
+/* Apply Mermaid's configured sans-serif stack before it measures HTML labels.
+   Starlight otherwise lends <pre> its monospace font after Mermaid has sized
+   each foreignObject, which clips the final characters of node labels. */
+.sl-markdown-content pre.mermaid {
+  font-family: Inter, Arial, sans-serif;
+}
+
 /* Mermaid's portable source uses light connectors for a dark canvas, while
    the Pages figure surface is cream. Give optional and feedback paths enough
    contrast without changing the diagram source used by GitHub. */
