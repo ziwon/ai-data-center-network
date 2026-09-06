@@ -4,6 +4,8 @@
 - [Chapter 2: AI System Hardware Overview](./chap02/README.md)
 - [Chapter 3: OS, Docker, and Kubernetes Tuning for GPU-Based Environments](./chap03/README.md)
 - [Chapter 4: Tuning Distributed Networking Communication](./chap04/README.md)
+- [Chapter 5: GPU-Based Storage I/O Optimizations](./chap05/README.md)
+- [Chapter 6: GPU Architecture, CUDA Programming, and Maximizing Occupancy](./chap06/README.md)
 
 ## Resources
 
