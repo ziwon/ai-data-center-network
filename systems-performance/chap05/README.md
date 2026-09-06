@@ -154,12 +154,12 @@ GDS는 이 경로에서 host memory bounce buffer를 제거한다.
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
 flowchart TB
-    subgraph Traditional[Traditional Path]
-        S1[Storage] --> M1[Host Memory Bounce Buffer] --> G1[GPU Memory]
+    subgraph Traditional["Traditional Path"]
+        S1[Storage] --> M1[Host Memory<br/>Bounce Buffer] --> G1[GPU Memory]
     end
 
-    subgraph GDSPath[GPUDirect Storage Path]
-        S2[Storage / RDMA NIC] --> G2[GPU Memory]
+    subgraph GDSPath["GPUDirect Storage Path"]
+        S2[Storage /<br/>RDMA NIC] --> G2[GPU Memory]
     end
 
     classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
@@ -474,13 +474,13 @@ GPUDirect Storage, GDS는 storage와 GPU memory 사이에 direct DMA path를 제
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"background": "#171717", "primaryColor": "#232323", "primaryTextColor": "#f5f5f5", "primaryBorderColor": "#d0d0d0", "lineColor": "#cfcfcf", "fontFamily": "Inter, Arial, sans-serif"}}}%%
-flowchart LR
-    subgraph WithoutGDS[Without GDS]
-        D1[Storage] --> H1[Host Buffer] --> G1[GPU HBM]
+flowchart TB
+    subgraph WithoutGDS["Without GDS"]
+        D1[Storage] --> H1[Host<br/>Buffer] --> G1[GPU HBM]
     end
 
-    subgraph WithGDS[With GDS]
-        D2[Storage / RDMA NIC] --> G2[GPU HBM]
+    subgraph WithGDS["With GDS"]
+        D2[Storage /<br/>RDMA NIC] --> G2[GPU HBM]
     end
 
     classDef primary fill:#232323,stroke:#d0d0d0,color:#f5f5f5,stroke-width:2px;
@@ -1941,75 +1941,75 @@ checkpoint가 goodput을 깎는가?
 
 ### A1. GPU utilization이 낮을 때 storage bottleneck과 CPU preprocessing bottleneck을 어떻게 구분할 수 있는가?
 
-**disk throughput, CPU iowait, CPU user time, DataLoader transform time을 함께 본다.** CPU iowait와 device utilization이 높으면 storage bottleneck 가능성이 크다. disk는 여유가 있는데 CPU user가 높고 transform/tokenization이 오래 걸리면 preprocessing bottleneck이다. in-memory synthetic dataset과 비교하면 더 명확해진다.
+disk throughput, CPU iowait, CPU user time, DataLoader transform time을 함께 본다. CPU iowait와 device utilization이 높으면 storage bottleneck 가능성이 크다. disk는 여유가 있는데 CPU user가 높고 transform/tokenization이 오래 걸리면 preprocessing bottleneck이다. in-memory synthetic dataset과 비교하면 더 명확해진다.
 
 ### A2. sequential read가 random read보다 높은 throughput을 내는 이유는 무엇인가?
 
-**sequential read는 적은 수의 큰 I/O request로 device와 filesystem의 bandwidth를 활용하기 쉽다.** random read는 seek, queue, metadata, syscall overhead와 latency가 지배적이다.
+sequential read는 적은 수의 큰 I/O request로 device와 filesystem의 bandwidth를 활용하기 쉽다. random read는 seek, queue, metadata, syscall overhead와 latency가 지배적이다.
 
 ### A3. millions of small files가 AI training에서 왜 문제가 되는가?
 
-**payload보다 file open, inode lookup, stat, directory traversal 비용이 커질 수 있기 때문이다.** WebDataset tar, TFRecord, Parquet, Arrow, indexed binary처럼 sample을 large shard로 묶으면 metadata overhead를 줄일 수 있다.
+payload보다 file open, inode lookup, stat, directory traversal 비용이 커질 수 있기 때문이다. WebDataset tar, TFRecord, Parquet, Arrow, indexed binary처럼 sample을 large shard로 묶으면 metadata overhead를 줄일 수 있다.
 
 ### A4. local NVMe dataset sharding은 shared filesystem 대비 어떤 장점과 비용을 가지는가?
 
-**local NVMe는 낮은 latency와 predictable throughput을 제공하고 shared network read를 줄인다.** 반면 dataset replication, staging, version consistency, local capacity 관리 비용이 생긴다.
+local NVMe는 낮은 latency와 predictable throughput을 제공하고 shared network read를 줄인다. 반면 dataset replication, staging, version consistency, local capacity 관리 비용이 생긴다.
 
 ### A5. GDS가 전통적인 storage-to-GPU path에서 제거하는 것은 무엇인가?
 
-**host memory bounce buffer와 그에 따른 extra memcpy를 제거한다.** CPU는 I/O control을 담당하지만 data payload는 storage 또는 RDMA NIC에서 GPU memory로 direct DMA될 수 있다.
+host memory bounce buffer와 그에 따른 extra memcpy를 제거한다. CPU는 I/O control을 담당하지만 data payload는 storage 또는 RDMA NIC에서 GPU memory로 direct DMA될 수 있다.
 
 ### A6. GDS를 활성화했는데 throughput이 오르지 않을 수 있는 이유는 무엇인가?
 
-**기존 병목이 CPU staging이 아니라 storage device, filesystem metadata, small-file access, preprocessing일 수 있다.** 또는 application이 실제 `cuFile` path를 사용하지 않거나 unsupported filesystem/fallback path일 수 있다.
+기존 병목이 CPU staging이 아니라 storage device, filesystem metadata, small-file access, preprocessing일 수 있다. 또는 application이 실제 `cuFile` path를 사용하지 않거나 unsupported filesystem/fallback path일 수 있다.
 
 ### A7. `gdsio` benchmark에서 CPU path와 GDS path를 비교할 때 어떤 조건을 동일하게 유지해야 하는가?
 
-**file, total size, I/O size, concurrency, queue depth, read/write mode, cache state를 동일하게 유지해야 한다.** CPU utilization과 application-level result도 함께 기록한다.
+file, total size, I/O size, concurrency, queue depth, read/write mode, cache state를 동일하게 유지해야 한다. CPU utilization과 application-level result도 함께 기록한다.
 
 ### A8. `cuda-checkpoint`와 PyTorch model checkpoint는 어떻게 다른가?
 
-**cuda-checkpoint는 running CUDA process state를 suspend/restore하기 위한 low-level mechanism이다.** PyTorch checkpoint는 model/optimizer 같은 semantic training state를 저장한다. 두 방식은 상호 보완적이며 완전한 대체 관계가 아니다.
+cuda-checkpoint는 running CUDA process state를 suspend/restore하기 위한 low-level mechanism이다. PyTorch checkpoint는 model/optimizer 같은 semantic training state를 저장한다. 두 방식은 상호 보완적이며 완전한 대체 관계가 아니다.
 
 ### A9. DeepSeek 3FS가 FUSE client의 병목을 줄이기 위해 제공하는 별도 data path는 무엇인가?
 
-**performance-critical application을 위한 asynchronous zero-copy native client를 제공한다.** metadata open/close/stat은 FUSE 경로를 유지할 수 있지만, bulk I/O는 shared `Iov` memory region과 `Ior` ring을 사용해 batching하고 RDMA storage service로 전달한다. 이 native path는 FUSE의 memory-copy와 shared-queue lock contention을 줄이기 위한 것이며 NVIDIA GDS와 동일한 기술은 아니다.
+performance-critical application을 위한 asynchronous zero-copy native client를 제공한다. metadata open/close/stat은 FUSE 경로를 유지할 수 있지만, bulk I/O는 shared `Iov` memory region과 `Ior` ring을 사용해 batching하고 RDMA storage service로 전달한다. 이 native path는 FUSE의 memory-copy와 shared-queue lock contention을 줄이기 위한 것이며 NVIDIA GDS와 동일한 기술은 아니다.
 
 ### A10. Lustre striping을 너무 적게 또는 너무 많이 설정하면 어떤 문제가 생기는가?
 
-**stripe가 너무 적으면 몇 OST의 bandwidth만 사용하고 hotspot이 생긴다.** 너무 많으면 metadata와 coordination overhead가 커지고 작은 file에서는 오히려 비효율적일 수 있다.
+stripe가 너무 적으면 몇 OST의 bandwidth만 사용하고 hotspot이 생긴다. 너무 많으면 metadata와 coordination overhead가 커지고 작은 file에서는 오히려 비효율적일 수 있다.
 
 ### A11. compression이 I/O bottleneck을 줄이는 대신 만드는 trade-off는 무엇인가?
 
-**storage/network bytes는 줄지만 decompression CPU/GPU compute가 증가한다.** decode 단계가 새 critical path가 되지 않는지 측정해야 한다.
+storage/network bytes는 줄지만 decompression CPU/GPU compute가 증가한다. decode 단계가 새 critical path가 되지 않는지 측정해야 한다.
 
 ### A12. PyTorch DataLoader에서 `pin_memory=True`와 `non_blocking=True`를 함께 사용하는 이유는 무엇인가?
 
-**pinned host memory는 DMA 가능한 안정된 source buffer를 제공하고, nonblocking copy는 H2D transfer를 compute와 overlap할 수 있게 한다.** pageable source에서는 true async transfer 이점이 제한된다.
+pinned host memory는 DMA 가능한 안정된 source buffer를 제공하고, nonblocking copy는 H2D transfer를 compute와 overlap할 수 있게 한다. pageable source에서는 true async transfer 이점이 제한된다.
 
 ### A13. `num_workers`를 늘릴수록 항상 성능이 좋아지지 않는 이유는 무엇인가?
 
-**CPU core, memory, filesystem, storage queue가 유한하기 때문이다.** 과도한 worker는 context switch, random I/O, page-cache contention, host memory pressure를 증가시킬 수 있다.
+CPU core, memory, filesystem, storage queue가 유한하기 때문이다. 과도한 worker는 context switch, random I/O, page-cache contention, host memory pressure를 증가시킬 수 있다.
 
 ### A14. GPU 수를 8배 늘렸을 때 storage/input pipeline에서 함께 증가해야 하는 자원은 무엇인가?
 
-**aggregate storage bandwidth, dataset shard 수, DataLoader worker capacity, CPU core, host memory, NIC bandwidth를 함께 늘려야 한다.** 그렇지 않으면 GPU 추가 효과가 input bottleneck에 가려진다.
+aggregate storage bandwidth, dataset shard 수, DataLoader worker capacity, CPU core, host memory, NIC bandwidth를 함께 늘려야 한다. 그렇지 않으면 GPU 추가 효과가 input bottleneck에 가려진다.
 
 ### A15. DALI를 GPU decode에만 사용한 뒤 데이터를 CPU로 되돌리면 왜 효과가 줄어드는가?
 
-**GPU decode 후 D2H copy, CPU transform, 다시 H2D copy가 발생해 불필요한 왕복이 생기기 때문이다.** GPU-friendly preprocessing은 가능하면 GPU graph 안에서 끝내는 것이 좋다.
+GPU decode 후 D2H copy, CPU transform, 다시 H2D copy가 발생해 불필요한 왕복이 생기기 때문이다. GPU-friendly preprocessing은 가능하면 GPU graph 안에서 끝내는 것이 좋다.
 
 ### A16. NeMo Curator의 offline preprocessing이 training goodput을 개선하는 원리는 무엇인가?
 
-**raw data cleansing, deduplication, tokenization 준비, packing, shuffling을 training 전에 수행해 hot path의 CPU/string processing을 줄인다.** large structured shard를 sequential하게 읽게 만들고 duplicate sample에 낭비되는 GPU compute도 줄인다.
+raw data cleansing, deduplication, tokenization 준비, packing, shuffling을 training 전에 수행해 hot path의 CPU/string processing을 줄인다. large structured shard를 sequential하게 읽게 만들고 duplicate sample에 낭비되는 GPU compute도 줄인다.
 
 ### A17. batch size 변화 실험으로 communication-bound와 compute-bound를 어떻게 구분할 수 있는가?
 
-**gradient communication size를 거의 고정한 채 batch size로 compute 양을 바꾼다.** batch를 줄여도 NIC throughput이 같은 ceiling에 머물면 network-bound 가능성이 높다. NIC throughput이 함께 줄면 GPU compute가 network를 feed하지 못한 compute-bound 가능성이 높다.
+gradient communication size를 거의 고정한 채 batch size로 compute 양을 바꾼다. batch를 줄여도 NIC throughput이 같은 ceiling에 머물면 network-bound 가능성이 높다. NIC throughput이 함께 줄면 GPU compute가 network를 feed하지 못한 compute-bound 가능성이 높다.
 
 ### A18. checkpoint interval을 성능과 신뢰성 관점에서 어떻게 결정해야 하는가?
 
-**checkpoint write cost와 expected failure loss를 함께 최소화해야 한다.** 너무 자주 저장하면 training pause와 storage burst가 커지고, 너무 드물면 장애 시 재연산 시간이 커진다. checkpoint duration, MTBF, restore time, shared storage impact를 기반으로 결정한다.
+checkpoint write cost와 expected failure loss를 함께 최소화해야 한다. 너무 자주 저장하면 training pause와 storage burst가 커지고, 너무 드물면 장애 시 재연산 시간이 커진다. checkpoint duration, MTBF, restore time, shared storage impact를 기반으로 결정한다.
 
 
 ## References
